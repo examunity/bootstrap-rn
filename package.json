@@ -1,0 +1,51 @@
+{
+  "name": "bootstyle",
+  "version": "0.0.0",
+  "description": "Bootstyle is a design framework for React Native. The library is inspired by Bootstrap and tries to bring best practices from the Sass/Css world to JavaScript.",
+  "author": "Markus Wetzel <markuswetzel@gmx.net>",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "native",
+    "react-native",
+    "bootstrap",
+    "ui",
+    "style"
+  ],
+  "repository": "https://github.com/examunity/bootstyle.git",
+  "bugs": {
+    "url": "https://github.com/examunity/bootstyle/issues"
+  },
+  "main": "dist/bootstyle.cjs.js",
+  "module": "dist/bootstyle.esm.js",
+  "scripts": {
+    "build": "packsy build",
+    "dev": "packsy dev",
+    "prepublishOnly": "packsy validate && packsy build"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "camelize": "^1.0.0",
+    "css-to-react-native": "^3.0.0"
+  },
+  "devDependencies": {
+    "packsy": "0.2.2",
+    "react": "17.0.1",
+    "react-native": "0.64.0"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.1",
+    "react-native": ">=0.64.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "packsy pre-commit"
+    }
+  },
+  "engines": {
+    "node": ">= 8",
+    "npm": ">= 5"
+  }
+}
