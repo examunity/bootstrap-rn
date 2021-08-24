@@ -1,13 +1,22 @@
-import React, {  useRef } from 'react';
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 import useViewport from './hooks/useViewport';
 import Context from './Context';
 
+const propTypes = {
+  children: PropTypes.node.isRequired,
+  ssrViewport: PropTypes.string,
+  breakpoints: PropTypes.shape({
+    xs: PropTypes.number,
+    sm: PropTypes.number,
+    md: PropTypes.number,
+    lg: PropTypes.number,
+    xl: PropTypes.number,
+  }).isRequired,
+};
+
 function Provider(props) {
-  const {
-    children,
-    ssrViewport,
-    theme: { breakpoints, variables, styles },
-  } = props;
+  const { children, ssrViewport, breakpoints } = props;
 
   const viewport = useViewport({ initialViewport: ssrViewport, breakpoints });
 
@@ -29,5 +38,7 @@ function Provider(props) {
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
 }
+
+Provider.propTypes = propTypes;
 
 export default Provider;

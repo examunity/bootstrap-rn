@@ -29,7 +29,8 @@
   ],
   "dependencies": {
     "camelize": "^1.0.0",
-    "css-to-react-native": "^3.0.0"
+    "css-to-react-native": "^3.0.0",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "packsy": "^0.2.2",

@@ -1,11 +1,21 @@
 import React from 'react';
-import { Text, View, StyleSheet, css } from 'bootstyle';
+import { Provider, Text, View } from 'bootstyle';
+
+const breakpoints = {
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1400,
+};
 
 function App() {
   return (
-    <View>
-      <Text>test</Text>
-    </View>
+    <Provider ssrViewport="lg" breakpoints={breakpoints}>
+      <View>
+        <Text>test</Text>
+      </View>
+    </Provider>
   );
 }
 
