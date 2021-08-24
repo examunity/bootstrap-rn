@@ -19,6 +19,7 @@
   "main": "dist/bootstyle.cjs.js",
   "module": "dist/bootstyle.esm.js",
   "scripts": {
+    "start": "cd example && yarn start",
     "build": "packsy build",
     "dev": "packsy dev",
     "prepublishOnly": "packsy validate && packsy build"
@@ -31,13 +32,13 @@
     "css-to-react-native": "^3.0.0"
   },
   "devDependencies": {
-    "packsy": "0.2.2",
-    "react": "17.0.1",
-    "react-native": "0.64.0"
+    "packsy": "^0.2.2",
+    "react": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz"
   },
   "peerDependencies": {
-    "react": ">=17.0.1",
-    "react-native": ">=0.64.0"
+    "react": ">=16.13.1",
+    "react-native": ">=0.63.0"
   },
   "husky": {
     "hooks": {
