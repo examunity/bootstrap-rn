@@ -1,5 +1,32 @@
 import React from 'react';
-import { Provider, Text, View } from 'bootstyle';
+import { Provider, Text, View, StyleSheet, css } from 'bootstyle';
+
+StyleSheet.build({});
+
+const styles = StyleSheet.create({
+  container: css`
+    // test
+    background-color: red;
+    padding: 10px;
+
+    // not working
+    /* &:hover {
+      background-color: green;
+
+      @include media-breakpoint-between(md, xl) {
+        background-color: blue;
+      }
+    }
+
+    &:focus {
+      background-color: orange;
+    }
+
+    @include media-breakpoint-between(md, xl) {
+      background-color: blue;
+    } */
+  `,
+});
 
 const breakpoints = {
   sm: 576,
@@ -12,7 +39,7 @@ const breakpoints = {
 function App() {
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
-      <View>
+      <View style={styles.container}>
         <Text>test</Text>
       </View>
     </Provider>

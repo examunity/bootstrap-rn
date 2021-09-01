@@ -1,11 +1,12 @@
+import { StyleSheet } from 'react-native';
 import applyTheme from './utils/applyTheme';
-import transform from './utils/transform';
+import parse from './parse';
 
 export default function css(fragments, ...values) {
   return (theme) => {
-    const result = transform(applyTheme(theme, fragments, values));
+    const result = parse(applyTheme(theme, fragments, values));
 
-    // If there is only one
+    // If there is only one without conditions
     if (result.length === 1 && result[0].conditions.length === 0) {
       return result[0].declarations;
     }
@@ -18,22 +19,39 @@ export default function css(fragments, ...values) {
       result
         .filter((item) =>
           item.conditions.every((condition) => {
-            if (condition.type === 'hover') {
-              return state.hover;
+            if (condition.type === 'selector') {
+              if (condition.name === 'hover') {
+                return state.hover;
+              }
+
+              if (condition.name === 'focus') {
+                return state.focus;
+              }
+
+              if (condition.name === 'active') {
+                return state.active;
+              }
             }
 
-            if (condition.type === 'focus') {
-              return state.focus;
-            }
-
-            if (condition.type === 'active') {
-              return state.active;
-            }
-
-            if (condition.type === 'media') {
-              return (
-                state.media.up(condition.min) && state.media.down(condition.max)
-              );
+            if (condition.type === 'directive') {
+              if (condition.name === 'media-breakpoint-up') {
+                return state.media.up(condition.args[0]);
+              }
+              if (condition.name === 'media-breakpoint-down') {
+                return state.media.down(condition.args[0]);
+              }
+              if (condition.name === 'media-breakpoint-only') {
+                return (
+                  state.media.up(condition.args[0]) &&
+                  state.media.down(condition.args[0])
+                );
+              }
+              if (condition.name === 'media-breakpoint-between') {
+                return (
+                  state.media.up(condition.args[0]) &&
+                  state.media.down(condition.args[1])
+                );
+              }
             }
 
             throw new Error(`Unknown condition type "${condition.type}"`);

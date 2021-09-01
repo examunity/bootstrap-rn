@@ -1,6 +1,6 @@
 import transformCss from 'css-to-react-native';
 import camelize from 'camelize';
-import parse from './parse';
+import parse from '../parse';
 
 // We'll not transform the following styles, because they are considered as web
 // only. There is no real equivalent in native.
