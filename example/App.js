@@ -40,7 +40,7 @@ function App() {
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
       <View style={styles.container}>
-        <Text>test</Text>
+        <Text>Anton</Text>
       </View>
     </Provider>
   );
