@@ -1,12 +1,12 @@
 import React from 'react';
-import { Provider, Text, View, StyleSheet, css } from 'bootstyle';
+import { Provider, Text, View, StyleSheet, css, Button } from 'bootstyle';
 
 StyleSheet.build({});
 
 const styles = StyleSheet.create({
   container: css`
     // test
-    background-color: red;
+    background-color: white;
     padding: 10px;
 
     // not working
@@ -41,6 +41,33 @@ function App() {
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
       <View style={styles.container}>
         <Text>Anton</Text>
+
+        <Button
+          text="Default"
+          onPress={() => null}
+        />
+
+        <Button
+          text="Default Outline"
+          outline
+          onPress={() => null}
+        />
+
+        <Button
+          text="Secondary Large"
+          size="large"
+          theme="secondary"
+          onPress={() => null}
+        />
+
+        <Button
+          text="Secondary Small Disabled"
+          size="small"
+          theme="secondary"
+          disabled
+          onPress={() => null}
+        />
+
       </View>
     </Provider>
   );
