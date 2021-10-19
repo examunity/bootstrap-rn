@@ -1,43 +1,6 @@
 import React from 'react';
-import {
-  Provider,
-  Text,
-  View,
-  StyleSheet,
-  css,
-  Button,
-  Colors,
-  Badge,
-  BsText,
-} from 'bootstyle';
+import { Alert, Provider, Button, Badge, BsText, Text, View } from 'bootstyle';
 import COLORS from '../src/components/colors';
-
-StyleSheet.build({});
-
-const styles = StyleSheet.create({
-  container: css`
-    // test
-    background-color: white;
-    padding: 10px;
-
-    // not working
-    /* &:hover {
-      background-color: green;
-
-      @include media-breakpoint-between(md, xl) {
-        background-color: blue;
-      }
-    }
-
-    &:focus {
-      background-color: orange;
-    }
-
-    @include media-breakpoint-between(md, xl) {
-      background-color: blue;
-    } */
-  `,
-});
 
 const breakpoints = {
   sm: 576,
@@ -50,9 +13,11 @@ const breakpoints = {
 function App() {
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
-      <View style={styles.container}>
+      <View>
         <Text>Anton</Text>
-
+        <Alert color="primary">
+          <Text>Patrik</Text>
+        </Alert>
         <View
           style={{
             flexDirection: 'row',
