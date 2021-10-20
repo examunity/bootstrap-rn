@@ -18,6 +18,9 @@ function App() {
         <Alert color="primary">
           <Text>Patrik</Text>
         </Alert>
+        <Alert color="secondary">
+          <Text>Markus</Text>
+        </Alert>
         <View
           style={{
             flexDirection: 'row',

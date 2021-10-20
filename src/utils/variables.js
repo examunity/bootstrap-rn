@@ -2,14 +2,33 @@ export const REM = 16;
 
 // Color system
 // TODO: Add all color variables from bootstrap
-const baseColors = {
-  blue: '#0d6efd',
+const grays = {
   gray600: '#6c757d',
+  get grays() {
+    return {
+      gray600: this.gray600,
+    };
+  },
 };
 
 const colors = {
-  primary: baseColors.blue,
-  secondary: baseColors.gray600,
+  blue: '#0d6efd',
+  get colors() {
+    return {
+      blue: this.blue,
+    };
+  },
+};
+
+const themeColors = {
+  primary: colors.blue,
+  secondary: grays.gray600,
+  get themeColors() {
+    return {
+      primary: this.primary,
+      secondary: this.secondary,
+    };
+  },
 };
 
 // Spacing
@@ -48,8 +67,9 @@ const alerts = {
 };
 
 const variables = {
-  ...baseColors,
+  ...grays,
   ...colors,
+  ...themeColors,
   ...spacing,
   ...components,
   ...typography,

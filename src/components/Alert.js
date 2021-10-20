@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
-import { COLORS } from '../utils/constants';
+import each from '../utils/each';
 import getStyles from '../utils/getStyles';
 import ucfirst from '../utils/ucfirst';
 import v from '../utils/variables';
@@ -10,7 +10,7 @@ import { shiftColor } from '../utils/functions';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(COLORS),
+  color: PropTypes.oneOf(Object.keys(v.themeColors)),
   dismissible: PropTypes.bool,
 };
 
@@ -24,22 +24,15 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     borderRadius: v.alertBorderRadius,
   },
-  // TODO: Add all bootstrap colors (danger, warning, etc.)
-  // TODO: Create mixin for all colors in javascript
-  alertPrimary: {
-    backgroundColor: shiftColor(v.alertBgScale, v.primary),
-    borderColor: shiftColor(v.alertBorderScale, v.primary),
-  },
-  alertSecondary: {
-    backgroundColor: shiftColor(v.alertBgScale, v.secondary),
-    borderColor: shiftColor(v.alertBorderScale, v.secondary),
-  },
-  alertPrimaryText: {
-    color: shiftColor(v.alertColorScale, v.primary),
-  },
-  alertSecondaryText: {
-    color: shiftColor(v.alertColorScale, v.secondary),
-  },
+  ...each(v.themeColors, (state, value) => ({
+    [`alert${ucfirst(state)}`]: {
+      backgroundColor: shiftColor(v.alertBgScale, value),
+      borderColor: shiftColor(v.alertBorderScale, value),
+    },
+    [`alert${ucfirst(state)}Text`]: {
+      color: shiftColor(v.alertColorScale, value),
+    },
+  })),
   alertDismissible: {
     // TODO
   },
