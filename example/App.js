@@ -21,6 +21,14 @@ function App() {
         <Alert color="secondary">
           <Text>Markus</Text>
         </Alert>
+
+        <Alert color="dark">
+          <Text>Markus</Text>
+        </Alert>
+
+        <Alert color="danger">
+          <Text>Danger</Text>
+        </Alert>
         <View
           style={{
             flexDirection: 'row',
@@ -28,35 +36,15 @@ function App() {
             flexWrap: 'row',
           }}
         >
-          <Button text="Primary" color={COLORS.PRIMARY} onPress={() => null} />
-          <Button
-            text="Secondary"
-            color={COLORS.SECONDARY}
-            onPress={() => null}
-          />
-          <Button text="Success" color={COLORS.SUCCESS} onPress={() => null} />
-          <Button text="Danger" color={COLORS.DANGER} onPress={() => null} />
-          <Button text="Warning" color={COLORS.WARNING} onPress={() => null} />
-          <Button text="Info" color={COLORS.INFO} onPress={() => null} />
-          <Button text="Light" color={COLORS.LIGHT} onPress={() => null} />
-          <Button text="Dark" color={COLORS.DARK} onPress={() => null} />
-          <Button text="classic primary" color="primary" onPress={() => null} />
-          <Button text="classic warning" color="warning" onPress={() => null} />
-          <Button text="clasic success" color="success" onPress={() => null} />
-          <Button text="Default Outline" outline onPress={() => null} />
-          <Button
-            text="Secondary Large"
-            size="large"
-            color="secondary"
-            onPress={() => null}
-          />
-          <Button
-            text="Secondary Small Disabled"
-            size="small"
-            color="secondary"
-            disabled
-            onPress={() => null}
-          />
+          <Button color="primary" onPress={() => null}>
+            Buttontext
+          </Button>
+          <Button color="secondary" onPress={() => null}>
+            Buttontext
+          </Button>
+          <Button color="danger" onPress={() => null}>
+            Buttontext
+          </Button>
         </View>
 
         <View
@@ -65,9 +53,14 @@ function App() {
             alignItems: 'center',
           }}
         >
-          <Badge h1>
-            <Text>Bla</Text>
-          </Badge>
+          <Text>
+            User Online: <Badge color="primary">40</Badge>
+          </Text>
+
+          <Text>
+            User Offline: <Badge color="danger">40</Badge>
+          </Text>
+
           <BsText h1>H1 Bootstrap Text H1</BsText>
           <BsText h2>H2 Bootstrap Text H2</BsText>
           <BsText h3>H3 Bootstrap Text H3</BsText>
@@ -81,3 +74,33 @@ function App() {
 }
 
 export default App;
+/*
+<Button
+  text="Secondary"
+  color={COLORS.SECONDARY}
+  onPress={() => null}
+/>
+<Button text="Success" color={COLORS.SUCCESS} onPress={() => null} />
+<Button text="Danger" color={COLORS.DANGER} onPress={() => null} />
+<Button text="Warning" color={COLORS.WARNING} onPress={() => null} />
+<Button text="Info" color={COLORS.INFO} onPress={() => null} />
+<Button text="Light" color={COLORS.LIGHT} onPress={() => null} />
+<Button text="Dark" color={COLORS.DARK} onPress={() => null} />
+<Button text="classic primary" color="primary" onPress={() => null} />
+<Button text="classic warning" color="warning" onPress={() => null} />
+<Button text="clasic success" color="success" onPress={() => null} />
+<Button text="Default Outline" outline onPress={() => null} />
+<Button
+  text="Secondary Large"
+  size="large"
+  color="secondary"
+  onPress={() => null}
+/>
+<Button
+  text="Secondary Small Disabled"
+  size="small"
+  color="secondary"
+  disabled
+  onPress={() => null}
+/>
+*/
