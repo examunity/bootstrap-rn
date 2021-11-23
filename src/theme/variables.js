@@ -1,8 +1,10 @@
 export const REM = 16;
+export const EM = (scale) => REM * scale;
 
 // Color system
 // TODO: Add all color variables from bootstrap
 const grays = {
+  white: '#fff',
   gray100: '#f8f9fa',
   gray200: '#e9ecef',
   gray300: '#dee2e6',
@@ -12,17 +14,18 @@ const grays = {
   gray700: '#495057',
   gray800: '#343a40',
   gray900: '#212529',
+  black: '#000',
   get grays() {
     return {
-      gray100: this.gray100,
-      gray200: this.gray200,
-      gray300: this.gray300,
-      gray400: this.gray400,
-      gray500: this.gray500,
-      gray600: this.gray600,
-      gray700: this.gray700,
-      gray800: this.gray800,
-      gray900: this.gray900,
+      100: this.gray100,
+      200: this.gray200,
+      300: this.gray300,
+      400: this.gray400,
+      500: this.gray500,
+      600: this.gray600,
+      700: this.gray700,
+      800: this.gray800,
+      900: this.gray900,
     };
   },
 };
@@ -68,9 +71,18 @@ const themeColors = {
 };
 
 // Spacing
-// TODO: Add all spacing variables from bootstrap
 const spacing = {
   spacer: 1 * REM,
+  get spacers() {
+    return {
+      0: 0,
+      1: this.spacer * 0.25,
+      2: this.spacer * 0.5,
+      3: this.spacer,
+      4: this.spacer * 1.5,
+      5: this.spacer * 3,
+    };
+  },
 };
 
 // Components

@@ -1,6 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import useViewport from './hooks/useViewport';
+import StyleSheet from './style/StyleSheet';
+import utilities from './theme/utilities';
 import Context from './Context';
 
 const propTypes = {
@@ -20,9 +22,12 @@ function Provider(props) {
 
   const viewport = useViewport({ initialViewport: ssrViewport, breakpoints });
 
+  const utilitiesStyles = useMemo(() => StyleSheet.create(utilities), []);
+
   const counter = useRef(0);
 
   const context = {
+    utilitiesStyles,
     getBreakpoints() {
       return breakpoints;
     },
