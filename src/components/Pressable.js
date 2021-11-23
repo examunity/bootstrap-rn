@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View as BaseView } from 'react-native';
+import { TouchableOpacity as BasePressable } from 'react-native';
 import useElementState from '../hooks/useElementState';
 import useStyleName from '../hooks/useStyleName';
 
@@ -11,12 +11,13 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
-function View({ style, styleName, ...props }) {
+function Pressable({ style, styleName, ...props }) {
   const state = useElementState();
   const utilitiesStyles = useStyleName(styleName);
 
+  // TODO: Use Pressable from react-native here.
   return (
-    <BaseView
+    <BasePressable
       {...props}
       style={[
         utilitiesStyles,
@@ -26,6 +27,6 @@ function View({ style, styleName, ...props }) {
   );
 }
 
-View.propTypes = propTypes;
+Pressable.propTypes = propTypes;
 
-export default View;
+export default Pressable;

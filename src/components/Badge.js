@@ -1,44 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
-import v from '../utils/variables';
+import StyleSheet from '../style/StyleSheet';
+import Text from './Text';
+import v from '../theme/variables';
 import getStyles from '../utils/getStyles';
-import ucfirst from '../utils/ucfirst';
-import each from '../utils/each';
-import { shiftColor } from '../utils/functions';
 
-// Testgebiet von Anton
 const propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.keys(v.themeColors)),
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   badge: {
     paddingVertical: v.badgePaddingY,
     paddingHorizontal: v.badgePaddingX,
-    fontSize: v.badgeFontSize,
-    borderWidth: 1,
     borderRadius: v.badgeBorderRadius,
-    color: '#fff',
-    borderColor: 'transparent',
   },
-  ...each(v.themeColors, (state, value) => ({
-    [`badge${ucfirst(state)}`]: {
-      backgroundColor: value,
-    },
-  })),
+  badgeText: {
+    fontSize: v.badgeFontSize,
+    lineHeight: 1,
+    color: v.badgeColor,
+    textAlign: 'center',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'baseline',
+  },
 });
 
 function Badge(props) {
-  const { color = 'primary', children, ...elementProps } = props;
+  const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['badge', `badge${ucfirst(color)}`]);
+  const classes = getStyles(styles, ['badge']);
+
+  const textClasses = getStyles(styles, ['badgeText']);
 
   return (
-    <View style={classes} {...elementProps}>
-      <Text>{children}</Text>
-    </View>
+    <Text style={[classes, textClasses, style]} {...elementProps}>
+      {children}
+    </Text>
   );
 }
 

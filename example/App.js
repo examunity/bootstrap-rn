@@ -1,6 +1,15 @@
 import React from 'react';
-import { Alert, Provider, Button, Badge, BsText, Text, View } from 'bootstyle';
-import COLORS from '../src/components/colors';
+import {
+  Alert,
+  Provider,
+  Button,
+  Badge,
+  BsText,
+  Text,
+  View,
+  StyleSheet,
+  css,
+} from 'bootstyle';
 
 const breakpoints = {
   sm: 576,
@@ -10,10 +19,18 @@ const breakpoints = {
   xxl: 1400,
 };
 
+StyleSheet.build();
+
+const styles = StyleSheet.create({
+  container: css`
+    background-color: #f5f5f5;
+  `,
+});
+
 function App() {
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
-      <View>
+      <View style={styles.container}>
         <Text>Anton</Text>
         <Alert color="primary">
           <Text>Patrik</Text>
@@ -36,14 +53,32 @@ function App() {
             flexWrap: 'row',
           }}
         >
-          <Button color="primary" onPress={() => null}>
-            Buttontext
+          <Button
+            color="primary"
+            onPress={() => {
+              // eslint-disable-next-line no-console
+              console.log('pressed');
+            }}
+          >
+            <Text>Buttontext</Text>
           </Button>
-          <Button color="secondary" onPress={() => null}>
-            Buttontext
+          <Button
+            color="secondary"
+            onPress={() => {
+              // eslint-disable-next-line no-console
+              console.log('pressed');
+            }}
+          >
+            <Text>Buttontext</Text>
           </Button>
-          <Button color="danger" onPress={() => null}>
-            Buttontext
+          <Button
+            color="danger"
+            onPress={() => {
+              // eslint-disable-next-line no-console
+              console.log('pressed');
+            }}
+          >
+            <Text>Buttontext</Text>
           </Button>
         </View>
 
@@ -54,11 +89,11 @@ function App() {
           }}
         >
           <Text>
-            User Online: <Badge color="primary">40</Badge>
+            User Online: <Badge styleName="bg-primary">40</Badge>
           </Text>
 
           <Text>
-            User Offline: <Badge color="danger">40</Badge>
+            User Offline: <Badge styleName="bg-danger">40</Badge>
           </Text>
 
           <BsText h1>H1 Bootstrap Text H1</BsText>
@@ -74,33 +109,3 @@ function App() {
 }
 
 export default App;
-/*
-<Button
-  text="Secondary"
-  color={COLORS.SECONDARY}
-  onPress={() => null}
-/>
-<Button text="Success" color={COLORS.SUCCESS} onPress={() => null} />
-<Button text="Danger" color={COLORS.DANGER} onPress={() => null} />
-<Button text="Warning" color={COLORS.WARNING} onPress={() => null} />
-<Button text="Info" color={COLORS.INFO} onPress={() => null} />
-<Button text="Light" color={COLORS.LIGHT} onPress={() => null} />
-<Button text="Dark" color={COLORS.DARK} onPress={() => null} />
-<Button text="classic primary" color="primary" onPress={() => null} />
-<Button text="classic warning" color="warning" onPress={() => null} />
-<Button text="clasic success" color="success" onPress={() => null} />
-<Button text="Default Outline" outline onPress={() => null} />
-<Button
-  text="Secondary Large"
-  size="large"
-  color="secondary"
-  onPress={() => null}
-/>
-<Button
-  text="Secondary Small Disabled"
-  size="small"
-  color="secondary"
-  disabled
-  onPress={() => null}
-/>
-*/

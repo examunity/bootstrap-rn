@@ -115,14 +115,14 @@ const alerts = {
 };
 
 // Badge
-// scss-docs-start badge-variables
 const badges = {
-  badgePaddingY: 0.35 * REM,
-  badgePaddingX: 0.65 * REM,
-  badgeFontSize: 0.75 * REM,
+  badgeFontSize: 0.75 * EM(1),
+  badgeFontWeight: typography.fontWeightBold,
+  badgeColor: grays.white,
+  badgePaddingY: 0.35 * EM(0.75),
+  badgePaddingX: 0.65 * EM(0.75),
   badgeBorderRadius: 0.25 * REM,
 };
-// scss-docs-end badge-variables
 
 // Buttons + Forms
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.

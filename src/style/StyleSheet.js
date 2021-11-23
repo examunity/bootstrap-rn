@@ -70,8 +70,6 @@ const StyleSheet = {
 
     sheets.push(sheet);
 
-    console.log(sheet);
-
     return sheet.active;
   },
   build(theme: Object) {
