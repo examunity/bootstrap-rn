@@ -1,7 +1,7 @@
 const consumeAsterisk = (input) => {
   input.read('*');
 
-  if (input.peek('/')) {
+  if (input.peek() === '/') {
     input.read('/');
 
     return false;

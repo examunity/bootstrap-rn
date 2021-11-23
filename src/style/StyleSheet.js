@@ -27,12 +27,13 @@ function createSheet(sheet) {
 
   // Apply theme to themeable styles.
   Object.entries(sheet.source).forEach(([key, style]) => {
+    // Resolve theme.
     const value = typeof style === 'function' ? style(theme) : style;
 
     if (typeof value === 'function') {
-      statelessSource[key] = value;
-    } else {
       statefulSource[key] = value;
+    } else {
+      statelessSource[key] = value;
     }
   });
 
@@ -68,6 +69,8 @@ const StyleSheet = {
     }
 
     sheets.push(sheet);
+
+    console.log(sheet);
 
     return sheet.active;
   },
