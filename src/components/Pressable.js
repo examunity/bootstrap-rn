@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity as BasePressable } from 'react-native';
+import { Pressable as BasePressable } from 'react-native';
 import useElementState from '../hooks/useElementState';
 import useStyleName from '../hooks/useStyleName';
 
