@@ -2,8 +2,6 @@ import React from 'react';
 import { Text } from 'react-native';
 import PropTypes from 'prop-types';
 
-import mediasize from '../helpers/Mediasize';
-
 function BsText({
   h1,
   h2,
@@ -25,15 +23,15 @@ function BsText({
   return (
     <Text
       style={[
-        h1 && { fontSize: mediasize(44) },
-        h2 && { fontSize: mediasize(38) },
-        h3 && { fontSize: mediasize(30) },
-        h4 && { fontSize: mediasize(24) },
-        h5 && { fontSize: mediasize(21) },
-        h6 && { fontSize: mediasize(18) },
-        p && { fontSize: mediasize(16) },
-        body && { fontSize: mediasize(14) },
-        small && { fontSize: mediasize(12) },
+        h1 && { fontSize: 44 },
+        h2 && { fontSize: 38 },
+        h3 && { fontSize: 30 },
+        h4 && { fontSize: 24 },
+        h5 && { fontSize: 21 },
+        h6 && { fontSize: 18 },
+        p && { fontSize: 16 },
+        body && { fontSize: 14 },
+        small && { fontSize: 12 },
         size && { fontSize: size },
         color && { color },
         italic && { fontStyle: 'italic' },
