@@ -109,6 +109,15 @@ const spacing = {
   },
 };
 
+// $font-size-base affects the font size of the body text
+const fontsizes = {
+  fontSizeRoot: null,
+  fontSizeBase: 1 * REM,
+  fontSizeSm: (1 * REM) * 0.875, 
+  fontSizeLg: (1 * REM)  * 1.25,
+};
+
+
 // Components
 // TODO: Add all components variables from bootstrap
 const components = {
@@ -136,6 +145,22 @@ const alerts = {
   get alertDismissiblePaddingR() {
     return this.alertPaddingX * 3; // 3x covers width of x plus default padding on either side
   },
+};
+
+// Progress bars
+/* 
+$progress-box-shadow:               $box-shadow-inset !default;
+$progress-bar-animation-timing:     1s linear infinite !default;
+$progress-bar-transition:           width .6s ease !default;
+ */
+const progress = {
+  progressHeight: 1 * REM,
+  progressFontSize:  fontsizes.fontSizeBase * 0.75,
+  progressBg: grays.gray200,
+  progressBorderRadius: borders.borderRadius,
+  progressBarColor: grays.white,
+  progressBarBg: themeColors.primary,
+
 };
 
 // Badge
@@ -166,7 +191,6 @@ const cards = {
 
 };
 
-
 // Buttons + Forms
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
@@ -191,6 +215,7 @@ const variables = {
   ...buttons,
   ...cards,
   ...borders,
+  ...progress,
 };
 
 export default variables;
