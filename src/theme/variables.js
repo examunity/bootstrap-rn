@@ -1,3 +1,5 @@
+import { rgba } from "polished";
+
 export const REM = 16;
 export const EM = (scale) => REM * scale;
 
@@ -26,6 +28,21 @@ const grays = {
       700: this.gray700,
       800: this.gray800,
       900: this.gray900,
+    };
+  },
+};
+
+// border-variables
+const borderWidth = {
+  borderWidth: 1,
+  get borderWidths() {
+    return {
+      0: 0,
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 4,
+      5: 5,
     };
   },
 };
@@ -133,35 +150,21 @@ const badges = {
 
 // Cards
 const cards = {
-  cardHeight: null,
   cardBg: grays.white,
-  cardBorderWidth: 1,
+  cardBorderColor: grays.gray200, //todo:: rgba($black, .125) !default;
   cardSpacerX: spacing.spacer,
   cardSpacerY: spacing.spacer,
+  cardBorderRadius: borders.borderRadius,
+  cardBorderWidth: borderWidth.borderWidth,
+  cardCapPaddingY: spacing.spacer * 0.5,
+  cardCapPaddingX: spacing.spacer,
+  cardCapBg: grays.gray200,//todo:: rgba($black, .03) !default;
+  cardCapColor: null,
+  cardHeight: null,
+  cardColor: null,
+  cardBg: grays.white,
+
 };
-
-
-// scss-docs-start card-variables
-/*
-$card-spacer-y:                     $spacer !default;
-$card-spacer-x:                     $spacer !default;
-$card-title-spacer-y:               $spacer * .5 !default;
-$card-border-width:                 $border-width !default;
-$card-border-color:                 rgba($black, .125) !default;
-$card-border-radius:                $border-radius !default;
-$card-box-shadow:                   null !default;
-$card-inner-border-radius:          subtract($card-border-radius, $card-border-width) !default;
-$card-cap-padding-y:                $card-spacer-y * .5 !default;
-$card-cap-padding-x:                $card-spacer-x !default;
-$card-cap-bg:                       rgba($black, .03) !default;
-$card-cap-color:                    null !default;
-$card-height:                       null !default;
-$card-color:                        null !default;
-$card-bg:                           $white !default;
-$card-img-overlay-padding:          $spacer !default;
-$card-group-margin:                 $grid-gutter-width * .5 !default;
-*/
-// scss-docs-end card-variables
 
 
 // Buttons + Forms

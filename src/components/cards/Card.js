@@ -18,18 +18,9 @@ const propTypes = {
   };
 /*
 .card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0; // See https://github.com/twbs/bootstrap/pull/22740#issuecomment-305868106
-  height: $card-height;
   word-wrap: break-word;
-  background-color: $card-bg;
   background-clip: border-box;
-  border: $card-border-width solid $card-border-color;
-  @include border-radius($card-border-radius);
   @include box-shadow($card-box-shadow);
-
 */
 
   const styles = StyleSheet.create({
@@ -41,8 +32,8 @@ const propTypes = {
         height: v.cardHeight,
         backgroundColor: v.cardBg,
         borderStyle: 'solid',
-        borderRadius: v.borderRadius, 
-        borderWidth: 1,
+        borderRadius: v.cardBorderRadius, 
+        borderWidth: v.cardBorderWidth,
       },
       ...each(v.themeColors, (state, value) => ({
         [`card${ucfirst(state)}`]: {
@@ -55,7 +46,7 @@ const propTypes = {
 
   function Card(props) {
     const {
-      color = 'primary',
+      color = 'null',
       children,
       ...elementProps
     } = props;

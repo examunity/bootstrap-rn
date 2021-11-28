@@ -10,23 +10,22 @@ import v from '../../theme/variables';
 import { shiftColor } from '../../utils/functions';
 
 const propTypes = {children: PropTypes.node.isRequired,};
-
 /*
 .card-footer {
-  padding: $card-cap-padding-y $card-cap-padding-x;
-  color: $card-cap-color;
-  background-color: $card-cap-bg;
-  border-top: $card-border-width solid $card-border-color;
-
   &:last-child {
     @include border-radius(0 0 $card-inner-border-radius $card-inner-border-radius);
   }
 }
 */
-
 const styles = StyleSheet.create({
     cardFooter: {
-    color: null,
+      paddingVertical: v.cardCapPaddingY,
+      paddingHorizontal: v.cardCapPaddingX,
+      color: v.cardCapColor,
+      backgroundColor: v.cardCapBg,
+      borderTopWidth: v.cardBorderWidth,
+      borderStyle: 'solid',
+      borderColor: v.cardBorderColor,
     },
   });
 
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     } = props;
   
     const classes = getStyles(styles, [
-      'CardFooter',
+      'cardFooter',
     ]);
     
     return (
@@ -48,8 +47,6 @@ const styles = StyleSheet.create({
       </View>
     );
   }
-
-
 
 CardFooter.propTypes = propTypes;
 

@@ -104,26 +104,20 @@ function App() {
 
           
           <Card color="success">
-            <Card.Header>
-              <BsText h1>Card Header Text h1</BsText>
-            </Card.Header>
-            <Card.Body></Card.Body>
+            <Card.Body>
+            Card Body Text
+            </Card.Body>
             <Card.Footer>
-                <Alert color="dark">
-                  <Text>Alert in Footer</Text>
-                </Alert>
             </Card.Footer>
           </Card>
 
-          <Card color="primary">
+          <Card>
             <Card.Header>
               <BsText h4>Card Header Text Prime h4</BsText>
             </Card.Header>
-            <Card.Body></Card.Body>
+            <Card.Body>Body Text</Card.Body>
             <Card.Footer>
-                <Alert color="dark">
-                  <Text>Alert in Footer</Text>
-                </Alert>
+            <BsText h4>Card Footer Text  h4</BsText>
             </Card.Footer>
           </Card>
 
