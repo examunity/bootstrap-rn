@@ -9,6 +9,7 @@ import {
   View,
   StyleSheet,
   css,
+  Card,
 } from 'bootstyle';
 
 const breakpoints = {
@@ -39,9 +40,7 @@ function App() {
           <Text>Markus</Text>
         </Alert>
 
-        <Alert color="dark">
-          <Text>Markus</Text>
-        </Alert>
+
 
         <Alert color="danger">
           <Text>Danger</Text>
@@ -102,6 +101,32 @@ function App() {
           <BsText h4>H4 Bootstrap Text H4</BsText>
           <BsText h5>H5 Bootstrap Text H5</BsText>
           <BsText h6>H6 Bootstrap Text H6</BsText>
+
+          
+          <Card color="success">
+            <Card.Header>
+              <BsText h1>Card Header Text h1</BsText>
+            </Card.Header>
+            <Card.Body></Card.Body>
+            <Card.Footer>
+                <Alert color="dark">
+                  <Text>Alert in Footer</Text>
+                </Alert>
+            </Card.Footer>
+          </Card>
+
+          <Card color="primary">
+            <Card.Header>
+              <BsText h4>Card Header Text Prime h4</BsText>
+            </Card.Header>
+            <Card.Body></Card.Body>
+            <Card.Footer>
+                <Alert color="dark">
+                  <Text>Alert in Footer</Text>
+                </Alert>
+            </Card.Footer>
+          </Card>
+
         </View>
       </View>
     </Provider>

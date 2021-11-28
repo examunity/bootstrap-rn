@@ -30,6 +30,13 @@ const grays = {
   },
 };
 
+const borders = {
+  borderRadius: 0.25 * REM,
+  borderRadiusSm: 2 * REM,
+  borderRadiusLg: 3 * REM,
+  borderRadiusPill: 50 * REM,
+}
+
 const colors = {
   blue: '#0d6efd',
   green: '#198754',
@@ -124,6 +131,39 @@ const badges = {
   badgeBorderRadius: 0.25 * REM,
 };
 
+// Cards
+const cards = {
+  cardHeight: null,
+  cardBg: grays.white,
+  cardBorderWidth: 1,
+  cardSpacerX: spacing.spacer,
+  cardSpacerY: spacing.spacer,
+};
+
+
+// scss-docs-start card-variables
+/*
+$card-spacer-y:                     $spacer !default;
+$card-spacer-x:                     $spacer !default;
+$card-title-spacer-y:               $spacer * .5 !default;
+$card-border-width:                 $border-width !default;
+$card-border-color:                 rgba($black, .125) !default;
+$card-border-radius:                $border-radius !default;
+$card-box-shadow:                   null !default;
+$card-inner-border-radius:          subtract($card-border-radius, $card-border-width) !default;
+$card-cap-padding-y:                $card-spacer-y * .5 !default;
+$card-cap-padding-x:                $card-spacer-x !default;
+$card-cap-bg:                       rgba($black, .03) !default;
+$card-cap-color:                    null !default;
+$card-height:                       null !default;
+$card-color:                        null !default;
+$card-bg:                           $white !default;
+$card-img-overlay-padding:          $spacer !default;
+$card-group-margin:                 $grid-gutter-width * .5 !default;
+*/
+// scss-docs-end card-variables
+
+
 // Buttons + Forms
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
@@ -146,6 +186,8 @@ const variables = {
   ...alerts,
   ...badges,
   ...buttons,
+  ...cards,
+  ...borders,
 };
 
 export default variables;
