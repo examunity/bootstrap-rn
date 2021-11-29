@@ -9,6 +9,7 @@ import Button from './components/Button';
 import Badge from './components/Badge';
 import BsText from './components/BsText';
 import Card from './components/cards/Card';
+import Progress from './components/progress/Progress';
 
 export {
   Text,
@@ -21,5 +22,6 @@ export {
   Button,
   Badge,
   BsText,
-  Card
+  Card,
+  Progress,
 };

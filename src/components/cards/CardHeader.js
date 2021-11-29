@@ -9,7 +9,7 @@ import ucfirst from '../../utils/ucfirst';
 import v from '../../theme/variables';
 import { shiftColor } from '../../utils/functions';
 
-const propTypes = {children: PropTypes.node.isRequired,};
+const propTypes = { children: PropTypes.node.isRequired, };
 /*
 .card-header {
   &:first-child {
@@ -18,36 +18,36 @@ const propTypes = {children: PropTypes.node.isRequired,};
 }
 */
 const styles = StyleSheet.create({
-    cardHeader: {
+  cardHeader: {
     paddingHorizontal: v.cardCapPaddingX,
     paddingVertical: v.cardCapPaddingY,
     marginBottom: 0,
     color: v.cardCapColor,
     backgroundColor: v.cardCapBg,
-    borderBottomWidth: v.cardBorderWidth, 
+    borderBottomWidth: v.cardBorderWidth,
     borderStyle: 'solid',
     borderColor: v.cardBorderColor,
-    },
-  });
+  },
+});
 
-  function CardHeader(props) {
-    const {
-      children,
-      ...elementProps
-    } = props;
-  
-    const classes = getStyles(styles, [
-      'cardHeader',
-    ]);
-    
-    return (
-      <View style={[classes, elementProps.style]} {...elementProps}>
-        <TextStyleContext.Provider>
-          {children}
-        </TextStyleContext.Provider>
-      </View>
-    );
-  }
+function CardHeader(props) {
+  const {
+    children,
+    ...elementProps
+  } = props;
+
+  const classes = getStyles(styles, [
+    'cardHeader',
+  ]);
+
+  return (
+    <View style={[classes, elementProps.style]} {...elementProps}>
+      <TextStyleContext.Provider>
+        {children}
+      </TextStyleContext.Provider>
+    </View>
+  );
+}
 
 CardHeader.propTypes = propTypes;
 

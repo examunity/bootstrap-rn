@@ -113,8 +113,8 @@ const spacing = {
 const fontsizes = {
   fontSizeRoot: null,
   fontSizeBase: 1 * REM,
-  fontSizeSm: (1 * REM) * 0.875, 
-  fontSizeLg: (1 * REM)  * 1.25,
+  fontSizeSm: (1 * REM) * 0.875,
+  fontSizeLg: (1 * REM) * 1.25,
 };
 
 
@@ -155,7 +155,7 @@ $progress-bar-transition:           width .6s ease !default;
  */
 const progress = {
   progressHeight: 1 * REM,
-  progressFontSize:  fontsizes.fontSizeBase * 0.75,
+  progressFontSize: fontsizes.fontSizeBase * 0.75,
   progressBg: grays.gray200,
   progressBorderRadius: borders.borderRadius,
   progressBarColor: grays.white,

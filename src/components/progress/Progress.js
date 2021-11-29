@@ -7,13 +7,13 @@ import each from '../../utils/each';
 import getStyles from '../../utils/getStyles';
 import ucfirst from '../../utils/ucfirst';
 import v from '../../theme/variables';
+import ProgressBar from './ProgressBar';
 
 const propTypes = {
-    children: PropTypes.node.isRequired,
-    min: PropTypes.number,
-    max: PropTypes.number,
-
-  };
+  children: PropTypes.node.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
+};
 
 /*
 .progress {
@@ -22,36 +22,34 @@ const propTypes = {
 }
 */
 const styles = StyleSheet.create({
-    progress: {
-        display: 'flex',
-        height: v.progressHeight,
-        fontSize: v.progressFontSize,
-        backgroundColor: v.progressBg,
-        borderRadius: v.progressBorderRadius,
-      },
-  });
+  progress: {
+    display: 'flex',
+    height: v.progressHeight,
+    fontSize: v.progressFontSize,
+    backgroundColor: v.progressBg,
+    borderRadius: v.progressBorderRadius,
 
-  function Progress(props) {
-    const {
-      children,
-      min = 0,
-      max = 100,
-      ...elementProps
-    } = props;
-  
-    const classes = getStyles(styles, [
-      'progress',
-    ]);
-  
-  
-    return (
-      <View style={[classes, elementProps.style]} {...elementProps}>
-        <TextStyleContext.Provider>
-          {children}
-        </TextStyleContext.Provider>
-      </View>
-    );
-  }
+  },
+});
+
+function Progress(props) {
+  const {
+    children,
+    min = 0,
+    max = 100,
+    ...elementProps
+  } = props;
+
+  const classes = getStyles(styles, [
+    'progress',
+  ]);
+
+  return (
+    <View style={[classes, elementProps.style]} {...elementProps}>
+      {children}
+    </View>
+  );
+}
 
 Progress.propTypes = propTypes;
 Progress.Bar = ProgressBar;

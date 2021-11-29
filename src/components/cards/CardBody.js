@@ -9,10 +9,10 @@ import ucfirst from '../../utils/ucfirst';
 import v from '../../theme/variables';
 import { shiftColor } from '../../utils/functions';
 
-const propTypes = {children: PropTypes.node.isRequired,};
+const propTypes = { children: PropTypes.node.isRequired, };
 
 const styles = StyleSheet.create({
-    cardBody: {
+  cardBody: {
     display: 'flex',
     paddingHorizontal: v.cardSpacerX,
     paddingVertical: v.cardSpacerY,
@@ -20,27 +20,27 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexBasis: 0,
     color: v.cardColor,
-    },
-  });
+  },
+});
 
-  function CardBody(props) {
-    const {
-      children,
-      ...elementProps
-    } = props;
-  
-    const classes = getStyles(styles, [
-      'cardBody',
-    ]);
-    
-    return (
-      <View style={[classes, elementProps.style]} {...elementProps}>
-        <TextStyleContext.Provider>
-          {children}
-        </TextStyleContext.Provider>
-      </View>
-    );
-  }
+function CardBody(props) {
+  const {
+    children,
+    ...elementProps
+  } = props;
+
+  const classes = getStyles(styles, [
+    'cardBody',
+  ]);
+
+  return (
+    <View style={[classes, elementProps.style]} {...elementProps}>
+      <TextStyleContext.Provider>
+        {children}
+      </TextStyleContext.Provider>
+    </View>
+  );
+}
 
 
 

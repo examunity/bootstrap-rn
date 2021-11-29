@@ -9,7 +9,7 @@ import ucfirst from '../../utils/ucfirst';
 import v from '../../theme/variables';
 import { shiftColor } from '../../utils/functions';
 
-const propTypes = {children: PropTypes.node.isRequired,};
+const propTypes = { children: PropTypes.node.isRequired, };
 /*
 .card-footer {
   &:last-child {
@@ -18,35 +18,35 @@ const propTypes = {children: PropTypes.node.isRequired,};
 }
 */
 const styles = StyleSheet.create({
-    cardFooter: {
-      paddingVertical: v.cardCapPaddingY,
-      paddingHorizontal: v.cardCapPaddingX,
-      color: v.cardCapColor,
-      backgroundColor: v.cardCapBg,
-      borderTopWidth: v.cardBorderWidth,
-      borderStyle: 'solid',
-      borderColor: v.cardBorderColor,
-    },
-  });
+  cardFooter: {
+    paddingVertical: v.cardCapPaddingY,
+    paddingHorizontal: v.cardCapPaddingX,
+    color: v.cardCapColor,
+    backgroundColor: v.cardCapBg,
+    borderTopWidth: v.cardBorderWidth,
+    borderStyle: 'solid',
+    borderColor: v.cardBorderColor,
+  },
+});
 
-  function CardFooter(props) {
-    const {
-      children,
-      ...elementProps
-    } = props;
-  
-    const classes = getStyles(styles, [
-      'cardFooter',
-    ]);
-    
-    return (
-      <View style={[classes, elementProps.style]} {...elementProps}>
-        <TextStyleContext.Provider>
-          {children}
-        </TextStyleContext.Provider>
-      </View>
-    );
-  }
+function CardFooter(props) {
+  const {
+    children,
+    ...elementProps
+  } = props;
+
+  const classes = getStyles(styles, [
+    'cardFooter',
+  ]);
+
+  return (
+    <View style={[classes, elementProps.style]} {...elementProps}>
+      <TextStyleContext.Provider>
+        {children}
+      </TextStyleContext.Provider>
+    </View>
+  );
+}
 
 CardFooter.propTypes = propTypes;
 
