@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View as BaseView } from 'react-native';
-import useElementState from '../hooks/useElementState';
+import useMedia from '../hooks/useMedia';
 import useStyleName from '../hooks/useStyleName';
 
 const propTypes = {
@@ -12,7 +12,7 @@ const propTypes = {
 };
 
 function View({ style, styleName, ...props }) {
-  const state = useElementState();
+  const media = useMedia();
   const utilitiesStyles = useStyleName(styleName);
 
   return (
@@ -20,7 +20,7 @@ function View({ style, styleName, ...props }) {
       {...props}
       style={[
         utilitiesStyles,
-        typeof style === 'function' ? style(state) : style,
+        typeof style === 'function' ? style({ media }) : style,
       ]}
     />
   );

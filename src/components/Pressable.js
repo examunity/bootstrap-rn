@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable as BasePressable } from 'react-native';
-import useElementState from '../hooks/useElementState';
+import useMedia from '../hooks/useMedia';
 import useStyleName from '../hooks/useStyleName';
 
 const propTypes = {
@@ -12,16 +12,20 @@ const propTypes = {
 };
 
 function Pressable({ style, styleName, ...props }) {
-  const state = useElementState();
+  const media = useMedia();
   const utilitiesStyles = useStyleName(styleName);
 
   return (
     <BasePressable
       {...props}
-      style={[
-        utilitiesStyles,
-        typeof style === 'function' ? style(state) : style,
-      ]}
+      style={(interaction) => {
+        const result = [
+          utilitiesStyles,
+          typeof style === 'function' ? style({ media, interaction }) : style,
+        ];
+
+        return result;
+      }}
     />
   );
 }

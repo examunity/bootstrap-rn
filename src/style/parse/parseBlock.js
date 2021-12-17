@@ -1,7 +1,5 @@
 import declaration from './rules/declaration';
-// eslint-disable-next-line import/no-cycle
 import directive from './rules/directive';
-// eslint-disable-next-line import/no-cycle
 import selector from './rules/selector';
 import comment from './rules/comment';
 import isWhitespace from './isWhitespace';
@@ -20,17 +18,22 @@ function parseBlock(input, result) {
   if (isWhitespace(input.peek())) {
     input.charsWhile(isWhitespace);
   } else if (declaration.locate(input)) {
-    Object.assign(nextResult[0].declarations, declaration.read(input, this));
+    Object.assign(
+      nextResult[0].declarations,
+      declaration.read(input, parseBlock),
+    );
   } else if (selector.locate(input)) {
-    const selectorResult = selector.read(input, this).map(addCondition(result));
+    const selectorResult = selector
+      .read(input, parseBlock)
+      .map(addCondition(result));
     nextResult = [...result, ...selectorResult];
   } else if (directive.locate(input)) {
     const directiveResult = directive
-      .read(input, this)
+      .read(input, parseBlock)
       .map(addCondition(result));
     nextResult = [...result, ...directiveResult];
   } else if (comment.locate(input)) {
-    comment.read(input, this);
+    comment.read(input, parseBlock);
   } else {
     throw new Error(`CSS syntax error: Unknown error at "${input.peek()}"`);
   }

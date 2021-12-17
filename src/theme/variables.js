@@ -1,7 +1,10 @@
+import { rgba } from 'polished';
+
 export const REM = 16;
 export const EM = (scale) => REM * scale;
 
 // Color system
+
 // TODO: Add all color variables from bootstrap
 const grays = {
   white: '#fff',
@@ -71,6 +74,7 @@ const themeColors = {
 };
 
 // Spacing
+
 const spacing = {
   spacer: 1 * REM,
   get spacers() {
@@ -88,6 +92,7 @@ const spacing = {
 // Body
 //
 // Settings for the `<body>` element.
+
 const body = {
   bodyBg: grays.white,
   bodyColor: grays.gray900,
@@ -115,8 +120,19 @@ const components = {
 };
 
 // Typography
+
 // TODO: Add all typography variables from bootstrap
 const typography = {
+  fontFamilySansSerif:
+    'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  fontFamilyMonospace:
+    'SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+  get fontFamilyBase() {
+    return this.fontFamilySansSerif;
+  },
+  get fontFamilyCode() {
+    return this.fontFamilyMonospace;
+  },
   // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
   // $font-size-base affects the font size of the body text
   fontSizeRoot: null,
@@ -132,9 +148,16 @@ const typography = {
   fontWeightNormal: 400,
   fontWeightBold: 700,
   fontWeightBolder: 800, // 'bolder' not supported by react-native
+  get fontWeightBase() {
+    return this.fontWeightNormal;
+  },
+  lineHeightBase: 1.5 * REM,
+  lineHeightSm: 1.25 * REM,
+  lineHeightLg: 2 * REM,
 };
 
 // Alerts
+
 const alerts = {
   alertPaddingY: spacing.spacer,
   alertPaddingX: spacing.spacer,
@@ -151,6 +174,7 @@ const alerts = {
 };
 
 // Progress bars
+
 /* 
 $progress-box-shadow:               $box-shadow-inset !default;
 $progress-bar-animation-timing:     1s linear infinite !default;
@@ -166,6 +190,7 @@ const progress = {
 };
 
 // Badge
+
 const badges = {
   badgeFontSize: 0.75 * EM(1),
   badgeFontWeight: typography.fontWeightBold,
@@ -176,19 +201,24 @@ const badges = {
 };
 
 // Cards
+
 const cards = {
-  cardBg: grays.white,
-  cardBorderColor: grays.gray200, // todo:: rgba($black, .125) !default;
   cardSpacerX: spacing.spacer,
   cardSpacerY: spacing.spacer,
-  cardBorderRadius: components.borderRadius,
+  cardTitleSpacerY: spacing.spacer * 0.5,
   cardBorderWidth: components.borderWidth,
+  cardBorderColor: rgba(grays.black, 0.125),
+  cardBorderRadius: components.borderRadius,
+  get cardInnerBorderRadius() {
+    return this.cardBorderRadius; // TODO: subtract($card-border-radius, $card-border-width);
+  },
   cardCapPaddingY: spacing.spacer * 0.5,
   cardCapPaddingX: spacing.spacer,
-  cardCapBg: grays.gray200, // todo:: rgba($black, .03) !default;
+  cardCapBg: rgba(grays.black, 0.03),
   cardCapColor: null,
   cardHeight: null,
   cardColor: null,
+  cardBg: grays.white,
 };
 
 // Buttons + Forms

@@ -8,6 +8,7 @@ import Button from './components/buttons/Button';
 import Card from './components/card/Card';
 import Progress from './components/progress/Progress';
 import BsText from './components/BsText';
+import Pressable from './components/Pressable';
 import Text from './components/Text';
 import View from './components/View';
 
@@ -22,6 +23,7 @@ export {
   Card,
   Progress,
   BsText,
+  Pressable,
   Text,
   View,
 };
