@@ -8,9 +8,7 @@ import ucfirst from '../../utils/ucfirst';
 import v from '../../theme/variables';
 
 const propTypes = {
-  children: PropTypes.node.isRequired,
-  min: PropTypes.number,
-  max: PropTypes.number,
+  children: PropTypes.node,
   value: PropTypes.number.isRequired,
   color: PropTypes.oneOf(Object.keys(v.themeColors)),
 };

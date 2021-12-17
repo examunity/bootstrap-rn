@@ -10,12 +10,13 @@ const propTypes = { children: PropTypes.node.isRequired };
 
 const styles = StyleSheet.create({
   cardBody: {
-    display: 'flex',
-    paddingHorizontal: v.cardSpacerX,
-    paddingVertical: v.cardSpacerY,
     flexGrow: 1,
     flexShrink: 1,
-    flexBasis: 0,
+    flexBasis: 'auto',
+    paddingVertical: v.cardSpacerY,
+    paddingHorizontal: v.cardSpacerX,
+  },
+  cardBodyText: {
     color: v.cardColor,
   },
 });
@@ -25,9 +26,13 @@ function CardBody(props) {
 
   const classes = getStyles(styles, ['cardBody']);
 
+  const textClasses = getStyles(styles, [`cardBodyText`]);
+
   return (
     <View style={[classes, elementProps.style]} {...elementProps}>
-      <TextStyleContext.Provider>{children}</TextStyleContext.Provider>
+      <TextStyleContext.Provider value={textClasses}>
+        {children}
+      </TextStyleContext.Provider>
     </View>
   );
 }

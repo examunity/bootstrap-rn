@@ -19,11 +19,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: v.cardCapPaddingX,
     paddingVertical: v.cardCapPaddingY,
     marginBottom: 0,
-    color: v.cardCapColor,
     backgroundColor: v.cardCapBg,
     borderBottomWidth: v.cardBorderWidth,
     borderStyle: 'solid',
     borderColor: v.cardBorderColor,
+  },
+  cardHeaderText: {
+    color: v.cardCapColor,
   },
 });
 
@@ -32,9 +34,13 @@ function CardHeader(props) {
 
   const classes = getStyles(styles, ['cardHeader']);
 
+  const textClasses = getStyles(styles, ['cardHeaderText']);
+
   return (
     <View style={[classes, elementProps.style]} {...elementProps}>
-      <TextStyleContext.Provider>{children}</TextStyleContext.Provider>
+      <TextStyleContext.Provider value={textClasses}>
+        {children}
+      </TextStyleContext.Provider>
     </View>
   );
 }

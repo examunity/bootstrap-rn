@@ -2,19 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
-import TextStyleContext from '../../style/TextStyleContext';
-import each from '../../utils/each';
 import getStyles from '../../utils/getStyles';
-import ucfirst from '../../utils/ucfirst';
 import v from '../../theme/variables';
-import { shiftColor } from '../../utils/functions';
 import CardBody from './CardBody';
 import CardHeader from './CardHeader';
 import CardFooter from './CardFooter';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.keys(v.themeColors)),
 };
 /*
 .card {
@@ -31,30 +26,21 @@ const styles = StyleSheet.create({
     minWidth: 0,
     height: v.cardHeight,
     backgroundColor: v.cardBg,
-    borderStyle: 'solid',
-    borderRadius: v.cardBorderRadius,
     borderWidth: v.cardBorderWidth,
+    borderStyle: 'solid',
+    borderColor: v.cardBorderColor,
+    borderRadius: v.cardBorderRadius,
   },
-  ...each(v.themeColors, (state, value) => ({
-    [`card${ucfirst(state)}`]: {
-      backgroundColor: shiftColor(v.alertBgScale, value),
-      borderColor: shiftColor(v.alertBorderScale, value),
-    },
-  })),
 });
 
 function Card(props) {
-  const { color = 'null', children, ...elementProps } = props;
+  const { children, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['card', `card${ucfirst(color)}`]);
-
-  const textClasses = getStyles(styles, [`card${ucfirst(color)}Text`]);
+  const classes = getStyles(styles, ['card']);
 
   return (
     <View style={[classes, elementProps.style]} {...elementProps}>
-      <TextStyleContext.Provider value={textClasses}>
-        {children}
-      </TextStyleContext.Provider>
+      {children}
     </View>
   );
 }

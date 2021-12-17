@@ -1,5 +1,3 @@
-import { rgba } from "polished";
-
 export const REM = 16;
 export const EM = (scale) => REM * scale;
 
@@ -31,28 +29,6 @@ const grays = {
     };
   },
 };
-
-// border-variables
-const borderWidth = {
-  borderWidth: 1,
-  get borderWidths() {
-    return {
-      0: 0,
-      1: 1,
-      2: 2,
-      3: 3,
-      4: 4,
-      5: 5,
-    };
-  },
-};
-
-const borders = {
-  borderRadius: 0.25 * REM,
-  borderRadiusSm: 2 * REM,
-  borderRadiusLg: 3 * REM,
-  borderRadiusPill: 50 * REM,
-}
 
 const colors = {
   blue: '#0d6efd',
@@ -109,26 +85,53 @@ const spacing = {
   },
 };
 
-// $font-size-base affects the font size of the body text
-const fontsizes = {
-  fontSizeRoot: null,
-  fontSizeBase: 1 * REM,
-  fontSizeSm: (1 * REM) * 0.875,
-  fontSizeLg: (1 * REM) * 1.25,
+// Body
+//
+// Settings for the `<body>` element.
+const body = {
+  bodyBg: grays.white,
+  bodyColor: grays.gray900,
+  bodyTextAlign: null,
 };
 
-
 // Components
+
 // TODO: Add all components variables from bootstrap
 const components = {
   borderWidth: 1,
+  borderWidths: {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+  },
+  borderColor: grays.gray300,
   borderRadius: 0.25 * REM,
+  borderRadiusSm: 0.2 * REM,
+  borderRadiusLg: 0.3 * REM,
+  borderRadiusPill: 50 * REM,
 };
 
 // Typography
 // TODO: Add all typography variables from bootstrap
 const typography = {
+  // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
+  // $font-size-base affects the font size of the body text
+  fontSizeRoot: null,
+  fontSizeBase: 1 * REM,
+  get fontSizeSm() {
+    return this.fontSizeBase * 0.875;
+  },
+  get fontSizeLg() {
+    return this.fontSizeBase * 1.25;
+  },
+  fontWeightLighter: 200, // 'lighter' not supported by react-native
+  fontWeightLight: 300,
+  fontWeightNormal: 400,
   fontWeightBold: 700,
+  fontWeightBolder: 800, // 'bolder' not supported by react-native
 };
 
 // Alerts
@@ -155,12 +158,11 @@ $progress-bar-transition:           width .6s ease !default;
  */
 const progress = {
   progressHeight: 1 * REM,
-  progressFontSize: fontsizes.fontSizeBase * 0.75,
+  progressFontSize: typography.fontSizeBase * 0.75,
   progressBg: grays.gray200,
-  progressBorderRadius: borders.borderRadius,
+  progressBorderRadius: components.borderRadius,
   progressBarColor: grays.white,
   progressBarBg: themeColors.primary,
-
 };
 
 // Badge
@@ -176,19 +178,17 @@ const badges = {
 // Cards
 const cards = {
   cardBg: grays.white,
-  cardBorderColor: grays.gray200, //todo:: rgba($black, .125) !default;
+  cardBorderColor: grays.gray200, // todo:: rgba($black, .125) !default;
   cardSpacerX: spacing.spacer,
   cardSpacerY: spacing.spacer,
-  cardBorderRadius: borders.borderRadius,
-  cardBorderWidth: borderWidth.borderWidth,
+  cardBorderRadius: components.borderRadius,
+  cardBorderWidth: components.borderWidth,
   cardCapPaddingY: spacing.spacer * 0.5,
   cardCapPaddingX: spacing.spacer,
-  cardCapBg: grays.gray200,//todo:: rgba($black, .03) !default;
+  cardCapBg: grays.gray200, // todo:: rgba($black, .03) !default;
   cardCapColor: null,
   cardHeight: null,
   cardColor: null,
-  cardBg: grays.white,
-
 };
 
 // Buttons + Forms
@@ -208,13 +208,13 @@ const variables = {
   ...colors,
   ...themeColors,
   ...spacing,
+  ...body,
   ...components,
   ...typography,
   ...alerts,
   ...badges,
   ...buttons,
   ...cards,
-  ...borders,
   ...progress,
 };
 

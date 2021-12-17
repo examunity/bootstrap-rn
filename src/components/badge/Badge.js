@@ -22,8 +22,6 @@ const styles = StyleSheet.create({
     lineHeight: 1,
     color: v.badgeColor,
     textAlign: 'center',
-    whiteSpace: 'nowrap',
-    verticalAlign: 'baseline',
   },
 });
 
