@@ -8,18 +8,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^43.0.0",
-    "expo-status-bar": "~1.1.0",
-    "metro-config": "~0.59.0",
+    "expo": "^44.0.0",
+    "expo-status-bar": "~1.2.0",
+    "metro-config": "~0.64.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-43.tar.gz",
+    "react-native": "0.64.3",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@expo/webpack-config": "^0.16.2",
-    "babel-loader": "~8.2.2",
+    "@expo/webpack-config": "~0.16.2",
+    "babel-loader": "~8.2.3",
     "babel-plugin-module-resolver": "~4.1.0"
   },
   "private": true
