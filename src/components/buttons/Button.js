@@ -1,13 +1,13 @@
 // Bootstrap Button
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyleSheet from '../style/StyleSheet';
-import Pressable from './Pressable';
-import Text from './Text';
-import each from '../utils/each';
-import getStyles from '../utils/getStyles';
-import ucfirst from '../utils/ucfirst';
-import v from '../theme/variables';
+import StyleSheet from '../../style/StyleSheet';
+import Pressable from '../Pressable';
+import Text from '../Text';
+import each from '../../utils/each';
+import getStyles from '../../utils/getStyles';
+import ucfirst from '../../utils/ucfirst';
+import v from '../../theme/variables';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
