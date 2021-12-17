@@ -1,6 +1,5 @@
 import isIdent from '../isIdent';
 import isWhitespace from '../isWhitespace';
-import parseBlock from '../parseBlock';
 
 const consumeArgumentSeperator = (input) => {
   if (input.peek() !== ',') {
@@ -16,7 +15,7 @@ const directive = {
   locate(input) {
     return input.peek() === '@';
   },
-  read(input) {
+  read(input, parseBlock) {
     input.read('@');
 
     const directiveName = input.charsWhile(isIdent);

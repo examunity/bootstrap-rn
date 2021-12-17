@@ -20,15 +20,17 @@ function parseBlock(input, result) {
   if (isWhitespace(input.peek())) {
     input.charsWhile(isWhitespace);
   } else if (declaration.locate(input)) {
-    Object.assign(nextResult[0].declarations, declaration.read(input));
+    Object.assign(nextResult[0].declarations, declaration.read(input, this));
   } else if (selector.locate(input)) {
-    const selectorResult = selector.read(input).map(addCondition(result));
+    const selectorResult = selector.read(input, this).map(addCondition(result));
     nextResult = [...result, ...selectorResult];
   } else if (directive.locate(input)) {
-    const directiveResult = directive.read(input).map(addCondition(result));
+    const directiveResult = directive
+      .read(input, this)
+      .map(addCondition(result));
     nextResult = [...result, ...directiveResult];
   } else if (comment.locate(input)) {
-    comment.read(input);
+    comment.read(input, this);
   } else {
     throw new Error(`CSS syntax error: Unknown error at "${input.peek()}"`);
   }

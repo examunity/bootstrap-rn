@@ -1,6 +1,5 @@
 import isIdent from '../isIdent';
 import isWhitespace from '../isWhitespace';
-import parseBlock from '../parseBlock';
 
 const SELECTOR_TYPES = ['hover', 'focus', 'active'];
 
@@ -8,7 +7,7 @@ const selector = {
   locate(input) {
     return input.peek() === '&' && input.peek(1) === ':';
   },
-  read(input) {
+  read(input, parseBlock) {
     input.read('&');
     input.read(':');
 
