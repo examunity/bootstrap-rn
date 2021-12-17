@@ -15,7 +15,6 @@ function Pressable({ style, styleName, ...props }) {
   const state = useElementState();
   const utilitiesStyles = useStyleName(styleName);
 
-  // TODO: Use Pressable from react-native here.
   return (
     <BasePressable
       {...props}

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
-import View from './../View';
-import TextStyleContext from '../../style/TextStyleContext';
+import View from '../View';
 import each from '../../utils/each';
 import getStyles from '../../utils/getStyles';
 import ucfirst from '../../utils/ucfirst';
@@ -42,14 +41,7 @@ const styles = StyleSheet.create({
 });
 
 function ProgressBar(props) {
-  const {
-    color = 'primary',
-    children,
-    min = 0,
-    max = 100,
-    value,
-    ...elementProps
-  } = props;
+  const { color = 'primary', children, value, ...elementProps } = props;
 
   const classes = getStyles(styles, [
     'progressBar',
@@ -57,7 +49,10 @@ function ProgressBar(props) {
   ]);
 
   return (
-    <View style={[classes, elementProps.style, { width: `${value}%` }]} {...elementProps}>
+    <View
+      style={[classes, elementProps.style, { width: `${value}%` }]}
+      {...elementProps}
+    >
       {children}
     </View>
   );

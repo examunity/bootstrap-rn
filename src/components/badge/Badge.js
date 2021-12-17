@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyleSheet from '../style/StyleSheet';
-import Text from './Text';
-import v from '../theme/variables';
-import getStyles from '../utils/getStyles';
+import StyleSheet from '../../style/StyleSheet';
+import Text from '../Text';
+import v from '../../theme/variables';
+import getStyles from '../../utils/getStyles';
 
 const propTypes = {
   children: PropTypes.node.isRequired,

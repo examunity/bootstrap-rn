@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
-import View from './../View';
+import View from '../View';
 import TextStyleContext from '../../style/TextStyleContext';
 import each from '../../utils/each';
 import getStyles from '../../utils/getStyles';
@@ -41,20 +41,12 @@ const styles = StyleSheet.create({
       borderColor: shiftColor(v.alertBorderScale, value),
     },
   })),
-
 });
 
 function Card(props) {
-  const {
-    color = 'null',
-    children,
-    ...elementProps
-  } = props;
+  const { color = 'null', children, ...elementProps } = props;
 
-  const classes = getStyles(styles, [
-    'card',
-    `card${ucfirst(color)}`,
-  ]);
+  const classes = getStyles(styles, ['card', `card${ucfirst(color)}`]);
 
   const textClasses = getStyles(styles, [`card${ucfirst(color)}Text`]);
 

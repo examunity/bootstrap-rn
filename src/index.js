@@ -1,27 +1,27 @@
-import Text from './components/Text';
-import View from './components/View';
 import css from './style/css';
 import StyleSheet from './style/StyleSheet';
 import Context from './Context';
 import Provider from './Provider';
-import Alert from './components/Alert';
-import Button from './components/Button';
-import Badge from './components/Badge';
-import BsText from './components/BsText';
-import Card from './components/cards/Card';
+import Alert from './components/alert/Alert';
+import Badge from './components/badge/Badge';
+import Button from './components/buttons/Button';
+import Card from './components/card/Card';
 import Progress from './components/progress/Progress';
+import BsText from './components/BsText';
+import Text from './components/Text';
+import View from './components/View';
 
 export {
-  Text,
-  View,
   css,
   StyleSheet,
   Context,
   Provider,
   Alert,
-  Button,
   Badge,
-  BsText,
+  Button,
   Card,
   Progress,
+  BsText,
+  Text,
+  View,
 };
