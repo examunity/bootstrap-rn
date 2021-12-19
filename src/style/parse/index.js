@@ -1,8 +1,8 @@
 import InputStream from './InputStream';
 import parseBlock from './parseBlock';
 
-function parse(data) {
-  const input = new InputStream(data);
+function parse(...args) {
+  const input = new InputStream(...args);
 
   let result = [
     {
@@ -14,8 +14,6 @@ function parse(data) {
   while (input.remainingChars() > 0) {
     result = parseBlock(input, result);
   }
-
-  console.log(result);
 
   return result;
 }

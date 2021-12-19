@@ -1,11 +1,24 @@
 class InputStream {
-  constructor(input) {
-    this.input = input;
+  constructor(fragments, ...tags) {
+    this.dictionary = fragments.reduce((result, current, i) => {
+      const value = current.split('');
+      const tag = tags[i - 1];
+
+      if (!tag) {
+        return [...result, ...value];
+      }
+
+      if (typeof tag !== 'string') {
+        return [...result, tag, ...value];
+      }
+
+      return [...result, ...tag.split(''), ...value];
+    });
     this.cursor = 0;
   }
 
   peek(offset = 0) {
-    return this.input.charAt(this.cursor + offset);
+    return this.dictionary[this.cursor + offset];
   }
 
   read(marker) {
@@ -30,6 +43,10 @@ class InputStream {
     let value = '';
 
     while (check(this.peek())) {
+      if (typeof this.peek() === 'function') {
+        throw new Error(`CSS syntax error: Unexpected function.`);
+      }
+
       value += this.read();
     }
 
@@ -37,7 +54,7 @@ class InputStream {
   }
 
   remainingChars() {
-    return this.input.length - this.cursor;
+    return this.dictionary.length - this.cursor;
   }
 }
 

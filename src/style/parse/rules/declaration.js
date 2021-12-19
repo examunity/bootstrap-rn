@@ -1,6 +1,8 @@
-import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 import isIdent from '../isIdent';
 import isWhitespace from '../isWhitespace';
+
+const breaksDeclaration = (char) =>
+  typeof char !== 'function' && char !== ';' && char !== '}' && char !== '';
 
 const declaration = {
   locate(input) {
@@ -16,16 +18,27 @@ const declaration = {
     input.charsWhile(isWhitespace);
 
     // Parse value.
-    const value = input.charsWhile(
-      (char) => char !== ';' && char !== '}' && char !== '',
-    );
+    const value = [];
+
+    do {
+      if (typeof input.peek() === 'function') {
+        value.push(input.read());
+      }
+
+      const part = input.charsWhile(breaksDeclaration);
+
+      if (part.length > 0) {
+        value.push(part);
+      }
+    } while (typeof input.peek() === 'function');
 
     if (input.peek() === ';') {
       input.read(';');
     }
 
-    // Transform value to react native compatible value.
-    return getStylesForProperty(getPropertyName(name), value);
+    return {
+      [name]: value,
+    };
   },
 };
 

@@ -1,11 +1,9 @@
-import applyTheme from './utils/applyTheme';
 import parse from './parse';
+import transform from './transform';
 import createStyle from './createStyle';
 
-export default function css(fragments, ...values) {
-  return (theme) => {
-    const definitions = parse(applyTheme(theme, fragments, values));
+export default function css(...args) {
+  const definitions = parse(...args);
 
-    return createStyle(definitions);
-  };
+  return (theme) => createStyle(transform(definitions, theme));
 }

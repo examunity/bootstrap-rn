@@ -28,7 +28,7 @@ const selector = {
     let result = [
       {
         conditions: [condition],
-        declarations: [],
+        declarations: {},
       },
     ];
 

@@ -53,7 +53,7 @@ const directive = {
     let result = [
       {
         conditions: [condition],
-        declarations: [],
+        declarations: {},
       },
     ];
 
