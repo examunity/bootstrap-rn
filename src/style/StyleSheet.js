@@ -1,4 +1,5 @@
 import { StyleSheet as BaseStyleSheet } from 'react-native';
+import variables from '../theme/variables';
 
 let activeThemeKey = null;
 
@@ -72,8 +73,13 @@ const StyleSheet = {
 
     return sheet.active;
   },
-  build(theme: Object) {
-    const themeKey = updateThemeKey(theme);
+  build(theme = {}) {
+    const themeKey = updateThemeKey({
+      variables: {
+        ...variables,
+        ...theme.variables,
+      },
+    });
 
     // If theme is already set, we don't need to do anything.
     if (themeKey === activeThemeKey) {
