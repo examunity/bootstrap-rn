@@ -1,7 +1,21 @@
+import { Platform, PixelRatio } from 'react-native';
 import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 
 const applyTheme = (theme, value) =>
   typeof value === 'function' ? value(theme) : value;
+
+const transformREMUnitRE = /([+-\d.Ee]+)rem/;
+
+const transformREMUnit = (value) => {
+  if (Platform.OS === 'web') {
+    return value;
+  }
+
+  return value.replace(
+    transformREMUnitRE,
+    (_, number) => `${PixelRatio.getFontScale() * 16 * number}px`,
+  );
+};
 
 export default function transform(definitions, theme) {
   return definitions.map((item) => ({
@@ -18,7 +32,10 @@ export default function transform(definitions, theme) {
 
         // TODO: Pre-process css-to-react-native transformation, so that we only
         // need to insert theme variables here.
-        return getStylesForProperty(getPropertyName(name), value);
+        return getStylesForProperty(
+          getPropertyName(name),
+          transformREMUnit(value),
+        );
       })
       .reduce((result, current) => Object.assign(result, current), {}),
   }));
