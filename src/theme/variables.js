@@ -143,11 +143,11 @@ const typography = {
   get fontSizeLg() {
     return this.fontSizeBase * 1.25;
   },
-  fontWeightLighter: 200, // 'lighter' not supported by react-native
-  fontWeightLight: 300,
-  fontWeightNormal: 400,
-  fontWeightBold: 700,
-  fontWeightBolder: 800, // 'bolder' not supported by react-native
+  fontWeightLighter: '200', // 'lighter' not supported by react-native
+  fontWeightLight: '300',
+  fontWeightNormal: '400',
+  fontWeightBold: '700',
+  fontWeightBolder: '800', // 'bolder' not supported by react-native
   get fontWeightBase() {
     return this.fontWeightNormal;
   },
