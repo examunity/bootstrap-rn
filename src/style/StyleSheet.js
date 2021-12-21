@@ -1,4 +1,6 @@
 import { StyleSheet as BaseStyleSheet } from 'react-native';
+import transform from './transform';
+import { BOOTSTYLE_STYLE } from './css';
 import variables from '../theme/variables';
 
 let activeThemeKey = null;
@@ -6,7 +8,7 @@ let activeThemeKey = null;
 const themes = [];
 const sheets = [];
 
-function updateThemeKey(source) {
+const updateThemeKey = (source) => {
   const hash = JSON.stringify(source);
 
   const key = themes.findIndex((theme) => theme.hash === hash);
@@ -18,9 +20,19 @@ function updateThemeKey(source) {
   }
 
   return key;
-}
+};
 
-function createSheet(sheet) {
+const resolveVariables = (theme) => {
+  if (variables.$$typeof !== BOOTSTYLE_STYLE) {
+    return { ...variables, ...theme.variables };
+  }
+
+  const result = transform(variables.ast.children, theme);
+
+  return result[0].variables;
+};
+
+const createSheet = (sheet) => {
   const theme = themes[activeThemeKey].source;
 
   const statelessSource = {};
@@ -50,7 +62,7 @@ function createSheet(sheet) {
       },
     },
   );
-}
+};
 
 const StyleSheet = {
   create(source) {
@@ -75,10 +87,7 @@ const StyleSheet = {
   },
   build(theme = {}) {
     const themeKey = updateThemeKey({
-      variables: {
-        ...variables,
-        ...theme.variables,
-      },
+      variables: resolveVariables(theme),
     });
 
     // If theme is already set, we don't need to do anything.

@@ -1,9 +1,6 @@
 import { Platform, PixelRatio } from 'react-native';
 import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 
-const applyTheme = (theme, value) =>
-  typeof value === 'function' ? value(theme) : value;
-
 const transformREMUnitRE = /([+-\d.Ee]+)rem/;
 
 const transformREMUnit = (value) => {
@@ -17,26 +14,70 @@ const transformREMUnit = (value) => {
   );
 };
 
-export default function transform(definitions, theme) {
-  return definitions.map((item) => ({
-    ...item,
-    declarations: Object.entries(item.declarations)
-      .map(([name, fragments]) => {
-        // Resolve functions with theme.
-        const value = fragments.reduce(
-          (result, current) => `${result}${applyTheme(theme, current)}`,
-          '',
-        );
+const applyVariables = (variables, value) =>
+  typeof value === 'function' ? value(variables) : value;
 
-        // Transform value to react native compatible value.
+const resolveValue = (value, definition, theme) => {
+  const variables = { ...theme.variables, ...definition.variables };
 
-        // TODO: Pre-process css-to-react-native transformation, so that we only
-        // need to insert theme variables here.
-        return getStylesForProperty(
-          getPropertyName(name),
-          transformREMUnit(value),
-        );
-      })
-      .reduce((result, current) => Object.assign(result, current), {}),
-  }));
+  return transformREMUnit(
+    value.reduce(
+      (previous, current) => `${previous}${applyVariables(variables, current)}`,
+      '',
+    ),
+  );
+};
+
+export default function transform(
+  children,
+  theme,
+  scopes = [],
+  variables = {},
+) {
+  let definitions = [
+    {
+      scopes,
+      declarations: {},
+      variables: { ...variables },
+    },
+  ];
+
+  children.forEach((child) => {
+    if (child.type === 'variable') {
+      definitions[0].variables[child.name] = resolveValue(
+        child.value,
+        definitions[0],
+        theme,
+      );
+    }
+
+    if (child.type === 'declaration') {
+      // Transform value to react native compatible value.
+
+      // TODO: Pre-process css-to-react-native transformation, so that we only
+      // need to insert theme variables here.
+      Object.assign(
+        definitions[0].declarations,
+        getStylesForProperty(
+          getPropertyName(child.name),
+          resolveValue(child.value, definitions[0], theme),
+        ),
+      );
+    }
+
+    if (child.type === 'block') {
+      definitions = definitions.concat(
+        transform(
+          child.children,
+          theme,
+          // Add child scopes to current scopes.
+          [...scopes, ...child.scopes],
+          // Pass down variables, so that we can extend them.
+          definitions[0].variables,
+        ),
+      );
+    }
+  });
+
+  return definitions;
 }

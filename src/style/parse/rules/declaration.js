@@ -31,16 +31,12 @@ const declaration = {
 
         const variableName = input.charsWhile(isIdent);
 
-        value.push((theme) => {
-          if (
-            !theme ||
-            !theme.variables ||
-            theme.variables[variableName] === undefined
-          ) {
+        value.push((variables) => {
+          if (variables[variableName] === undefined) {
             throw new Error(`Variable $${variableName} is not defined.`);
           }
 
-          return theme.variables[variableName];
+          return variables[variableName];
         });
       }
 
@@ -61,7 +57,9 @@ const declaration = {
     }
 
     return {
-      [name]: value,
+      type: 'declaration',
+      name,
+      value,
     };
   },
 };

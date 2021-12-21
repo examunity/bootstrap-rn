@@ -34,15 +34,11 @@ const directive = {
     input.charsWhile(isWhitespace);
     input.read('(');
 
-    const condition = {
-      type: 'directive',
-      name,
-      args: [],
-    };
+    const args = [];
 
     do {
       input.charsWhile(isWhitespace);
-      condition.args.push(input.charsWhile(isIdent));
+      args.push(input.charsWhile(isIdent));
       input.charsWhile(isWhitespace);
     } while (consumeArgumentSeperator(input));
 
@@ -50,19 +46,28 @@ const directive = {
     input.charsWhile(isWhitespace);
     input.read('{');
 
-    let result = [
-      {
-        conditions: [condition],
-        declarations: {},
-      },
-    ];
+    const children = [];
 
     while (input.peek() !== '}') {
-      result = parseBlock(input, result);
+      const block = parseBlock(input);
+
+      if (block) {
+        children.push(block);
+      }
     }
     input.read('}');
 
-    return result;
+    return {
+      type: 'block',
+      scopes: [
+        {
+          type: 'directive',
+          name,
+          args,
+        },
+      ],
+      children,
+    };
   },
 };
 

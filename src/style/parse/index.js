@@ -4,18 +4,20 @@ import parseBlock from './parseBlock';
 function parse(...args) {
   const input = new InputStream(...args);
 
-  let result = [
-    {
-      conditions: [],
-      declarations: {},
-    },
-  ];
+  const children = [];
 
   while (input.remainingChars() > 0) {
-    result = parseBlock(input, result);
+    const block = parseBlock(input);
+
+    if (block) {
+      children.push(block);
+    }
   }
 
-  return result;
+  return {
+    type: 'root',
+    children,
+  };
 }
 
 export default parse;

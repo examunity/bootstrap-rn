@@ -17,27 +17,30 @@ const selector = {
       throw new Error(`CSS syntax error: Unexpected selector name "${name}".`);
     }
 
-    const condition = {
-      type: 'selector',
-      name,
-    };
-
     input.charsWhile(isWhitespace);
     input.read('{');
 
-    let result = [
-      {
-        conditions: [condition],
-        declarations: {},
-      },
-    ];
+    const children = [];
 
     while (input.peek() !== '}') {
-      result = parseBlock(input, result);
+      const block = parseBlock(input);
+
+      if (block) {
+        children.push(block);
+      }
     }
     input.read('}');
 
-    return result;
+    return {
+      type: 'block',
+      scopes: [
+        {
+          type: 'selector',
+          name,
+        },
+      ],
+      children,
+    };
   },
 };
 

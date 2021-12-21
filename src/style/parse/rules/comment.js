@@ -23,7 +23,7 @@ const comment = {
     if (input.peek() === '/') {
       input.read('/');
       input.charsWhile((char) => char !== '\n');
-      return;
+      return null;
     }
 
     input.read('*');
@@ -32,6 +32,8 @@ const comment = {
     do {
       input.charsWhile((char) => char !== '*');
     } while (consumeAsterisk(input));
+
+    return null;
   },
 };
 
