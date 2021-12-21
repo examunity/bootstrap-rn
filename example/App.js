@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Alert,
   Provider,
-  Button,
   Badge,
   BsText,
   Text,
@@ -55,37 +54,40 @@ function App() {
           <BsText h5>H5 Bootstrap Text H5</BsText>
           <BsText h6>H6 Bootstrap Text H6</BsText>
 
-          <Card >
+          <Card>
             <Card.Header>
-              <BsText h4>Card Header Text Prime h4</BsText>
+              <Text>Card Header Text</Text>
             </Card.Header>
-            <Card.Body>Body Text</Card.Body>
+            <Card.Body>
+              <Text>Body Text</Text>
+            </Card.Body>
             <Card.Footer>
-              <BsText h4>Card Footer Text  h4</BsText>
+              <Text>Card Footer Text</Text>
               <Progress>
-                <Progress.Bar value={80}></Progress.Bar>
+                <Progress.Bar value={80} />
               </Progress>
             </Card.Footer>
           </Card>
 
           <View style={{ width: 600, height: 30, marginTop: 20 }}>
             <Progress>
-              <Progress.Bar value={40} color="danger"></Progress.Bar>
+              <Progress.Bar value={40} color="danger" />
             </Progress>
           </View>
 
           <View style={{ width: 600, height: 30 }}>
             <Progress>
-              <Progress.Bar value={100} color="success">100%</Progress.Bar>
+              <Progress.Bar value={100} color="success">
+                <Text>100%</Text>
+              </Progress.Bar>
             </Progress>
           </View>
 
           <View style={{ width: 600, height: 30 }}>
             <Progress>
-              <Progress.Bar value={70} color="info"></Progress.Bar>
+              <Progress.Bar value={70} color="info" />
             </Progress>
           </View>
-
         </View>
       </View>
     </Provider>
