@@ -117,6 +117,13 @@ const components = {
   borderRadiusSm: 0.2 * REM,
   borderRadiusLg: 0.3 * REM,
   borderRadiusPill: 50 * REM,
+
+  // scss-docs-start box-shadow-variables
+  // $box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+  // $box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
+  // $box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
+  // $box-shadow-inset:            inset 0 1px 2px rgba($black, .075) !default;
+  // scss-docs-end box-shadow-variables
 };
 
 // Typography
@@ -232,6 +239,46 @@ const buttons = {
   btnBorderRadius: 0.25 * REM,
 };
 
+// Modals
+
+const modal = {
+  modalInnerPadding: spacing.spacer,
+  modalFooterMarginBetween: 0.5 * REM,
+
+  modalDialogMargin: 0.5 * REM,
+  modalDialogMarginYSmUp: 1.75 * REM,
+  modalTitleLineHeight: typography.lineHeightBase,
+  modalContentColor: null,
+  modalContentBg: grays.white,
+  modalContentBorderColor: rgba(grays.black, 0.2),
+  modalContentBorderWidth: components.borderWidth,
+  modalContentBorderRadius: components.borderRadiusLg,
+  modalContentInnerBorderRadius: 3.8, // subtract(components.borderRadiusLg, $modal-content-border-width) !default;
+  // modalContentBoxShadowXs: $box-shadow-sm !default;
+  // modalContentBoxShadowSmUp:    $box-shadow !default;
+
+  modalBackdropBg: grays.black,
+  modalBackdropOpacity: 0.5,
+  modalHeaderBorderColor: components.borderColor,
+  modalFooterBorderColor: components.borderColor,
+  modalHeaderBorderWidth: components.borderWidth,
+  modalFooterBorderWidth: components.borderWidth,
+  modalHeaderPaddingY: spacing.spacer,
+  modalHeaderPaddingX: spacing.spacer,
+  // modal-header-padding:              $modal-header-padding-y $modal-header-padding-x !default; // Keep this for backwards compatibility
+
+  modalSm: 300,
+  modalMd: 500,
+  modalLg: 800,
+  modalXl: 1140,
+
+  // modalFadeTransform:              translate(0, -50px) !default;
+  // modalShowTransform:              none !default;
+  // modalTransition:                  transform .3s ease-out !default;
+  // modalScaleTransform:             scale(1.02) !default;
+};
+// scss-docs-end modal-variables
+
 //-------------------------------------------------------------------------------------------------
 const variables = {
   ...grays,
@@ -246,6 +293,7 @@ const variables = {
   ...buttons,
   ...cards,
   ...progress,
+  ...modal,
 };
 
 export default variables;
