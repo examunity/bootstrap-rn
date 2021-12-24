@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
-import Text from '../Text';
 import getStyles from '../../utils/getStyles';
 import v from '../../theme/variables';
 
@@ -12,7 +11,7 @@ const styles = StyleSheet.create({
   modalHeader: {
     paddingHorizontal: v.modalHeaderPaddingX,
     paddingVertical: v.modalHeaderPaddingY,
-    borderBottomWidth: v.cardBorderWidth,
+    borderBottomWidth: v.modalHeaderBorderWidth,
     borderStyle: 'solid',
     borderColor: v.modalHeaderBorderColor,
   },
@@ -25,7 +24,7 @@ function ModalHeader(props) {
 
   return (
     <View style={[classes, elementProps.style]} {...elementProps}>
-      <Text>{children}</Text>
+      {children}
     </View>
   );
 }

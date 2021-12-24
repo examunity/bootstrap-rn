@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable } from 'react-native';
+
 import {
   Alert,
   Provider,
@@ -13,6 +13,7 @@ import {
   Progress,
   Modal,
 } from 'bootstyle';
+import { Pressable } from 'react-native';
 
 const breakpoints = {
   sm: 576,
@@ -31,9 +32,7 @@ const styles = StyleSheet.create({
 });
 
 function App() {
-  // const modalVisible = false;
-  const [modalVisible, setModalVisible] = useState(true);
-  console.log(modalVisible);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
@@ -59,6 +58,35 @@ function App() {
           <BsText h4>H4 Bootstrap Text H4</BsText>
           <BsText h5>H5 Bootstrap Text H5</BsText>
           <BsText h6>H6 Bootstrap Text H6</BsText>
+
+          <View style={{ width: 600, height: 30 }}>
+            <Modal visible={modalVisible}>
+              <Modal.Header>
+                <Text>Modal Title Text</Text>
+                <Pressable onPress={() => setModalVisible(false)}>
+                  <Text>Close</Text>
+                </Pressable>
+              </Modal.Header>
+              <Modal.Body>
+                <Text>Body Text</Text>
+              </Modal.Body>
+              <Modal.Footer>
+                <Text>Footer Text</Text>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Hide modal</Text>
+                </Pressable>
+              </Modal.Footer>
+            </Modal>
+            <Pressable
+              style={[styles.button, styles.buttonOpen]}
+              onPress={() => setModalVisible(true)}
+            >
+              <Text style={styles.textStyle}>Show Modal from components</Text>
+            </Pressable>
+          </View>
 
           <Card>
             <Card.Header>
@@ -93,27 +121,6 @@ function App() {
             <Progress>
               <Progress.Bar value={70} color="info" />
             </Progress>
-          </View>
-
-          <View style={{ width: 600, height: 30 }}>
-            <Pressable onPress={() => setModalVisible(!modalVisible)}>
-              <Text>Click me to Show modal</Text>
-            </Pressable>
-            <Modal visible={modalVisible}>
-              <Modal.Header>Modal Title Text</Modal.Header>
-              <Modal.Body>
-                <Text>Body Text</Text>
-              </Modal.Body>
-              <Modal.Footer>
-                <Text>Footer Text</Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>Click me to Hide modal</Text>
-                </Pressable>
-              </Modal.Footer>
-            </Modal>
           </View>
         </View>
       </View>

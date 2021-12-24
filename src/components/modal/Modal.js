@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'react-native';
+import { Modal as BaseModal } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import getStyles from '../../utils/getStyles';
 import v from '../../theme/variables';
@@ -23,11 +23,11 @@ const propTypes = {
 };
 
 const styles = StyleSheet.create({
-  modal: {
-    margin: 'auto',
-    width: v.modalSm,
-    backgroundColor: v.modalContentBg,
-    borderRadius: v.modalContentBorderRadius,
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -37,35 +37,41 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  modal: {
+    borderRadius: v.modalContentBorderRadius,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
 });
 
-const ModalComponent = (props) => {
+const Modal = (props) => {
   const { children, visible, ...elementProps } = props;
-  const [modalVisible, setModalVisible] = useState(visible);
 
   const classes = getStyles(styles, ['modal']);
   return (
-    <Modal
+    <BaseModal
       animationType="slide"
       transparent="true"
-      visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(!modalVisible);
-      }}
+      visible={visible}
+      // onRequestClose={() => {
+      //   setModalVisible(!modalVisible);
+      // }}
     >
-      <View style={[classes, elementProps.style, styles.centeredView]}>
-        {children}
+      <View style={[classes, elementProps.style]}>
+        <View style={styles.modalView}>{children}</View>
       </View>
-    </Modal>
+    </BaseModal>
   );
 };
 
-ModalComponent.displayName = 'Modal';
-ModalComponent.propTypes = propTypes;
+Modal.displayName = 'Modal';
+Modal.propTypes = propTypes;
 
-ModalComponent.Header = ModalHeader;
-ModalComponent.Body = ModalBody;
-ModalComponent.Footer = ModalFooter;
+Modal.Header = ModalHeader;
+Modal.Body = ModalBody;
+Modal.Footer = ModalFooter;
 // Modal2.Title = ModalTitle;
 
-export default ModalComponent;
+export default Modal;
