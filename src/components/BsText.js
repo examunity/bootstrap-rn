@@ -46,7 +46,6 @@ function BsText({
 }
 
 BsText.defaultProps = {
-  children: null,
   h1: false,
   h2: false,
   h3: false,
@@ -65,7 +64,7 @@ BsText.defaultProps = {
 };
 
 BsText.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.node.isRequired,
   h1: PropTypes.bool,
   h2: PropTypes.bool,
   h3: PropTypes.bool,

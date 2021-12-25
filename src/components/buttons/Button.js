@@ -2,56 +2,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
+import TextStyleProvider from '../../style/TextStyleProvider';
 import Pressable from '../Pressable';
-import Text from '../Text';
-import each from '../../utils/each';
-import getStyles from '../../utils/getStyles';
-import ucfirst from '../../utils/ucfirst';
-import v from '../../theme/variables';
+import { getStyles, each } from '../../utils';
+import { THEME_COLORS } from '../../theme/constants';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.keys(v.themeColors)),
+  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   dismissible: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
-  button: {
-    position: 'relative',
-    paddingVertical: v.btnPaddingY,
-    paddingHorizontal: v.btnPaddingX,
-    borderWidth: v.btnBorderWidth,
-    borderColor: 'transparent',
-    borderRadius: v.btnBorderRadius,
-  },
-  ...each(v.themeColors, (state, value) => ({
-    [`button${ucfirst(state)}`]: {
-      backgroundColor: value,
-      borderColor: value,
-    },
+  '.btn': css`
+    position: relative;
+    padding: $btn-padding-y $btn-padding-x;
+    border: $btn-border-width solid transparent;
+    border-radius: $btn-border-radius;
+  `,
+  '.btn-text': css`
+    font-family: $btn-font-family;
+    font-weight: $btn-font-weight;
+    line-height: $btn-line-height;
+    color: $body-color;
+    text-align: center;
+    text-decoration: $link-decoration;
+    white-space: $btn-white-space;
+    // vertical-align: middle;
+  `,
+  ...each(THEME_COLORS, (color, value) => ({
+    [`.btn-${color}`]: css`
+      background-color: ${value};
+      border-color: ${value};
+    `,
   })),
-  buttonDismissible: {
+  '.btn-dismissible': {
     // TODO
   },
 });
 
 function Button(props) {
   const {
+    children,
     color = 'primary',
     dismissible = false,
-    children,
+    style,
     ...elementProps
   } = props;
 
   const classes = getStyles(styles, [
-    'button',
-    `button${ucfirst(color)}`,
-    dismissible && 'buttonDismissible',
+    '.btn',
+    `.btn-${color}`,
+    dismissible && '.btn-dismissible',
   ]);
 
+  const textClasses = getStyles(styles, ['.btn-text']);
+
   return (
-    <Pressable style={classes} {...elementProps}>
-      <Text>{children}</Text>
+    <Pressable {...elementProps} style={[classes, style]}>
+      <TextStyleProvider value={textClasses}>{children}</TextStyleProvider>
     </Pressable>
   );
 }

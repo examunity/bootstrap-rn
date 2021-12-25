@@ -1,65 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
+import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
-import TextStyleContext from '../../style/TextStyleContext';
-import each from '../../utils/each';
-import getStyles from '../../utils/getStyles';
-import ucfirst from '../../utils/ucfirst';
-import v from '../../theme/variables';
-import { shiftColor } from '../../utils/functions';
+import { getStyles, each } from '../../utils';
+import { THEME_COLORS } from '../../theme/constants';
+import { shiftColor } from '../../theme/functions';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.keys(v.themeColors)),
+  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   dismissible: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
-  alert: {
-    position: 'relative',
-    paddingVertical: v.alertPaddingY,
-    paddingHorizontal: v.alertPaddingX,
-    marginBottom: v.alertMarginBottom,
-    borderWidth: v.alertBorderWidth,
-    borderColor: 'transparent',
-    borderRadius: v.alertBorderRadius,
-  },
-  ...each(v.themeColors, (state, value) => ({
-    [`alert${ucfirst(state)}`]: {
-      backgroundColor: shiftColor(v.alertBgScale, value),
-      borderColor: shiftColor(v.alertBorderScale, value),
-    },
-    [`alert${ucfirst(state)}Text`]: {
-      color: shiftColor(v.alertColorScale, value),
-    },
+  '.alert': css`
+    position: relative;
+    padding: $alert-padding-y $alert-padding-x;
+    margin-bottom: $alert-margin-bottom;
+    background-color: transparent;
+    border: $alert-border-width solid transparent;
+    border-radius: $alert-border-radius;
+  `,
+  ...each(THEME_COLORS, (state, value) => ({
+    [`.alert-${state}`]: css`
+      background-color: ${(t) => shiftColor(t['alert-bg-scale'], value(t))};
+      border-color: ${(t) => shiftColor(t['alert-border-scale'], value(t))};
+    `,
+    [`.alert-${state}-text`]: css`
+      color: ${(t) => shiftColor(t['alert-color-scale'], value(t))};
+    `,
   })),
-  alertDismissible: {
+  '.alert-dismissible': {
     // TODO
   },
 });
 
 function Alert(props) {
   const {
+    children,
     color = 'primary',
     dismissible = false,
-    children,
+    style,
     ...elementProps
   } = props;
 
   const classes = getStyles(styles, [
-    'alert',
-    `alert${ucfirst(color)}`,
-    dismissible && 'alertDismissible',
+    '.alert',
+    `.alert-${color}`,
+    dismissible && '.alert-dismissible',
   ]);
 
-  const textClasses = getStyles(styles, [`alert${ucfirst(color)}Text`]);
+  const textClasses = getStyles(styles, [`.alert-${color}-text`]);
 
   return (
-    <View style={[classes, elementProps.style]} {...elementProps}>
-      <TextStyleContext.Provider value={textClasses}>
-        {children}
-      </TextStyleContext.Provider>
+    <View {...elementProps} style={[classes, style]}>
+      <TextStyleProvider value={textClasses}>{children}</TextStyleProvider>
     </View>
   );
 }

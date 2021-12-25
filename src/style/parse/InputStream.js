@@ -1,3 +1,15 @@
+const checkFunction = (char, silent) => {
+  if (typeof char !== 'function') {
+    return true;
+  }
+
+  if (silent) {
+    return false;
+  }
+
+  throw new Error(`CSS syntax error: Unexpected function.`);
+};
+
 class InputStream {
   constructor(fragments, ...tags) {
     this.dictionary = fragments.reduce((result, current, i) => {
@@ -39,14 +51,10 @@ class InputStream {
     return char;
   }
 
-  charsWhile(check) {
+  charsWhile(check, silent = false) {
     let value = '';
 
-    while (check(this.peek())) {
-      if (typeof this.peek() === 'function') {
-        throw new Error(`CSS syntax error: Unexpected function.`);
-      }
-
+    while (checkFunction(this.peek(), silent) && check(this.peek())) {
       value += this.read();
     }
 

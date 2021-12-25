@@ -1,31 +1,23 @@
-import v from './variables';
+import { THEME_COLORS, SPACERS } from './constants';
 
-const utilitiesColors = v.themeColors;
+export const UTILITIES_COLORS = THEME_COLORS;
 
-const utilitiesTextColors = {
-  ...utilitiesColors,
-  black: v.black,
-  white: v.white,
-  body: v.bodyColor,
+export const UTILITIES_TEXT_COLORS = {
+  ...UTILITIES_COLORS,
+  black: 'black',
+  white: 'white',
+  body: 'body-color',
 };
 
-const utilititesBgColors = {
-  ...utilitiesColors,
-  black: v.black,
-  white: v.white,
-  body: v.bodyBg,
+export const UTILITIES_BG_COLORS = {
+  ...UTILITIES_COLORS,
+  black: 'black',
+  white: 'white',
+  body: 'body-bg',
 };
 
-const negativeSpacers = Object.values(v.spacers).map((spacer) => -1 * spacer);
+export const NEGATIVE_SPACERS = Object.values(SPACERS).map(
+  (spacer) => -1 * spacer,
+);
 
-const gutters = v.spacers;
-
-const maps = {
-  utilitiesColors,
-  utilitiesTextColors,
-  utilititesBgColors,
-  negativeSpacers,
-  gutters,
-};
-
-export default maps;
+export const GUTTERS = SPACERS;

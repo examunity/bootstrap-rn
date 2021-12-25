@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Pressable } from 'react-native';
+import React from 'react';
 import {
   Alert,
   Provider,
@@ -11,7 +10,6 @@ import {
   css,
   Card,
   Progress,
-  Modal,
 } from 'bootstyle';
 
 const breakpoints = {
@@ -31,10 +29,6 @@ const styles = StyleSheet.create({
 });
 
 function App() {
-  // const modalVisible = false;
-  const [modalVisible, setModalVisible] = useState(true);
-  console.log(modalVisible);
-
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
       <View style={styles.container}>
@@ -93,27 +87,6 @@ function App() {
             <Progress>
               <Progress.Bar value={70} color="info" />
             </Progress>
-          </View>
-
-          <View style={{ width: 600, height: 30 }}>
-            <Pressable onPress={() => setModalVisible(!modalVisible)}>
-              <Text>Click me to Show modal</Text>
-            </Pressable>
-            <Modal visible={modalVisible}>
-              <Modal.Header>Modal Title Text</Modal.Header>
-              <Modal.Body>
-                <Text>Body Text</Text>
-              </Modal.Body>
-              <Modal.Footer>
-                <Text>Footer Text</Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>Click me to Hide modal</Text>
-                </Pressable>
-              </Modal.Footer>
-            </Modal>
           </View>
         </View>
       </View>

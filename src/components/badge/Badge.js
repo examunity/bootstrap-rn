@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
+import TextStyleProvider from '../../style/TextStyleProvider';
+import css from '../../style/css';
 import Text from '../Text';
-import v from '../../theme/variables';
-import getStyles from '../../utils/getStyles';
+import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -12,30 +13,36 @@ const propTypes = {
 };
 
 const styles = StyleSheet.create({
-  badge: {
-    paddingVertical: v.badgePaddingY,
-    paddingHorizontal: v.badgePaddingX,
-    borderRadius: v.badgeBorderRadius,
-  },
-  badgeText: {
-    fontSize: v.badgeFontSize,
-    lineHeight: 1,
-    color: v.badgeColor,
-    textAlign: 'center',
-  },
+  '.badge': css`
+    // display: inline-block;
+    padding: $badge-padding-y $badge-padding-x;
+    border-radius: $badge-border-radius;
+    // @include gradient-bg();
+  `,
+  '.badge-text': css`
+    font-size: $badge-font-size;
+    font-weight: $badge-font-weight;
+    line-height: 1rem; // original value 1
+    color: $badge-color;
+    text-align: center;
+    white-space: nowrap;
+    // vertical-align: baseline;
+  `,
 });
 
 function Badge(props) {
   const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['badge']);
+  const classes = getStyles(styles, ['.badge']);
 
-  const textClasses = getStyles(styles, ['badgeText']);
+  const textClasses = getStyles(styles, ['.badge-text']);
 
   return (
-    <Text style={[classes, textClasses, style]} {...elementProps}>
-      {children}
-    </Text>
+    <TextStyleProvider value={textClasses}>
+      <Text {...elementProps} style={[classes, style]}>
+        {children}
+      </Text>
+    </TextStyleProvider>
   );
 }
 
