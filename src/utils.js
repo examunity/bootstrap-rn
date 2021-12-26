@@ -1,8 +1,7 @@
 export function each(source, apply) {
   return Object.entries(source)
     .map(([key, value]) => {
-      const resolve =
-        typeof value === 'function' ? value : (theme) => theme[value];
+      const resolve = typeof value === 'function' ? value : () => value;
 
       return apply(key, resolve);
     })

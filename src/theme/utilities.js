@@ -27,7 +27,7 @@ const utilities = {
     class: 'bg',
     values: {
       ...UTILITIES_BG_COLORS,
-      transparent: () => 'transparent',
+      transparent: 'transparent',
     },
   }),
 };
