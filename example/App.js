@@ -32,7 +32,7 @@ function App() {
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
       <View style={styles.container}>
-        <Text>Anton</Text>
+        <Text styleName="bg-primary text-danger">Anton</Text>
         <Alert color="primary">
           <Text>Patrik</Text>
         </Alert>

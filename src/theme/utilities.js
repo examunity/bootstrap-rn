@@ -1,4 +1,4 @@
-import { UTILITIES_BG_COLORS } from './maps';
+import { UTILITIES_TEXT_COLORS, UTILITIES_BG_COLORS } from './maps';
 import css from '../style/css';
 import { each } from '../utils';
 
@@ -22,6 +22,16 @@ const utilities = {
       'text-top': 'text-top',
     },
   }), */
+  ...make({
+    property: 'color',
+    class: 'text',
+    values: {
+      ...UTILITIES_TEXT_COLORS,
+      muted: (t) => t['text-muted'],
+      'black-50': (t) => `rgba(${t.black}, 0.5)`,
+      'white-50': (t) => `rgba(${t.white}, 0.5)`,
+    },
+  }),
   ...make({
     property: 'background-color',
     class: 'bg',
