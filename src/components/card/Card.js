@@ -10,6 +10,7 @@ import CardFooter from './CardFooter';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 

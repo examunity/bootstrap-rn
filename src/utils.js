@@ -1,6 +1,11 @@
-export function each(source, handle) {
+export function each(source, apply) {
   return Object.entries(source)
-    .map(([key, value]) => handle(key, (theme) => theme[value]))
+    .map(([key, value]) => {
+      const resolve =
+        typeof value === 'function' ? value : (theme) => theme[value];
+
+      return apply(key, resolve);
+    })
     .reduce((carry, item) => Object.assign(carry, item), {});
 }
 
