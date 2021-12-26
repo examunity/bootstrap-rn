@@ -4,20 +4,20 @@ export const UTILITIES_COLORS = THEME_COLORS;
 
 export const UTILITIES_TEXT_COLORS = {
   ...UTILITIES_COLORS,
-  black: 'black',
-  white: 'white',
-  body: 'body-color',
+  black: (t) => t.black,
+  white: (t) => t.white,
+  body: (t) => t['body-color'],
 };
 
 export const UTILITIES_BG_COLORS = {
   ...UTILITIES_COLORS,
-  black: 'black',
-  white: 'white',
-  body: 'body-bg',
+  black: (t) => t.black,
+  white: (t) => t.white,
+  body: (t) => t['body-bg'],
 };
 
-export const NEGATIVE_SPACERS = Object.values(SPACERS).map(
-  (spacer) => -1 * spacer,
+export const NEGATIVE_SPACERS = Object.values(SPACERS).map((spacer) => (t) =>
+  -1 * spacer(t),
 );
 
 export const GUTTERS = SPACERS;
