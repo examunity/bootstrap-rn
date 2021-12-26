@@ -20,8 +20,8 @@ function Pressable({ style, styleName, ...props }) {
       {...props}
       style={(interaction) => {
         const result = [
-          utilitiesStyles,
           typeof style === 'function' ? style({ media, interaction }) : style,
+          utilitiesStyles,
         ];
 
         return result;

@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import css from '../style/css';
 import { subtract } from './functions';
 
@@ -292,9 +293,13 @@ const variables = css`
   //
   // Font, line-height, and color for body text, headings, and more.
 
-  $font-family-sans-serif: system-ui; /* system-ui, -apple-system, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; */
+  $font-family-sans-serif: ${() => {
+    if (Platform.OS !== 'web') {
+      return 'System';
+    }
+
+    return 'system-ui'; // "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
+  }};
   $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
   $font-family-base: $font-family-sans-serif;
@@ -315,9 +320,9 @@ const variables = css`
 
   $font-weight-base: $font-weight-normal;
 
-  $line-height-base: 1.5rem; // original value 1
-  $line-height-sm: 1.25rem; // original value 1
-  $line-height-lg: 2rem; // original value 1
+  $line-height-base: 1.5rem; // 1.5;
+  $line-height-sm: 1.25rem; // 1.25;
+  $line-height-lg: 2rem; // 2;
 
   $h1-font-size: $font-size-base * 2.5;
   $h2-font-size: $font-size-base * 2;
@@ -486,11 +491,11 @@ const variables = css`
 
   // Badges
 
-  $badge-font-size: 0.75em;
+  $badge-font-size: 0.75rem; // 0.75em;
   $badge-font-weight: $font-weight-bold;
   $badge-color: $white;
-  $badge-padding-y: 0.35em;
-  $badge-padding-x: 0.65em;
+  $badge-padding-y: 0.35rem; // 0.35em;
+  $badge-padding-x: 0.65rem; // 0.65em;
   $badge-border-radius: $border-radius;
 
   // Modals

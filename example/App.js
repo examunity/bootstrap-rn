@@ -71,13 +71,13 @@ function App() {
 
           <View style={{ width: 600, height: 30, marginTop: 20 }}>
             <Progress>
-              <Progress.Bar value={40} color="danger" />
+              <Progress.Bar value={40} styleName="bg-danger" />
             </Progress>
           </View>
 
           <View style={{ width: 600, height: 30 }}>
             <Progress>
-              <Progress.Bar value={100} color="success">
+              <Progress.Bar value={100} styleName="bg-success">
                 <Text>100%</Text>
               </Progress.Bar>
             </Progress>
@@ -85,7 +85,7 @@ function App() {
 
           <View style={{ width: 600, height: 30 }}>
             <Progress>
-              <Progress.Bar value={70} color="info" />
+              <Progress.Bar value={70} styleName="bg-info" />
             </Progress>
           </View>
         </View>

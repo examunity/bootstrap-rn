@@ -19,8 +19,8 @@ function View({ style, styleName, ...props }) {
     <BaseView
       {...props}
       style={[
-        utilitiesStyles,
         typeof style === 'function' ? style({ media }) : style,
+        utilitiesStyles,
       ]}
     />
   );

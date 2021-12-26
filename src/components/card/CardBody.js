@@ -14,7 +14,7 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.card-body': css`
-    flex: 1 1 auto;
+    // flex: 1 1 auto;
     padding: $card-spacer-y $card-spacer-x;
   `,
   '.card-body-text': css`

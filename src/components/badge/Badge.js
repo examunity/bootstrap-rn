@@ -4,6 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import TextStyleProvider from '../../style/TextStyleProvider';
 import css from '../../style/css';
 import Text from '../Text';
+import View from '../View';
 import { getStyles } from '../../utils';
 
 const propTypes = {
@@ -22,10 +23,10 @@ const styles = StyleSheet.create({
   '.badge-text': css`
     font-size: $badge-font-size;
     font-weight: $badge-font-weight;
-    line-height: 1rem; // original value 1
+    line-height: 1rem; // 1;
     color: $badge-color;
     text-align: center;
-    white-space: nowrap;
+    // white-space: nowrap;
     // vertical-align: baseline;
   `,
 });
@@ -38,11 +39,11 @@ function Badge(props) {
   const textClasses = getStyles(styles, ['.badge-text']);
 
   return (
-    <TextStyleProvider value={textClasses}>
-      <Text {...elementProps} style={[classes, style]}>
-        {children}
-      </Text>
-    </TextStyleProvider>
+    <View {...elementProps} style={[classes, style]}>
+      <TextStyleProvider value={textClasses}>
+        <Text>{children}</Text>
+      </TextStyleProvider>
+    </View>
   );
 }
 

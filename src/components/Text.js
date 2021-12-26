@@ -36,8 +36,8 @@ function Text({ style, styleName, ...props }) {
       style={[
         styles.text,
         textStyle,
-        utilitiesStyles,
         typeof style === 'function' ? style({ media }) : style,
+        utilitiesStyles,
       ]}
     />
   );

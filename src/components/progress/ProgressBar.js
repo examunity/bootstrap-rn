@@ -4,6 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import TextStyleProvider from '../../style/TextStyleProvider';
 import css from '../../style/css';
 import Text from '../Text';
+import View from '../View';
 import { getStyles } from '../../utils';
 
 const propTypes = {
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     color: white;
     text-align: center;
     // white-space: nowrap;
+    line-height: 1.125rem; // added for bootstyle
   `,
 });
 
@@ -37,11 +39,11 @@ function ProgressBar(props) {
   const textClasses = getStyles(styles, ['.progress-bar-text']);
 
   return (
-    <TextStyleProvider value={textClasses}>
-      <Text {...elementProps} style={[classes, style, { width: `${value}%` }]}>
-        {children}
-      </Text>
-    </TextStyleProvider>
+    <View {...elementProps} style={[classes, style, { width: `${value}%` }]}>
+      <TextStyleProvider value={textClasses}>
+        <Text>{children || ' '}</Text>
+      </TextStyleProvider>
+    </View>
   );
 }
 
