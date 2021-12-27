@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   '.badge-text': css`
     font-size: $badge-font-size;
     font-weight: $badge-font-weight;
-    line-height: 1rem; // 1;
+    line-height: 0.75rem; // 1;
     color: $badge-color;
     text-align: center;
     // white-space: nowrap;
@@ -40,7 +40,7 @@ function Badge(props) {
 
   return (
     <View {...elementProps} style={[classes, style]}>
-      <TextStyleProvider value={textClasses}>
+      <TextStyleProvider style={textClasses}>
         <Text>{children}</Text>
       </TextStyleProvider>
     </View>

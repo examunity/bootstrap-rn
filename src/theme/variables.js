@@ -2,9 +2,6 @@ import { Platform } from 'react-native';
 import css from '../style/css';
 import { subtract } from './functions';
 
-export const REM = 16;
-export const EM = (scale) => REM * scale;
-
 const variables = css`
   // Color system
 
@@ -494,8 +491,8 @@ const variables = css`
   $badge-font-size: 0.75rem; // 0.75em;
   $badge-font-weight: $font-weight-bold;
   $badge-color: $white;
-  $badge-padding-y: 0.35rem; // 0.35em;
-  $badge-padding-x: 0.65rem; // 0.65em;
+  $badge-padding-y: 0.75 * 0.35rem; // 0.35em;
+  $badge-padding-x: 0.75 * 0.65rem; // 0.65em;
   $badge-border-radius: $border-radius;
 
   // Modals
