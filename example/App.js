@@ -10,6 +10,7 @@ import {
   css,
   Card,
   Progress,
+  ScrollView,
 } from 'bootstyle';
 
 const breakpoints = {
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
 function App() {
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text styleName="bg-primary text-danger">Anton</Text>
         <Alert color="primary">
           <Text>Patrik</Text>
@@ -78,7 +79,7 @@ function App() {
           <View style={{ width: 600, height: 30 }}>
             <Progress>
               <Progress.Bar value={100} styleName="bg-success">
-                <Text>100%</Text>
+                100%
               </Progress.Bar>
             </Progress>
           </View>
@@ -89,7 +90,7 @@ function App() {
             </Progress>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </Provider>
   );
 }

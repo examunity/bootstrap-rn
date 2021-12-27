@@ -10,6 +10,7 @@ import Progress from './components/progress/Progress';
 import BsText from './components/BsText';
 import Pressable from './components/Pressable';
 import Text from './components/Text';
+import ScrollView from './components/ScrollView';
 import View from './components/View';
 // import Modal from './components/modal/Modal';
 
@@ -26,6 +27,7 @@ export {
   BsText,
   Pressable,
   Text,
+  ScrollView,
   View,
   // Modal,
 };
