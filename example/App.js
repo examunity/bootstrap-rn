@@ -3,7 +3,7 @@ import {
   Alert,
   Provider,
   Badge,
-  BsText,
+  Heading,
   Text,
   View,
   StyleSheet,
@@ -43,7 +43,7 @@ function App() {
       <ScrollView style={styles.container}>
         <Text styleName="bg-primary text-danger">Anton</Text>
         <Alert color="primary">
-          <Text>Patrik</Text>
+          <Text small>Patrik</Text>
         </Alert>
 
         <View
@@ -56,12 +56,12 @@ function App() {
             User Online: <Badge styleName="bg-primary">40</Badge>
           </Text>
 
-          <BsText h1>H1 Bootstrap Text H1</BsText>
-          <BsText h2>H2 Bootstrap Text H2</BsText>
-          <BsText h3>H3 Bootstrap Text H3</BsText>
-          <BsText h4>H4 Bootstrap Text H4</BsText>
-          <BsText h5>H5 Bootstrap Text H5</BsText>
-          <BsText h6>H6 Bootstrap Text H6</BsText>
+          <Heading size={1}>Bootstrap Text H1</Heading>
+          <Heading size={2}>Bootstrap Text H2</Heading>
+          <Heading size={3}>Bootstrap Text H3</Heading>
+          <Heading size={4}>Bootstrap Text H4</Heading>
+          <Heading size={5}>Bootstrap Text H5</Heading>
+          <Heading size={6}>Bootstrap Text H6</Heading>
 
           <Card>
             <Card.Header>

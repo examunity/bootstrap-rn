@@ -5,9 +5,12 @@ import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import useMedia from '../hooks/useMedia';
 import TextStyleContext from '../style/TextStyleContext';
+import { getStyles } from '../utils';
 import useStyleName from '../hooks/useStyleName';
 
 const propTypes = {
+  small: PropTypes.bool,
+  mark: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -23,21 +26,39 @@ const styles = StyleSheet.create({
     color: $body-color;
     text-align: $body-text-align;
   `,
+  '.small': css`
+    font-size: $small-font-size;
+  `,
+  '.mark': css`
+    padding: $mark-padding;
+    background-color: $mark-bg;
+  `,
 });
 
-function Text({ style, styleName, ...props }) {
+function Text(props) {
+  const {
+    mark = false,
+    small = false,
+    style,
+    styleName,
+    ...elementProps
+  } = props;
+
   const media = useMedia();
   const context = useContext(TextStyleContext);
   const utilitiesStyles = useStyleName(styleName);
 
+  const classes = getStyles(styles, [small && '.small', mark && '.mark']);
+
   const element = (
     <BaseText
-      {...props}
+      {...elementProps}
       style={[
         // eslint-disable-next-line react/destructuring-assignment
         (!context || !context.hasTextAncestor) && styles.text,
         // eslint-disable-next-line react/destructuring-assignment
         context && context.style,
+        classes,
         typeof style === 'function' ? style({ media }) : style,
         utilitiesStyles,
       ]}

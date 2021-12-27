@@ -369,7 +369,7 @@ const variables = css`
   $legend-font-size: 1.5rem;
   $legend-font-weight: null;
 
-  $mark-padding: 0.2em;
+  $mark-padding: 0.2rem; // 0.2em;
 
   $dt-font-weight: $font-weight-bold;
 
