@@ -27,19 +27,40 @@ const styles = StyleSheet.create({
 
 function Text({ style, styleName, ...props }) {
   const media = useMedia();
-  const textStyle = useContext(TextStyleContext);
+  const context = useContext(TextStyleContext);
   const utilitiesStyles = useStyleName(styleName);
 
-  return (
+  const element = (
     <BaseText
       {...props}
       style={[
-        styles.text,
-        textStyle,
+        // eslint-disable-next-line react/destructuring-assignment
+        (!context || !context.hasTextAncestor) && styles.text,
+        // eslint-disable-next-line react/destructuring-assignment
+        context && context.style,
         typeof style === 'function' ? style({ media }) : style,
         utilitiesStyles,
       ]}
     />
+  );
+
+  // eslint-disable-next-line react/destructuring-assignment
+  if (context && context.hasTextAncestor && !context.style) {
+    return element;
+  }
+
+  // If we are not in an ancestor context yet, we need to set hasTextAncestor
+  // to true for nested text components. Furthermore we need to reset the
+  // context style, because we only need to apply the style once.
+  return (
+    <TextStyleContext.Provider
+      value={{
+        style: null,
+        hasTextAncestor: true,
+      }}
+    >
+      {element}
+    </TextStyleContext.Provider>
   );
 }
 

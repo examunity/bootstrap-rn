@@ -63,7 +63,7 @@ function Button(props) {
 
   return (
     <Pressable {...elementProps} style={[classes, style]}>
-      <TextStyleProvider value={textClasses}>{children}</TextStyleProvider>
+      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </Pressable>
   );
 }

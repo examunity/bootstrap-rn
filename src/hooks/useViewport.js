@@ -1,7 +1,7 @@
-import {  useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
 
-function useViewport ({ initialViewport, breakpoints }) {
+function useViewport({ initialViewport, breakpoints }) {
   const [viewport, setViewport] = useState(initialViewport);
 
   const calculateViewport = (width) => {
@@ -42,6 +42,6 @@ function useViewport ({ initialViewport, breakpoints }) {
   }, [viewport]);
 
   return viewport;
-};
+}
 
 export default useViewport;

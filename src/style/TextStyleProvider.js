@@ -5,17 +5,25 @@ import TextStyleContext from './TextStyleContext';
 const propTypes = {
   children: PropTypes.node,
   // eslint-disable-next-line react/forbid-prop-types
-  value: PropTypes.any,
+  style: PropTypes.any,
 };
 
 function TextStyleProvider(props) {
-  const { children, value } = props;
+  const { children, style } = props;
 
-  const parentValue = useContext(TextStyleContext);
+  const parentContext = useContext(TextStyleContext);
+
+  console.log({
+    style: parentContext ? [parentContext.style, style] : style,
+    hasTextAncestor: parentContext && parentContext.hasTextAncestor,
+  });
 
   return (
     <TextStyleContext.Provider
-      value={parentValue ? [parentValue, value] : value}
+      value={{
+        style: parentContext ? [parentContext.style, style] : style,
+        hasTextAncestor: parentContext && parentContext.hasTextAncestor,
+      }}
     >
       {children}
     </TextStyleContext.Provider>

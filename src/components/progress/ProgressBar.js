@@ -40,7 +40,7 @@ function ProgressBar(props) {
 
   return (
     <View {...elementProps} style={[classes, style, { width: `${value}%` }]}>
-      <TextStyleProvider value={textClasses}>
+      <TextStyleProvider style={textClasses}>
         <Text>{children || ' '}</Text>
       </TextStyleProvider>
     </View>

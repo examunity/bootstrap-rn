@@ -58,7 +58,7 @@ function Alert(props) {
 
   return (
     <View {...elementProps} style={[classes, style]}>
-      <TextStyleProvider value={textClasses}>{children}</TextStyleProvider>
+      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );
 }
