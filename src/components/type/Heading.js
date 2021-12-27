@@ -16,7 +16,8 @@ const FONT_SIZES = {
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  size: PropTypes.oneOf(Object.keys(FONT_SIZES)).isRequired,
+  size: PropTypes.oneOf(Object.keys(FONT_SIZES).map((k) => Number(k)))
+    .isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };

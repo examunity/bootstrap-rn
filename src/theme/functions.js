@@ -1,6 +1,37 @@
 import { PixelRatio } from 'react-native';
 import { mix } from 'polished';
 
+// Color contrast
+
+// A list of pre-calculated numbers of pow(divide((divide($value, 255) + .055), 1.055), 2.4). (from 0 to 255)
+export function colorContrast(/* background, colorContrastDark, colorContrastLight, minContrastRatio */) {
+  // TODO
+
+  return (t) => t.white;
+}
+
+/* export function contrastRatio(background, foreground) {
+  const l1 = luminance(background);
+  const l2 = luminance(opaque(background, foreground));
+
+  return l1 > l2 ? divide(l1 + 0.05, l2 + 0.05) : divide(l2 + 0.05, l1 + 0.05);
+} */
+
+// Return WCAG2.0 relative luminance
+// See https://www.w3.org/WAI/GL/wiki/Relative_luminance
+// See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+/* export function luminance(color) {
+  const { red, green, blue } = parseToRgb(color);
+
+  // TODO
+} */
+
+// Return opaque color
+// opaque(#fff, rgba(0, 0, 0, .5)) => #808080
+/* export function opaque(background, foreground) {
+  return mix(opacity(foreground), rgba(foreground, 1), background);
+} */
+
 // Tint a color: mix a color with white
 export function tintColor(weight, color) {
   return mix(weight, 'white', color);
@@ -47,3 +78,7 @@ export function subtract(value1, value2) {
 
   return `${value1} - ${value2}`;
 }
+
+/* export default function divide(dividend, divisor, precision = 10) {
+  // TODO
+} */

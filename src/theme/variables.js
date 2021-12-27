@@ -334,7 +334,7 @@ const variables = css`
   $headings-font-family: null;
   $headings-font-style: null;
   $headings-font-weight: 500;
-  $headings-line-height: 1.2;
+  $headings-line-height: 1.2rem; // 1.2
   $headings-color: null;
 
   // TODO: $display-font-sizes map

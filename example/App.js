@@ -11,6 +11,7 @@ import {
   Card,
   Progress,
   ScrollView,
+  Button,
 } from 'bootstyle';
 
 const breakpoints = {
@@ -26,6 +27,7 @@ StyleSheet.build();
 const styles = StyleSheet.create({
   container: css`
     background-color: #fff;
+    align-items: center;
   `,
   progressContainer: css`
     width: 500px;
@@ -40,18 +42,16 @@ const styles = StyleSheet.create({
 function App() {
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
-      <ScrollView style={styles.container}>
-        <Text styleName="bg-primary text-danger">Anton</Text>
-        <Alert color="primary">
-          <Text small>Patrik</Text>
-        </Alert>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text styleName="bg-primary text-danger">Anton</Text>
+          <Alert color="primary">
+            <Text small>Patrik</Text>
+          </Alert>
+          <Button>
+            <Text>Patrik</Text>
+          </Button>
 
-        <View
-          style={{
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
           <Text>
             User Online: <Badge styleName="bg-primary">40</Badge>
           </Text>
