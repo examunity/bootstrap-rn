@@ -6,6 +6,8 @@ import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import { getStyles } from '../../utils';
 import ProgressBar from './ProgressBar';
+import ProgressContext from './ProgressContext';
+import useProgress from './useProgress';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -18,6 +20,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.progress': css`
     display: flex;
+    flex-direction: row; // added for bootstyle
     height: $progress-height;
     overflow: hidden; // force rounded corners by cropping it
     background-color: $progress-bg;
@@ -30,7 +33,9 @@ const styles = StyleSheet.create({
 });
 
 function Progress(props) {
-  const { children, /* min = 0, max = 100, */ style, ...elementProps } = props;
+  const { children, min = 0, max = 100, style, ...elementProps } = props;
+
+  const progress = useProgress(min, max);
 
   const classes = getStyles(styles, ['.progress']);
 
@@ -38,7 +43,9 @@ function Progress(props) {
 
   return (
     <View {...elementProps} style={[classes, style]}>
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      <ProgressContext.Provider value={progress}>
+        <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      </ProgressContext.Provider>
     </View>
   );
 }

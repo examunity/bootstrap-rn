@@ -13,11 +13,6 @@ function TextStyleProvider(props) {
 
   const parentContext = useContext(TextStyleContext);
 
-  console.log({
-    style: parentContext ? [parentContext.style, style] : style,
-    hasTextAncestor: parentContext && parentContext.hasTextAncestor,
-  });
-
   return (
     <TextStyleContext.Provider
       value={{
