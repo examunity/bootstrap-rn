@@ -20,6 +20,16 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.btn': css`
+    display: inline-block;
+    // cursor: if($enable-button-pointers, pointer, null);
+    // user-select: none;
+    background-color: transparent;
+    border: $btn-border-width solid transparent;
+    padding: $btn-padding-y $btn-padding-x;
+    // Manually declare to provide an override to the browser default
+    border-radius: $btn-border-radius;
+    // @include transition($btn-transition);
+
     &:hover {
       color: $body-color;
       text-decoration: $link-hover-decoration;
