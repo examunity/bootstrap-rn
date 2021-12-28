@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView as BaseScrollView } from 'react-native';
 import useMedia from '../hooks/useMedia';
-import useStyleName from '../hooks/useStyleName';
+import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -11,21 +11,22 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
-function ScrollView({ style, styleName, ...props }) {
+const ScrollView = React.forwardRef((props, ref) => {
+  const { style, styleName, ...elementProps } = props;
+
   const media = useMedia();
-  const utilitiesStyles = useStyleName(styleName);
+  const resolveStyle = useStyle(style, styleName);
 
   return (
     <BaseScrollView
-      {...props}
-      style={[
-        typeof style === 'function' ? style({ media }) : style,
-        utilitiesStyles,
-      ]}
+      {...elementProps}
+      ref={ref}
+      style={resolveStyle({ media })}
     />
   );
-}
+});
 
+ScrollView.displayName = 'ScrollView';
 ScrollView.propTypes = propTypes;
 
 export default ScrollView;

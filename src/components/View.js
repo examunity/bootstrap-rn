@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View as BaseView } from 'react-native';
 import useMedia from '../hooks/useMedia';
-import useStyleName from '../hooks/useStyleName';
+import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -11,21 +11,17 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
-function View({ style, styleName, ...props }) {
+const View = React.forwardRef((props, ref) => {
+  const { style, styleName, ...elementProps } = props;
   const media = useMedia();
-  const utilitiesStyles = useStyleName(styleName);
+  const resolveStyle = useStyle(style, styleName);
 
   return (
-    <BaseView
-      {...props}
-      style={[
-        typeof style === 'function' ? style({ media }) : style,
-        utilitiesStyles,
-      ]}
-    />
+    <BaseView {...elementProps} ref={ref} style={resolveStyle({ media })} />
   );
-}
+});
 
+View.displayName = 'View';
 View.propTypes = propTypes;
 
 export default View;

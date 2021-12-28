@@ -6,7 +6,7 @@ import css from '../style/css';
 import useMedia from '../hooks/useMedia';
 import TextStyleContext from '../style/TextStyleContext';
 import { getStyles } from '../utils';
-import useStyleName from '../hooks/useStyleName';
+import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   small: PropTypes.bool,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     text-align: $body-text-align;
   `,
   '.small': css`
-    // font-size: $small-font-size;
+    font-size: $small-font-size;
   `,
   '.mark': css`
     padding: $mark-padding;
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-function Text(props) {
+const Text = React.forwardRef((props, ref) => {
   const {
     mark = false,
     small = false,
@@ -46,23 +46,23 @@ function Text(props) {
 
   const media = useMedia();
   const context = useContext(TextStyleContext);
-  const utilitiesStyles = useStyleName(styleName);
 
   const classes = getStyles(styles, [small && '.small', mark && '.mark']);
 
+  const resolveStyle = useStyle(
+    [
+      // eslint-disable-next-line react/destructuring-assignment
+      (!context || !context.hasTextAncestor) && styles.text,
+      // eslint-disable-next-line react/destructuring-assignment
+      context && context.style,
+      classes,
+      style,
+    ],
+    styleName,
+  );
+
   const element = (
-    <BaseText
-      {...elementProps}
-      style={[
-        // eslint-disable-next-line react/destructuring-assignment
-        (!context || !context.hasTextAncestor) && styles.text,
-        // eslint-disable-next-line react/destructuring-assignment
-        context && context.style,
-        classes,
-        typeof style === 'function' ? style({ media }) : style,
-        utilitiesStyles,
-      ]}
-    />
+    <BaseText {...elementProps} ref={ref} style={resolveStyle({ media })} />
   );
 
   // eslint-disable-next-line react/destructuring-assignment
@@ -83,8 +83,9 @@ function Text(props) {
       {element}
     </TextStyleContext.Provider>
   );
-}
+});
 
+Text.displayName = 'Text';
 Text.propTypes = propTypes;
 
 export default Text;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pressable as BasePressable } from 'react-native';
 import useMedia from '../hooks/useMedia';
-import useStyleName from '../hooks/useStyleName';
+import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -11,25 +11,22 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
-function Pressable({ style, styleName, ...props }) {
+const Pressable = React.forwardRef((props, ref) => {
+  const { style, styleName, ...elementProps } = props;
+
   const media = useMedia();
-  const utilitiesStyles = useStyleName(styleName);
+  const resolveStyle = useStyle(style, styleName);
 
   return (
     <BasePressable
-      {...props}
-      style={(interaction) => {
-        const result = [
-          typeof style === 'function' ? style({ media, interaction }) : style,
-          utilitiesStyles,
-        ];
-
-        return result;
-      }}
+      {...elementProps}
+      ref={ref}
+      style={(interaction) => resolveStyle({ media, interaction })}
     />
   );
-}
+});
 
+Pressable.displayName = 'Pressable';
 Pressable.propTypes = propTypes;
 
 export default Pressable;
