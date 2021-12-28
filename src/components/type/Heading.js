@@ -29,13 +29,12 @@ const styles = StyleSheet.create({
     font-family: $headings-font-family;
     font-style: $headings-font-style;
     font-weight: $headings-font-weight;
-    line-height: $headings-line-height;
     color: $headings-color;
   `,
   ...each(FONT_SIZES, (size, value) => ({
     [`.h${size}`]: css`
       font-size: ${value};
-      line-height: ${value} * $line-height-base; // added for bootstyle
+      line-height: ${value} * $headings-line-height;
     `,
   })),
 });
@@ -49,7 +48,7 @@ const Heading = React.forwardRef((props, ref) => {
     <Text
       {...elementProps}
       ref={ref}
-      accessibilityRole="heading"
+      accessibilityRole="header"
       accessibilityLevel={size}
       style={[classes, style]}
     />

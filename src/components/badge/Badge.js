@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   '.badge-text': css`
     font-size: $badge-font-size;
     font-weight: $badge-font-weight;
-    line-height: $badge-font-size * 1; // 1;
+    line-height: $badge-font-size * 1;
     color: $badge-color;
     text-align: center;
     // white-space: nowrap;

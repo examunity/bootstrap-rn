@@ -200,11 +200,10 @@ const styles = StyleSheet.create({
       text-decoration: $link-hover-decoration;
     }
 
-    /* &:disabled {
-      color: $btn-link-disabled-color;
-    } */
-
     // No need for an active state here
+  `,
+  '.btn-link-text-disabled': css`
+    color: $btn-link-disabled-color;
   `,
   '.btn-lg': css`
     padding: $btn-padding-y-lg $btn-padding-x-lg;
@@ -268,6 +267,7 @@ const Button = React.forwardRef((props, ref) => {
     `${getVariant(color, outline)}-text`,
     color === 'link' && '.btn-link-text',
     disabled && `${getVariant(color, outline)}-text-disabled`,
+    disabled && color === 'link' && '.btn-link-text-disabled',
     size === 'lg' && '.btn-lg-text',
     size === 'sm' && '.btn-sm-text',
   ]);

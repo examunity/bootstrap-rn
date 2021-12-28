@@ -64,7 +64,7 @@ const Modal = (props) => {
   return (
     // need to re-check if this is needed still on mobile
     // <View style={[modalContainerClasses, style]}>
-    <BaseModal animationType="slide" transparent="true" visible={visible}>
+    <BaseModal animationType="slide" transparent visible={visible}>
       <View style={[modalContainerClasses, style]}>
         <View {...elementProps} style={[classes, style, styles2.modalView2]}>
           {children}

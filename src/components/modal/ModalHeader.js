@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     padding-horizontal: $modal-header-padding-x;
     padding-vertical: $modal-header-padding-y;
     border-bottom-width: $modal-header-border-width;
-    border-style: 'solid';
+    border-style: solid;
     border-color: $modal-header-border-color;
   `,
 });

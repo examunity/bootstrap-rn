@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import css from '../style/css';
-import { subtract } from './functions';
+import { shiftColor, subtract } from './functions';
 
 const variables = css`
   // Color system
@@ -216,7 +216,8 @@ const variables = css`
   $link-color: $primary;
   $link-decoration: underline;
   $link-shade-percentage: 20%;
-  $link-hover-color: shift-color($link-color, $link-shade-percentage);
+  $link-hover-color: ${(t) =>
+    shiftColor(t['link-shade-percentage'], t['link-color'])};
   $link-hover-decoration: null;
 
   $stretched-link-pseudo-element: after;
@@ -317,9 +318,9 @@ const variables = css`
 
   $font-weight-base: $font-weight-normal;
 
-  $line-height-base: 1.5rem; // 1.5;
-  $line-height-sm: 1.25rem; // 1.25;
-  $line-height-lg: 2rem; // 2;
+  $line-height-base: 1.5;
+  $line-height-sm: 1.25;
+  $line-height-lg: 2;
 
   $h1-font-size: $font-size-base * 2.5;
   $h2-font-size: $font-size-base * 2;
@@ -334,7 +335,7 @@ const variables = css`
   $headings-font-family: null;
   $headings-font-style: null;
   $headings-font-weight: 500;
-  $headings-line-height: 1.2rem; // 1.2
+  $headings-line-height: 1.2;
   $headings-color: null;
 
   // TODO: $display-font-sizes map
@@ -345,9 +346,9 @@ const variables = css`
   $lead-font-size: $font-size-base * 1.25;
   $lead-font-weight: 300;
 
-  $small-font-size: 0.875em;
+  $small-font-size: 0.875rem; // 0.875em;
 
-  $sub-sup-font-size: 0.75em;
+  $sub-sup-font-size: 0.75rem; // 0.75em;
 
   $text-muted: $gray-600;
 

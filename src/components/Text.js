@@ -22,12 +22,13 @@ const styles = StyleSheet.create({
     font-family: $font-family-base;
     font-size: $font-size-base;
     font-weight: $font-weight-base;
-    line-height: $line-height-base;
+    line-height: $font-size-base * $line-height-base;
     color: $body-color;
     text-align: $body-text-align;
   `,
   '.small': css`
     font-size: $small-font-size;
+    line-height: $small-font-size * $line-height-base;
   `,
   '.mark': css`
     padding: $mark-padding;
