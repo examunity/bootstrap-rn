@@ -1,26 +1,28 @@
 // Bootstrap Button
 import React from 'react';
 import PropTypes from 'prop-types';
+import invariant from 'tiny-invariant';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import TextStyleProvider from '../../style/TextStyleProvider';
 import Pressable from '../Pressable';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/constants';
-import { colorContrast } from '../../theme/functions';
+import { shadeColor, colorContrast } from '../../theme/functions';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf([...Object.keys(THEME_COLORS), 'link']),
   size: PropTypes.oneOf(['lg', 'sm']),
   outline: PropTypes.bool,
+  disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.btn': css`
-    display: inline-block;
+    // display: inline-block;
     // cursor: if($enable-button-pointers, pointer, null);
     // user-select: none;
     background-color: transparent;
@@ -29,11 +31,6 @@ const styles = StyleSheet.create({
     // Manually declare to provide an override to the browser default
     border-radius: $btn-border-radius;
     // @include transition($btn-transition);
-
-    &:hover {
-      color: $body-color;
-      text-decoration: $link-hover-decoration;
-    }
 
     &:focus {
       // outline: 0;
@@ -47,12 +44,6 @@ const styles = StyleSheet.create({
         // @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
       }
     }
-
-    /* &:disabled {
-      pointer-events: none;
-      opacity: $btn-disabled-opacity;
-      @include box-shadow(none);
-    } */
   `,
   '.btn-text': css`
     font-family: $btn-font-family;
@@ -60,10 +51,20 @@ const styles = StyleSheet.create({
     line-height: $btn-font-size * $btn-line-height;
     color: $body-color;
     text-align: center;
-    text-decoration: $link-decoration;
+    text-decoration: none; // if($link-decoration == none, null, none);
     white-space: $btn-white-space;
     // vertical-align: middle;
     font-size: $btn-font-size;
+
+    &:hover {
+      color: $body-color;
+      text-decoration: $link-hover-decoration;
+    }
+  `,
+  '.btn-disabled': css`
+    // pointer-events: none;
+    opacity: $btn-disabled-opacity;
+    // @include box-shadow(none);
   `,
   ...each(THEME_COLORS, (color, value) => ({
     [`.btn-${color}`]: css`
@@ -72,13 +73,17 @@ const styles = StyleSheet.create({
       // @include box-shadow($btn-box-shadow);
 
       &:hover {
-        background-color: ${value};
-        border-color: ${value};
+        background-color: ${(t) =>
+          shadeColor(t['btn-hover-bg-shade-amount'], value(t))};
+        border-color: ${(t) =>
+          shadeColor(t['btn-hover-border-shade-amount'], value(t))};
       }
 
       &:focus {
-        background-color: ${value};
-        border-color: ${value};
+        background-color: ${(t) =>
+          shadeColor(t['btn-hover-bg-shade-amount'], value(t))};
+        border-color: ${(t) =>
+          shadeColor(t['btn-hover-border-shade-amount'], value(t))};
         /* @if $enable-shadows {
           @include box-shadow($btn-box-shadow, 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5));
         } @else {
@@ -88,10 +93,12 @@ const styles = StyleSheet.create({
       }
 
       &:active {
-        background-color: ${value};
+        background-color: ${(t) =>
+          shadeColor(t['btn-active-bg-shade-amount'], value(t))};
         // Remove CSS gradients if they're enabled
         // background-image: if($enable-gradients, none, null);
-        border-color: ${value};
+        border-color: ${(t) =>
+          shadeColor(t['btn-active-border-shade-amount'], value(t))};
 
         /* &:focus {
           @if $enable-shadows {
@@ -102,14 +109,6 @@ const styles = StyleSheet.create({
           }
         } */
       }
-
-      /* &:disabled {
-        color: $disabled-color;
-        background-color: $disabled-background;
-        // Remove CSS gradients if they're enabled
-        background-image: if($enable-gradients, none, null);
-        border-color: $disabled-border;
-      } */
     `,
     [`.btn-${color}-text`]: css`
       color: ${(t) => colorContrast(value(t))};
@@ -125,6 +124,20 @@ const styles = StyleSheet.create({
       &:active {
         color: ${(t) => colorContrast(value(t))};
       }
+    `,
+    [`.btn-${color}-disabled`]: css`
+      $disabled-background: ${value};
+      $disabled-border: ${value};
+
+      background-color: $disabled-background;
+      // Remove CSS gradients if they're enabled
+      // background-image: if($enable-gradients, none, null);
+      border-color: $disabled-border;
+    `,
+    [`.btn-${color}-disabled-text`]: css`
+      $disabled-color: ${(t) => colorContrast(value(t))};
+
+      color: $disabled-color;
     `,
     [`.btn-outline-${color}`]: css`
       border-color: ${value};
@@ -154,11 +167,6 @@ const styles = StyleSheet.create({
           }
         } */
       }
-
-      /* &:disabled {
-        color: $color;
-        background-color: transparent;
-      } */
     `,
     [`.btn-outline-${color}-text`]: css`
       color: ${value};
@@ -170,6 +178,12 @@ const styles = StyleSheet.create({
       &:active {
         color: ${(t) => colorContrast(value(t))};
       }
+    `,
+    [`.btn-outline-${color}-disabled`]: css`
+      background-color: transparent;
+    `,
+    [`.btn-outline-${color}-disabled-text`]: css`
+      color: ${value};
     `,
   })),
   '.btn-link-text': css`
@@ -212,33 +226,54 @@ const styles = StyleSheet.create({
   `,
 });
 
+const getVariant = (color, outline) => {
+  if (color === 'link') {
+    return null;
+  }
+
+  if (outline) {
+    return `.btn-outline-${color}`;
+  }
+
+  return `.btn-${color}`;
+};
+
 const Button = React.forwardRef((props, ref) => {
   const {
     children,
     color = 'primary',
     size,
     outline = false,
+    disabled = false,
     style,
     ...elementProps
   } = props;
 
+  invariant(
+    color !== 'link' || !outline,
+    'Button link variant is only available as non outline style.',
+  );
+
   const classes = getStyles(styles, [
     '.btn',
-    // A link button does not have a base class, only a text class.
-    color !== 'link' && (outline ? `.btn-outline-${color}` : `.btn-${color}`),
+    getVariant(color, outline),
+    disabled && '.btn-disabled',
+    disabled && `${getVariant(color, outline)}-disabled`,
     size === 'lg' && '.btn-lg',
     size === 'sm' && '.btn-sm',
   ]);
 
   const textClasses = getStyles(styles, [
     '.btn-text',
-    outline ? `.btn-outline-${color}-text` : `.btn-${color}-text`,
+    `${getVariant(color, outline)}-text`,
+    color === 'link' && '.btn-link-text',
+    disabled && `${getVariant(color, outline)}-text-disabled`,
     size === 'lg' && '.btn-lg-text',
     size === 'sm' && '.btn-sm-text',
   ]);
 
   return (
-    <Pressable {...elementProps} ref={ref} style={[classes, style]}>
+    <Pressable {...elementProps} ref={ref} style={[...classes, style]}>
       <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </Pressable>
   );

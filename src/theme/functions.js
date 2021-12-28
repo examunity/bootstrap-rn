@@ -7,7 +7,7 @@ import { mix } from 'polished';
 export function colorContrast(/* background, colorContrastDark, colorContrastLight, minContrastRatio */) {
   // TODO
 
-  return (t) => t.white;
+  return 'white';
 }
 
 /* export function contrastRatio(background, foreground) {
