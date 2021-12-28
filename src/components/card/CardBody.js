@@ -1,38 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
+import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
-import TextStyleContext from '../../style/TextStyleContext';
-import getStyles from '../../utils/getStyles';
-import v from '../../theme/variables';
+import { getStyles } from '../../utils';
 
-const propTypes = { children: PropTypes.node.isRequired };
+const propTypes = {
+  children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+};
 
 const styles = StyleSheet.create({
-  cardBody: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 'auto',
-    paddingVertical: v.cardSpacerY,
-    paddingHorizontal: v.cardSpacerX,
-  },
-  cardBodyText: {
-    color: v.cardColor,
-  },
+  '.card-body': css`
+    // flex: 1 1 auto;
+    padding: $card-spacer-y $card-spacer-x;
+  `,
+  '.card-body-text': css`
+    color: $card-color;
+  `,
 });
 
 function CardBody(props) {
-  const { children, ...elementProps } = props;
+  const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['cardBody']);
+  const classes = getStyles(styles, ['.card-body']);
 
-  const textClasses = getStyles(styles, [`cardBodyText`]);
+  const textClasses = getStyles(styles, [`.card-body-text`]);
 
   return (
-    <View style={[classes, elementProps.style]} {...elementProps}>
-      <TextStyleContext.Provider value={textClasses}>
-        {children}
-      </TextStyleContext.Provider>
+    <View {...elementProps} style={[classes, style]}>
+      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );
 }

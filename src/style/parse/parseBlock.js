@@ -12,11 +12,11 @@ function parseBlock(input) {
   }
 
   if (variable.locate(input)) {
-    return variable.read(input, parseBlock);
+    return variable.read(input);
   }
 
   if (declaration.locate(input)) {
-    return declaration.read(input, parseBlock);
+    return declaration.read(input);
   }
 
   if (selector.locate(input)) {
@@ -28,7 +28,7 @@ function parseBlock(input) {
   }
 
   if (comment.locate(input)) {
-    return comment.read(input, parseBlock);
+    return comment.read(input);
   }
 
   throw new Error(`CSS syntax error: Unknown error at "${input.peek()}"`);

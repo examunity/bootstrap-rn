@@ -1,17 +1,13 @@
-import maps from './maps';
+import { UTILITIES_TEXT_COLORS, UTILITIES_BG_COLORS } from './maps';
 import css from '../style/css';
+import { each } from '../utils';
 
-const make = (options) => {
-  const result = {};
-
-  Object.entries(options.values).forEach(([key, value]) => {
-    result[`${options.class}-${key}`] = css`
+const make = (options) =>
+  each(options.values, (key, value) => ({
+    [`${options.class}-${key}`]: css`
       ${options.property}: ${value};
-    `;
-  });
-
-  return result;
-};
+    `,
+  }));
 
 const utilities = {
   /* ...make({
@@ -22,15 +18,25 @@ const utilities = {
       top: 'top',
       middle: 'middle',
       bottom: 'bottom',
-      textBottom: 'text-bottom',
-      textTop: 'text-top',
+      'text-bottom': 'text-bottom',
+      'text-top': 'text-top',
     },
   }), */
+  ...make({
+    property: 'color',
+    class: 'text',
+    values: {
+      ...UTILITIES_TEXT_COLORS,
+      muted: (t) => t['text-muted'],
+      'black-50': (t) => `rgba(${t.black}, 0.5)`,
+      'white-50': (t) => `rgba(${t.white}, 0.5)`,
+    },
+  }),
   ...make({
     property: 'background-color',
     class: 'bg',
     values: {
-      ...maps.utilititesBgColors,
+      ...UTILITIES_BG_COLORS,
       transparent: 'transparent',
     },
   }),

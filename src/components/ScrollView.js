@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View as BaseView } from 'react-native';
+import { ScrollView as BaseScrollView } from 'react-native';
 import useMedia from '../hooks/useMedia';
 import useStyleName from '../hooks/useStyleName';
 
@@ -11,12 +11,12 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
-function View({ style, styleName, ...props }) {
+function ScrollView({ style, styleName, ...props }) {
   const media = useMedia();
   const utilitiesStyles = useStyleName(styleName);
 
   return (
-    <BaseView
+    <BaseScrollView
       {...props}
       style={[
         typeof style === 'function' ? style({ media }) : style,
@@ -26,6 +26,6 @@ function View({ style, styleName, ...props }) {
   );
 }
 
-View.propTypes = propTypes;
+ScrollView.propTypes = propTypes;
 
-export default View;
+export default ScrollView;

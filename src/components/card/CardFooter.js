@@ -1,45 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
+import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
-import TextStyleContext from '../../style/TextStyleContext';
-import getStyles from '../../utils/getStyles';
-import v from '../../theme/variables';
+import { getStyles } from '../../utils';
 
-const propTypes = { children: PropTypes.node.isRequired };
-/*
-.card-footer {
-  &:last-child {
-    @include border-radius(0 0 $card-inner-border-radius $card-inner-border-radius);
-  }
-}
-*/
+const propTypes = {
+  children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+};
+
 const styles = StyleSheet.create({
-  cardFooter: {
-    paddingVertical: v.cardCapPaddingY,
-    paddingHorizontal: v.cardCapPaddingX,
-    backgroundColor: v.cardCapBg,
-    borderTopWidth: v.cardBorderWidth,
-    borderStyle: 'solid',
-    borderColor: v.cardBorderColor,
-  },
-  cardFooterText: {
-    color: v.cardCapColor,
-  },
+  '.card-footer': css`
+    padding: $card-cap-padding-y $card-cap-padding-x;
+    background-color: $card-cap-bg;
+    border-top-width: $card-border-width;
+    border-style: solid;
+    border-color: $card-border-color;
+    border-radius: 0 0 $card-inner-border-radius $card-inner-border-radius;
+  `,
+  '.card-footer-text': css`
+    color: $card-cap-color;
+  `,
 });
 
 function CardFooter(props) {
-  const { children, ...elementProps } = props;
+  const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['cardFooter']);
+  const classes = getStyles(styles, ['.card-footer']);
 
-  const textClasses = getStyles(styles, ['cardFooterText']);
+  const textClasses = getStyles(styles, ['.card-footer-text']);
 
   return (
-    <View style={[classes, elementProps.style]} {...elementProps}>
-      <TextStyleContext.Provider value={textClasses}>
-        {children}
-      </TextStyleContext.Provider>
+    <View {...elementProps} style={[classes, style]}>
+      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );
 }

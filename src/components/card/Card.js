@@ -1,45 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
 import View from '../View';
-import getStyles from '../../utils/getStyles';
-import v from '../../theme/variables';
+import { getStyles } from '../../utils';
 import CardBody from './CardBody';
 import CardHeader from './CardHeader';
 import CardFooter from './CardFooter';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
-/*
-.card {
-  word-wrap: break-word;
-  background-clip: border-box;
-  @include box-shadow($card-box-shadow);
-*/
 
 const styles = StyleSheet.create({
-  card: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    minWidth: 0,
-    height: v.cardHeight,
-    backgroundColor: v.cardBg,
-    borderWidth: v.cardBorderWidth,
-    borderStyle: 'solid',
-    borderColor: v.cardBorderColor,
-    borderRadius: v.cardBorderRadius,
-  },
+  '.card': css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: $card-height;
+    // word-wrap: break-word;
+    background-color: $card-bg;
+    // background-clip: border-box;
+    border: $card-border-width solid $card-border-color;
+    border-radius: $card-border-radius;
+    // @include box-shadow($card-box-shadow);
+  `,
 });
 
 function Card(props) {
-  const { children, ...elementProps } = props;
+  const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['card']);
+  const classes = getStyles(styles, ['.card']);
 
   return (
-    <View style={[classes, elementProps.style]} {...elementProps}>
+    <View {...elementProps} style={[classes, style]}>
       {children}
     </View>
   );

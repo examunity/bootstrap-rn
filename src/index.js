@@ -7,11 +7,11 @@ import Badge from './components/badge/Badge';
 import Button from './components/buttons/Button';
 import Card from './components/card/Card';
 import Progress from './components/progress/Progress';
-import BsText from './components/BsText';
+import Heading from './components/type/Heading';
 import Pressable from './components/Pressable';
 import Text from './components/Text';
+import ScrollView from './components/ScrollView';
 import View from './components/View';
-import Modal from './components/modal/Modal';
 
 export {
   css,
@@ -23,9 +23,9 @@ export {
   Button,
   Card,
   Progress,
-  BsText,
+  Heading,
   Pressable,
   Text,
+  ScrollView,
   View,
-  Modal,
 };

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Alert,
   Provider,
   Badge,
-  BsText,
+  Heading,
   Text,
   View,
   StyleSheet,
   css,
   Card,
   Progress,
-  Modal,
+  ScrollView,
+  Button,
 } from 'bootstyle';
-import { Pressable } from 'react-native';
 
 const breakpoints = {
   sm: 576,
@@ -28,65 +28,40 @@ StyleSheet.build();
 const styles = StyleSheet.create({
   container: css`
     background-color: #fff;
+    align-items: center;
+  `,
+  progressContainer: css`
+    width: 500px;
+    margin-vertical: 1rem;
+  `,
+  progress: css`
+    height: 0.5rem;
+    margin-bottom: 1rem;
   `,
 });
 
 function App() {
-  const [modalVisible, setModalVisible] = useState(false);
-
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
-      <View style={styles.container}>
-        <Text>Anton</Text>
-        <Alert color="primary">
-          <Text>Patrik</Text>
-        </Alert>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text styleName="bg-primary text-danger">Anton</Text>
+          <Alert color="primary">
+            <Text small>Patrik</Text>
+          </Alert>
+          <Button>
+            <Text>Patrik</Text>
+          </Button>
 
-        <View
-          style={{
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
           <Text>
             User Online: <Badge styleName="bg-primary">40</Badge>
           </Text>
-
-          <BsText h1>H1 Bootstrap Text H1</BsText>
-          <BsText h2>H2 Bootstrap Text H2</BsText>
-          <BsText h3>H3 Bootstrap Text H3</BsText>
-          <BsText h4>H4 Bootstrap Text H4</BsText>
-          <BsText h5>H5 Bootstrap Text H5</BsText>
-          <BsText h6>H6 Bootstrap Text H6</BsText>
-
-          <View style={{ width: 600, height: 30 }}>
-            <Modal visible={modalVisible}>
-              <Modal.Header>
-                <Text>Modal Title Text</Text>
-                <Pressable onPress={() => setModalVisible(false)}>
-                  <Text>Close</Text>
-                </Pressable>
-              </Modal.Header>
-              <Modal.Body>
-                <Text>Body Text</Text>
-              </Modal.Body>
-              <Modal.Footer>
-                <Text>Footer Text</Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>Hide modal</Text>
-                </Pressable>
-              </Modal.Footer>
-            </Modal>
-            <Pressable
-              style={[styles.button, styles.buttonOpen]}
-              onPress={() => setModalVisible(true)}
-            >
-              <Text style={styles.textStyle}>Show Modal from components</Text>
-            </Pressable>
-          </View>
+          <Heading size={1}>Bootstrap Text H1</Heading>
+          <Heading size={2}>Bootstrap Text H2</Heading>
+          <Heading size={3}>Bootstrap Text H3</Heading>
+          <Heading size={4}>Bootstrap Text H4</Heading>
+          <Heading size={5}>Bootstrap Text H5</Heading>
+          <Heading size={6}>Bootstrap Text H6</Heading>
 
           <Card>
             <Card.Header>
@@ -97,33 +72,25 @@ function App() {
             </Card.Body>
             <Card.Footer>
               <Text>Card Footer Text</Text>
-              <Progress>
-                <Progress.Bar value={80} />
-              </Progress>
             </Card.Footer>
           </Card>
 
-          <View style={{ width: 600, height: 30, marginTop: 20 }}>
-            <Progress>
-              <Progress.Bar value={40} color="danger" />
+          <View style={styles.progressContainer}>
+            <Progress min={10} max={50} style={styles.progress}>
+              <Progress.Bar value={30} styleName="bg-danger" />
             </Progress>
-          </View>
-
-          <View style={{ width: 600, height: 30 }}>
+            <Progress style={styles.progress}>
+              <Progress.Bar value={30} styleName="bg-primary" />
+              <Progress.Bar value={50} styleName="bg-info" />
+            </Progress>
             <Progress>
-              <Progress.Bar value={100} color="success">
-                <Text>100%</Text>
+              <Progress.Bar value={100} styleName="bg-success">
+                100%
               </Progress.Bar>
             </Progress>
           </View>
-
-          <View style={{ width: 600, height: 30 }}>
-            <Progress>
-              <Progress.Bar value={70} color="info" />
-            </Progress>
-          </View>
         </View>
-      </View>
+      </ScrollView>
     </Provider>
   );
 }

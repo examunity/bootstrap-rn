@@ -19,7 +19,7 @@ const declaration = {
     // Parse whitespaces, separator
     input.charsWhile(isWhitespace);
     input.read(':');
-    input.charsWhile(isWhitespace);
+    input.charsWhile(isWhitespace, true);
 
     // Parse value.
     const value = [];
@@ -45,7 +45,7 @@ const declaration = {
         value.push(input.read());
       }
 
-      const part = input.charsWhile(breaksDeclaration);
+      const part = input.charsWhile(breaksDeclaration, true);
 
       if (part.length > 0) {
         value.push(part);

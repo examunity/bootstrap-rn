@@ -50,9 +50,12 @@ const createSheet = (sheet) => {
     }
   });
 
-  // Wrap stateful and stateless in a proxy, so that we can access
+  // Wrap stateful and stateless in a proxy, so that we can update the styles on theme change.
+  // For using Object.assign below we need some additional methods on the proxy that are mentioned here:
+  // https://stackoverflow.com/questions/43185453/object-assign-and-proxies
   return new Proxy(
     {
+      keys: Object.keys(sheet.source),
       stateless: BaseStyleSheet.create(statelessSource),
       stateful: statefulSource,
     },
@@ -60,6 +63,18 @@ const createSheet = (sheet) => {
       get(target, prop) {
         return target.stateless[prop] || target.stateful[prop] || undefined;
       },
+      ownKeys: (target) => target.keys,
+      getOwnPropertyDescriptor(target, name) {
+        const proxy = this;
+        return {
+          get value() {
+            return proxy.get(target, name);
+          },
+          configurable: true,
+          enumerable: true,
+        };
+      },
+      has: (target, name) => target.keys.indexOf(name) >= 0,
     },
   );
 };
@@ -78,7 +93,8 @@ const StyleSheet = {
       sheet.cache[activeThemeKey] = createSheet(sheet);
       sheet.active = sheet.cache[activeThemeKey];
     } else {
-      sheet.active = { ...source };
+      // Placeholder until build method is called.
+      sheet.active = {};
     }
 
     sheets.push(sheet);
