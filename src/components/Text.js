@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     text-align: $body-text-align;
   `,
   '.small': css`
-    font-size: $small-font-size;
+    // font-size: $small-font-size;
   `,
   '.mark': css`
     padding: $mark-padding;
