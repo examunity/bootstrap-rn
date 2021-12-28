@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-
-import {
-  Alert,
-  Provider,
-  Badge,
-  Heading,
-  Text,
-  View,
-  StyleSheet,
-  css,
-  Card,
-  Progress,
-  ScrollView,
-  Button,
-  Modal,
-} from 'bootstyle';
-
-import { Pressable } from 'react-native';
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { Provider, View, StyleSheet, css, ScrollView } from 'bootstyle';
+import Content from './components/Content';
+import Alerts from './components/Alerts';
+import Badges from './components/Badges';
+import Buttons from './components/Buttons';
+import Cards from './components/Cards';
+import Modals from './components/Modals';
+import Progresses from './components/Progresses';
+import Utilities from './components/Utilities';
 
 const breakpoints = {
   sm: 576,
@@ -30,99 +22,39 @@ StyleSheet.build();
 
 const styles = StyleSheet.create({
   container: css`
-    background-color: #fff;
     align-items: center;
-  `,
-  progressContainer: css`
-    width: 500px;
     margin-vertical: 1rem;
-  `,
-  progress: css`
-    height: 0.5rem;
-    margin-bottom: 1rem;
   `,
 });
 
 function App() {
-  const [modalVisible, setModalVisible] = useState(false);
-
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
+      <StatusBar />
       <ScrollView>
         <View style={styles.container}>
-          <Text styleName="bg-primary text-danger">Anton</Text>
-          <Alert color="primary">
-            <Text small>Patrik</Text>
-          </Alert>
-          <Button>
-            <Text>Patrik</Text>
-          </Button>
-
-          <Text>
-            User Online: <Badge styleName="bg-primary">40</Badge>
-          </Text>
-          <Heading size={1}>Bootstrap Text H1</Heading>
-          <Heading size={2}>Bootstrap Text H2</Heading>
-          <Heading size={3}>Bootstrap Text H3</Heading>
-          <Heading size={4}>Bootstrap Text H4</Heading>
-          <Heading size={5}>Bootstrap Text H5</Heading>
-          <Heading size={6}>Bootstrap Text H6</Heading>
-
-          <View style={{ width: 600, height: 30 }}>
-            <Modal visible={modalVisible}>
-              <Modal.Header>
-                <Text>Modal Title Text</Text>
-                <Pressable onPress={() => setModalVisible(false)}>
-                  <Text>Close</Text>
-                </Pressable>
-              </Modal.Header>
-              <Modal.Body>
-                <Text>Body Text</Text>
-              </Modal.Body>
-              <Modal.Footer>
-                <Text>Footer Text</Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>Hide modal</Text>
-                </Pressable>
-              </Modal.Footer>
-            </Modal>
-            <Pressable
-              style={[styles.button, styles.buttonOpen]}
-              onPress={() => setModalVisible(true)}
-            >
-              <Text style={styles.textStyle}>Show Modal from components</Text>
-            </Pressable>
-          </View>
-
-          <Card>
-            <Card.Header>
-              <Text>Card Header Text</Text>
-            </Card.Header>
-            <Card.Body>
-              <Text>Body Text</Text>
-            </Card.Body>
-            <Card.Footer>
-              <Text>Card Footer Text</Text>
-            </Card.Footer>
-          </Card>
-
-          <View style={styles.progressContainer}>
-            <Progress min={10} max={50} style={styles.progress}>
-              <Progress.Bar value={30} styleName="bg-danger" />
-            </Progress>
-            <Progress style={styles.progress}>
-              <Progress.Bar value={30} styleName="bg-primary" />
-              <Progress.Bar value={50} styleName="bg-info" />
-            </Progress>
-            <Progress>
-              <Progress.Bar value={100} styleName="bg-success">
-                100%
-              </Progress.Bar>
-            </Progress>
-          </View>
+          <Content />
+        </View>
+        <View style={styles.container}>
+          <Alerts />
+        </View>
+        <View style={styles.container}>
+          <Badges />
+        </View>
+        <View style={styles.container}>
+          <Buttons />
+        </View>
+        <View style={styles.container}>
+          <Cards />
+        </View>
+        <View style={styles.container}>
+          <Modals />
+        </View>
+        <View style={styles.container}>
+          <Progresses />
+        </View>
+        <View style={styles.container}>
+          <Utilities />
         </View>
       </ScrollView>
     </Provider>
