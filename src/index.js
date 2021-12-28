@@ -12,6 +12,7 @@ import Pressable from './components/Pressable';
 import Text from './components/Text';
 import ScrollView from './components/ScrollView';
 import View from './components/View';
+import Modal from './components/modal/Modal';
 
 export {
   css,
@@ -28,4 +29,5 @@ export {
   Text,
   ScrollView,
   View,
+  Modal,
 };

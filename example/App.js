@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Alert,
@@ -13,7 +13,10 @@ import {
   Progress,
   ScrollView,
   Button,
+  Modal,
 } from 'bootstyle';
+
+import { Pressable } from 'react-native';
 
 const breakpoints = {
   sm: 576,
@@ -41,6 +44,8 @@ const styles = StyleSheet.create({
 });
 
 function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <Provider ssrViewport="lg" breakpoints={breakpoints}>
       <ScrollView>
@@ -62,6 +67,35 @@ function App() {
           <Heading size={4}>Bootstrap Text H4</Heading>
           <Heading size={5}>Bootstrap Text H5</Heading>
           <Heading size={6}>Bootstrap Text H6</Heading>
+
+          <View style={{ width: 600, height: 30 }}>
+            <Modal visible={modalVisible}>
+              <Modal.Header>
+                <Text>Modal Title Text</Text>
+                <Pressable onPress={() => setModalVisible(false)}>
+                  <Text>Close</Text>
+                </Pressable>
+              </Modal.Header>
+              <Modal.Body>
+                <Text>Body Text</Text>
+              </Modal.Body>
+              <Modal.Footer>
+                <Text>Footer Text</Text>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Hide modal</Text>
+                </Pressable>
+              </Modal.Footer>
+            </Modal>
+            <Pressable
+              style={[styles.button, styles.buttonOpen]}
+              onPress={() => setModalVisible(true)}
+            >
+              <Text style={styles.textStyle}>Show Modal from components</Text>
+            </Pressable>
+          </View>
 
           <Card>
             <Card.Header>
