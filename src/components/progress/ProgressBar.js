@@ -26,10 +26,9 @@ const styles = StyleSheet.create({
     // @include transition($progress-bar-transition);
   `,
   '.progress-bar-text': css`
-    color: white;
+    color: $progress-bar-color;
     text-align: center;
     // white-space: nowrap;
-    line-height: 1.125rem; // added for bootstyle
   `,
 });
 

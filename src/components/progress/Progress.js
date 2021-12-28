@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   `,
   '.progress-text': css`
     font-size: $progress-font-size;
+    line-height: $progress-font-size * $line-height-base; // added for bootstyle
   `,
 });
 
