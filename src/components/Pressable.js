@@ -16,7 +16,6 @@ const propTypes = {
 };
 
 const Pressable = React.forwardRef((props, ref) => {
-  console.log('test');
   const { children, style, textStyle, styleName, ...elementProps } = props;
 
   const media = useMedia();

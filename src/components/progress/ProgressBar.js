@@ -39,7 +39,7 @@ const getPercentage = (value, min, max) => {
   return Math.round(percentage * ROUND_PRECISION) / ROUND_PRECISION;
 };
 
-function ProgressBar(props) {
+const ProgressBar = React.forwardRef((props, ref) => {
   const { children, value, style, ...elementProps } = props;
 
   const progress = useContext(ProgressContext);
@@ -58,6 +58,7 @@ function ProgressBar(props) {
   return (
     <View
       {...elementProps}
+      ref={ref}
       style={[classes, style, { width: `${getPercentage(value, min, max)}%` }]}
       accessibilityRole="progressbar"
       accessibilityValueNow={value}
@@ -69,8 +70,9 @@ function ProgressBar(props) {
       </TextStyleProvider>
     </View>
   );
-}
+});
 
+ProgressBar.displayName = 'ProgressBar';
 ProgressBar.propTypes = propTypes;
 
 export default ProgressBar;

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-function Progress(props) {
+const Progress = React.forwardRef((props, ref) => {
   const { children, min = 0, max = 100, style, ...elementProps } = props;
 
   const progress = useProgress(min, max);
@@ -43,15 +43,17 @@ function Progress(props) {
   const textClasses = getStyles(styles, ['.progress-text']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <ProgressContext.Provider value={progress}>
         <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
       </ProgressContext.Provider>
     </View>
   );
-}
+});
 
+Progress.displayName = 'Progress';
 Progress.propTypes = propTypes;
+
 Progress.Bar = ProgressBar;
 
 export default Progress;

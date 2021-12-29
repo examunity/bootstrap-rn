@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-function CardBody(props) {
+const CardBody = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-body']);
@@ -30,12 +30,13 @@ function CardBody(props) {
   const textClasses = getStyles(styles, [`.card-body-text`]);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );
-}
+});
 
+CardBody.displayName = 'CardBody';
 CardBody.propTypes = propTypes;
 
 export default CardBody;

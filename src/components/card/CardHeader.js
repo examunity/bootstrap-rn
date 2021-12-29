@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-function CardHeader(props) {
+const CardHeader = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-header']);
@@ -35,12 +35,13 @@ function CardHeader(props) {
   const textClasses = getStyles(styles, ['.card-header-text']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );
-}
+});
 
+CardHeader.displayName = 'CardHeader';
 CardHeader.propTypes = propTypes;
 
 export default CardHeader;

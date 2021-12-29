@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-function CardFooter(props) {
+const CardFooter = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-footer']);
@@ -34,12 +34,13 @@ function CardFooter(props) {
   const textClasses = getStyles(styles, ['.card-footer-text']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );
-}
+});
 
+CardFooter.displayName = 'CardFooter';
 CardFooter.propTypes = propTypes;
 
 export default CardFooter;

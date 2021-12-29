@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function Alert(props) {
+const Alert = React.forwardRef((props, ref) => {
   const {
     children,
     color = 'primary',
@@ -57,12 +57,13 @@ function Alert(props) {
   const textClasses = getStyles(styles, [`.alert-${color}-text`]);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );
-}
+});
 
+Alert.displayName = 'Alert';
 Alert.propTypes = propTypes;
 
 export default Alert;

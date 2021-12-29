@@ -30,22 +30,23 @@ const styles = StyleSheet.create({
   `,
 });
 
-function Card(props) {
+const Card = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       {children}
     </View>
   );
-}
+});
+
+Card.displayName = 'Card';
+Card.propTypes = propTypes;
 
 Card.Header = CardHeader;
 Card.Body = CardBody;
 Card.Footer = CardFooter;
-
-Card.propTypes = propTypes;
 
 export default Card;

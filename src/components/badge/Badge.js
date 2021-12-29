@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-function Badge(props) {
+const Badge = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.badge']);
@@ -39,14 +39,15 @@ function Badge(props) {
   const textClasses = getStyles(styles, ['.badge-text']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <TextStyleProvider style={textClasses}>
         <Text>{children}</Text>
       </TextStyleProvider>
     </View>
   );
-}
+});
 
+Badge.displayName = 'Badge';
 Badge.propTypes = propTypes;
 
 export default Badge;
