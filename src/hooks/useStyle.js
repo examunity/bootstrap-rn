@@ -1,4 +1,5 @@
 import { useContext, useMemo } from 'react';
+import { BOOTSTYLE_STYLE } from '../style/symbols';
 import Context from '../Context';
 
 const normalize = (style) => {
@@ -33,27 +34,27 @@ function useStyle(style, styleName) {
   const styles = normalize(utilities ? [style, ...utilities] : style);
 
   return (state) => {
-    // Put basic styles first, then interaction styles for hover, focus, pressed.
     const basicStyles = [];
-    const priorityStyles = [];
+    const interactionStyles = [];
 
-    styles.forEach((def) => {
-      if (typeof def === 'function') {
-        const resolved = def.resolve(state);
+    styles.forEach((value) => {
+      if (value && value.$$typeof === BOOTSTYLE_STYLE) {
+        // Style is a bootstrap style that contains basic and interaction styles.
+        const [resolvedBasicStyles, resolvedInteractionStyles] = value(state);
 
-        resolved.forEach((resolvedDef) => {
-          if (resolvedDef.priority) {
-            priorityStyles.push(resolvedDef.value);
-          } else {
-            basicStyles.push(resolvedDef.value);
-          }
-        });
+        basicStyles.push(...resolvedBasicStyles);
+        interactionStyles.push(...resolvedInteractionStyles);
+      } else if (typeof value === 'function') {
+        // Style is some other custom function type style.
+        basicStyles.push(value(state));
       } else {
-        basicStyles.push(def);
+        // Style is basic object style.
+        basicStyles.push(value);
       }
     });
 
-    return [basicStyles, priorityStyles];
+    // Put basic styles first, then interaction styles for hover, focus, pressed.
+    return [basicStyles, interactionStyles];
   };
 }
 

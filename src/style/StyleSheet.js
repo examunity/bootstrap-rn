@@ -1,6 +1,6 @@
 import { StyleSheet as BaseStyleSheet } from 'react-native';
 import transform from './transform';
-import { BOOTSTYLE_STYLE } from './css';
+import { BOOTSTYLE_DEFINITION } from './symbols';
 import variables from '../theme/variables';
 
 let activeThemeKey = null;
@@ -23,7 +23,7 @@ const updateThemeKey = (source) => {
 };
 
 const resolveVariables = (theme) => {
-  if (variables.$$typeof !== BOOTSTYLE_STYLE) {
+  if (variables.$$typeof !== BOOTSTYLE_DEFINITION) {
     return { ...variables, ...theme.variables };
   }
 
