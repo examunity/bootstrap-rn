@@ -24,8 +24,10 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.btn': css`
     // display: inline-block;
-    // cursor: if($enable-button-pointers, pointer, null);
-    user-select: none;
+    @include platform(web) {
+      // cursor: if($enable-button-pointers, pointer, null);
+      user-select: none;
+    }
     background-color: transparent;
     border: $btn-border-width solid transparent;
     padding: $btn-padding-y $btn-padding-x;
