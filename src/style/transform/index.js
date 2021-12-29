@@ -43,11 +43,15 @@ export default function transform(
 
       // Only add value if value is not null.
       if (child.type === 'declaration' && value !== 'null') {
+        // Workaround for react-native issue #19981
+        // https://github.com/facebook/react-native/issues/19981
+        const name = child.name === 'border-color' ? 'border' : child.name;
+
         // TODO: Pre-process css-to-react-native transformation, so that we only
         // need to insert theme variables here.
         Object.assign(
           definitions[0].declarations,
-          getStylesForProperty(getPropertyName(child.name), value),
+          getStylesForProperty(getPropertyName(name), value),
         );
       }
     }
