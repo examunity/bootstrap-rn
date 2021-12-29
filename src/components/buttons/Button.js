@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import invariant from 'tiny-invariant';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import Pressable from '../Pressable';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/constants';
@@ -18,13 +17,15 @@ const propTypes = {
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.btn': css`
     // display: inline-block;
     // cursor: if($enable-button-pointers, pointer, null);
-    // user-select: none;
+    user-select: none;
     background-color: transparent;
     border: $btn-border-width solid transparent;
     padding: $btn-padding-y $btn-padding-x;
@@ -245,6 +246,7 @@ const Button = React.forwardRef((props, ref) => {
     outline = false,
     disabled = false,
     style,
+    textStyle,
     ...elementProps
   } = props;
 
@@ -273,8 +275,13 @@ const Button = React.forwardRef((props, ref) => {
   ]);
 
   return (
-    <Pressable {...elementProps} ref={ref} style={[...classes, style]}>
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+    <Pressable
+      {...elementProps}
+      ref={ref}
+      style={[...classes, style]}
+      textStyle={[...textClasses, textStyle]}
+    >
+      {children}
     </Pressable>
   );
 });

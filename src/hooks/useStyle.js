@@ -54,7 +54,7 @@ function useStyle(style, styleName) {
     });
 
     // Put basic styles first, then interaction styles for hover, focus, pressed.
-    return [basicStyles, interactionStyles];
+    return [...basicStyles, ...interactionStyles];
   };
 }
 
