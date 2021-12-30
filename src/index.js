@@ -13,6 +13,8 @@ import Text from './components/Text';
 import ScrollView from './components/ScrollView';
 import View from './components/View';
 import Modal from './components/modal/Modal';
+import Tooltip from './components/Tooltip';
+import Popover from './components/Popover';
 
 export {
   css,
@@ -30,4 +32,6 @@ export {
   ScrollView,
   View,
   Modal,
+  Tooltip,
+  Popover,
 };

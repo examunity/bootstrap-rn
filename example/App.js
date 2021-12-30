@@ -7,6 +7,8 @@ import Badges from './components/Badges';
 import Buttons from './components/Buttons';
 import Cards from './components/Cards';
 import Modals from './components/Modals';
+import Popover from './components/Popover';
+import Tooltips from './components/Tooltips';
 import Progresses from './components/Progresses';
 import Utilities from './components/Utilities';
 
@@ -37,6 +39,12 @@ function App() {
         </View>
         <View style={styles.container}>
           <Alerts />
+        </View>
+        <View style={styles.container}>
+          <Tooltips />
+        </View>
+        <View style={styles.container}>
+          <Popover />
         </View>
         <View style={styles.container}>
           <Badges />
