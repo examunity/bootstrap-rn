@@ -1,16 +1,18 @@
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { BOOTSTYLE_STYLE } from './symbols';
+import mediaBreakpointBetween from './mixins/mediaBreakpointBetween';
+import mediaBreakpointDown from './mixins/mediaBreakpointDown';
+import mediaBreakpointOnly from './mixins/mediaBreakpointOnly';
+import mediaBreakpointUp from './mixins/mediaBreakpointUp';
+import platform from './mixins/platform';
 
-const matchesPlatform = ({ scopes }) =>
-  scopes.every((scope) => {
-    if (scope.type !== 'directive' || scope.name !== 'platform') {
-      return true;
-    }
-
-    return scope.args[0] === 'native'
-      ? Platform.OS === 'android' || Platform.OS === 'ios'
-      : Platform.OS === scope.args[0];
-  });
+const mixins = {
+  'media-breakpoint-between': mediaBreakpointBetween,
+  'media-breakpoint-down': mediaBreakpointDown,
+  'media-breakpoint-only': mediaBreakpointOnly,
+  'media-breakpoint-up': mediaBreakpointUp,
+  platform,
+};
 
 const hasInteraction = ({ scopes }) =>
   scopes.some((scope) => scope.type === 'selector');
@@ -21,14 +23,24 @@ function createStyle(definitions) {
     return definitions[0].declarations;
   }
 
-  // Filter definitions that should not be used on this platform.
-  const platformDefinitions = definitions.filter(matchesPlatform);
+  // Filter definitions that should not be used based on mixins.
+  const platformDefinitions = definitions.filter((item) =>
+    item.scopes.every((scope) => {
+      if (scope.type !== 'mixin') {
+        return true;
+      }
 
+      return mixins[scope.name].include(scope);
+    }),
+  );
+
+  // Create style sheets.
   const styles = StyleSheet.create({
     ...platformDefinitions.map((item) => item.declarations),
   });
 
-  const resolve = ({ media, interaction = {} }) => {
+  const resolve = (state) => {
+    const { interaction } = state;
     const basicStyles = [];
     const interactionStyles = [];
 
@@ -36,35 +48,20 @@ function createStyle(definitions) {
       const active = platformDefinitions[key].scopes.every((scope) => {
         if (scope.type === 'selector') {
           if (scope.name === 'hover') {
-            return !!interaction.hovered;
+            return interaction && interaction.hovered;
           }
 
           if (scope.name === 'focus') {
-            return !!interaction.focused;
+            return interaction && interaction.focused;
           }
 
           if (scope.name === 'active') {
-            return !!interaction.pressed;
+            return interaction && interaction.pressed;
           }
         }
 
-        if (scope.type === 'directive') {
-          if (scope.name === 'platform') {
-            // Return true, because we have already checked the platform in matchesPlatform above.
-            return true;
-          }
-          if (scope.name === 'media-breakpoint-up') {
-            return media.up(scope.args[0]);
-          }
-          if (scope.name === 'media-breakpoint-down') {
-            return media.down(scope.args[0]);
-          }
-          if (scope.name === 'media-breakpoint-only') {
-            return media.up(scope.args[0]) && media.down(scope.args[0]);
-          }
-          if (scope.name === 'media-breakpoint-between') {
-            return media.up(scope.args[0]) && media.down(scope.args[1]);
-          }
+        if (scope.type === 'mixin') {
+          return mixins[scope.name].apply(scope, state);
         }
 
         throw new Error(`Unknown scope type "${scope.type}"`);

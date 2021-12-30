@@ -21,7 +21,7 @@ const directive = {
     const directiveName = input.charsWhile(isIdent);
 
     if (directiveName !== 'include') {
-      throw new Error('Wrong name.');
+      throw new Error('Only @include directive is supported.');
     }
 
     input.charsWhile(isWhitespace);
@@ -61,7 +61,7 @@ const directive = {
       type: 'block',
       scopes: [
         {
-          type: 'directive',
+          type: 'mixin',
           name,
           args,
         },
