@@ -11,6 +11,7 @@ import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
 import SampleTooltips from './components/SampleTooltips';
 import Utilities from './components/Utilities';
+import { ListGroup } from 'bootstyle';
 
 const breakpoints = {
   sm: 576,
@@ -63,6 +64,14 @@ function App() {
         </View>
         <View style={styles.container}>
           <Utilities />
+        </View>
+        <View style={styles.container}>
+          <ListGroup>
+            <ListGroup.Item>Patrick Item first</ListGroup.Item>
+            <ListGroup.Item>Patrick Item Second</ListGroup.Item>
+            <ListGroup.Item>Patrick Item 3</ListGroup.Item>
+            <ListGroup.Item>Patrick Item 4</ListGroup.Item>
+          </ListGroup>
         </View>
       </ScrollView>
     </Provider>

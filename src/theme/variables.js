@@ -568,6 +568,34 @@ const variables = css`
   $progress-bar-bg: $primary;
   $progress-bar-animation-timing: 1s linear infinite;
   $progress-bar-transition: width 0.6s ease;
+
+  // List group
+
+  $list-group-color:                  $gray-900;
+  $list-group-bg:                     $white;
+  $list-group-border-color:           rgba($black, .125);
+  $list-group-border-width:           $border-width;
+  $list-group-border-radius:          $border-radius;
+  
+  $list-group-item-padding-y:         $spacer * .5;
+  $list-group-item-padding-x:         $spacer;
+  $list-group-item-bg-scale:          -80%;
+  $list-group-item-color-scale:       40%;
+  
+  $list-group-hover-bg:               $gray-100;
+  $list-group-active-color:           $component-active-color;
+  $list-group-active-bg:              $component-active-bg;
+  $list-group-active-border-color:    $list-group-active-bg;
+  
+  $list-group-disabled-color:         $gray-600;
+  $list-group-disabled-bg:            $list-group-bg;
+  
+  $list-group-action-color:           $gray-700;
+  $list-group-action-hover-color:     $list-group-action-color;
+  
+  $list-group-action-active-color:    $body-color;
+  $list-group-action-active-bg:       $gray-200;
+
 `;
 
 export default variables;

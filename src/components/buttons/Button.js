@@ -77,16 +77,16 @@ const styles = StyleSheet.create({
 
       &:hover {
         background-color: ${(t) =>
-          shadeColor(t['btn-hover-bg-shade-amount'], value(t))};
+        shadeColor(t['btn-hover-bg-shade-amount'], value(t))};
         border-color: ${(t) =>
-          shadeColor(t['btn-hover-border-shade-amount'], value(t))};
+        shadeColor(t['btn-hover-border-shade-amount'], value(t))};
       }
 
       &:focus {
         background-color: ${(t) =>
-          shadeColor(t['btn-hover-bg-shade-amount'], value(t))};
+        shadeColor(t['btn-hover-bg-shade-amount'], value(t))};
         border-color: ${(t) =>
-          shadeColor(t['btn-hover-border-shade-amount'], value(t))};
+        shadeColor(t['btn-hover-border-shade-amount'], value(t))};
         /* @if $enable-shadows {
           @include box-shadow($btn-box-shadow, 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5));
         } @else {
@@ -97,11 +97,11 @@ const styles = StyleSheet.create({
 
       &:active {
         background-color: ${(t) =>
-          shadeColor(t['btn-active-bg-shade-amount'], value(t))};
+        shadeColor(t['btn-active-bg-shade-amount'], value(t))};
         // Remove CSS gradients if they're enabled
         // background-image: if($enable-gradients, none, null);
         border-color: ${(t) =>
-          shadeColor(t['btn-active-border-shade-amount'], value(t))};
+        shadeColor(t['btn-active-border-shade-amount'], value(t))};
 
         /* &:focus {
           @if $enable-shadows {
