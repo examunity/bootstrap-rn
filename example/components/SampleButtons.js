@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Heading, Text } from 'bootstyle';
 
-function Buttons() {
+function SampleButtons() {
   return (
     <>
       <Heading size={2}>Buttons</Heading>
@@ -15,4 +15,4 @@ function Buttons() {
   );
 }
 
-export default Buttons;
+export default SampleButtons;

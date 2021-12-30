@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Heading, Text, Button } from 'bootstyle';
 
-function Modals() {
+function SampleModal() {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
-      <Heading size={2}>Modals</Heading>
+      <Heading size={2}>Modal</Heading>
       <Button onPress={() => setModalVisible(true)}>
         <Text>Show Modal</Text>
       </Button>
@@ -32,4 +32,4 @@ function Modals() {
   );
 }
 
-export default Modals;
+export default SampleModal;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Heading, Text } from 'bootstyle';
 
-function Alerts() {
+function SampleAlerts() {
   return (
     <>
       <Heading size={2}>Alerts</Heading>
@@ -12,4 +12,4 @@ function Alerts() {
   );
 }
 
-export default Alerts;
+export default SampleAlerts;

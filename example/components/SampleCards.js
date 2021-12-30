@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Heading, Text } from 'bootstyle';
 
-function Cards() {
+function SampleCards() {
   return (
     <>
       <Heading size={2}>Cards</Heading>
@@ -20,4 +20,4 @@ function Cards() {
   );
 }
 
-export default Cards;
+export default SampleCards;

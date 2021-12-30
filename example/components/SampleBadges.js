@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge, Heading, Text } from 'bootstyle';
 
-function Badges() {
+function SampleBadges() {
   return (
     <>
       <Heading size={2}>Badges</Heading>
@@ -12,4 +12,4 @@ function Badges() {
   );
 }
 
-export default Badges;
+export default SampleBadges;

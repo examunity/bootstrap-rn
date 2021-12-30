@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
   `,
 });
 
-function Progresses() {
+function SampleProgress() {
   return (
     <>
-      <Heading size={2}>Progresses</Heading>
+      <Heading size={2}>Progress</Heading>
       <View style={styles.progressContainer}>
         <Progress min={10} max={50} style={styles.progress}>
           <Progress.Bar value={30} styleName="bg-danger" />
@@ -34,4 +34,4 @@ function Progresses() {
   );
 }
 
-export default Progresses;
+export default SampleProgress;

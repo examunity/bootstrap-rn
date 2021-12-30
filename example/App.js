@@ -2,14 +2,14 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { Provider, View, StyleSheet, css, ScrollView } from 'bootstyle';
 import Content from './components/Content';
-import Alerts from './components/Alerts';
-import Badges from './components/Badges';
-import Buttons from './components/Buttons';
-import Cards from './components/Cards';
-import Modals from './components/Modals';
-import Popover from './components/Popover';
-import Tooltips from './components/Tooltips';
-import Progresses from './components/Progresses';
+import SampleAlerts from './components/SampleAlerts';
+import SampleBadges from './components/SampleBadges';
+import SampleButtons from './components/SampleButtons';
+import SampleCards from './components/SampleCards';
+import SampleModal from './components/SampleModal';
+import SamplePopovers from './components/SamplePopovers';
+import SampleProgress from './components/SampleProgress';
+import SampleTooltips from './components/SampleTooltips';
 import Utilities from './components/Utilities';
 
 const breakpoints = {
@@ -38,28 +38,28 @@ function App() {
           <Content />
         </View>
         <View style={styles.container}>
-          <Alerts />
+          <SampleAlerts />
         </View>
         <View style={styles.container}>
-          <Tooltips />
+          <SampleBadges />
         </View>
         <View style={styles.container}>
-          <Popover />
+          <SampleButtons />
         </View>
         <View style={styles.container}>
-          <Badges />
+          <SampleCards />
         </View>
         <View style={styles.container}>
-          <Buttons />
+          <SampleModal />
         </View>
         <View style={styles.container}>
-          <Cards />
+          <SamplePopovers />
         </View>
         <View style={styles.container}>
-          <Modals />
+          <SampleProgress />
         </View>
         <View style={styles.container}>
-          <Progresses />
+          <SampleTooltips />
         </View>
         <View style={styles.container}>
           <Utilities />
