@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import BasePopover from 'react-native-popover-view'; // { PopoverMode }
-import View from './View';
-import Text from './Text';
-import Button from './buttons/Button';
-import StyleSheet from '../style/StyleSheet';
-import { getStyles } from '../utils';
-import css from '../style/css';
+import View from '../View';
+import Text from '../Text';
+import Button from '../buttons/Button';
+import StyleSheet from '../../style/StyleSheet';
+import { getStyles } from '../../utils';
+import css from '../../style/css';
 
 const PLACEMENTS = ['top', 'bottom', 'left', 'right', 'auto'];
 
