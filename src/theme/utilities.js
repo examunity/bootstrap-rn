@@ -10,7 +10,7 @@ const make = (options) =>
   }));
 
 const utilities = {
-  ...make({
+  /* ...make({
     property: 'vertical-align',
     class: 'align',
     values: {
@@ -21,7 +21,7 @@ const utilities = {
       'text-bottom': 'text-bottom',
       'text-top': 'text-top',
     },
-  }),
+  }), */
   ...make({
     property: 'color',
     class: 'text',
@@ -40,7 +40,6 @@ const utilities = {
       transparent: 'transparent',
     },
   }),
-
 };
 
 export default utilities;
