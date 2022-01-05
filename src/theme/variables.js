@@ -193,7 +193,14 @@ const variables = css`
   // You can add more entries to the $spacers map, should you need more variation.
 
   $spacer: 1rem;
-  // $spacers map
+  $spacers: ${(t) => ({
+    0: 0,
+    1: t.spacer * 0.25,
+    2: t.spacer * 0.5,
+    3: t.spacer,
+    4: t.spacer * 1.5,
+    5: t.spacer * 3,
+  })};
 
   // Position
   //
@@ -215,7 +222,7 @@ const variables = css`
 
   $link-color: $primary;
   $link-decoration: underline;
-  $link-shade-percentage: 20%;
+  $link-shade-percentage: 0.2;
   $link-hover-color: ${(t) =>
     shiftColor(t['link-shade-percentage'], t['link-color'])};
   $link-hover-decoration: null;
@@ -234,21 +241,34 @@ const variables = css`
   // Define the minimum dimensions at which your layout will change,
   // adapting to different screen sizes, for use in media queries.
 
-  // TODO: $grid-breakpoints map
+  $grid-breakpoints: ${() => ({
+    xs: 0,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200,
+    xxl: 1400,
+  })};
 
   // Grid containers
   //
   // Define the maximum width of ".container" for different screen sizes.
 
-  // TODO: $container-max-widths map
+  $container-max-widths: ${() => ({
+    sm: '540px',
+    md: '720px',
+    lg: '960px',
+    xl: '1140px',
+    xxl: '1320px',
+  })};
 
   // Grid columns
   //
   // Set the number of columns and specify the width of the gutters.
 
-  $grid-columns: 12;
+  // $grid-columns: 12;
   $grid-gutter-width: 1.5rem;
-  $grid-row-columns: 6;
+  // $grid-row-columns: 6;
 
   // Container padding
 
@@ -453,14 +473,14 @@ const variables = css`
   $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-  $btn-hover-bg-shade-amount: 15%;
-  $btn-hover-bg-tint-amount: 15%;
-  $btn-hover-border-shade-amount: 20%;
-  $btn-hover-border-tint-amount: 10%;
-  $btn-active-bg-shade-amount: 20%;
-  $btn-active-bg-tint-amount: 20%;
-  $btn-active-border-shade-amount: 25%;
-  $btn-active-border-tint-amount: 10%;
+  $btn-hover-bg-shade-amount: 0.15;
+  $btn-hover-bg-tint-amount: 0.15;
+  $btn-hover-border-shade-amount: 0.2;
+  $btn-hover-border-tint-amount: 0.1;
+  $btn-active-bg-shade-amount: 0.2;
+  $btn-active-bg-tint-amount: 0.2;
+  $btn-active-border-shade-amount: 0.25;
+  $btn-active-border-tint-amount: 0.1;
 
   // ...
 
@@ -552,9 +572,9 @@ const variables = css`
   $alert-border-radius: $border-radius;
   $alert-link-font-weight: $font-weight-bold;
   $alert-border-width: $border-width;
-  $alert-bg-scale: -80%;
-  $alert-border-scale: -70%;
-  $alert-color-scale: 40%;
+  $alert-bg-scale: -0.8;
+  $alert-border-scale: -0.7;
+  $alert-color-scale: 0.4;
   $alert-dismissible-padding-r: $alert-padding-x * 3; // 3x covers width of x plus default padding on either side
 
   // Progress bars
@@ -571,31 +591,32 @@ const variables = css`
 
   // List group
 
-  $list-group-color:                  $gray-900;
-  $list-group-bg:                     $white;
-  $list-group-border-color:           rgba($black, .125);
-  $list-group-border-width:           $border-width;
-  $list-group-border-radius:          $border-radius;
-  
-  $list-group-item-padding-y:         $spacer * .5;
-  $list-group-item-padding-x:         $spacer;
-  $list-group-item-bg-scale:          -80%;
-  $list-group-item-color-scale:       40%;
-  
-  $list-group-hover-bg:               $gray-100;
-  $list-group-active-color:           $component-active-color;
-  $list-group-active-bg:              $component-active-bg;
-  $list-group-active-border-color:    $list-group-active-bg;
-  
-  $list-group-disabled-color:         $gray-600;
-  $list-group-disabled-bg:            $list-group-bg;
-  
-  $list-group-action-color:           $gray-700;
-  $list-group-action-hover-color:     $list-group-action-color;
-  
-  $list-group-action-active-color:    $body-color;
-  $list-group-action-active-bg:       $gray-200;
+  $list-group-color: $gray-900;
+  $list-group-bg: $white;
+  $list-group-border-color: rgba($black, 0.125);
+  $list-group-border-width: $border-width;
+  $list-group-border-radius: $border-radius;
 
+  $list-group-item-padding-y: $spacer * 0.5;
+  $list-group-item-padding-x: $spacer;
+  $list-group-item-bg-scale: -0.8;
+  $list-group-item-color-scale: 0.4;
+
+  $list-group-hover-bg: $gray-100;
+  $list-group-active-color: $component-active-color;
+  $list-group-active-bg: $component-active-bg;
+  $list-group-active-border-color: $list-group-active-bg;
+
+  $list-group-disabled-color: $gray-600;
+  $list-group-disabled-bg: $list-group-bg;
+
+  $list-group-action-color: $gray-700;
+  $list-group-action-hover-color: $list-group-action-color;
+
+  $list-group-action-active-color: $body-color;
+  $list-group-action-active-bg: $gray-200;
+
+  // ...
 `;
 
 export default variables;
