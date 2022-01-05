@@ -89,12 +89,6 @@ const Container = React.forwardRef((props, ref) => {
     fluid !== true && `.container-${fluid}`,
   ]);
 
-  console.log(classes, [
-    'base',
-    // Hint: Bootstrap's .container class is identical with .container-sm.
-    fluid !== true && `.container-${fluid}`,
-  ]);
-
   return <View {...elementProps} ref={ref} style={[classes, style]} />;
 });
 
