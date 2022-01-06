@@ -157,6 +157,12 @@ export const CYANS = {
 };
 
 // Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+
+export const SPACER_KEYS = [0, 1, 2, 3, 4, 5];
 
 export const SPACERS = {
   0: 0,
@@ -166,3 +172,14 @@ export const SPACERS = {
   4: (t) => t.spacer * 1.5,
   5: (t) => t.spacer * 3,
 };
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+export const GRID_BREAKPOINT_KEYS = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+
+export const GRID_COLUMNS = 12;
+
+export const GRID_ROW_COLUMNS = 6;

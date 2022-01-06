@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 });
 
 const Heading = React.forwardRef((props, ref) => {
-  const { size, style, ...elementProps } = props;
+  const { children, size, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['heading', `.h${size}`]);
 
@@ -51,7 +51,9 @@ const Heading = React.forwardRef((props, ref) => {
       accessibilityRole="header"
       accessibilityLevel={size}
       style={[classes, style]}
-    />
+    >
+      {children}
+    </Text>
   );
 });
 

@@ -1,21 +1,29 @@
 import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 import rem from './rem';
-import percentage from './percentage';
 import formula from './formula';
 import rgba from './rgba';
 
 const applyVariables = (variables, value) =>
   typeof value === 'function' ? value(variables) : value;
 
+const applyTransforms = (result) => rem(rgba(formula(result)));
+
 const resolveValue = (value, definition, theme) => {
   const variables = { ...theme.variables, ...definition.variables };
 
-  const stringifiedValue = value.reduce(
+  // If there is only one part, we allow other results than strings as well.
+  if (value.length === 1) {
+    const result = applyVariables(variables, value[0]);
+
+    return typeof result === 'string' ? applyTransforms(result) : result;
+  }
+
+  const stringifiedResult = value.reduce(
     (previous, current) => `${previous}${applyVariables(variables, current)}`,
     '',
   );
 
-  return rem(rgba(formula(percentage(stringifiedValue))));
+  return applyTransforms(stringifiedResult);
 };
 
 export default function transform(

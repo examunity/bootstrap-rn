@@ -8,19 +8,12 @@ import Context from './Context';
 const propTypes = {
   children: PropTypes.node.isRequired,
   ssrViewport: PropTypes.string,
-  breakpoints: PropTypes.shape({
-    xs: PropTypes.number,
-    sm: PropTypes.number,
-    md: PropTypes.number,
-    lg: PropTypes.number,
-    xl: PropTypes.number,
-  }).isRequired,
 };
 
 function Provider(props) {
-  const { children, ssrViewport, breakpoints } = props;
+  const { children, ssrViewport } = props;
 
-  const viewport = useViewport({ initialViewport: ssrViewport, breakpoints });
+  const viewport = useViewport(ssrViewport);
 
   const utilitiesStyles = useMemo(() => StyleSheet.create(utilities), []);
 
@@ -28,9 +21,6 @@ function Provider(props) {
 
   const context = {
     utilitiesStyles,
-    getBreakpoints() {
-      return breakpoints;
-    },
     getViewport() {
       return viewport;
     },

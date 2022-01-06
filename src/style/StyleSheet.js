@@ -135,7 +135,7 @@ const StyleSheet = {
 
     const theme = themes[activeThemeKey].source;
 
-    return theme[key.substr(1)];
+    return theme.variables[key];
   },
 };
 

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
+import StyleSheet from '../style/StyleSheet';
 
-function useViewport({ initialViewport, breakpoints }) {
+function useViewport(initialViewport) {
   const [viewport, setViewport] = useState(initialViewport);
+  const breakpoints = StyleSheet.value('grid-breakpoints');
 
   const calculateViewport = (width) => {
     if (width < breakpoints.sm) {

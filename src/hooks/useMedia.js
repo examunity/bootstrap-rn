@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import Context from '../Context';
+import StyleSheet from '../style/StyleSheet';
 
 export default function useMedia() {
   const context = useContext(Context);
 
   const viewport = context.getViewport();
-  const breakpoints = context.getBreakpoints();
+  const breakpoints = StyleSheet.value('grid-breakpoints');
 
   const breakpointKeys = Object.keys(breakpoints);
 
