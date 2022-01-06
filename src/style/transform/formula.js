@@ -23,24 +23,30 @@ const getUnit = (left, right) => {
     return left;
   }
 
-  throw new Error('Different units found for arithmetic operation.');
+  throw new Error(
+    `Different units ${left} and ${right} found for arithmetic operation.`,
+  );
 };
+
+const POWER = 10 ** 8;
+
+const fixRounding = (value) => Math.round(value * POWER) / POWER;
 
 const calculate = (left, operator, right) => {
   if (operator === '+') {
-    return left + right;
+    return parseFloat(left) + parseFloat(right);
   }
 
   if (operator === '-') {
-    return left - right;
+    return parseFloat(left) - parseFloat(right);
   }
 
   if (operator === '*') {
-    return left * right;
+    return fixRounding(parseFloat(left) * parseFloat(right));
   }
 
   if (operator === '%') {
-    return left % right;
+    return parseFloat(left) % parseFloat(right);
   }
 
   throw new Error('Unknown operator.');
@@ -56,6 +62,8 @@ function formula(value) {
       const rightNumber = getNumber(rightUnary, right);
       const unit = getUnit(leftUnit, rightUnit);
       const result = calculate(leftNumber, operator, rightNumber);
+
+      console.log(_, result);
 
       return `${result}${unit}`;
     },

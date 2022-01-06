@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import css from '../style/css';
-import { shiftColor, subtract } from './functions';
+import { tintColor, shiftColor, subtract } from './functions';
 
 const variables = css`
   // Color system
@@ -222,7 +222,7 @@ const variables = css`
 
   $link-color: $primary;
   $link-decoration: underline;
-  $link-shade-percentage: 0.2;
+  $link-shade-percentage: 0.2; // 20%;
   $link-hover-color: ${(t) =>
     shiftColor(t['link-shade-percentage'], t['link-color'])};
   $link-hover-decoration: null;
@@ -473,14 +473,14 @@ const variables = css`
   $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-  $btn-hover-bg-shade-amount: 0.15;
-  $btn-hover-bg-tint-amount: 0.15;
-  $btn-hover-border-shade-amount: 0.2;
-  $btn-hover-border-tint-amount: 0.1;
-  $btn-active-bg-shade-amount: 0.2;
-  $btn-active-bg-tint-amount: 0.2;
-  $btn-active-border-shade-amount: 0.25;
-  $btn-active-border-tint-amount: 0.1;
+  $btn-hover-bg-shade-amount: 0.15; // 15%;
+  $btn-hover-bg-tint-amount: 0.15; // 15%;
+  $btn-hover-border-shade-amount: 0.2; // 20%;
+  $btn-hover-border-tint-amount: 0.1; // 10%;
+  $btn-active-bg-shade-amount: 0.2; // 20%;
+  $btn-active-bg-tint-amount: 0.2; // 20%;
+  $btn-active-border-shade-amount: 0.25; // 25%;
+  $btn-active-border-tint-amount: 0.1; // 10%;
 
   // Forms
 
@@ -525,7 +525,7 @@ const variables = css`
   $input-border-radius-lg: $border-radius-lg;
 
   $input-focus-bg: $input-bg;
-  $input-focus-border-color: tint-color($component-active-bg, 50%);
+  $input-focus-border-color: ${(t) => tintColor(0.5, t['component-active-bg'])};
   $input-focus-color: $input-color;
   $input-focus-width: $input-btn-focus-width;
   $input-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -535,23 +535,23 @@ const variables = css`
 
   $input-height-border: $input-border-width * 2;
 
-  $input-height-inner: add($input-line-height * 1em, $input-padding-y * 2);
-  $input-height-inner-half: add($input-line-height * 0.5em, $input-padding-y);
+  $input-height-inner: add($input-line-height * 1rem, $input-padding-y * 2);
+  $input-height-inner-half: add($input-line-height * 0.5rem, $input-padding-y);
   $input-height-inner-quarter: add(
-    $input-line-height * 0.25em,
+    $input-line-height * 0.25rem,
     $input-padding-y * 0.5
   );
 
   $input-height: add(
-    $input-line-height * 1em,
+    $input-line-height * 1rem,
     add($input-padding-y * 2, $input-height-border, false)
   );
   $input-height-sm: add(
-    $input-line-height * 1em,
+    $input-line-height * 1rem,
     add($input-padding-y-sm * 2, $input-height-border, false)
   );
   $input-height-lg: add(
-    $input-line-height * 1em,
+    $input-line-height * 1rem,
     add($input-padding-y-lg * 2, $input-height-border, false)
   );
 
@@ -560,9 +560,9 @@ const variables = css`
 
   $form-color-width: 3rem;
 
-  $form-check-input-width: 1em;
+  $form-check-input-width: 1rem; // 1em;
   $form-check-min-height: $font-size-base * $line-height-base;
-  $form-check-padding-start: $form-check-input-width + 0.5em;
+  $form-check-padding-start: $form-check-input-width + 0.5rem; // 0.5em;
   $form-check-margin-bottom: 0.125rem;
   $form-check-label-color: null;
   $form-check-label-cursor: null;
@@ -572,8 +572,8 @@ const variables = css`
 
   $form-check-input-bg: $input-bg;
   $form-check-input-border: 1px solid rgba($black, 0.25);
-  $form-check-input-border-radius: 0.25em;
-  $form-check-radio-border-radius: 50%;
+  $form-check-input-border-radius: 0.25rem; // 0.25em;
+  $form-check-radio-border-radius: 50px; // 50%;
   $form-check-input-focus-border: $input-focus-border-color;
   $form-check-input-focus-box-shadow: $input-btn-focus-box-shadow;
 
@@ -595,8 +595,8 @@ const variables = css`
   $form-check-inline-margin-end: 1rem;
 
   $form-switch-color: rgba($black, 0.25);
-  $form-switch-width: 2em;
-  $form-switch-padding-start: $form-switch-width + 0.5em;
+  $form-switch-width: 2rem;
+  $form-switch-padding-start: $form-switch-width + 0.5rem;
   // $form-switch-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>");
   $form-switch-border-radius: $form-switch-width;
   $form-switch-transition: background-position 0.15s ease-in-out;
@@ -812,9 +812,9 @@ const variables = css`
   $alert-border-radius: $border-radius;
   $alert-link-font-weight: $font-weight-bold;
   $alert-border-width: $border-width;
-  $alert-bg-scale: -0.8;
-  $alert-border-scale: -0.7;
-  $alert-color-scale: 0.4;
+  $alert-bg-scale: -0.8; // 80%;
+  $alert-border-scale: -0.7; // 70%;
+  $alert-color-scale: 0.4; // 40%;
   $alert-dismissible-padding-r: $alert-padding-x * 3; // 3x covers width of x plus default padding on either side
 
   // Progress bars
@@ -839,8 +839,8 @@ const variables = css`
 
   $list-group-item-padding-y: $spacer * 0.5;
   $list-group-item-padding-x: $spacer;
-  $list-group-item-bg-scale: -0.8;
-  $list-group-item-color-scale: 0.4;
+  $list-group-item-bg-scale: -0.8; // 80%;
+  $list-group-item-color-scale: 0.4; // 40%;
 
   $list-group-hover-bg: $gray-100;
   $list-group-active-color: $component-active-color;

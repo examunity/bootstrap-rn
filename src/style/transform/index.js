@@ -6,7 +6,7 @@ import rgba from './rgba';
 const applyVariables = (variables, value) =>
   typeof value === 'function' ? value(variables) : value;
 
-const applyTransforms = (result) => rem(rgba(formula(result)));
+const applyTransforms = (result) => rgba(formula(rem(result)));
 
 const resolveValue = (value, definition, theme) => {
   const variables = { ...theme.variables, ...definition.variables };
