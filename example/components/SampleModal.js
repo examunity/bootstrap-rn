@@ -14,17 +14,19 @@ function SampleModal() {
       <Modal visible={modalVisible}>
         <Modal.Header>
           <Text>Modal Title Text</Text>
-          <Button onPress={() => setModalVisible(false)}>
-            <Text>Close</Text>
+          <Button color="link" onPress={() => setModalVisible(false)}>
+            <Text>x</Text>
           </Button>
         </Modal.Header>
         <Modal.Body>
           <Text>Body Text</Text>
         </Modal.Body>
         <Modal.Footer>
-          <Text>Footer Text</Text>
           <Button onPress={() => setModalVisible(!modalVisible)}>
-            <Text>Hide modal</Text>
+            <Text>Submit</Text>
+          </Button>
+          <Button onPress={() => setModalVisible(!modalVisible)}>
+            <Text>Close</Text>
           </Button>
         </Modal.Footer>
       </Modal>

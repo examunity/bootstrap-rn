@@ -9,11 +9,16 @@ const propTypes = { children: PropTypes.node.isRequired };
 
 const styles = StyleSheet.create({
   '.modalFooter': css`
-    // padding-horizontal: $modal-footer-padding-x;
-    // padding-vertical: $modal-footer-padding-y;
+    padding-horizontal: $modal-header-padding-x;
+    padding-vertical: $modal-header-padding-y;
     border-top-width: $modal-footer-border-width;
     border-style: solid;
     border-color: $modal-footer-border-color;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-grow: 1;
   `,
 });
 

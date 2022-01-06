@@ -40,7 +40,6 @@ const styles2 = StyleSheet2.create({
 const styles = StyleSheet.create({
   '.modalContainer': css`
     display: flex;
-    flex-direction: column;
     min-width: 0;
     flex: 1;
     justify-content: center;
@@ -52,6 +51,9 @@ const styles = StyleSheet.create({
     border-radius: 0.75rem;
     align-items: center;
     shadow-color: $black;
+    width: 400;
+    min-height: 300;
+    display: flex;
   `,
 });
 
@@ -59,11 +61,8 @@ const Modal = (props) => {
   const { children, style, visible, ...elementProps } = props;
 
   const modalContainerClasses = getStyles(styles, ['.modalContainer']);
-
   const classes = getStyles(styles, ['.modalView']);
   return (
-    // need to re-check if this is needed still on mobile
-    // <View style={[modalContainerClasses, style]}>
     <BaseModal animationType="slide" transparent visible={visible}>
       <View style={[modalContainerClasses, style]}>
         <View {...elementProps} style={[classes, style, styles2.modalView2]}>
@@ -71,7 +70,6 @@ const Modal = (props) => {
         </View>
       </View>
     </BaseModal>
-    // </View>
   );
 };
 
@@ -81,6 +79,5 @@ Modal.propTypes = propTypes;
 Modal.Header = ModalHeader;
 Modal.Body = ModalBody;
 Modal.Footer = ModalFooter;
-// Modal2.Title = ModalTitle;
 
 export default Modal;

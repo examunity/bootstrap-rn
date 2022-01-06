@@ -1,6 +1,13 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { Provider, View, StyleSheet, css, ScrollView } from 'bootstyle';
+import {
+  Provider,
+  View,
+  StyleSheet,
+  css,
+  ScrollView,
+  ListGroup,
+} from 'bootstyle';
 import Content from './components/Content';
 import SampleAlerts from './components/SampleAlerts';
 import SampleBadges from './components/SampleBadges';
@@ -10,8 +17,8 @@ import SampleModal from './components/SampleModal';
 import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
 import SampleTooltips from './components/SampleTooltips';
+import SampleAnotherModal from './components/SampleAnotherModal';
 import Utilities from './components/Utilities';
-import { ListGroup } from 'bootstyle';
 
 const breakpoints = {
   sm: 576,
@@ -52,6 +59,9 @@ function App() {
         </View>
         <View style={styles.container}>
           <SampleModal />
+        </View>
+        <View style={styles.container}>
+          <SampleAnotherModal />
         </View>
         <View style={styles.container}>
           <SamplePopovers />

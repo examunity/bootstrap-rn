@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
     border-bottom-width: $modal-header-border-width;
     border-style: solid;
     border-color: $modal-header-border-color;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
   `,
 });
 
