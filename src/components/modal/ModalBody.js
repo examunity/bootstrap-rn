@@ -8,7 +8,7 @@ import View from '../View';
 const propTypes = { children: PropTypes.node.isRequired };
 
 const styles = StyleSheet.create({
-  '.modalBody': css`
+  '.modal-body': css`
     padding-vertical: $spacer;
     padding-horizontal: $spacer;
     flex-grow: 1;
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 function ModalBody(props) {
   const { children, ...elementProps } = props;
-  const classes = getStyles(styles, ['.modalBody']);
+  const classes = getStyles(styles, ['.modal-body']);
   return (
     <View style={[classes, elementProps.style]} {...elementProps}>
       {children}

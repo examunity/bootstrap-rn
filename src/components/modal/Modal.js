@@ -38,21 +38,21 @@ const styles2 = StyleSheet2.create({
 });
 
 const styles = StyleSheet.create({
-  '.modalContainer': css`
+  '.modal-container': css`
     display: flex;
     min-width: 0;
     flex: 1;
     justify-content: center;
     align-items: center;
   `,
-  '.modalView': css`
+  '.modal-view': css`
     margin: 1.25rem;
     background-color: $white;
     border-radius: 0.75rem;
-    align-items: center;
+    // align-items: center;
     shadow-color: $black;
-    width: 400;
-    min-height: 300;
+    width: 400px;
+    min-height: 300px;
     display: flex;
   `,
 });
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
 const Modal = (props) => {
   const { children, style, visible, ...elementProps } = props;
 
-  const modalContainerClasses = getStyles(styles, ['.modalContainer']);
-  const classes = getStyles(styles, ['.modalView']);
+  const modalContainerClasses = getStyles(styles, ['.modal-container']);
+  const classes = getStyles(styles, ['.modal-view']);
   return (
     <BaseModal animationType="slide" transparent visible={visible}>
       <View style={[modalContainerClasses, style]}>

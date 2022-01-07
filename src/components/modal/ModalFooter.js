@@ -8,7 +8,7 @@ import { getStyles } from '../../utils';
 const propTypes = { children: PropTypes.node.isRequired };
 
 const styles = StyleSheet.create({
-  '.modalFooter': css`
+  '.modal-footer': css`
     padding-horizontal: $modal-header-padding-x;
     padding-vertical: $modal-header-padding-y;
     border-top-width: $modal-footer-border-width;
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 function ModalFooter(props) {
   const { children, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['.modalFooter']);
+  const classes = getStyles(styles, ['.modal-footer']);
 
   return (
     <View style={[classes, elementProps.style]} {...elementProps}>
