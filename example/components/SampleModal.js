@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Heading, Text, Button } from 'bootstyle';
+import { Modal, Heading, Text, Button, CloseButton } from 'bootstyle';
 
 function SampleModal() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,9 +14,7 @@ function SampleModal() {
       <Modal visible={modalVisible}>
         <Modal.Header>
           <Text>Modal Title Text</Text>
-          <Button color="link" onPress={() => setModalVisible(false)}>
-            <Text>x</Text>
-          </Button>
+          <CloseButton onPress={() => setModalVisible(!modalVisible)} />
         </Modal.Header>
         <Modal.Body>
           <Text>Body Text</Text>

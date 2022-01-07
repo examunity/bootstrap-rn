@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   '.modal-body': css`
     padding-vertical: $spacer;
     padding-horizontal: $spacer;
-    flex-grow: 1;
   `,
 });
 

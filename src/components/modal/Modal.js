@@ -38,34 +38,39 @@ const styles2 = StyleSheet2.create({
 });
 
 const styles = StyleSheet.create({
-  '.modal-container': css`
+  '.modal-dialog': css`
     display: flex;
     min-width: 0;
     flex: 1;
     justify-content: center;
     align-items: center;
   `,
-  '.modal-view': css`
-    margin: 1.25rem;
-    background-color: $white;
-    border-radius: 0.75rem;
-    // align-items: center;
+  '.modal-content': css`
     shadow-color: $black;
-    width: 400px;
-    min-height: 300px;
     display: flex;
+    min-width: 300;
+
+    color: $modal-content-color;
+    background-color: $modal-content-bg;
+    border-color: $modal-content-border-color;
+    border-width: $modal-content-border-width;
+    border-radius: $modal-content-border-radius $modal-content-border-radius
+      $modal-content-inner-border-radius $modal-content-inner-border-radius;
   `,
 });
 
 const Modal = (props) => {
   const { children, style, visible, ...elementProps } = props;
 
-  const modalContainerClasses = getStyles(styles, ['.modal-container']);
-  const classes = getStyles(styles, ['.modal-view']);
+  const modalDialogClasses = getStyles(styles, ['.modal-dialog']);
+  const modalContentClasses = getStyles(styles, ['.modal-content']);
   return (
     <BaseModal animationType="slide" transparent visible={visible}>
-      <View style={[modalContainerClasses, style]}>
-        <View {...elementProps} style={[classes, style, styles2.modalView2]}>
+      <View style={[modalDialogClasses, style]}>
+        <View
+          {...elementProps}
+          style={[modalContentClasses, style, styles2.modalView2]}
+        >
           {children}
         </View>
       </View>

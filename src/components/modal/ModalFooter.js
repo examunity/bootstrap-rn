@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     align-items: center;
     flex-direction: row;
     justify-content: flex-end;
-    flex-grow: 1;
   `,
 });
 

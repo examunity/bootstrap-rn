@@ -856,6 +856,20 @@ const variables = css`
   $list-group-action-active-color: $body-color;
   $list-group-action-active-bg: $gray-200;
 
+  // Close
+
+  $btn-close-width: 1rem;
+  $btn-close-height: $btn-close-width;
+  $btn-close-padding-x: 0.25rem;
+  $btn-close-padding-y: $btn-close-padding-x;
+  $btn-close-color: $black;
+  $btn-close-focus-shadow: $input-btn-focus-box-shadow;
+  $btn-close-opacity: 0.5;
+  $btn-close-hover-opacity: 0.75;
+  $btn-close-focus-opacity: 1;
+  $btn-close-disabled-opacity: 0.25;
+  // $btn-close-white-filter:     invert(1) grayscale(100%) brightness(200%);
+
   // ...
 `;
 

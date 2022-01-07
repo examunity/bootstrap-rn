@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     border-style: solid;
     border-color: $modal-header-border-color;
     flex-direction: row;
-    flex-grow: 1;
     justify-content: space-between;
   `,
 });

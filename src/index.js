@@ -21,6 +21,7 @@ import Pressable from './components/Pressable';
 import Text from './components/Text';
 import ScrollView from './components/ScrollView';
 import View from './components/View';
+import CloseButton from './components/close/CloseButton';
 
 export {
   css,
@@ -46,4 +47,5 @@ export {
   Text,
   ScrollView,
   View,
+  CloseButton,
 };
