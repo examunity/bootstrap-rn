@@ -7,6 +7,7 @@ import Badge from './components/badge/Badge';
 import Button from './components/buttons/Button';
 import Card from './components/card/Card';
 import Container from './components/containers/Container';
+import Checkbox from './components/forms/Checkbox';
 import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
@@ -31,6 +32,7 @@ export {
   Button,
   Card,
   Container,
+  Checkbox,
   Col,
   Row,
   ListGroup,

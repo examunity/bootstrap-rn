@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'bootstyle';
 import Content from './components/Content';
+import Forms from './components/Forms';
 import SampleAlerts from './components/SampleAlerts';
 import SampleBadges from './components/SampleBadges';
 import SampleButtons from './components/SampleButtons';
@@ -39,6 +40,9 @@ function App() {
         <Container>
           <View style={styles.container}>
             <Content />
+          </View>
+          <View style={styles.container}>
+            <Forms />
           </View>
           <View style={styles.container}>
             <SampleAlerts />
