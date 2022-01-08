@@ -10,7 +10,7 @@ const make = (options) =>
   }));
 
 const utilities = {
-  ...make({
+  /* ...make({
     property: 'vertical-align',
     class: 'align',
     values: {
@@ -21,8 +21,8 @@ const utilities = {
       'text-bottom': 'text-bottom',
       'text-top': 'text-top',
     },
-  }),
-  ...make({
+  }), */
+  /* ...make({
     property: 'float',
     class: 'float',
     values: {
@@ -30,7 +30,7 @@ const utilities = {
       end: 'right',
       none: 'none',
     },
-  }),
+  }), */
   ...make({
     property: 'opacity',
     class: 'opacity',
@@ -46,14 +46,14 @@ const utilities = {
     property: 'overflow',
     class: 'overflow',
     values: {
-      auto: 'auto',
+      // auto: 'auto',
       hidden: 'hidden',
       visible: 'visible',
       scroll: 'scroll',
     },
   }),
-  ...make({
-    //print: true,
+  /* ...make({
+    // print: true,
     property: 'display',
     class: 'd',
     values: {
@@ -67,7 +67,7 @@ const utilities = {
       'inline-flex': 'inline-flex',
       none: 'none',
     },
-  }),
+  }), */
   ...make({
     property: 'box-shadow',
     class: 'shadow',
@@ -82,32 +82,32 @@ const utilities = {
     property: 'position',
     class: 'position',
     values: {
-      static: 'static',
+      // static: 'static',
       relative: 'relative',
       absolute: 'absolute',
-      fixed: 'fixed',
-      sticky: 'sticky',
+      // fixed: 'fixed',
+      // sticky: 'sticky',
     },
   }),
   ...make({
     property: 'top',
     class: 'top',
     values: {
-      //$position-values
+      // $position-values
     },
   }),
   ...make({
     property: 'bottom',
     class: 'bottom',
     values: {
-      //values: $position-values
+      // values: $position-values
     },
   }),
   ...make({
     property: 'left',
     class: 'start',
     values: {
-      //values: $position-values
+      // values: $position-values
     },
   }),
   /* TODO:
@@ -125,15 +125,15 @@ const utilities = {
     property: 'border',
     class: 'border',
     values: {
-      //null: $border-width solid $border-color,
+      // null: $border-width solid $border-color,
       0: '0',
     },
   }),
-  ...make({
+  /* ...make({
     property: 'border-top',
     class: 'border-top',
     values: {
-      //null: $border-width solid $border-color,
+      // null: $border-width solid $border-color,
       0: '0',
     },
   }),
@@ -141,7 +141,7 @@ const utilities = {
     property: 'border-right',
     class: 'border-end',
     values: {
-      //null: $border-width solid $border-color,
+      // null: $border-width solid $border-color,
       0: '0',
     },
   }),
@@ -149,7 +149,7 @@ const utilities = {
     property: 'border-bottom',
     class: 'border-bottom',
     values: {
-      //null: $border-width solid $border-color,
+      // null: $border-width solid $border-color,
       0: '0',
     },
   }),
@@ -157,22 +157,22 @@ const utilities = {
     property: 'border-left',
     class: 'border-start',
     values: {
-      //null: $border-width solid $border-color,
+      // null: $border-width solid $border-color,
       0: '0',
     },
-  }),
+  }), */
   ...make({
     property: 'border-color',
     class: 'border',
     values: {
-      //values: map-merge($theme-colors, ("white": $white))
+      // values: map-merge($theme-colors, ("white": $white))
     },
   }),
   ...make({
     property: 'border-width',
     class: 'border',
     values: {
-      //$border-widths
+      // $border-widths
     },
   }),
   ...make({
@@ -228,7 +228,7 @@ const utilities = {
     },
   }),
   ...make({
-    //"viewport-height": (
+    // "viewport-height": (
     property: 'height',
     class: 'vh',
     values: {
@@ -289,7 +289,7 @@ const utilities = {
     property: 'gap',
     class: 'gap',
     values: {
-      //$spacers
+      // $spacers
     },
   }),
   ...make({
@@ -301,7 +301,7 @@ const utilities = {
       center: 'center',
       between: 'space-between',
       around: 'space-around',
-      evenly: 'space-evenly',
+      // evenly: 'space-evenly',
     },
   }),
   ...make({
@@ -339,7 +339,7 @@ const utilities = {
       stretch: 'stretch',
     },
   }),
-  ...make({
+  /* ...make({
     property: 'order',
     class: 'order',
     values: {
@@ -352,63 +352,63 @@ const utilities = {
       5: '5',
       last: '6',
     },
-  }),
+  }), */
   ...make({
     property: 'margin',
     class: 'm',
     values: {
-      //values: map-merge($spacers, (auto: auto))
+      // values: map-merge($spacers, (auto: auto))
     },
   }),
   ...make({
     // "margin-x": (
-    //property: margin-right margin-left,
+    // property: margin-right margin-left,
     property: 'margin-x',
     class: 'mx',
     values: {
-      //values: map-merge($spacers, (auto: auto))
+      // values: map-merge($spacers, (auto: auto))
     },
   }),
   ...make({
-    //property: margin-top margin-bottom,
+    // property: margin-top margin-bottom,
     property: 'margin-y',
     class: 'my',
     values: {
-      //map-merge($spacers, (auto: auto))
+      // map-merge($spacers, (auto: auto))
     },
   }),
   ...make({
     property: 'margin-top',
     class: 'mt',
     values: {
-      //map-merge($spacers, (auto: auto))
+      // map-merge($spacers, (auto: auto))
     },
   }),
   ...make({
-    //"margin-end": (
+    // "margin-end": (
     property: 'margin-right',
     class: 'me',
     values: {
-      //values: map-merge($spacers, (auto: auto))
+      // values: map-merge($spacers, (auto: auto))
     },
   }),
   ...make({
     property: 'margin-bottom',
     class: 'mb',
     values: {
-      //values: map-merge($spacers, (auto: auto))
+      // values: map-merge($spacers, (auto: auto))
     },
   }),
   ...make({
-    //"margin-start": (
+    // "margin-start": (
     property: 'margin-left',
     class: 'ms',
     values: {
-      //values: map-merge($spacers, (auto: auto))
+      // values: map-merge($spacers, (auto: auto))
     },
   }),
   ...make({
-    //"negative-margin": (
+    // "negative-margin": (
     property: 'margin',
     class: 'm',
     values: {
@@ -416,43 +416,43 @@ const utilities = {
     },
   }),
   ...make({
-    //property: margin-right margin-left,
+    // property: margin-right margin-left,
     property: 'negative-margin-x',
     class: 'mx',
     values: {
-      //values: $negative-spacers
+      // values: $negative-spacers
     },
   }),
   ...make({
-    //property: margin-top margin-bottom,
+    // property: margin-top margin-bottom,
     property: 'negative-margin-y',
     class: 'my',
     values: {
-      //values: $negative-spacers
+      // values: $negative-spacers
     },
   }),
   ...make({
-    //"negative-margin-top": (
+    // "negative-margin-top": (
     property: 'margin-top',
     class: 'mt',
     values: {
-      //values: $negative-spacers
+      // values: $negative-spacers
     },
   }),
   ...make({
-    //"negative-margin-end": (
+    // "negative-margin-end": (
     property: 'margin-right',
     class: 'me',
     values: {
-      //values: $negative-spacers
+      // values: $negative-spacers
     },
   }),
   ...make({
-    //"negative-margin-bottom": (
+    // "negative-margin-bottom": (
     property: 'margin-bottom',
     class: 'mb',
     values: {
-      //values: $negative-spacers
+      // values: $negative-spacers
     },
   }),
   ...make({
@@ -460,7 +460,7 @@ const utilities = {
     property: 'margin-left',
     class: 'ms',
     values: {
-      //values: $negative-spacers
+      // values: $negative-spacers
     },
   }),
   ...make({
@@ -471,63 +471,63 @@ const utilities = {
     },
   }),
   ...make({
-    //property: padding-right padding-left,
+    // property: padding-right padding-left,
     property: 'padding-x',
     class: 'px',
     values: {
-      //values: $spacers
+      // values: $spacers
     },
   }),
   ...make({
-    //property: padding-top padding-bottom,
+    // property: padding-top padding-bottom,
     property: 'padding-y',
     class: 'py',
     values: {
-      //values: $spacers,
+      // values: $spacers,
     },
   }),
   ...make({
     property: 'padding-top',
     class: 'pt',
     values: {
-      //values: $spacers
+      // values: $spacers
     },
   }),
   ...make({
-    //"padding-end": (
+    // "padding-end": (
     property: 'padding-right',
     class: 'pe',
     values: {
-      //values: $spacers
+      // values: $spacers
     },
   }),
   ...make({
     property: 'padding-bottom',
     class: 'pb',
     values: {
-      //values: $spacers
+      // values: $spacers
     },
   }),
   ...make({
-    //"padding-start": (
+    // "padding-start": (
     property: 'padding-left',
     class: 'ps',
     values: {
-      //values: $spacers
+      // values: $spacers
     },
   }),
   ...make({
     property: 'font-family',
     class: 'font',
     values: {
-      //values: (monospace: var(--#{$variable-prefix}font-monospace))
+      // values: (monospace: var(--#{$variable-prefix}font-monospace))
     },
   }),
   ...make({
     property: 'font-size',
     class: 'fs',
     values: {
-      //values: $font-sizes
+      // values: $font-sizes
     },
   }),
   ...make({
@@ -552,11 +552,12 @@ const utilities = {
   ...make({
     property: 'line-height',
     class: 'lh',
+    // Multiply line-height with font-size for react-native support.
     values: {
-      1: '1',
-      sm: (t) => t['line-height-sm'],
-      base: (t) => t['line-height-base'],
-      lg: (t) => t['line-height-lg'],
+      1: (t) => t['font-size-base'],
+      sm: (t) => `${t['font-size-sm']} * ${t['line-height-sm']}`,
+      base: (t) => `${t['font-size-base']} * ${t['line-height-base']}`,
+      lg: (t) => `${t['font-size-lg']} * ${t['line-height-lg']}`,
     },
   }),
   ...make({
@@ -586,7 +587,7 @@ const utilities = {
       capitalize: 'capitalize',
     },
   }),
-  ...make({
+  /* ...make({
     property: 'white-space',
     class: 'text',
     values: {
@@ -595,15 +596,15 @@ const utilities = {
     },
   }),
   ...make({
-    //property: 'word-wrap word-break,',
+    // property: 'word-wrap word-break,',
     property: 'word-wrap',
     class: 'text',
     values: {
       break: 'break',
       'break-word': 'break-word',
-      //rtl: false
+      // rtl: false
     },
-  }),
+  }), */
   ...make({
     property: 'color',
     class: 'text',
@@ -614,9 +615,9 @@ const utilities = {
       'white-50': (t) => `rgba(${t.white}, 0.5)`,
     },
   }),
-  ...make({
+  /* ...make({
     property: 'text-opacity',
-    //css-var: true,
+    // css-var: true,
     class: 'text-opacity',
     values: {
       25: '0.25',
@@ -624,7 +625,7 @@ const utilities = {
       75: '0.75',
       100: '1',
     },
-  }),
+  }), */
   ...make({
     property: 'background-color',
     class: 'bg',
@@ -634,9 +635,9 @@ const utilities = {
     },
   }),
   ...make({
-    property: 'bg-opacity',
-    //css-var: true,
-    class: 'bg-oopacity',
+    property: 'opacity',
+    // css-var: true,
+    class: 'bg-opacity',
     values: {
       10: '0.1',
       25: '0.25',
@@ -645,7 +646,7 @@ const utilities = {
       100: '1',
     },
   }),
-  ...make({
+  /* ...make({
     // scss-docs-end utils-bg-color
     // "gradient": (
     property: 'background-image',
@@ -671,7 +672,7 @@ const utilities = {
       none: 'none',
       auto: 'auto',
     },
-  }),
+  }), */
   ...make({
     property: 'border-radius',
     class: 'rounded',
@@ -681,7 +682,7 @@ const utilities = {
       1: (t) => t['border-radius-sm'],
       2: (t) => t['border-radius'],
       3: (t) => t['border-radius-lg'],
-      circle: '50%',
+      circle: '50px', // TODO: How to implement 50%?
       pill: (t) => t['border-radius-pill'],
     },
   }),
@@ -690,39 +691,39 @@ const utilities = {
     property: 'rounded-top',
     class: 'rounded-top',
     values: {
-      null: (t) => t['border-radius'],
+      // null: (t) => t['border-radius'],
     },
   }),
   ...make({
     property: 'rounded-end',
     class: 'rounded-end',
     values: {
-      null: (t) => t['border-radius'],
+      // null: (t) => t['border-radius'],
     },
   }),
   ...make({
     property: 'rounded-bottom',
     class: 'rounded-bottom',
     values: {
-      null: (t) => t['border-radius'],
+      // null: (t) => t['border-radius'],
     },
   }),
   ...make({
     property: 'rounded-start',
     class: 'rounded-start',
     values: {
-      null: (t) => t['border-radius'],
+      // null: (t) => t['border-radius'],
     },
   }),
-  ...make({
+  /* ...make({
     property: 'visibility',
-    //class: null,
+    // class: null,
     class: 'visibility',
     values: {
       visible: 'visible',
       invisible: 'hidden',
     },
-  }),
+  }), */
 };
 
 export default utilities;

@@ -330,11 +330,11 @@ const variables = css`
   $font-size-sm: $font-size-base * 0.875;
   $font-size-lg: $font-size-base * 1.25;
 
-  $font-weight-lighter: lighter;
+  $font-weight-lighter: 300; // lighter;
   $font-weight-light: 300;
   $font-weight-normal: 400;
   $font-weight-bold: 700;
-  $font-weight-bolder: bolder;
+  $font-weight-bolder: 500; // bolder;
 
   $font-weight-base: $font-weight-normal;
 
