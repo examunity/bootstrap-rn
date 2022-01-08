@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     color: $list-group-color;
     // text-decoration: if($link-decoration == none, null, none);
     background-color: $list-group-bg;
+
     border: $list-group-border-width solid $list-group-border-color;
   `,
 });
