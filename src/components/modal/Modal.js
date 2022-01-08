@@ -10,14 +10,14 @@ import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 // import ModalTitle from './ModalTitle';
 
-// const MODAL_SIZES = ['sm', 'lg', 'xl'];
+const MODAL_SIZES = ['sm', 'md', 'lg', 'xl'];
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   visible: PropTypes.bool.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
-  // size: PropTypes.oneOf(MODAL_SIZES),
+  size: PropTypes.oneOf(MODAL_SIZES),
   // backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
   // scrollable: PropTypes.bool,
   // centered: PropTypes.bool,
@@ -38,18 +38,19 @@ const styles2 = StyleSheet2.create({
 });
 
 const styles = StyleSheet.create({
-  '.modal-dialog': css`
+  '.modal-container': css`
     display: flex;
-    min-width: 0;
     flex: 1;
     justify-content: center;
     align-items: center;
   `,
+  '.modal-dialog': css`
+    margin: $modal-dialog-margin;
+    max-width: $modal-md;
+  `,
   '.modal-content': css`
     shadow-color: $black;
     display: flex;
-    min-width: 300;
-
     color: $modal-content-color;
     background-color: $modal-content-bg;
     border-color: $modal-content-border-color;
@@ -57,21 +58,44 @@ const styles = StyleSheet.create({
     border-radius: $modal-content-border-radius $modal-content-border-radius
       $modal-content-inner-border-radius $modal-content-inner-border-radius;
   `,
+  '.modal-sm': css`
+    max-width: $modal-sm;
+  `,
+  '.modal-lg': css`
+    @include media-breakpoint-up(lg) {
+      max-width: $modal-lg;
+    }
+  `,
+  '.modal-xl': css`
+    @include media-breakpoint-up(lg) {
+      max-width: $modal-lg;
+    }
+  `,
 });
 
 const Modal = (props) => {
-  const { children, style, visible, ...elementProps } = props;
+  const { children, style, size, visible, ...elementProps } = props;
 
-  const modalDialogClasses = getStyles(styles, ['.modal-dialog']);
+  const modalContainerClasses = getStyles(styles, ['.modal-container']);
+  const modalDialogClasses = getStyles(styles, [
+    '.modal-dialog',
+    size === 'sm' && '.modal-sm',
+    size === 'md' && '.modal-md',
+    size === 'lg' && '.modal-lg',
+    size === 'xl' && '.modal-xl',
+  ]);
   const modalContentClasses = getStyles(styles, ['.modal-content']);
+
   return (
     <BaseModal animationType="slide" transparent visible={visible}>
-      <View style={[modalDialogClasses, style]}>
-        <View
-          {...elementProps}
-          style={[modalContentClasses, style, styles2.modalView2]}
-        >
-          {children}
+      <View style={[modalContainerClasses, style]}>
+        <View style={[modalDialogClasses, style]}>
+          <View
+            {...elementProps}
+            style={[modalContentClasses, style, styles2.modalView2]}
+          >
+            {children}
+          </View>
         </View>
       </View>
     </BaseModal>
