@@ -5,20 +5,29 @@ import { getStyles } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
 
-const propTypes = { children: PropTypes.node.isRequired };
+const propTypes = {
+  children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+};
 
 const styles = StyleSheet.create({
   '.modal-body': css`
-    padding-vertical: $spacer;
-    padding-horizontal: $spacer;
+    position: relative;
+    // Enable "flex-grow: 1" so that the body take up as much space as possible
+    // when there should be a fixed height on ".modal-dialog".
+    flex: 1 1 auto;
+    padding: $modal-inner-padding;
   `,
 });
 
 function ModalBody(props) {
-  const { children, ...elementProps } = props;
+  const { children, style, ...elementProps } = props;
+
   const classes = getStyles(styles, ['.modal-body']);
+
   return (
-    <View style={[classes, elementProps.style]} {...elementProps}>
+    <View {...elementProps} style={[classes, style]}>
       {children}
     </View>
   );

@@ -2,26 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Text from '../Text';
+import Heading from '../type/Heading';
 import { getStyles } from '../../utils';
 
-const propTypes = { children: PropTypes.node.isRequired };
+const propTypes = {
+  children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+};
 
 const styles = StyleSheet.create({
   '.modal-title': css`
+    margin-bottom: 0;
     line-height: $font-size-base * $modal-title-line-height;
   `,
 });
 
 function ModalTitle(props) {
-  const { children, ...elementProps } = props;
+  const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.modal-title']);
 
   return (
-    <Text style={[classes, elementProps.style]} {...elementProps}>
+    <Heading size={5} {...elementProps} style={[classes, style]}>
       {children}
-    </Text>
+    </Heading>
   );
 }
 

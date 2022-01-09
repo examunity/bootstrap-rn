@@ -1,31 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal as BaseModal, StyleSheet as StyleSheet2 } from 'react-native';
+import {
+  Modal as BaseModal,
+  StyleSheet as NativeStyleSheet,
+} from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
+import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import ModalHeader from './ModalHeader';
+import ModalTitle from './ModalTitle';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
-// import ModalTitle from './ModalTitle';
 
-const MODAL_SIZES = ['sm', 'md', 'lg', 'xl'];
+const MODAL_SIZES = ['sm', 'lg', 'xl'];
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   visible: PropTypes.bool.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
   size: PropTypes.oneOf(MODAL_SIZES),
-  // backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
+  backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
   // scrollable: PropTypes.bool,
   // centered: PropTypes.bool,
-  // onToggle: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
-const styles2 = StyleSheet2.create({
-  modalView2: {
+const shadowStyles = NativeStyleSheet.create({
+  contentShadow: {
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -38,28 +42,54 @@ const styles2 = StyleSheet2.create({
 });
 
 const styles = StyleSheet.create({
-  '.modal-container': css`
-    display: flex;
-    flex: 1;
-    justify-content: center;
+  '.modal': css`
     align-items: center;
+    // z-index: $zindex-modal;
   `,
   '.modal-dialog': css`
+    position: relative;
+    width: auto;
     margin: $modal-dialog-margin;
-    max-width: $modal-md;
+    // allow clicks to pass through for custom click handling to close modal
+    // pointer-events: none;
+
+    @include media-breakpoint-up(sm) {
+      max-width: $modal-md;
+      margin: $modal-dialog-margin-y-sm-up;
+    }
   `,
   '.modal-content': css`
-    shadow-color: $black;
+    position: relative;
     display: flex;
-    color: $modal-content-color;
+    flex-direction: column;
+    width: 100%; // Ensure ".modal-content" extends the full width of the parent ".modal-dialog"
+    // counteract the pointer-events: none; in the .modal-dialog
+    // pointer-events: auto;
     background-color: $modal-content-bg;
-    border-color: $modal-content-border-color;
-    border-width: $modal-content-border-width;
-    border-radius: $modal-content-border-radius $modal-content-border-radius
-      $modal-content-inner-border-radius $modal-content-inner-border-radius;
+    // background-clip: padding-box;
+    border: $modal-content-border-width solid $modal-content-border-color;
+    border-radius: $modal-content-border-radius;
+    // @include box-shadow($modal-content-box-shadow-xs);
+    // Remove focus outline from opened modal
+    // outline: 0;
+  `,
+  '.modal-content-text': css`
+    color: $modal-content-color;
+  `,
+  '.modal-backdrop': css`
+    position: absolute;
+    top: 0;
+    left: 0;
+    // z-index: zindex-modal-backdrop;
+    width: 100%;
+    height: 100%;
+    background-color: $modal-backdrop-bg;
+    opacity: $modal-backdrop-opacity;
   `,
   '.modal-sm': css`
-    max-width: $modal-sm;
+    @include media-breakpoint-up(sm) {
+      max-width: $modal-sm;
+    }
   `,
   '.modal-lg': css`
     @include media-breakpoint-up(lg) {
@@ -70,42 +100,59 @@ const styles = StyleSheet.create({
     @include media-breakpoint-up(lg) {
       max-width: $modal-lg;
     }
+    @include media-breakpoint-up(xl) {
+      max-width: $modal-xl;
+    }
   `,
 });
 
-const Modal = (props) => {
-  const { children, style, size, visible, ...elementProps } = props;
+const Modal = React.forwardRef((props, ref) => {
+  const {
+    children,
+    visible,
+    size,
+    backdrop = true,
+    onToggle,
+    style,
+    ...elementProps
+  } = props;
 
-  const modalContainerClasses = getStyles(styles, ['.modal-container']);
+  const modalBackdropClasses = getStyles(styles, ['.modal-backdrop']);
+  const modalClasses = getStyles(styles, ['.modal']);
   const modalDialogClasses = getStyles(styles, [
     '.modal-dialog',
     size === 'sm' && '.modal-sm',
-    size === 'md' && '.modal-md',
     size === 'lg' && '.modal-lg',
     size === 'xl' && '.modal-xl',
   ]);
   const modalContentClasses = getStyles(styles, ['.modal-content']);
+  const modalContentTextClasses = getStyles(styles, ['.modal-content-text']);
 
   return (
-    <BaseModal animationType="slide" transparent visible={visible}>
-      <View style={[modalContainerClasses, style]}>
-        <View style={[modalDialogClasses, style]}>
+    <BaseModal transparent visible={visible}>
+      {backdrop && <View style={modalBackdropClasses} />}
+      <View style={modalClasses}>
+        <View style={modalDialogClasses}>
           <View
             {...elementProps}
-            style={[modalContentClasses, style, styles2.modalView2]}
+            ref={ref}
+            style={[modalContentClasses, shadowStyles.contentShadow, style]}
           >
-            {children}
+            <TextStyleProvider style={modalContentTextClasses}>
+              {children}
+            </TextStyleProvider>
           </View>
         </View>
       </View>
     </BaseModal>
   );
-};
+});
 
 Modal.displayName = 'Modal';
 Modal.propTypes = propTypes;
 
 Modal.Header = ModalHeader;
+Modal.Title = ModalTitle;
 Modal.Body = ModalBody;
 Modal.Footer = ModalFooter;
 

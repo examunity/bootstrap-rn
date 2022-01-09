@@ -11,10 +11,14 @@ function SampleModal() {
         <Text>Show Modal</Text>
       </Button>
 
-      <Modal visible={modalVisible} size="xl">
+      <Modal
+        visible={modalVisible}
+        onToggle={() => setModalVisible((value) => !value)}
+        size="xl"
+      >
         <Modal.Header>
           <Text>Modal Title Text</Text>
-          <CloseButton onPress={() => setModalVisible(!modalVisible)} />
+          <CloseButton onPress={() => setModalVisible((value) => !value)} />
         </Modal.Header>
         <Modal.Body>
           <Text>
@@ -30,7 +34,7 @@ function SampleModal() {
           </Text>
         </Modal.Body>
         <Modal.Footer>
-          <Button onPress={() => setModalVisible(!modalVisible)}>
+          <Button onPress={() => setModalVisible((value) => !value)}>
             <Text>Submit</Text>
           </Button>
           <Button onPress={() => setModalVisible(!modalVisible)}>

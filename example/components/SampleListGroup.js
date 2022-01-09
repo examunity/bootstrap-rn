@@ -4,7 +4,7 @@ import { ListGroup, Heading } from 'bootstyle';
 function SampleListGroup() {
   return (
     <>
-      <Heading size={2}>ListGroup</Heading>
+      <Heading size={2}>List group</Heading>
       <ListGroup>
         <ListGroup.Item>Patrick Item first</ListGroup.Item>
         <ListGroup.Item>Patrick Item Second</ListGroup.Item>

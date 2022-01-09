@@ -5,27 +5,35 @@ import View from '../View';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-const propTypes = { children: PropTypes.node.isRequired };
+const propTypes = {
+  children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+};
 
 const styles = StyleSheet.create({
   '.modal-header': css`
-    padding-horizontal: $modal-header-padding-x;
-    padding-vertical: $modal-header-padding-y;
+    display: flex;
+    flex-direction: row; // added for bootstyle
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
+    padding: $modal-header-padding;
     border-bottom-width: $modal-header-border-width;
     border-style: solid;
     border-color: $modal-header-border-color;
-    flex-direction: row;
-    justify-content: space-between;
+    border-top-start-radius: $modal-content-inner-border-radius;
+    border-top-end-radius: $modal-content-inner-border-radius;
   `,
 });
 
 function ModalHeader(props) {
-  const { children, ...elementProps } = props;
+  const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.modal-header']);
 
   return (
-    <View style={[classes, elementProps.style]} {...elementProps}>
+    <View {...elementProps} style={[classes, style]}>
       {children}
     </View>
   );
