@@ -17,7 +17,7 @@ function SampleModal() {
         size="xl"
       >
         <Modal.Header>
-          <Text>Modal Title Text</Text>
+          <Modal.Title>Modal Title Text</Modal.Title>
           <CloseButton onPress={() => setModalVisible((value) => !value)} />
         </Modal.Header>
         <Modal.Body>

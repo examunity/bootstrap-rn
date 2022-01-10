@@ -884,7 +884,7 @@ const variables = css`
 
   $modal-content-color: null;
   $modal-content-bg: $white;
-  $modal-content-border-color: rgba($black, 0.2);
+  $modal-content-border-color: rgba($black, 0.65); // rgba($black, 0.2);
   $modal-content-border-width: $border-width;
   $modal-content-border-radius: $border-radius-lg;
   $modal-content-inner-border-radius: ${(t) =>

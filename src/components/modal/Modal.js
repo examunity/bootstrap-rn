@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Modal as BaseModal,
-  StyleSheet as NativeStyleSheet,
-} from 'react-native';
+import { Modal as BaseModal } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
@@ -27,19 +24,6 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
-
-const shadowStyles = NativeStyleSheet.create({
-  contentShadow: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-});
 
 const styles = StyleSheet.create({
   '.modal': css`
@@ -72,6 +56,10 @@ const styles = StyleSheet.create({
     // @include box-shadow($modal-content-box-shadow-xs);
     // Remove focus outline from opened modal
     // outline: 0;
+
+    @include media-breakpoint-up(sm) {
+      // @include box-shadow($modal-content-box-shadow-sm-up);
+    }
   `,
   '.modal-content-text': css`
     color: $modal-content-color;
@@ -136,7 +124,7 @@ const Modal = React.forwardRef((props, ref) => {
           <View
             {...elementProps}
             ref={ref}
-            style={[modalContentClasses, shadowStyles.contentShadow, style]}
+            style={[modalContentClasses, style]}
           >
             <TextStyleProvider style={modalContentTextClasses}>
               {children}
