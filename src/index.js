@@ -6,8 +6,11 @@ import Alert from './components/alert/Alert';
 import Badge from './components/badge/Badge';
 import Button from './components/buttons/Button';
 import Card from './components/card/Card';
+import CloseButton from './components/close/CloseButton';
 import Container from './components/containers/Container';
 import Checkbox from './components/forms/Checkbox';
+import Radio from './components/forms/Radio';
+import Switch from './components/forms/Switch';
 import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
@@ -21,7 +24,6 @@ import Pressable from './components/Pressable';
 import Text from './components/Text';
 import ScrollView from './components/ScrollView';
 import View from './components/View';
-import CloseButton from './components/close/CloseButton';
 
 export {
   css,
@@ -32,8 +34,11 @@ export {
   Badge,
   Button,
   Card,
+  CloseButton,
   Container,
   Checkbox,
+  Radio,
+  Switch,
   Col,
   Row,
   ListGroup,
@@ -47,5 +52,4 @@ export {
   Text,
   ScrollView,
   View,
-  CloseButton,
 };

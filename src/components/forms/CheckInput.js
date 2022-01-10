@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Svg, Path, Circle } from 'react-native-svg';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
@@ -9,10 +8,12 @@ import Text from '../Text';
 import { getStyles } from '../../utils';
 
 const propTypes = {
-  children: PropTypes.node.isRequired,
-  type: PropTypes.oneOf(['checkbox', 'radio']).isRequired,
+  children: PropTypes.node,
+  type: PropTypes.oneOf(['checkbox', 'radio', 'switch']).isRequired,
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func,
+  onPress: PropTypes.func,
+  label: PropTypes.string,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -34,12 +35,17 @@ const styles = StyleSheet.create({
     opacity: $form-check-label-disabled-opacity;
   `,
   '.form-check-input': css`
+    @include platform(web) {
+      user-select: none; // added for bootstyle
+    }
+
     // Use additional variables instead of brackets, because brackets not supported yet.
     $lineHeight: $line-height-base * 1rem;
     $rawMarginTop: $lineHeight - $form-check-input-width;
 
     // float: left;
     margin-left: $form-check-padding-start * -1;
+    margin-right: $form-check-padding-start - $form-check-input-width; // added for bootstyle
 
     width: $form-check-input-width;
     height: $form-check-input-width;
@@ -80,7 +86,41 @@ const styles = StyleSheet.create({
       cursor: $form-check-label-cursor;
     }
   `,
+  '.form-switch': css`
+    padding-left: $form-switch-padding-start;
+  `,
+  '.form-check-input-switch': css`
+    width: $form-switch-width;
+    margin-left: $form-switch-padding-start * -1;
+    margin-right: $form-switch-padding-start - $form-switch-width; // added for bootstyle
+    border-radius: $form-switch-border-radius;
+    // @include transition($form-switch-transition);
+    align-items: flex-start; // added for bootstyle
+    justify-content: center; // added for bootstyle
+  `,
+  '.form-check-input-switch-checked': css`
+    align-items: flex-end; // added for bootstyle
+    justify-content: center; // added for bootstyle
+  `,
 });
+
+const getSvg = (type, value) => {
+  if (type === 'checkbox' && value) {
+    return StyleSheet.value('form-check-input-checked-bg-image');
+  }
+
+  if (type === 'radio' && value) {
+    return StyleSheet.value('form-check-radio-checked-bg-image');
+  }
+
+  if (type === 'switch') {
+    return StyleSheet.value(
+      value ? 'form-switch-checked-bg-image' : 'form-switch-bg-image',
+    );
+  }
+
+  return null;
+};
 
 const CheckInput = React.forwardRef((props, ref) => {
   const {
@@ -88,6 +128,8 @@ const CheckInput = React.forwardRef((props, ref) => {
     type,
     value,
     onChange = () => {},
+    onPress = () => {},
+    label,
     disabled = false,
     style,
     inputStyle,
@@ -95,8 +137,16 @@ const CheckInput = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
+  if (!children && !label) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'You need to provide either children or a label for accessibility.',
+    );
+  }
+
   const classes = getStyles(styles, [
     '.form-check',
+    type === 'switch' && '.form-switch',
     disabled && '.form-check-disabled',
   ]);
 
@@ -104,13 +154,16 @@ const CheckInput = React.forwardRef((props, ref) => {
     '.form-check-input',
     type === 'checkbox' && '.form-check-input-checkbox',
     type === 'radio' && '.form-check-input-radio',
+    type === 'switch' && '.form-check-input-switch',
     value && '.form-check-input-checked',
+    type === 'switch' && value && '.form-check-input-switch-checked',
   ]);
 
   const labelClasses = getStyles(styles, ['.form-check-label']);
 
-  const handlePress = () => {
+  const handlePress = (event) => {
     onChange(value);
+    onPress(event);
   };
 
   // TODO &:focus, &:active
@@ -121,33 +174,13 @@ const CheckInput = React.forwardRef((props, ref) => {
       ref={ref}
       accessibilityRole={type}
       accessibilityChecked={value}
+      accessibilityLabel={label}
       onPress={handlePress}
       disabled={disabled}
       style={[classes, style]}
     >
-      <View style={[inputClasses, inputStyle]}>
-        {type === 'checkbox' && value && (
-          <Svg viewBox="0 0 20 20">
-            <Path
-              fill="none"
-              stroke={StyleSheet.value('form-check-input-checked-color')}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={3}
-              d="m6 10 3 3 6-6"
-            />
-          </Svg>
-        )}
-        {type === 'radio' && value && (
-          <Svg viewBox="-4 -4 8 8">
-            <Circle
-              r={2}
-              fill={StyleSheet.value('form-check-input-checked-color')}
-            />
-          </Svg>
-        )}
-      </View>
-      <Text style={[labelClasses, labelStyle]}>{children}</Text>
+      <View style={[inputClasses, inputStyle]}>{getSvg(type, value)}</View>
+      {children && <Text style={[labelClasses, labelStyle]}>{children}</Text>}
     </Pressable>
   );
 });

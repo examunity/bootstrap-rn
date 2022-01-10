@@ -1,5 +1,4 @@
 import React from 'react';
-import { Svg, Path } from 'react-native-svg';
 import PropTypes from 'prop-types';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
@@ -16,7 +15,7 @@ const propTypes = {
 };
 
 const styles = StyleSheet.create({
-  '.close': css`
+  '.btn-close': css`
     // Workaround for missing box-sizing in react native.
     $additionalHeight: $btn-close-padding-y * 2;
     $additionalWidth: $btn-close-padding-x * 2;
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
       opacity: $btn-close-focus-opacity;
     }
   `,
-  '.close-text': css`
+  '.btn-close-text': css`
     color: $btn-close-color;
 
     // Override <a>'s hover style
@@ -49,14 +48,14 @@ const styles = StyleSheet.create({
       text-decoration: none;
     }
   `,
-  '.close-disabled': css`
+  '.btn-close-disabled': css`
     // pointer-events: none;
     // user-select: none;
     opacity: $btn-close-disabled-opacity;
   `,
 });
 
-function CloseButton(props) {
+const CloseButton = React.forwardRef((props, ref) => {
   const {
     children,
     disabled = false,
@@ -65,26 +64,26 @@ function CloseButton(props) {
     ...elementProps
   } = props;
 
-  const classes = getStyles(styles, ['.close', disabled && '.close-disabled']);
-  const textClasses = getStyles(styles, ['.close-text']);
+  const classes = getStyles(styles, [
+    '.btn-close',
+    disabled && '.btn-close-disabled',
+  ]);
+  const textClasses = getStyles(styles, ['.btn-close-text']);
 
   return (
     <Pressable
       {...elementProps}
+      ref={ref}
       disabled={disabled}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >
-      <Svg viewBox="0 0 16 16">
-        <Path
-          fill={StyleSheet.value('btn-close-color')}
-          d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"
-        />
-      </Svg>
+      {StyleSheet.value('btn-close-bg')}
     </Pressable>
   );
-}
+});
 
+CloseButton.displayName = 'CloseButton';
 CloseButton.propTypes = propTypes;
 
 export default CloseButton;

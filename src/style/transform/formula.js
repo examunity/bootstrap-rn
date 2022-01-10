@@ -63,8 +63,6 @@ function formula(value) {
       const unit = getUnit(leftUnit, rightUnit);
       const result = calculate(leftNumber, operator, rightNumber);
 
-      console.log(_, result);
-
       return `${result}${unit}`;
     },
   );
