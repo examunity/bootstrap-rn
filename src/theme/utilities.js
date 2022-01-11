@@ -10,18 +10,18 @@ const make = (options) =>
   }));
 
 const utilities = {
-  /* ...make({
-    property: 'vertical-align',
+  ...make({
+    property: 'text-align-vertical',
     class: 'align',
     values: {
-      baseline: 'baseline',
-      top: 'baseline',
-      middle: 'baseline',
-      bottom: 'baseline',
-      'text-bottom': 'text-bottom',
-      'text-top': 'text-top',
+      // baseline: 'baseline',
+      top: 'top',
+      center: 'center', // 'middle',
+      bottom: 'bottom',
+      // 'text-bottom': 'text-bottom',
+      // 'text-top': 'text-top',
     },
-  }), */
+  }),
   /* ...make({
     property: 'float',
     class: 'float',
