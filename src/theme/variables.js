@@ -2,7 +2,8 @@ import React from 'react';
 import { Svg, Path, Circle } from 'react-native-svg';
 import { Platform } from 'react-native';
 import css from '../style/css';
-import { tintColor, shiftColor, subtract } from './functions';
+import { convertToREM } from '../utils';
+import { tintColor, shiftColor, add, subtract } from './functions';
 
 // Define svgs first, so that we do not break syntax highlighting :D
 const svgs = {
@@ -629,25 +630,46 @@ const variables = css`
 
   $input-height-border: $input-border-width * 2;
 
-  $input-height-inner: add($input-line-height * 1rem, $input-padding-y * 2);
-  $input-height-inner-half: add($input-line-height * 0.5rem, $input-padding-y);
-  $input-height-inner-quarter: add(
-    $input-line-height * 0.25rem,
-    $input-padding-y * 0.5
-  );
+  $input-height-inner: ${(t) =>
+    add(
+      `${t['input-line-height'] * 1}rem`,
+      `${parseFloat(t['input-padding-y']) * 2}rem`,
+    )};
+  $input-height-inner-half: ${(t) =>
+    add(
+      `${t['input-line-height'] * 0.5}rem`,
+      `${parseFloat(t['input-padding-y']) * 1}rem`,
+    )};
+  $input-height-inner-quarter: ${(t) =>
+    add(
+      `${t['input-line-height'] * 0.25}rem`,
+      `${parseFloat(t['input-padding-y']) * 0.5}rem`,
+    )};
 
-  $input-height: add(
-    $input-line-height * 1rem,
-    add($input-padding-y * 2, $input-height-border, false)
-  );
-  $input-height-sm: add(
-    $input-line-height * 1rem,
-    add($input-padding-y-sm * 2, $input-height-border, false)
-  );
-  $input-height-lg: add(
-    $input-line-height * 1rem,
-    add($input-padding-y-lg * 2, $input-height-border, false)
-  );
+  $input-height: ${(t) =>
+    add(
+      `${t['input-line-height'] * 1}rem`,
+      `${
+        parseFloat(convertToREM(t['input-padding-y'])) * 2 +
+        parseFloat(convertToREM(t['input-height-border']))
+      }rem`,
+    )};
+  $input-height-sm: ${(t) =>
+    add(
+      `${t['input-line-height'] * 1}rem`,
+      `${
+        parseFloat(convertToREM(t['input-padding-y-sm'])) * 2 +
+        parseFloat(convertToREM(t['input-height-border']))
+      }rem`,
+    )};
+  $input-height-lg: ${(t) =>
+    add(
+      `${t['input-line-height'] * 1}rem`,
+      `${
+        parseFloat(convertToREM(t['input-padding-y-lg'])) * 2 +
+        parseFloat(convertToREM(t['input-height-border']))
+      }rem`,
+    )};
 
   $input-transition: border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
@@ -786,7 +808,7 @@ const variables = css`
   $form-file-button-bg: $input-group-addon-bg;
   $form-file-button-hover-bg: shade-color($form-file-button-bg, 5%);
 
-  $form-floating-height: add(3.5rem, $input-height-border);
+  $form-floating-height: ${(t) => add('3.5rem', t['input-height-border'])};
   $form-floating-line-height: 1.25;
   $form-floating-padding-x: $input-padding-x;
   $form-floating-padding-y: 1rem;

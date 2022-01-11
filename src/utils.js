@@ -1,3 +1,5 @@
+import { PixelRatio } from 'react-native';
+
 export function each(source, apply) {
   return Object.entries(source)
     .map(([key, value]) => {
@@ -10,4 +12,12 @@ export function each(source, apply) {
 
 export function getStyles(styles, keys) {
   return keys.filter((key) => !!key).map((key) => styles[key]);
+}
+
+export function convertToREM(value) {
+  return value.replace(
+    /([+-]+)?([\d.Ee]+)px/,
+    (_, unary, number) =>
+      `${unary || ''}${number / (PixelRatio.getFontScale() * 16)}rem`,
+  );
 }

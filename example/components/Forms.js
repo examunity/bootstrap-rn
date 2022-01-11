@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Heading, Checkbox, Switch, Radio } from 'bootstyle';
+import { Heading, Checkbox, Switch, Radio, TextInput } from 'bootstyle';
 
 function Forms() {
   const [value, setValue] = useState(false);
   const [radioValue, setRadioValue] = useState(1);
+  const [text, onChangeText] = useState('Useless Text');
 
   return (
     <>
@@ -34,6 +35,15 @@ function Forms() {
         <Radio value={2}>Test 2</Radio>
         <Radio value={3}>Test 3</Radio>
       </Radio.Group>
+      <TextInput size="sm" value={text} onChangeText={onChangeText} />
+      <TextInput value={text} onChangeText={onChangeText} />
+      <TextInput size="lg" value={text} onChangeText={onChangeText} />
+      <TextInput
+        value={text}
+        onChangeText={onChangeText}
+        multiline
+        numberOfLines={5}
+      />
     </>
   );
 }

@@ -22,6 +22,7 @@ import Heading from './components/type/Heading';
 import Paragraph from './components/type/Paragraph';
 import Pressable from './components/Pressable';
 import Text from './components/Text';
+import TextInput from './components/TextInput';
 import ScrollView from './components/ScrollView';
 import View from './components/View';
 
@@ -50,6 +51,7 @@ export {
   Paragraph,
   Pressable,
   Text,
+  TextInput,
   ScrollView,
   View,
 };
