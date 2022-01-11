@@ -11,6 +11,7 @@ import Container from './components/containers/Container';
 import Checkbox from './components/forms/Checkbox';
 import Radio from './components/forms/Radio';
 import Switch from './components/forms/Switch';
+import Input from './components/forms/Input';
 import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
@@ -40,6 +41,7 @@ export {
   Checkbox,
   Radio,
   Switch,
+  Input,
   Col,
   Row,
   ListGroup,
