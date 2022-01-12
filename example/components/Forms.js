@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Heading, Checkbox, Switch, Radio, TextInput } from 'bootstyle';
+import { Heading, Checkbox, Switch, Radio, Input, Picker } from 'bootstyle';
 
 function Forms() {
   const [value, setValue] = useState(false);
   const [radioValue, setRadioValue] = useState(1);
   const [text, onChangeText] = useState('Useless Text');
+  const [selectedValue, onValueChange] = useState('');
 
   return (
     <>
@@ -35,15 +36,30 @@ function Forms() {
         <Radio value={2}>Test 2</Radio>
         <Radio value={3}>Test 3</Radio>
       </Radio.Group>
-      <TextInput size="sm" value={text} onChangeText={onChangeText} />
-      <TextInput value={text} onChangeText={onChangeText} />
-      <TextInput size="lg" value={text} onChangeText={onChangeText} />
-      <TextInput
+      <Input size="sm" value={text} onChangeText={onChangeText} />
+      <Input value={text} onChangeText={onChangeText} />
+      <Input size="lg" value={text} onChangeText={onChangeText} />
+      <Input
         value={text}
         onChangeText={onChangeText}
         multiline
         numberOfLines={5}
       />
+      <Picker value={selectedValue} onChange={onValueChange} placeholder="Test">
+        <Picker.Item label="Football" value="football" />
+        <Picker.Item label="Baseball" value="baseball" />
+        <Picker.Item label="Hockey" value="hockey" />
+      </Picker>
+      <Picker
+        value={selectedValue}
+        onChange={onValueChange}
+        placeholder="Test"
+        useNativeComponent
+      >
+        <Picker.Item label="Football" value="football" />
+        <Picker.Item label="Baseball" value="baseball" />
+        <Picker.Item label="Hockey" value="hockey" />
+      </Picker>
     </>
   );
 }

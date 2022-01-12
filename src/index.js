@@ -9,6 +9,7 @@ import Card from './components/card/Card';
 import CloseButton from './components/close/CloseButton';
 import Container from './components/containers/Container';
 import Checkbox from './components/forms/Checkbox';
+import Picker from './components/forms/Picker';
 import Radio from './components/forms/Radio';
 import Switch from './components/forms/Switch';
 import Input from './components/forms/Input';
@@ -40,6 +41,7 @@ export {
   CloseButton,
   Container,
   Checkbox,
+  Picker,
   Radio,
   Switch,
   Input,
