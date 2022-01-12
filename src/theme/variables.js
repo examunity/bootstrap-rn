@@ -937,6 +937,21 @@ const variables = css`
   $modal-transition: transform 0.3s ease-out;
   $modal-scale-transform: scale(1.02);
 
+  // Offcanvas
+  $offcanvas-padding-y: $modal-inner-padding;
+  $offcanvas-padding-x: $modal-inner-padding;
+  $offcanvas-horizontal-width: 400px;
+  $offcanvas-vertical-height: 30vh;
+  $offcanvas-transition-duration: 0.3s;
+  $offcanvas-border-color: $modal-content-border-color;
+  $offcanvas-border-width: $modal-content-border-width;
+  $offcanvas-title-line-height: $modal-title-line-height;
+  $offcanvas-bg-color: $modal-content-bg;
+  $offcanvas-color: $modal-content-color;
+  $offcanvas-box-shadow: $modal-content-box-shadow-xs;
+  $offcanvas-backdrop-bg: $modal-backdrop-bg;
+  $offcanvas-backdrop-opacity: $modal-backdrop-opacity;
+
   // ...
 
   // Alerts

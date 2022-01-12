@@ -16,6 +16,7 @@ import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
 import Modal from './components/modal/Modal';
+import Offcanvas from './components/offcanvas/Offcanvas';
 import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import Tooltip from './components/tooltip/Tooltip';
@@ -46,6 +47,7 @@ export {
   Row,
   ListGroup,
   Modal,
+  Offcanvas,
   Popover,
   Progress,
   Tooltip,
