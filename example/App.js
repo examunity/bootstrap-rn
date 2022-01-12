@@ -20,7 +20,7 @@ import SampleModal from './components/SampleModal';
 import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
 import SampleTooltips from './components/SampleTooltips';
-import SampleAnotherModal from './components/SampleAnotherModal';
+import SampleOffcanvas from './components/SampleOffcanvas';
 import Utilities from './components/Utilities';
 
 StyleSheet.build();
@@ -66,7 +66,7 @@ function App() {
             <SampleModal />
           </View>
           <View style={styles.container}>
-            <SampleAnotherModal />
+            <SampleOffcanvas />
           </View>
           <View style={styles.container}>
             <SamplePopovers />
