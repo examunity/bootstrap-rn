@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Text from '../Text';
-import { getStyles } from '../../utils';
+import View from '../View';
+import { getStyles, each } from '../../utils';
+import { THEME_COLORS } from '../../theme/constants';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
+  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   style: PropTypes.any,
+  active: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
@@ -22,17 +25,46 @@ const styles = StyleSheet.create({
 
     border: $list-group-border-width solid $list-group-border-color;
   `,
+
+  ...each(THEME_COLORS, (color, value) => ({
+    [`.list-group-item-${color}`]: css`
+      background-color: ${value};
+      border-color: ${value};
+    `,
+    '.active': css`
+      z-index: 2; // Place active items above their siblings for proper border styling
+      color: $list-group-active-color;
+      background-color: $list-group-active-bg;
+      border-color: $list-group-active-border-color;
+    `,
+    '.disabled': css`
+      color: $list-group-disabled-color;
+      background-color: $list-group-disabled-bg;
+    `,
+  })),
 });
 
 const ListGroupItem = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const {
+    children,
+    color = 'null',
+    disabled = false,
+    active = false,
+    style,
+    ...elementProps
+  } = props;
 
-  const classes = getStyles(styles, ['.list-group-item']);
+  const classes = getStyles(styles, [
+    `.list-group-item`,
+    `.list-group-item-${color}`,
+    active && '.active',
+    disabled && '.disabled',
+  ]);
 
   return (
-    <Text {...elementProps} ref={ref} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       {children}
-    </Text>
+    </View>
   );
 });
 

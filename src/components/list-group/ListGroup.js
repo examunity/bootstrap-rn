@@ -43,20 +43,3 @@ ListGroup.Item = ListGroupItem;
 ListGroup.ItemAction = ListGroupItemAction;
 
 export default ListGroup;
-
-/* testing >> delet me later
-    <View style={[classes, style]} >
-        <FlatList
-            data={[
-                { key: 'Patrik 1' },
-                { key: 'Patrik 2' },
-                { key: 'Patrik 3' },
-                { key: 'Patrik 4' },
-                { key: 'Patrik 5' },
-                { key: 'Patrik 6' },
-            ]}
-            renderItem={({ item }) => <Text>{item.key}</Text>}
-        />
-        {children}
-    </ View>
-*/
