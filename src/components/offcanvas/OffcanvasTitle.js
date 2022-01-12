@@ -14,7 +14,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.offcanvas-title': css`
     margin-bottom: 0;
-    line-height: $offcanvas-title-line-height;
+    line-height: $font-size-base * $offcanvas-title-line-height;
   `,
 });
 
