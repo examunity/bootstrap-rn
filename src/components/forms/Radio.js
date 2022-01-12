@@ -17,17 +17,15 @@ const Radio = React.forwardRef((props, ref) => {
 
   const context = useContext(RadioContext);
 
-  const handleChange = () => {
-    context.onChange(value);
-  };
-
   return (
     <CheckInput
       {...elementProps}
       ref={ref}
       type="radio"
       value={value === context.value}
-      onChange={handleChange}
+      onChange={() => {
+        context.onChange(value);
+      }}
       disabled={context.disabled}
     />
   );

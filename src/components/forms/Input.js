@@ -28,7 +28,9 @@ const styles = StyleSheet.create({
     background-color: $input-bg;
     // background-clip: padding-box;
     border: $input-border-width solid $input-border-color;
-    // appearance: none; // Fix appearance for date inputs in Safari
+    @include platform(web) {
+      appearance: none; // Fix appearance for date inputs in Safari
+    }
 
     // Note: This has no effect on <select>s in some browsers, due to the limited stylability of "<select>"s in CSS.
     border-radius: $input-border-radius;

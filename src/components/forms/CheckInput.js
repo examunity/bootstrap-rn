@@ -56,8 +56,10 @@ const styles = StyleSheet.create({
     // background-position: center;
     // background-size: contain;
     border: $form-check-input-border;
-    // appearance: none;
-    // color-adjust: exact; // Keep themed appearance for print
+    @include platform(web) {
+      appearance: none;
+      color-adjust: exact; // Keep themed appearance for print
+    }
     // @include transition($form-check-transition);
 
     &:active {
