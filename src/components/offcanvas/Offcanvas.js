@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     right: 0;
     left: 0;
     width: 100%;
-    height: $offcanvas-vertical-height;
+    min-height: $offcanvas-vertical-height;
     max-height: 100%;
     // border-bottom: $offcanvas-border-width solid $offcanvas-border-color;
     // transform: translateY(-100%);
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     right: 0;
     left: 0;
     bottom: 0;
-    height: $offcanvas-vertical-height;
+    min-height: $offcanvas-vertical-height;
     max-height: 100%;
     width: 100%;
     // border-top: $offcanvas-border-width solid $offcanvas-border-color;

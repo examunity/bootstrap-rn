@@ -941,7 +941,7 @@ const variables = css`
   $offcanvas-padding-y: $modal-inner-padding;
   $offcanvas-padding-x: $modal-inner-padding;
   $offcanvas-horizontal-width: 400px;
-  $offcanvas-vertical-height: 30vh;
+  $offcanvas-vertical-height: 300px;
   $offcanvas-transition-duration: 0.3s;
   $offcanvas-border-color: $modal-content-border-color;
   $offcanvas-border-width: $modal-content-border-width;
