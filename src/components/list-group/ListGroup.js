@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     // No need to set list-style: none; since .list-group-item is block level
     padding-left: 0; // reset padding because ul and ol
     margin-bottom: 0;
-    //@include border-radius($list-group-border-radius);
+    border-radius: $list-group-border-radius;
   `,
 });
 

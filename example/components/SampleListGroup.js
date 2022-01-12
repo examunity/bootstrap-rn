@@ -4,7 +4,8 @@ import { ListGroup, Heading, Text } from 'bootstyle';
 function SampleListGroup() {
   return (
     <>
-      <Heading size={2}>List group Item</Heading>
+      <Heading size={2}>List group</Heading>
+      <Heading size={6}>ListGroupItem sample</Heading>
       <ListGroup>
         <ListGroup.Item active>
           <Text>I am active</Text>
@@ -24,15 +25,15 @@ function SampleListGroup() {
         </ListGroup.Item>
       </ListGroup>
 
-      <Heading size={2}>List group Item Action</Heading>
+      <Heading size={6}>ListGroupItemAction sample</Heading>
       <ListGroup>
-        <ListGroup.ItemAction color="danger">
+        <ListGroup.ItemAction>
           <Text>Action</Text>
         </ListGroup.ItemAction>
         <ListGroup.ItemAction color="danger">
           <Text>Action</Text>
         </ListGroup.ItemAction>
-        <ListGroup.ItemAction color="danger">
+        <ListGroup.ItemAction color="warning">
           <Text>Action</Text>
         </ListGroup.ItemAction>
         <ListGroup.ItemAction color="dark">

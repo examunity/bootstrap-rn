@@ -2,83 +2,134 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import { getStyles, each } from '../../utils';
 import Pressable from '../Pressable';
+import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/constants';
-import { shadeColor, colorContrast } from '../../theme/functions';
+import { shiftColor, shadeColor } from '../../theme/functions';
+import { styles as baseStyles } from './ListGroupItem';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
-  style: PropTypes.any,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
-const styles = StyleSheet.create({
-  '.list-group-action': css`
-    position: relative;
-    padding: $list-group-item-padding-y $list-group-item-padding-x;
-    color: $list-group-color;
-    background-color: $list-group-bg;
+const actionStyles = StyleSheet.create({
+  '.list-group-item-action': css`
+    width: 100%; // For "<button>"s (anchors become 100% by default though)
 
-    border: $list-group-border-width solid $list-group-border-color;
+    // Hover state
+    &:hover {
+      z-index: 1; // Place hover/focus items above their siblings for proper border styling
+      background-color: $list-group-hover-bg;
+    }
+
+    &:focus {
+      z-index: 1; // Place hover/focus items above their siblings for proper border styling
+      background-color: $list-group-hover-bg;
+    }
+
+    &:active {
+      background-color: $list-group-action-active-bg;
+    }
   `,
-  ...each(THEME_COLORS, (color, value) => ({
-    [`.list-group-item-${color}`]: css`
-      background-color: ${value};
-      border-color: ${value};
+  '.list-group-item-action-text': css`
+    color: $list-group-action-color;
+    // text-align: inherit; // For "<button>"s (anchors inherit)
+
+    // Hover state
+    &:hover {
+      color: $list-group-action-hover-color;
+      text-decoration: none;
+    }
+
+    &:focus {
+      color: $list-group-action-hover-color;
+      text-decoration: none;
+    }
+
+    &:active {
+      color: $list-group-action-active-color;
+    }
+  `,
+  ...each(THEME_COLORS, (state, value) => ({
+    [`.list-group-item-${state}-action`]: css`
+      &:hover {
+        background-color: ${(t) =>
+          shadeColor(0.1, shiftColor(t['list-group-item-bg-scale'], value(t)))};
+      }
 
       &:focus {
         background-color: ${(t) =>
-          shadeColor(t['list-hover-bg-shade-amount'], value(t))};
-        border-color: ${(t) =>
-          shadeColor(t['list-hover-border-shade-amount'], value(t))};
-      }
-
-      &:hover {
-        background-color: ${(t) =>
-          shadeColor(t['list-hover-bg-shade-amount'], value(t))};
-        border-color: ${(t) =>
-          shadeColor(t['list-hover-border-shade-amount'], value(t))};
-      }
-
-      &:active {
-        color: $list-group-action-active-color;
-        background-color: $list-group-action-active-bg;
+          shadeColor(0.1, shiftColor(t['list-group-item-bg-scale'], value(t)))};
       }
     `,
+    [`.list-group-item-${state}-action-text`]: css`
+      &:hover {
+        color: ${(t) => shiftColor(t['list-group-item-color-scale'], value(t))};
+      }
+
+      &:focus {
+        color: ${(t) => shiftColor(t['list-group-item-color-scale'], value(t))};
+      }
+    `,
+    [`.list-group-item-${state}-action-active`]: css`
+      background-color: ${(t) =>
+        shiftColor(t['list-group-item-color-scale'], value(t))};
+      border-color: ${(t) =>
+        shiftColor(t['list-group-item-color-scale'], value(t))};
+    `,
+    [`.list-group-item-${state}-action-active-text`]: css`
+      color: $white;
+    `,
   })),
-  '.active': css`
-    z-index: 2; // Place active items above their siblings for proper border styling
-    color: $list-group-active-color;
-    background-color: $list-group-active-bg;
-    border-color: $list-group-active-border-color;
-  `,
-  '.disabled': css`
-    color: $list-group-disabled-color;
-    background-color: $list-group-disabled-bg;
-  `,
 });
 
 const ListGroupItemAction = React.forwardRef((props, ref) => {
   const {
     children,
-    color = 'null',
-    disabled = false,
+    color,
     active = false,
+    disabled = false,
     style,
+    textStyle,
     ...elementProps
   } = props;
+
+  const styles = { ...baseStyles, ...actionStyles };
+
   const classes = getStyles(styles, [
-    `.list-group-action`,
-    `.list-group-item-${color}`,
-    active && '.active',
-    disabled && '.disabled',
+    '.list-group-item',
+    '.list-group-item-action',
+    color && `.list-group-item-${color}`,
+    color && `.list-group-item-${color}-action`,
+    active && '.list-group-item-active',
+    active && `.list-group-item-${color}-action-active`,
+    disabled && '.list-group-item-disabled',
+  ]);
+
+  const textClasses = getStyles(styles, [
+    '.list-group-item-text',
+    '.list-group-item-action-text',
+    color && `.list-group-item-${color}-text`,
+    color && `.list-group-item-${color}-action-text`,
+    active && '.list-group-item-active-text',
+    active && `.list-group-item-${color}-action-active-text`,
+    disabled && '.list-group-item-disabled-text',
   ]);
 
   return (
-    <Pressable {...elementProps} ref={ref} style={[classes, style]}>
+    <Pressable
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
       {children}
     </Pressable>
   );
