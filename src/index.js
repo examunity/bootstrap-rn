@@ -22,6 +22,7 @@ import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import Tooltip from './components/tooltip/Tooltip';
 import Heading from './components/type/Heading';
+import Link from './components/type/Link';
 import Paragraph from './components/type/Paragraph';
 import Pressable from './components/Pressable';
 import Text from './components/Text';
@@ -54,6 +55,7 @@ export {
   Progress,
   Tooltip,
   Heading,
+  Link,
   Paragraph,
   Pressable,
   Text,
