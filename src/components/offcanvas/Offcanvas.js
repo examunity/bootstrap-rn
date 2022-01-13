@@ -11,7 +11,7 @@ import OffcanvasTitle from './OffcanvasTitle';
 import OffcanvasBody from './OffcanvasBody';
 
 // PLACEMENTS
-export const PLACEMENTS = ['top', 'bottom', 'left', 'right']; // , 'auto'
+export const PLACEMENTS = ['top', 'bottom', 'start', 'end']; // , 'auto'
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -24,62 +24,56 @@ const propTypes = {
 };
 
 const styles = StyleSheet.create({
-  '.offcanvas': css`
-    z-index: $zindex-modal;
-  `,
-  '.offcanvas-dialog': css`
-    position: relative;
-    padding: 0;
-    margin: 0;
-  `,
   '.offcanvas-start': css`
     top: 0;
     left: 0;
     height: 100%;
+    padding-top: 1.5rem;
+    padding-right: 1.5rem;
     width: $offcanvas-horizontal-width;
     // border-right: $offcanvas-border-width solid $offcanvas-border-color;
     // transform: translateX(-100%);
   `,
   '.offcanvas-end': css`
-    top: 0;
-    right: 0;
+    align-self: flex-end;
     height: 100%;
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
     width: $offcanvas-horizontal-width;
     // border-left: $offcanvas-border-width solid $offcanvas-border-color;
     // transform: translateX(100%);
   `,
   '.offcanvas-top': css`
-    right: 0;
-    left: 0;
     width: 100%;
     min-height: $offcanvas-vertical-height;
     max-height: 100%;
+    padding-top: 1.5rem;
     // border-bottom: $offcanvas-border-width solid $offcanvas-border-color;
     // transform: translateY(-100%);
   `,
   '.offcanvas-bottom': css`
-    right: 0;
-    left: 0;
-    bottom: 0;
+    margin-top: auto;
     min-height: $offcanvas-vertical-height;
     max-height: 100%;
     width: 100%;
     // border-top: $offcanvas-border-width solid $offcanvas-border-color;
     // transform: translateY(100%);
   `,
-  '.offcanvas-content': css`
-    position: fixed;
-    display: flex;
-    padding: 0;
-    margin: 0;
-    flex-direction: column;
-    color: $offcanvas-color;
-    background-color: $offcanvas-bg-color;
-    z-index: $zindex-offcanvas;
-  `,
 
   '.offcanvas-content-text': css`
     color: $modal-content-color;
+  `,
+
+  '.offcanvas': css`
+    z-index: $zindex-offcanvas;
+    display: flex;
+    flex-grow: 1;
+  `,
+
+  '.offcanvas-content': css`
+    flex-direction: column;
+    color: $offcanvas-color;
+    background-color: $offcanvas-bg-color;
   `,
 
   '.offcanvas-backdrop': css`
@@ -109,7 +103,6 @@ const Offcanvas = React.forwardRef((props, ref) => {
 
   const offcanvasBackdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
   const offcanvasClasses = getStyles(styles, ['.offcanvas']);
-  const offcanvasDialogClasses = getStyles(styles, ['.offcanvas-dialog']);
   const offcanvasContentClasses = getStyles(styles, [
     '.offcanvas-content',
     `.offcanvas-${placement}`,
@@ -122,16 +115,14 @@ const Offcanvas = React.forwardRef((props, ref) => {
     <BaseModal transparent visible={visible} onRequestClose={() => {}}>
       {backdrop && <View style={offcanvasBackdropClasses} />}
       <View style={offcanvasClasses}>
-        <View style={offcanvasDialogClasses}>
-          <View
-            {...elementProps}
-            ref={ref}
-            style={[offcanvasContentClasses, style]}
-          >
-            <TextStyleProvider style={offcanvasContentTextClasses}>
-              {children}
-            </TextStyleProvider>
-          </View>
+        <View
+          {...elementProps}
+          ref={ref}
+          style={[offcanvasContentClasses, style]}
+        >
+          <TextStyleProvider style={offcanvasContentTextClasses}>
+            {children}
+          </TextStyleProvider>
         </View>
       </View>
     </BaseModal>
