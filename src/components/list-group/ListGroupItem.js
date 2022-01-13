@@ -22,12 +22,12 @@ export const styles = StyleSheet.create({
     position: relative;
     // display: block;
     padding: $list-group-item-padding-y $list-group-item-padding-x;
-    // text-decoration: if($link-decoration == none, null, none);
     background-color: $list-group-bg;
     border: $list-group-border-width solid $list-group-border-color;
   `,
   '.list-group-item-text': css`
     color: $list-group-color;
+    text-decoration: none; // if($link-decoration == none, null, none);
   `,
   '.list-group-item-disabled': css`
     // pointer-events: none;

@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 
     &:hover {
       color: $body-color;
-      text-decoration: $link-hover-decoration;
+      text-decoration-line: $link-hover-decoration;
     }
   `,
   '.btn-disabled': css`
@@ -192,15 +192,15 @@ const styles = StyleSheet.create({
   '.btn-link-text': css`
     font-weight: $font-weight-normal;
     color: $btn-link-color;
-    text-decoration: $link-decoration;
+    text-decoration-line: $link-decoration;
 
     &:hover {
       color: $btn-link-hover-color;
-      text-decoration: $link-hover-decoration;
+      text-decoration-line: $link-hover-decoration;
     }
 
     &:focus {
-      text-decoration: $link-hover-decoration;
+      text-decoration-line: $link-hover-decoration;
     }
 
     // No need for an active state here
