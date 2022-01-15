@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -63,14 +62,11 @@ const ListGroup = React.forwardRef((props, ref) => {
 
   const flattenedChildren = flattenChildren(children);
 
-  // Accessiblity role list is only supported on web.
-  const role = Platform.OS === 'web' ? 'list' : null;
-
   return (
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole={tabbable ? 'tablist' : role}
+      accessibilityRole={tabbable ? 'tablist' : null}
       style={[classes, style]}
     >
       {React.Children.map(flattenedChildren, (child, index) => {
