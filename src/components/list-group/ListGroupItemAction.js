@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -12,7 +13,10 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   active: PropTypes.bool,
+  first: PropTypes.bool,
+  last: PropTypes.bool,
   disabled: PropTypes.bool,
+  flush: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -95,7 +99,10 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     children,
     color,
     active = false,
+    first = false,
+    last = false,
     disabled = false,
+    flush = false,
     style,
     textStyle,
     ...elementProps
@@ -106,27 +113,37 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, [
     '.list-group-item',
     '.list-group-item-action',
+    active && '.list-group-item-active',
+    first && '.list-group-item-first',
+    last && '.list-group-item-last',
+    disabled && '.list-group-item-disabled',
+    !first && '.list-group-item-not-first',
+    !first && active && '.list-group-item-not-first-active',
+    flush && '.list-group-item-flush',
+    flush && last && '.list-group-item-flush-last',
     color && `.list-group-item-${color}`,
     color && `.list-group-item-${color}-action`,
-    active && '.list-group-item-active',
-    active && `.list-group-item-${color}-action-active`,
-    disabled && '.list-group-item-disabled',
+    color && active && `.list-group-item-${color}-action-active`,
   ]);
 
   const textClasses = getStyles(styles, [
     '.list-group-item-text',
     '.list-group-item-action-text',
+    active && '.list-group-item-active-text',
+    disabled && '.list-group-item-disabled-text',
     color && `.list-group-item-${color}-text`,
     color && `.list-group-item-${color}-action-text`,
-    active && '.list-group-item-active-text',
-    active && `.list-group-item-${color}-action-active-text`,
-    disabled && '.list-group-item-disabled-text',
+    color && active && `.list-group-item-${color}-action-active-text`,
   ]);
+
+  // Accessiblity role listitem is only supported on web.
+  const role = Platform.OS === 'web' ? 'listitem' : null;
 
   return (
     <Pressable
       {...elementProps}
       ref={ref}
+      accessibilityRole={role}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >
