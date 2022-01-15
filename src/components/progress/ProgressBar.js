@@ -42,10 +42,10 @@ const getPercentage = (value, min, max) => {
 const ProgressBar = React.forwardRef((props, ref) => {
   const { children, value, style, ...elementProps } = props;
 
-  const progress = useContext(ProgressContext);
+  const context = useContext(ProgressContext);
 
   invariant(
-    progress,
+    context,
     'ProgressBar can only be used inside a Progress component.',
   );
 
@@ -53,7 +53,7 @@ const ProgressBar = React.forwardRef((props, ref) => {
 
   const textClasses = getStyles(styles, ['.progress-bar-text']);
 
-  const { min, max } = progress;
+  const { min, max } = context;
 
   return (
     <View

@@ -4,6 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
+import ListGroupContext from './ListGroupContext';
 import ListGroupItem from './ListGroupItem';
 import ListGroupItemAction from './ListGroupItemAction';
 
@@ -69,12 +70,14 @@ const ListGroup = React.forwardRef((props, ref) => {
       accessibilityRole={tabbable ? 'tablist' : null}
       style={[classes, style]}
     >
-      {React.Children.map(flattenedChildren, (child, index) => {
-        const first = index === 0;
-        const last = index === flattenedChildren.length - 1;
+      <ListGroupContext.Provider value={{ flush }}>
+        {React.Children.map(flattenedChildren, (child, index) => {
+          const first = index === 0;
+          const last = index === flattenedChildren.length - 1;
 
-        return React.cloneElement(child, { first, last, flush });
-      })}
+          return React.cloneElement(child, { first, last });
+        })}
+      </ListGroupContext.Provider>
     </View>
   );
 });

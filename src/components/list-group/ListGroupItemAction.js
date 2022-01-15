@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import invariant from 'tiny-invariant';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
@@ -7,6 +8,7 @@ import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/constants';
 import { shiftColor, shadeColor } from '../../theme/functions';
 import { styles as baseStyles } from './ListGroupItem';
+import ListGroupContext from './ListGroupContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -15,7 +17,6 @@ const propTypes = {
   first: PropTypes.bool,
   last: PropTypes.bool,
   disabled: PropTypes.bool,
-  flush: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -101,11 +102,17 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     first = false,
     last = false,
     disabled = false,
-    flush = false,
     style,
     textStyle,
     ...elementProps
   } = props;
+
+  const context = useContext(ListGroupContext);
+
+  invariant(
+    context,
+    'ListGroupItemAction can only be used inside a ListGroup component.',
+  );
 
   const styles = { ...baseStyles, ...actionStyles };
 
@@ -118,8 +125,8 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     disabled && '.list-group-item-disabled',
     !first && '.list-group-item-not-first',
     !first && active && '.list-group-item-not-first-active',
-    flush && '.list-group-item-flush',
-    flush && last && '.list-group-item-flush-last',
+    context.flush && '.list-group-item-flush',
+    context.flush && last && '.list-group-item-flush-last',
     color && `.list-group-item-${color}`,
     color && `.list-group-item-${color}-action`,
     color && active && `.list-group-item-${color}-action-active`,
