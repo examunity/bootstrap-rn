@@ -1,5 +1,4 @@
 import { PixelRatio } from 'react-native';
-import css from './style/css';
 
 export function each(source, apply) {
   return Object.entries(source)
@@ -11,6 +10,10 @@ export function each(source, apply) {
     .reduce((carry, item) => Object.assign(carry, item), {});
 }
 
+export function normalize(value) {
+  return value.reduce((carry, item) => Object.assign(carry, item), {});
+}
+
 export function makeProxy(name, keys) {
   return keys.reduce(
     (result, key) => ({ ...result, [key]: (t) => t[name][key] }),
@@ -20,14 +23,6 @@ export function makeProxy(name, keys) {
 
 export function makeArray(length, callback) {
   return Array.from({ length }, (_, i) => (callback ? callback(i) : i));
-}
-
-export function makeUtility(options) {
-  return each(options.values, (key, value) => ({
-    [`${options.class || options.property}-${key}`]: css`
-      ${options.property}: ${value};
-    `,
-  }));
 }
 
 export function getStyles(styles, keys) {

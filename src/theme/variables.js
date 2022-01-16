@@ -419,19 +419,23 @@ const variables = css`
 
   $spacer: 1rem;
   $spacers: ${(t) => ({
-    0: 0,
-    1: t.spacer * 0.25,
-    2: t.spacer * 0.5,
+    0: '0px',
+    1: `${t.spacer} * 0.25`,
+    2: `${t.spacer} * 0.5`,
     3: t.spacer,
-    4: t.spacer * 1.5,
-    5: t.spacer * 3,
+    4: `${t.spacer} * 1.5`,
+    5: `${t.spacer} * 3`,
   })};
 
   // Position
   //
   // Define the edge positioning anchors of the position utilities.
 
-  // $position-values map
+  $position-values: ${() => ({
+    0: '0px',
+    50: '50%',
+    100: '100%',
+  })};
 
   // Body
   //
@@ -554,8 +558,17 @@ const variables = css`
 
     return 'system-ui'; // "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
   }};
-  $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  $font-family-monospace: ${() => {
+    if (Platform.OS === 'android') {
+      return 'monospace';
+    }
+
+    if (Platform.OS === 'ios') {
+      return 'Courier';
+    }
+
+    return 'SFMono-Regular'; // SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  }};
   $font-family-base: $font-family-sans-serif;
   $font-family-code: $font-family-monospace;
 

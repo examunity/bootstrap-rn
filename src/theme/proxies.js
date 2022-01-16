@@ -170,6 +170,12 @@ export const CYANS = makeProxy('cyans', [
 
 export const SPACERS = makeProxy('spacers', [0, 1, 2, 3, 4, 5]);
 
+// Position
+//
+// Define the edge positioning anchors of the position utilities.
+
+export const POSITION_VALUES = makeProxy('position-values', [0, 50, 100]);
+
 // Grid breakpoints
 //
 // Define the minimum dimensions at which your layout will change,

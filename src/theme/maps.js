@@ -17,8 +17,14 @@ export const UTILITIES_BG_COLORS = {
   body: (t) => t['body-bg'],
 };
 
-export const NEGATIVE_SPACERS = each(SPACERS, (state, spacer) => ({
-  [state]: (t) => -1 * spacer(t),
-}));
+export const NEGATIVE_SPACERS = each(SPACERS, (key, value) => {
+  if (key === 0) {
+    return null;
+  }
+
+  return {
+    [`n${key}`]: (t) => `-${value(t)}`,
+  };
+});
 
 export const GUTTERS = SPACERS;
