@@ -1,16 +1,8 @@
 import { UTILITIES_TEXT_COLORS, UTILITIES_BG_COLORS } from './maps';
-import css from '../style/css';
-import { each } from '../utils';
-
-const make = (options) =>
-  each(options.values, (key, value) => ({
-    [`${options.class}-${key}`]: css`
-      ${options.property}: ${value};
-    `,
-  }));
+import { makeUtility } from '../utils';
 
 const utilities = {
-  ...make({
+  ...makeUtility({
     property: 'text-align-vertical',
     class: 'align',
     values: {
@@ -22,7 +14,7 @@ const utilities = {
       // 'text-top': 'text-top',
     },
   }),
-  /* ...make({
+  /* ...makeUtility({
     property: 'float',
     class: 'float',
     values: {
@@ -31,7 +23,7 @@ const utilities = {
       none: 'none',
     },
   }), */
-  ...make({
+  ...makeUtility({
     property: 'opacity',
     class: 'opacity',
     values: {
@@ -42,7 +34,7 @@ const utilities = {
       100: '1',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'overflow',
     class: 'overflow',
     values: {
@@ -52,23 +44,24 @@ const utilities = {
       scroll: 'scroll',
     },
   }),
-  /* ...make({
+  ...makeUtility({
     // print: true,
     property: 'display',
     class: 'd',
     values: {
-      inline: 'inline',
-      'inline-block': 'inline-block',
-      block: 'block',
-      grid: 'grid',
-      table: 'table',
-      'table-row': 'table-row',
-      'table-cell': 'table-cell',
-      'inline-flex': 'inline-flex',
+      // inline: 'inline',
+      // 'inline-block': 'inline-block',
+      // block: 'block',
+      // grid: 'grid',
+      // table: 'table',
+      // 'table-row': 'table-row',
+      // 'table-cell': 'table-cell',
+      flex: 'flex',
+      // 'inline-flex': 'inline-flex',
       none: 'none',
     },
-  }), */
-  ...make({
+  }),
+  ...makeUtility({
     property: 'box-shadow',
     class: 'shadow',
     values: {
@@ -78,7 +71,7 @@ const utilities = {
       none: 'none',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'position',
     class: 'position',
     values: {
@@ -89,21 +82,21 @@ const utilities = {
       // sticky: 'sticky',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'top',
     class: 'top',
     values: {
       // $position-values
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'bottom',
     class: 'bottom',
     values: {
       // values: $position-values
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'left',
     class: 'start',
     values: {
@@ -111,7 +104,7 @@ const utilities = {
     },
   }),
   /* TODO:
-  ...make({
+  ...makeUtility({
     property: 'transform',
     class: 'translate-middle',
     values: {
@@ -121,7 +114,7 @@ const utilities = {
     },
   }),
   */
-  ...make({
+  ...makeUtility({
     property: 'border',
     class: 'border',
     values: {
@@ -129,7 +122,7 @@ const utilities = {
       0: '0',
     },
   }),
-  /* ...make({
+  /* ...makeUtility({
     property: 'border-top',
     class: 'border-top',
     values: {
@@ -137,7 +130,7 @@ const utilities = {
       0: '0',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'border-right',
     class: 'border-end',
     values: {
@@ -145,7 +138,7 @@ const utilities = {
       0: '0',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'border-bottom',
     class: 'border-bottom',
     values: {
@@ -153,7 +146,7 @@ const utilities = {
       0: '0',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'border-left',
     class: 'border-start',
     values: {
@@ -161,21 +154,21 @@ const utilities = {
       0: '0',
     },
   }), */
-  ...make({
+  ...makeUtility({
     property: 'border-color',
     class: 'border',
     values: {
       // values: map-merge($theme-colors, ("white": $white))
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'border-width',
     class: 'border',
     values: {
       // $border-widths
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'width',
     class: 'w',
     values: {
@@ -186,14 +179,14 @@ const utilities = {
       auto: 'auto',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'max-width',
     class: 'mw',
     values: {
       100: '100%',
     },
   }),
-  ...make({
+  ...makeUtility({
     // "viewport-width": (
     property: 'width',
     class: 'vw',
@@ -201,7 +194,7 @@ const utilities = {
       100: '100vw',
     },
   }),
-  ...make({
+  ...makeUtility({
     // "min-viewport-width": (
     property: 'min-width',
     class: 'min-vw',
@@ -209,7 +202,7 @@ const utilities = {
       100: '100vw',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'height',
     class: 'h',
     values: {
@@ -220,14 +213,14 @@ const utilities = {
       auto: 'auto',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'max-height',
     class: 'mh',
     values: {
       100: '100%',
     },
   }),
-  ...make({
+  ...makeUtility({
     // "viewport-height": (
     property: 'height',
     class: 'vh',
@@ -235,7 +228,7 @@ const utilities = {
       100: '100vh',
     },
   }),
-  ...make({
+  ...makeUtility({
     // "min-viewport-height": (
     property: 'min-height',
     class: 'min-vh',
@@ -243,14 +236,14 @@ const utilities = {
       100: '100vh',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'flex',
     class: 'flex',
     values: {
       fill: '1 1 auto',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'flex-direction',
     class: 'flex',
     values: {
@@ -260,7 +253,7 @@ const utilities = {
       'column-reverse': 'column-reverse',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'flex-grow',
     class: 'flex',
     values: {
@@ -268,7 +261,7 @@ const utilities = {
       'grow-1': '1',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'flex-shrink',
     class: 'flex',
     values: {
@@ -276,7 +269,7 @@ const utilities = {
       'shrink-1': '1',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'flex-wrap',
     class: 'flex',
     values: {
@@ -285,14 +278,14 @@ const utilities = {
       'wrap-reverse': 'wrap-reverse',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'gap',
     class: 'gap',
     values: {
       // $spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'justify-content',
     class: 'justify-content',
     values: {
@@ -304,7 +297,7 @@ const utilities = {
       // evenly: 'space-evenly',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'align-items',
     class: 'align-items',
     values: {
@@ -315,7 +308,7 @@ const utilities = {
       stretch: 'stretch',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'align-content',
     class: 'align-content',
     values: {
@@ -327,7 +320,7 @@ const utilities = {
       stretch: 'stretch',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'align-self',
     class: 'align-self',
     values: {
@@ -339,7 +332,7 @@ const utilities = {
       stretch: 'stretch',
     },
   }),
-  /* ...make({
+  /* ...makeUtility({
     property: 'order',
     class: 'order',
     values: {
@@ -353,14 +346,14 @@ const utilities = {
       last: '6',
     },
   }), */
-  ...make({
+  ...makeUtility({
     property: 'margin',
     class: 'm',
     values: {
       // values: map-merge($spacers, (auto: auto))
     },
   }),
-  ...make({
+  ...makeUtility({
     // "margin-x": (
     // property: margin-right margin-left,
     property: 'margin-x',
@@ -369,7 +362,7 @@ const utilities = {
       // values: map-merge($spacers, (auto: auto))
     },
   }),
-  ...make({
+  ...makeUtility({
     // property: margin-top margin-bottom,
     property: 'margin-y',
     class: 'my',
@@ -377,14 +370,14 @@ const utilities = {
       // map-merge($spacers, (auto: auto))
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'margin-top',
     class: 'mt',
     values: {
       // map-merge($spacers, (auto: auto))
     },
   }),
-  ...make({
+  ...makeUtility({
     // "margin-end": (
     property: 'margin-right',
     class: 'me',
@@ -392,14 +385,14 @@ const utilities = {
       // values: map-merge($spacers, (auto: auto))
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'margin-bottom',
     class: 'mb',
     values: {
       // values: map-merge($spacers, (auto: auto))
     },
   }),
-  ...make({
+  ...makeUtility({
     // "margin-start": (
     property: 'margin-left',
     class: 'ms',
@@ -407,7 +400,7 @@ const utilities = {
       // values: map-merge($spacers, (auto: auto))
     },
   }),
-  ...make({
+  ...makeUtility({
     // "negative-margin": (
     property: 'margin',
     class: 'm',
@@ -415,7 +408,7 @@ const utilities = {
       // values: $negative-spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // property: margin-right margin-left,
     property: 'negative-margin-x',
     class: 'mx',
@@ -423,7 +416,7 @@ const utilities = {
       // values: $negative-spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // property: margin-top margin-bottom,
     property: 'negative-margin-y',
     class: 'my',
@@ -431,7 +424,7 @@ const utilities = {
       // values: $negative-spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // "negative-margin-top": (
     property: 'margin-top',
     class: 'mt',
@@ -439,7 +432,7 @@ const utilities = {
       // values: $negative-spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // "negative-margin-end": (
     property: 'margin-right',
     class: 'me',
@@ -447,7 +440,7 @@ const utilities = {
       // values: $negative-spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // "negative-margin-bottom": (
     property: 'margin-bottom',
     class: 'mb',
@@ -455,7 +448,7 @@ const utilities = {
       // values: $negative-spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // "negative-margin-start": (
     property: 'margin-left',
     class: 'ms',
@@ -463,37 +456,35 @@ const utilities = {
       // values: $negative-spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'padding',
     class: 'p',
     values: {
       // values: $spacers
     },
   }),
-  ...make({
-    // property: padding-right padding-left,
-    property: 'padding-x',
+  ...makeUtility({
+    property: 'padding-horizontal',
     class: 'px',
     values: {
       // values: $spacers
     },
   }),
-  ...make({
-    // property: padding-top padding-bottom,
-    property: 'padding-y',
+  ...makeUtility({
+    property: 'padding-vertical',
     class: 'py',
     values: {
       // values: $spacers,
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'padding-top',
     class: 'pt',
     values: {
       // values: $spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // "padding-end": (
     property: 'padding-right',
     class: 'pe',
@@ -501,14 +492,14 @@ const utilities = {
       // values: $spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'padding-bottom',
     class: 'pb',
     values: {
       // values: $spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     // "padding-start": (
     property: 'padding-left',
     class: 'ps',
@@ -516,21 +507,21 @@ const utilities = {
       // values: $spacers
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'font-family',
     class: 'font',
     values: {
       // values: (monospace: var(--#{$variable-prefix}font-monospace))
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'font-size',
     class: 'fs',
     values: {
       // values: $font-sizes
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'font-style',
     class: 'fst',
     values: {
@@ -538,18 +529,18 @@ const utilities = {
       normal: 'normal',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'font-weight',
     class: 'fw',
     values: {
       light: (t) => t['font-weight-light'],
-      lighter: (t) => t['font-weight-lighter'],
+      // lighter: (t) => t['font-weight-lighter'],
       normal: (t) => t['font-weight-normal'],
       bold: (t) => t['font-weight-bold'],
-      bolder: (t) => t['font-weight-bolder'],
+      // bolder: (t) => t['font-weight-bolder'],
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'line-height',
     class: 'lh',
     // Multiply line-height with font-size for react-native support.
@@ -560,7 +551,7 @@ const utilities = {
       lg: (t) => `${t['font-size-lg']} * ${t['line-height-lg']}`,
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'text-align',
     class: 'text',
     values: {
@@ -569,7 +560,7 @@ const utilities = {
       center: 'center',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'text-decoration',
     class: 'text',
     values: {
@@ -578,7 +569,7 @@ const utilities = {
       'line-through': 'line-through',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'text-transform',
     class: 'text',
     values: {
@@ -587,7 +578,7 @@ const utilities = {
       capitalize: 'capitalize',
     },
   }),
-  /* ...make({
+  /* ...makeUtility({
     property: 'white-space',
     class: 'text',
     values: {
@@ -595,7 +586,7 @@ const utilities = {
       nowrap: 'nowrap',
     },
   }),
-  ...make({
+  ...makeUtility({
     // property: 'word-wrap word-break,',
     property: 'word-wrap',
     class: 'text',
@@ -605,7 +596,7 @@ const utilities = {
       // rtl: false
     },
   }), */
-  ...make({
+  ...makeUtility({
     property: 'color',
     class: 'text',
     values: {
@@ -615,7 +606,7 @@ const utilities = {
       'white-50': (t) => `rgba(${t.white}, 0.5)`,
     },
   }),
-  /* ...make({
+  /* ...makeUtility({
     property: 'text-opacity',
     // css-var: true,
     class: 'text-opacity',
@@ -626,7 +617,7 @@ const utilities = {
       100: '1',
     },
   }), */
-  ...make({
+  ...makeUtility({
     property: 'background-color',
     class: 'bg',
     values: {
@@ -634,7 +625,7 @@ const utilities = {
       transparent: 'transparent',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'opacity',
     // css-var: true,
     class: 'bg-opacity',
@@ -646,7 +637,7 @@ const utilities = {
       100: '1',
     },
   }),
-  /* ...make({
+  /* ...makeUtility({
     // scss-docs-end utils-bg-color
     // "gradient": (
     property: 'background-image',
@@ -656,7 +647,7 @@ const utilities = {
       // gradient: var(--#{$variable-prefix}gradient)),
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'user-select',
     class: 'user-select',
     values: {
@@ -665,7 +656,7 @@ const utilities = {
       none: 'none',
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'pointer-events',
     class: 'pe',
     values: {
@@ -673,7 +664,7 @@ const utilities = {
       auto: 'auto',
     },
   }), */
-  ...make({
+  ...makeUtility({
     property: 'border-radius',
     class: 'rounded',
     values: {
@@ -687,35 +678,35 @@ const utilities = {
     },
   }),
   // property: border-top-left-radius border-top-right-radius,
-  ...make({
+  ...makeUtility({
     property: 'rounded-top',
     class: 'rounded-top',
     values: {
       // null: (t) => t['border-radius'],
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'rounded-end',
     class: 'rounded-end',
     values: {
       // null: (t) => t['border-radius'],
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'rounded-bottom',
     class: 'rounded-bottom',
     values: {
       // null: (t) => t['border-radius'],
     },
   }),
-  ...make({
+  ...makeUtility({
     property: 'rounded-start',
     class: 'rounded-start',
     values: {
       // null: (t) => t['border-radius'],
     },
   }),
-  /* ...make({
+  /* ...makeUtility({
     property: 'visibility',
     // class: null,
     class: 'visibility',
@@ -727,13 +718,3 @@ const utilities = {
 };
 
 export default utilities;
-/* NOTE Anton Delete me Later
-  ...make({
-    property: 'property',
-    class: 'classhere',
-    values: {
-      test: 'test',
-    },
-  }),
-
-*/

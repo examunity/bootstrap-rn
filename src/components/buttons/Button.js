@@ -6,7 +6,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
 import { getStyles, each } from '../../utils';
-import { THEME_COLORS } from '../../theme/constants';
+import { THEME_COLORS } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
 
 const propTypes = {

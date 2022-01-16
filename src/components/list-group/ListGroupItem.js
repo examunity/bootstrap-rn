@@ -6,7 +6,7 @@ import css from '../../style/css';
 import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import { getStyles, each } from '../../utils';
-import { THEME_COLORS } from '../../theme/constants';
+import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
 import ListGroupContext from './ListGroupContext';
 
