@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   '.offcanvas-header': css`
     display: flex;
     flex-direction: row; // added for bootstyle
-    flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
     padding: $offcanvas-padding-y $offcanvas-padding-x;

@@ -64,7 +64,7 @@ function SampleOffcanvas() {
             PageMaker including versions of Lorem Ipsum
           </Text>
           <View>
-            <Button onPress={() => setOffcanvasVisible(!offcanvasVisible)}>
+            <Button onPress={() => setOffcanvasVisible((value) => !value)}>
               <Text>Close</Text>
             </Button>
           </View>
