@@ -3,7 +3,7 @@ import { Svg, Path, Circle } from 'react-native-svg';
 import { Platform } from 'react-native';
 import css from '../style/css';
 import { convertToREM } from '../utils';
-import { tintColor, shiftColor, add, subtract } from './functions';
+import { shadeColor, tintColor, shiftColor, add, subtract } from './functions';
 
 // Define svgs first, so that we do not break syntax highlighting :D
 const svgs = {
@@ -551,24 +551,17 @@ const variables = css`
   //
   // Font, line-height, and color for body text, headings, and more.
 
-  $font-family-sans-serif: ${() => {
-    if (Platform.OS !== 'web') {
-      return 'System';
-    }
-
-    return 'system-ui'; // "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
-  }};
-  $font-family-monospace: ${() => {
-    if (Platform.OS === 'android') {
-      return 'monospace';
-    }
-
-    if (Platform.OS === 'ios') {
-      return 'Courier';
-    }
-
-    return 'SFMono-Regular'; // SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  }};
+  $font-family-sans-serif: ${() =>
+    Platform.select({
+      native: 'System',
+      default: 'system-ui', // "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
+    })};
+  $font-family-monospace: ${() =>
+    Platform.select({
+      android: 'monospace',
+      ios: 'Courier',
+      default: 'SFMono-Regular', // SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    })};
   $font-family-base: $font-family-sans-serif;
   $font-family-code: $font-family-monospace;
 
@@ -1052,6 +1045,45 @@ const variables = css`
 
   // ...
 
+  // Tooltips
+
+  $tooltip-font-size: $font-size-sm;
+  $tooltip-max-width: 200px;
+  $tooltip-color: $white;
+  $tooltip-bg: $black;
+  $tooltip-border-radius: $border-radius;
+  $tooltip-opacity: 0.9;
+  $tooltip-padding-y: $spacer * 0.25;
+  $tooltip-padding-x: $spacer * 0.5;
+  $tooltip-margin: 0;
+
+  $tooltip-arrow-width: 0.8rem;
+  $tooltip-arrow-height: 0.4rem;
+  $tooltip-arrow-color: $tooltip-bg;
+
+  // Popovers
+
+  $popover-font-size: $font-size-sm;
+  $popover-bg: $white;
+  $popover-max-width: 276px;
+  $popover-border-width: $border-width;
+  $popover-border-color: rgba($black, 0.2);
+  $popover-border-radius: $border-radius-lg;
+  $popover-inner-border-radius: ${(t) =>
+    subtract(t['popover-border-radius'], t['popover-border-width'])};
+  $popover-box-shadow: $box-shadow;
+
+  $popover-header-bg: ${(t) => shadeColor(0.06, t['popover-bg'])};
+  $popover-header-color: $headings-color;
+  $popover-header-padding-y: 0.5rem;
+  $popover-header-padding-x: $spacer;
+
+  $popover-body-color: $body-color;
+  $popover-body-padding-y: $spacer;
+  $popover-body-padding-x: $spacer;
+
+  // ...
+
   // Badges
 
   $badge-font-size: 0.75rem; // 0.75em;
@@ -1176,49 +1208,6 @@ const variables = css`
   $btn-close-disabled-opacity: 0.25;
   // $btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
 
-  // Tooltips
-
-  // scss-docs-start tooltip-variables
-  $tooltip-font-size: $font-size-sm;
-  $tooltip-max-width: 200px;
-  $tooltip-color: $white;
-  $tooltip-bg: $black;
-  $tooltip-border-radius: $border-radius;
-  $tooltip-opacity: 0.9 !default;
-  $tooltip-padding-y: $spacer * 0.25;
-  $tooltip-padding-x: $spacer * 0.5;
-  $tooltip-margin: 0 !default;
-
-  $tooltip-arrow-width: 0.8rem !default;
-  $tooltip-arrow-height: 0.4rem !default;
-  $tooltip-arrow-color: $tooltip-bg;
-  // scss-docs-end tooltip-variables
-
-  // Popovers
-
-  // scss-docs-start popover-variables
-  $popover-font-size: $font-size-sm;
-  $popover-bg: $white;
-  $popover-max-width: 276px;
-  $popover-border-width: $border-width;
-  $popover-border-color: rgba($black, 0.2);
-  $popover-border-radius: $border-radius-lg;
-  $popover-inner-border-radius: subtract(
-    $popover-border-radius,
-    $popover-border-width
-  );
-  $popover-box-shadow: $box-shadow;
-
-  $popover-header-bg: $gray-200; //  shade-color($popover-bg, 6%);
-  $popover-header-color: $headings-color;
-  $popover-header-padding-y: 0.5rem;
-  $popover-header-padding-x: $spacer;
-
-  $popover-body-color: $body-color;
-  $popover-body-padding-y: $spacer;
-  $popover-body-padding-x: $spacer;
-
-  // scss-docs-end popover-variables
   // Offcanvas
 
   $offcanvas-padding-y: $modal-inner-padding;
