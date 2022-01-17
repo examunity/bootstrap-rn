@@ -6,9 +6,11 @@ import { convertToREM } from '../utils';
 import { shadeColor, tintColor, shiftColor, add, subtract } from './functions';
 
 // Define svgs first, so that we do not break syntax highlighting :D
+// Also all elements have tabIndex={-1} until the following is merged:
+// https://github.com/react-native-svg/react-native-svg/pull/1585
 const svgs = {
   'form-check-input-checked-bg-image': (t) => (
-    <Svg viewBox="0 0 20 20">
+    <Svg viewBox="0 0 20 20" tabIndex={-1}>
       <Path
         fill="none"
         stroke={t['form-check-input-checked-color']}
@@ -16,16 +18,17 @@ const svgs = {
         strokeLinejoin="round"
         strokeWidth={3}
         d="m6 10 3 3 6-6"
+        tabIndex={-1}
       />
     </Svg>
   ),
   'form-check-radio-checked-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8">
-      <Circle r={2} fill={t['form-check-input-checked-color']} />
+    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
+      <Circle r={2} fill={t['form-check-input-checked-color']} tabIndex={-1} />
     </Svg>
   ),
   'form-check-input-indeterminate-bg-image': (t) => (
-    <Svg viewBox="0 0 20 20">
+    <Svg viewBox="0 0 20 20" tabIndex={-1}>
       <Path
         fill="none"
         stroke={t['form-check-input-indeterminate-color']}
@@ -33,26 +36,27 @@ const svgs = {
         strokeLinejoin="round"
         strokeWidth={3}
         d="M6 10h8"
+        tabIndex={-1}
       />
     </Svg>
   ),
   'form-switch-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8">
-      <Circle r={3} fill={t['form-switch-color']} />
+    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
+      <Circle r={3} fill={t['form-switch-color']} tabIndex={-1} />
     </Svg>
   ),
   'form-switch-focus-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8">
-      <Circle r={3} fill={t['form-switch-focus-color']} />
+    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
+      <Circle r={3} fill={t['form-switch-focus-color']} tabIndex={-1} />
     </Svg>
   ),
   'form-switch-checked-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8">
-      <Circle r={3} fill={t['form-switch-checked-color']} />
+    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
+      <Circle r={3} fill={t['form-switch-checked-color']} tabIndex={-1} />
     </Svg>
   ),
   'form-select-indicator': (t) => (
-    <Svg viewBox="0 0 16 16">
+    <Svg viewBox="0 0 16 16" tabIndex={-1}>
       <Path
         fill="none"
         stroke={t['form-select-indicator-color']}
@@ -60,14 +64,16 @@ const svgs = {
         strokeLinejoin="round"
         strokeWidth={2}
         d="m2 5 6 6 6-6"
+        tabIndex={-1}
       />
     </Svg>
   ),
   'form-feedback-icon-valid': (t) => (
-    <Svg viewBox="0 0 8 8">
+    <Svg viewBox="0 0 8 8" tabIndex={-1}>
       <Path
         fill={t['form-feedback-icon-valid-color']}
         d="M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z"
+        tabIndex={-1}
       />
     </Svg>
   ),
@@ -78,21 +84,26 @@ const svgs = {
       height={12}
       fill="none"
       stroke={t['form-feedback-icon-invalid-color']}
+      tabIndex={-1}
     >
-      <Circle cx={6} cy={6} r={4.5} />
-      <Path strokeLinejoin="round" d="M5.8 3.6h.4L6 6.5z" />
+      <Circle cx={6} cy={6} r={4.5} tabIndex={-1} />
+      <Path strokeLinejoin="round" d="M5.8 3.6h.4L6 6.5z" tabIndex={-1} />
       <Circle
         cx={6}
         cy={8.2}
         r={0.6}
         fill={t['form-feedback-icon-invalid-color']}
         stroke="none"
+        tabIndex={-1}
       />
     </Svg>
   ),
   'btn-close-bg': (t) => (
-    <Svg viewBox="0 0 16 16" fill={t['btn-close-color']}>
-      <Path d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z" />
+    <Svg viewBox="0 0 16 16" fill={t['btn-close-color']} tabIndex={-1}>
+      <Path
+        d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"
+        tabIndex={-1}
+      />
     </Svg>
   ),
 };
