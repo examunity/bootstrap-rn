@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import TextInput from '../TextInput';
-import { getStyles } from '../../utils';
+import { getStyles, each } from '../../utils';
+import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 
 const propTypes = {
   size: PropTypes.oneOf(['sm', 'lg']),
   placeholderTextColor: PropTypes.string,
   multiline: PropTypes.bool,
   disabled: PropTypes.bool,
+  valid: PropTypes.bool,
+  invalid: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -81,6 +84,16 @@ const styles = StyleSheet.create({
   '.form-control-multiline-lg': css`
     min-height: $input-height-lg;
   `,
+  ...each(FORM_VALIDATION_STATES, (state, data) => ({
+    [`.form-control.is-${state}`]: css`
+      border-color: ${(t) => data(t).color};
+
+      &:focus {
+        border-color: ${(t) => data(t).color};
+        // box-shadow: $focus-box-shadow;
+      }
+    `,
+  })),
 });
 
 const Input = React.forwardRef((props, ref) => {
@@ -89,6 +102,8 @@ const Input = React.forwardRef((props, ref) => {
     placeholderTextColor,
     multiline = false,
     disabled = false,
+    valid = false,
+    invalid = false,
     style,
     ...elementProps
   } = props;
@@ -101,6 +116,8 @@ const Input = React.forwardRef((props, ref) => {
     multiline && '.form-control-multiline',
     multiline && size === 'sm' && '.form-control-multiline-sm',
     multiline && size === 'lg' && '.form-control-multiline-lg',
+    valid && '.form-control.is-valid',
+    invalid && '.form-control.is-invalid',
   ]);
 
   return (

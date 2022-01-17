@@ -5,7 +5,8 @@ import css from '../../style/css';
 import Pressable from '../Pressable';
 import View from '../View';
 import Text from '../Text';
-import { getStyles } from '../../utils';
+import { getStyles, each } from '../../utils';
+import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 
 const propTypes = {
   children: PropTypes.node,
@@ -15,6 +16,8 @@ const propTypes = {
   onPress: PropTypes.func,
   label: PropTypes.string,
   disabled: PropTypes.bool,
+  valid: PropTypes.bool,
+  invalid: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -104,6 +107,21 @@ const styles = StyleSheet.create({
     align-items: flex-end; // added for bootstyle
     justify-content: center; // added for bootstyle
   `,
+  ...each(FORM_VALIDATION_STATES, (state, data) => ({
+    [`.form-check-input.is-${state}`]: css`
+      border: ${(t) => data(t).color};
+
+      &:focus {
+        // box-shadow: $focus-box-shadow;
+      }
+    `,
+    [`.form-check-input-checked.is-${state}`]: css`
+      background-color: ${(t) => data(t).color};
+    `,
+    [`.form-check-label.is-${state}`]: css`
+      color: ${(t) => data(t).color};
+    `,
+  })),
 });
 
 const getSvg = (type, value) => {
@@ -133,6 +151,8 @@ const CheckInput = React.forwardRef((props, ref) => {
     onPress = () => {},
     label,
     disabled = false,
+    valid = false,
+    invalid = false,
     style,
     inputStyle,
     labelStyle,
@@ -159,9 +179,17 @@ const CheckInput = React.forwardRef((props, ref) => {
     type === 'switch' && '.form-check-input-switch',
     value && '.form-check-input-checked',
     type === 'switch' && value && '.form-check-input-switch-checked',
+    valid && '.form-check-input.is-valid',
+    valid && value && '.form-check-input-checked.is-valid',
+    invalid && '.form-check-input.is-invalid',
+    invalid && value && '.form-check-input-checked.is-invalid',
   ]);
 
-  const labelClasses = getStyles(styles, ['.form-check-label']);
+  const labelClasses = getStyles(styles, [
+    '.form-check-label',
+    valid && '.form-check-label.is-valid',
+    invalid && '.form-check-label.is-invalid',
+  ]);
 
   const handlePress = (event) => {
     onChange(value);

@@ -5,7 +5,8 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Text from '../Text';
 import useMedia from '../../hooks/useMedia';
-import { getStyles } from '../../utils';
+import { getStyles, each } from '../../utils';
+import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import useStyle from '../../hooks/useStyle';
 import PickerContext from './PickerContext';
 import PickerDialog from './PickerDialog';
@@ -24,6 +25,8 @@ const propTypes = {
   placeholder: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'lg']),
   disabled: PropTypes.bool,
+  valid: PropTypes.bool,
+  invalid: PropTypes.bool,
   useNativeComponent: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -92,6 +95,16 @@ const styles = StyleSheet.create({
     font-size: $form-select-font-size-lg;
     border-radius: $form-select-border-radius-lg;
   `,
+  ...each(FORM_VALIDATION_STATES, (state, data) => ({
+    [`.form-select.is-${state}`]: css`
+      border-color: ${(t) => data(t).color};
+
+      &:focus {
+        border-color: ${(t) => data(t).color};
+        // box-shadow: $focus-box-shadow;
+      }
+    `,
+  })),
 });
 
 const Picker = React.forwardRef((props, ref) => {
@@ -104,6 +117,8 @@ const Picker = React.forwardRef((props, ref) => {
     placeholder,
     size,
     disabled = false,
+    valid = false,
+    invalid = false,
     useNativeComponent = false,
     style,
     styleName,
@@ -119,6 +134,8 @@ const Picker = React.forwardRef((props, ref) => {
     disabled && '.form-select-disabled',
     size === 'sm' && '.form-select-sm',
     size === 'lg' && '.form-select-lg',
+    valid && '.form-select.is-valid',
+    invalid && '.form-select.is-invalid',
   ]);
 
   const resolveStyle = useStyle([classes, style], styleName);
@@ -127,10 +144,14 @@ const Picker = React.forwardRef((props, ref) => {
 
   const commonProps = {
     onFocus: () => {
+      if (disabled) return;
+
       setFocused(true);
       onFocus();
     },
     onBlur: () => {
+      if (disabled) return;
+
       setFocused(false);
       onBlur();
     },
@@ -179,9 +200,13 @@ const Picker = React.forwardRef((props, ref) => {
         ref={ref}
         // role "listbox" is not supported in react-native :(
         accessibilityRole="button"
+        accessibilityDisabled={disabled}
         accessible
+        focusable={!disabled}
         selectable={false}
         onPress={() => {
+          if (disabled) return;
+
           setOpen(true);
         }}
       >
