@@ -9,10 +9,13 @@ import Card from './components/card/Card';
 import CloseButton from './components/close/CloseButton';
 import Container from './components/containers/Container';
 import Checkbox from './components/forms/Checkbox';
+import Feedback from './components/forms/Feedback';
+import FormText from './components/forms/FormText';
 import Picker from './components/forms/Picker';
 import Radio from './components/forms/Radio';
 import Switch from './components/forms/Switch';
 import Input from './components/forms/Input';
+import Label from './components/forms/Label';
 import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
@@ -42,10 +45,13 @@ export {
   CloseButton,
   Container,
   Checkbox,
+  Feedback,
+  FormText,
   Picker,
   Radio,
   Switch,
   Input,
+  Label,
   Col,
   Row,
   ListGroup,

@@ -6,21 +6,25 @@ import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
+  contentContainerStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
   styleName: PropTypes.any,
 };
 
 const ScrollView = React.forwardRef((props, ref) => {
-  const { style, styleName, ...elementProps } = props;
+  const { contentContainerStyle, style, styleName, ...elementProps } = props;
 
   const media = useMedia();
+  const resolveContentContainerStyle = useStyle(contentContainerStyle);
   const resolveStyle = useStyle(style, styleName);
 
   return (
     <BaseScrollView
       {...elementProps}
       ref={ref}
+      contentContainerStyle={resolveContentContainerStyle({ media })}
       style={resolveStyle({ media })}
     />
   );

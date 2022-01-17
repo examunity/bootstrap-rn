@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import { GRID_BREAKPOINT_KEYS } from '../../theme/constants';
+import { CONTAINER_MAX_WIDTHS } from '../../theme/proxies';
 import { getStyles } from '../../utils';
-
-const FLUID_BREAKPOINTS = GRID_BREAKPOINT_KEYS.filter((v) => v !== 'xs');
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  fluid: PropTypes.oneOf([true, ...FLUID_BREAKPOINTS]),
+  fluid: PropTypes.oneOf([true, ...Object.keys(CONTAINER_MAX_WIDTHS)]),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };

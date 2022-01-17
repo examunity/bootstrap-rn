@@ -1,4 +1,5 @@
-import { THEME_COLORS, SPACERS } from './constants';
+import { THEME_COLORS, SPACERS } from './proxies';
+import { each } from '../utils';
 
 export const UTILITIES_COLORS = THEME_COLORS;
 
@@ -16,8 +17,14 @@ export const UTILITIES_BG_COLORS = {
   body: (t) => t['body-bg'],
 };
 
-export const NEGATIVE_SPACERS = Object.values(SPACERS).map((spacer) => (t) =>
-  -1 * spacer(t),
-);
+export const NEGATIVE_SPACERS = each(SPACERS, (key, value) => {
+  if (key === 0) {
+    return null;
+  }
+
+  return {
+    [`n${key}`]: (t) => `-${value(t)}`,
+  };
+});
 
 export const GUTTERS = SPACERS;

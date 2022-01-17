@@ -112,7 +112,17 @@ const variables = css`
   $gray-900: #212529;
   $black: #000;
 
-  // TODO: $grays map
+  $grays: ${(t) => ({
+    100: t['gray-100'],
+    200: t['gray-200'],
+    300: t['gray-300'],
+    400: t['gray-400'],
+    500: t['gray-500'],
+    600: t['gray-600'],
+    700: t['gray-700'],
+    800: t['gray-800'],
+    900: t['gray-900'],
+  })};
 
   $blue: #0d6efd;
   $indigo: #6610f2;
@@ -125,7 +135,18 @@ const variables = css`
   $teal: #20c997;
   $cyan: #0dcaf0;
 
-  // TODO: $colors map
+  $colors: ${(t) => ({
+    blue: t.blue,
+    indigo: t.indigo,
+    purple: t.purple,
+    pink: t.pink,
+    red: t.red,
+    orange: t.orange,
+    yellow: t.yellow,
+    green: t.green,
+    teal: t.teal,
+    cyan: t.cyan,
+  })};
 
   $primary: $blue;
   $secondary: $gray-600;
@@ -136,7 +157,16 @@ const variables = css`
   $light: $gray-100;
   $dark: $gray-900;
 
-  // TODO: $theme-colors map
+  $theme-colors: ${(t) => ({
+    primary: t.primary,
+    secondary: t.secondary,
+    success: t.success,
+    info: t.info,
+    warning: t.warning,
+    danger: t.danger,
+    light: t.light,
+    dark: t.dark,
+  })};
 
   // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
   // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
@@ -246,25 +276,125 @@ const variables = css`
   $cyan-800: shade-color($cyan, 60%);
   $cyan-900: shade-color($cyan, 80%);
 
-  // TODO: $blues map
+  $blues: ${(t) => ({
+    'blue-100': t['blue-100'],
+    'blue-200': t['blue-200'],
+    'blue-300': t['blue-300'],
+    'blue-400': t['blue-400'],
+    'blue-500': t['blue-500'],
+    'blue-600': t['blue-600'],
+    'blue-700': t['blue-700'],
+    'blue-800': t['blue-800'],
+    'blue-900': t['blue-900'],
+  })};
 
-  // TODO: $indigos map
+  $indigos: ${(t) => ({
+    'indigo-100': t['indigo-100'],
+    'indigo-200': t['indigo-200'],
+    'indigo-300': t['indigo-300'],
+    'indigo-400': t['indigo-400'],
+    'indigo-500': t['indigo-500'],
+    'indigo-600': t['indigo-600'],
+    'indigo-700': t['indigo-700'],
+    'indigo-800': t['indigo-800'],
+    'indigo-900': t['indigo-900'],
+  })};
 
-  // TODO: $purples map
+  $purples: ${(t) => ({
+    'purple-100': t['purple-100'],
+    'purple-200': t['purple-200'],
+    'purple-300': t['purple-300'],
+    'purple-400': t['purple-400'],
+    'purple-500': t['purple-500'],
+    'purple-600': t['purple-600'],
+    'purple-700': t['purple-700'],
+    'purple-800': t['purple-800'],
+    'purple-900': t['purple-900'],
+  })};
 
-  // TODO: $pinks map
+  $pinks: ${(t) => ({
+    'pink-100': t['pink-100'],
+    'pink-200': t['pink-200'],
+    'pink-300': t['pink-300'],
+    'pink-400': t['pink-400'],
+    'pink-500': t['pink-500'],
+    'pink-600': t['pink-600'],
+    'pink-700': t['pink-700'],
+    'pink-800': t['pink-800'],
+    'pink-900': t['pink-900'],
+  })};
 
-  // TODO: $reds map
+  $reds: ${(t) => ({
+    'red-100': t['red-100'],
+    'red-200': t['red-200'],
+    'red-300': t['red-300'],
+    'red-400': t['red-400'],
+    'red-500': t['red-500'],
+    'red-600': t['red-600'],
+    'red-700': t['red-700'],
+    'red-800': t['red-800'],
+    'red-900': t['red-900'],
+  })};
 
-  // TODO: $oranges map
+  $oranges: ${(t) => ({
+    'orange-100': t['orange-100'],
+    'orange-200': t['orange-200'],
+    'orange-300': t['orange-300'],
+    'orange-400': t['orange-400'],
+    'orange-500': t['orange-500'],
+    'orange-600': t['orange-600'],
+    'orange-700': t['orange-700'],
+    'orange-800': t['orange-800'],
+    'orange-900': t['orange-900'],
+  })};
 
-  // TODO: $yellows map
+  $yellows: ${(t) => ({
+    'yellow-100': t['yellow-100'],
+    'yellow-200': t['yellow-200'],
+    'yellow-300': t['yellow-300'],
+    'yellow-400': t['yellow-400'],
+    'yellow-500': t['yellow-500'],
+    'yellow-600': t['yellow-600'],
+    'yellow-700': t['yellow-700'],
+    'yellow-800': t['yellow-800'],
+    'yellow-900': t['yellow-900'],
+  })};
 
-  // TODO: $greens map
+  $greens: ${(t) => ({
+    'green-100': t['green-100'],
+    'green-200': t['green-200'],
+    'green-300': t['green-300'],
+    'green-400': t['green-400'],
+    'green-500': t['green-500'],
+    'green-600': t['green-600'],
+    'green-700': t['green-700'],
+    'green-800': t['green-800'],
+    'green-900': t['green-900'],
+  })};
 
-  // TODO: $teals map
+  $teals: ${(t) => ({
+    'teal-100': t['teal-100'],
+    'teal-200': t['teal-200'],
+    'teal-300': t['teal-300'],
+    'teal-400': t['teal-400'],
+    'teal-500': t['teal-500'],
+    'teal-600': t['teal-600'],
+    'teal-700': t['teal-700'],
+    'teal-800': t['teal-800'],
+    'teal-900': t['teal-900'],
+  })};
 
-  // TODO: $cyans map
+  $cyans: ${(t) => ({
+    'cyan-100': t['cyan-100'],
+    'cyan-200': t['cyan-200'],
+    'cyan-300': t['cyan-300'],
+    'cyan-400': t['cyan-400'],
+    'cyan-500': t['cyan-500'],
+    'cyan-600': t['cyan-600'],
+    'cyan-700': t['cyan-700'],
+    'cyan-800': t['cyan-800'],
+    'cyan-900': t['cyan-900'],
+  })};
 
   // Characters which are escaped by the escape-svg function
   // $escaped characters
@@ -289,19 +419,23 @@ const variables = css`
 
   $spacer: 1rem;
   $spacers: ${(t) => ({
-    0: 0,
-    1: t.spacer * 0.25,
-    2: t.spacer * 0.5,
+    0: '0px',
+    1: `${t.spacer} * 0.25`,
+    2: `${t.spacer} * 0.5`,
     3: t.spacer,
-    4: t.spacer * 1.5,
-    5: t.spacer * 3,
+    4: `${t.spacer} * 1.5`,
+    5: `${t.spacer} * 3`,
   })};
 
   // Position
   //
   // Define the edge positioning anchors of the position utilities.
 
-  // $position-values map
+  $position-values: ${() => ({
+    0: '0px',
+    50: '50%',
+    100: '100%',
+  })};
 
   // Body
   //
@@ -374,7 +508,13 @@ const variables = css`
   // Define common padding and border radius sizes and more.
 
   $border-width: 1px;
-  // TODO: $border-widths map
+  $border-widths: ${() => ({
+    1: '1px',
+    2: '2px',
+    3: '3px',
+    4: '4px',
+    5: '5px',
+  })};
 
   $border-color: $gray-300;
 
@@ -400,7 +540,12 @@ const variables = css`
   $transition-collapse: height 0.35s ease;
   $transition-collapse-width: width 0.35s ease;
 
-  // TODO: $aspect-ratios map
+  $aspect-ratios: ${() => ({
+    '1x1': '100%',
+    '4x3': 'calc(3 / 4 * 100%)',
+    '16x9': 'calc(9 / 16 * 100%)',
+    '21x9': 'calc(9 / 21 * 100%)',
+  })};
 
   // Typography
   //
@@ -413,8 +558,17 @@ const variables = css`
 
     return 'system-ui'; // "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
   }};
-  $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  $font-family-monospace: ${() => {
+    if (Platform.OS === 'android') {
+      return 'monospace';
+    }
+
+    if (Platform.OS === 'ios') {
+      return 'Courier';
+    }
+
+    return 'SFMono-Regular'; // SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  }};
   $font-family-base: $font-family-sans-serif;
   $font-family-code: $font-family-monospace;
 
@@ -444,7 +598,14 @@ const variables = css`
   $h5-font-size: $font-size-base * 1.25;
   $h6-font-size: $font-size-base;
 
-  // TODO: $font-sizes map
+  $font-sizes: ${(t) => ({
+    1: t['h1-font-size'],
+    2: t['h2-font-size'],
+    3: t['h3-font-size'],
+    4: t['h4-font-size'],
+    5: t['h5-font-size'],
+    6: t['h6-font-size'],
+  })};
 
   $headings-margin-bottom: $spacer * 0.5;
   $headings-font-family: null;
@@ -453,7 +614,14 @@ const variables = css`
   $headings-line-height: 1.2;
   $headings-color: null;
 
-  // TODO: $display-font-sizes map
+  $display-font-sizes: ${() => ({
+    1: '5rem',
+    2: '4.5rem',
+    3: '4rem',
+    4: '3.5rem',
+    5: '3rem',
+    6: '2.5rem',
+  })};
 
   $display-font-weight: 300;
   $display-line-height: $headings-line-height;
@@ -833,16 +1001,16 @@ const variables = css`
   $form-feedback-icon-invalid-color: $form-feedback-invalid-color;
   $form-feedback-icon-invalid: ${svgs['form-feedback-icon-invalid']};
 
-  /* $form-validation-states: (
-    "valid": (
-      "color": $form-feedback-valid-color,
-      "icon": $form-feedback-icon-valid
-    ),
-    "invalid": (
-      "color": $form-feedback-invalid-color,
-      "icon": $form-feedback-icon-invalid
-    )
-  ); */
+  $form-validation-states: ${(t) => ({
+    valid: {
+      color: t['form-feedback-valid-color'],
+      icon: t['form-feedback-icon-valid'],
+    },
+    invalid: {
+      color: t['form-feedback-invalid-color'],
+      icon: t['form-feedback-icon-invalid'],
+    },
+  })};
 
   // Z-index master list
   //
@@ -936,21 +1104,6 @@ const variables = css`
   $modal-show-transform: none;
   $modal-transition: transform 0.3s ease-out;
   $modal-scale-transform: scale(1.02);
-
-  // Offcanvas
-  $offcanvas-padding-y: $modal-inner-padding;
-  $offcanvas-padding-x: $modal-inner-padding;
-  $offcanvas-horizontal-width: 400px;
-  $offcanvas-vertical-height: 300px;
-  $offcanvas-transition-duration: 0.3s;
-  $offcanvas-border-color: $modal-content-border-color;
-  $offcanvas-border-width: $modal-content-border-width;
-  $offcanvas-title-line-height: $modal-title-line-height;
-  $offcanvas-bg-color: $modal-content-bg;
-  $offcanvas-color: $modal-content-color;
-  $offcanvas-box-shadow: $modal-content-box-shadow-xs;
-  $offcanvas-backdrop-bg: $modal-backdrop-bg;
-  $offcanvas-backdrop-opacity: $modal-backdrop-opacity;
 
   // ...
 
@@ -1066,6 +1219,21 @@ const variables = css`
   $popover-body-padding-x: $spacer;
 
   // scss-docs-end popover-variables
+  // Offcanvas
+
+  $offcanvas-padding-y: $modal-inner-padding;
+  $offcanvas-padding-x: $modal-inner-padding;
+  $offcanvas-horizontal-width: 400px;
+  $offcanvas-vertical-height: 200px; // 30vh;
+  $offcanvas-transition-duration: 0.3s;
+  $offcanvas-border-color: $modal-content-border-color;
+  $offcanvas-border-width: $modal-content-border-width;
+  $offcanvas-title-line-height: $modal-title-line-height;
+  $offcanvas-bg-color: $modal-content-bg;
+  $offcanvas-color: $modal-content-color;
+  $offcanvas-box-shadow: $modal-content-box-shadow-xs;
+  $offcanvas-backdrop-bg: $modal-backdrop-bg;
+  $offcanvas-backdrop-opacity: $modal-backdrop-opacity;
 
   // ...
 `;

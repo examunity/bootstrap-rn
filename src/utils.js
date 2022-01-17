@@ -10,6 +10,21 @@ export function each(source, apply) {
     .reduce((carry, item) => Object.assign(carry, item), {});
 }
 
+export function normalize(value) {
+  return value.reduce((carry, item) => Object.assign(carry, item), {});
+}
+
+export function makeProxy(name, keys) {
+  return keys.reduce(
+    (result, key) => ({ ...result, [key]: (t) => t[name][key] }),
+    {},
+  );
+}
+
+export function makeArray(length, callback) {
+  return Array.from({ length }, (_, i) => (callback ? callback(i) : i));
+}
+
 export function getStyles(styles, keys) {
   return keys.filter((key) => !!key).map((key) => styles[key]);
 }

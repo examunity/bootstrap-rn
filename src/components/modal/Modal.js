@@ -5,6 +5,7 @@ import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
 import TextStyleProvider from '../../style/TextStyleProvider';
+import ScrollView from '../ScrollView';
 import View from '../View';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
@@ -27,8 +28,23 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.modal': css`
-    align-items: center;
-    // z-index: $zindex-modal;
+    position: absolute; // fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-modal;
+    // display: none;
+    width: 100%;
+    height: 100%;
+    // overflow-x: hidden;
+    // overflow-y: auto;
+    // Prevent Chrome on Windows from adding a focus outline. For details, see
+    // https://github.com/twbs/bootstrap/pull/10951.
+    @include platform(web) {
+      outline-width: 0; // outline: 0;
+    }
+    // We deliberately don't use "-webkit-overflow-scrolling: touch;" due to a
+    // gnarly iOS Safari bug: https://bugs.webkit.org/show_bug.cgi?id=158342
+    // See also https://github.com/twbs/bootstrap/issues/17695
   `,
   '.modal-dialog': css`
     position: relative;
@@ -36,6 +52,7 @@ const styles = StyleSheet.create({
     margin: $modal-dialog-margin;
     // allow clicks to pass through for custom click handling to close modal
     // pointer-events: none;
+    align-self: center; // added for bootstyle
 
     @include media-breakpoint-up(sm) {
       max-width: $modal-md;
@@ -68,7 +85,7 @@ const styles = StyleSheet.create({
     position: absolute;
     top: 0;
     left: 0;
-    // z-index: zindex-modal-backdrop;
+    z-index: $zindex-modal-backdrop;
     width: 100%;
     height: 100%;
     background-color: $modal-backdrop-bg;
@@ -105,33 +122,29 @@ const Modal = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
-  const modalBackdropClasses = getStyles(styles, ['.modal-backdrop']);
-  const modalClasses = getStyles(styles, ['.modal']);
-  const modalDialogClasses = getStyles(styles, [
+  const backdropClasses = getStyles(styles, ['.modal-backdrop']);
+  const classes = getStyles(styles, ['.modal']);
+  const dialogClasses = getStyles(styles, [
     '.modal-dialog',
     size === 'sm' && '.modal-sm',
     size === 'lg' && '.modal-lg',
     size === 'xl' && '.modal-xl',
   ]);
-  const modalContentClasses = getStyles(styles, ['.modal-content']);
-  const modalContentTextClasses = getStyles(styles, ['.modal-content-text']);
+  const contentClasses = getStyles(styles, ['.modal-content']);
+  const contentTextClasses = getStyles(styles, ['.modal-content-text']);
 
   return (
-    <BaseModal transparent visible={visible}>
-      {backdrop && <View style={modalBackdropClasses} />}
-      <View style={modalClasses}>
-        <View style={modalDialogClasses}>
-          <View
-            {...elementProps}
-            ref={ref}
-            style={[modalContentClasses, style]}
-          >
-            <TextStyleProvider style={modalContentTextClasses}>
+    <BaseModal transparent visible={visible} onRequestClose={onToggle}>
+      {backdrop && <View style={backdropClasses} />}
+      <ScrollView style={classes}>
+        <View style={dialogClasses}>
+          <View {...elementProps} ref={ref} style={[contentClasses, style]}>
+            <TextStyleProvider style={contentTextClasses}>
               {children}
             </TextStyleProvider>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </BaseModal>
   );
 });
