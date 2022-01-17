@@ -7,8 +7,8 @@ function SamplePopovers() {
       <Heading size={2}>Popovers</Heading>
       <Popover
         placement="bottom"
-        title="Title"
-        content="This is the content of Popover"
+        title={<Text>Title</Text>}
+        content={<Text>This is the content of Popover</Text>}
       >
         <Text>Open this Popover</Text>
       </Popover>

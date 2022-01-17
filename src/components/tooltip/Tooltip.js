@@ -19,13 +19,15 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.tooltip': css`
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
+    margin: $tooltip-margin;
+    font-size: $tooltip-font-size;
+  `,
+  '.tooltip-inner': css`
+    max-width: $tooltip-max-width;
+    padding: $tooltip-padding-y $tooltip-padding-x;
+    color: $tooltip-color;
+    text-align: center;
+    background-color: $tooltip-bg;
   `,
 });
 
@@ -33,7 +35,8 @@ const Tooltip = (props) => {
   const { children, title, placement, visible = false } = props;
 
   const [showTooltip, setShowTooltip] = useState(visible);
-  const classes = getStyles(styles, ['.tooltip']);
+  const tooltipClasses = getStyles(styles, ['.tooltip']);
+  const tooltipInnerClasses = getStyles(styles, ['.tooltip-inner']);
 
   const tooltipButton = useRef();
 
@@ -44,16 +47,13 @@ const Tooltip = (props) => {
       </Button>
       <Popover
         isVisible={showTooltip}
-        // showBackground={false}
-        // mode={PopoverMode.TOOLTIP} // not working
-        // backgroundStyle={{ backgroundColor: 'transparent' }}
-        // debug={true}
         onRequestClose={() => setShowTooltip(false)}
         placement={placement}
         from={tooltipButton}
+        arrowStyle={{ backgroundColor: StyleSheet.value('tooltip-bg') }}
       >
-        <View style={[classes]}>
-          <Text>{title}</Text>
+        <View style={[tooltipClasses]}>
+          <Text style={[tooltipInnerClasses]}>{title}</Text>
         </View>
       </Popover>
     </>
