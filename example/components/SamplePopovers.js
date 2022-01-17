@@ -5,7 +5,11 @@ function SamplePopovers() {
   return (
     <>
       <Heading size={2}>Popovers</Heading>
-      <Popover placement="bottom" title="This is the content of Popover">
+      <Popover
+        placement="bottom"
+        title="Title"
+        content="This is the content of Popover"
+      >
         <Text>Open this Popover</Text>
       </Popover>
     </>

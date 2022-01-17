@@ -1023,6 +1023,50 @@ const variables = css`
   $btn-close-disabled-opacity: 0.25;
   // $btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
 
+  // Tooltips
+
+  // scss-docs-start tooltip-variables
+  $tooltip-font-size: $font-size-sm;
+  $tooltip-max-width: 200px;
+  $tooltip-color: $white;
+  $tooltip-bg: $black;
+  $tooltip-border-radius: $border-radius;
+  $tooltip-opacity: 0.9 !default;
+  $tooltip-padding-y: $spacer * 0.25;
+  $tooltip-padding-x: $spacer * 0.5;
+  $tooltip-margin: 0 !default;
+
+  $tooltip-arrow-width: 0.8rem !default;
+  $tooltip-arrow-height: 0.4rem !default;
+  $tooltip-arrow-color: $tooltip-bg;
+  // scss-docs-end tooltip-variables
+
+  // Popovers
+
+  // scss-docs-start popover-variables
+  $popover-font-size: $font-size-sm;
+  $popover-bg: $white;
+  $popover-max-width: 276px;
+  $popover-border-width: $border-width;
+  $popover-border-color: rgba($black, 0.2);
+  $popover-border-radius: $border-radius-lg;
+  $popover-inner-border-radius: subtract(
+    $popover-border-radius,
+    $popover-border-width
+  );
+  $popover-box-shadow: $box-shadow;
+
+  $popover-header-bg: $gray-200; //  shade-color($popover-bg, 6%);
+  $popover-header-color: $headings-color;
+  $popover-header-padding-y: 0.5rem;
+  $popover-header-padding-x: $spacer;
+
+  $popover-body-color: $body-color;
+  $popover-body-padding-y: $spacer;
+  $popover-body-padding-x: $spacer;
+
+  // scss-docs-end popover-variables
+
   // ...
 `;
 
