@@ -38,10 +38,6 @@ const styles = StyleSheet.create({
     opacity: $form-check-label-disabled-opacity;
   `,
   '.form-check-input': css`
-    @include platform(web) {
-      user-select: none; // added for bootstyle
-    }
-
     // Use additional variables instead of brackets, because brackets not supported yet.
     $lineHeight: $line-height-base * 1rem;
     $rawMarginTop: $lineHeight - $form-check-input-width;
@@ -61,8 +57,9 @@ const styles = StyleSheet.create({
     border: $form-check-input-border;
     @include platform(web) {
       appearance: none;
-      color-adjust: exact; // Keep themed appearance for print
+      user-select: none; // added for bootstyle
     }
+    // color-adjust: exact; // Keep themed appearance for print
     // @include transition($form-check-transition);
 
     &:active {

@@ -41,7 +41,7 @@ const svgs = {
     </Svg>
   ),
   'form-switch-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
+    <Svg height={14} width={14} viewBox="-4 -4 8 8" tabIndex={-1}>
       <Circle r={3} fill={t['form-switch-color']} tabIndex={-1} />
     </Svg>
   ),
