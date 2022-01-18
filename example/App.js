@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   container: css`
     width: 320px;
     margin-vertical: 1rem;
+    align-items: center;
   `,
 });
 
