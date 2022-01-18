@@ -6,11 +6,11 @@ function SampleGrid() {
     <>
       <Heading size={2}>Grid</Heading>
       <Row>
-        <Col size={6}>
-          <Text>Test Test</Text>
+        <Col size={9} styleName="bg-primary">
+          <Text>Test1 Test2</Text>
         </Col>
-        <Col size={6}>
-          <Text>Test</Text>
+        <Col size={3} styleName="bg-danger">
+          <Text>Test3</Text>
         </Col>
       </Row>
     </>
