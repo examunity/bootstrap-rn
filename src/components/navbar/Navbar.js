@@ -11,6 +11,7 @@ import NavbarToggler from './NavbarToggler';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     padding-right: $navbar-padding-x; // default: null
     padding-bottom: $navbar-padding-y;
     padding-left: $navbar-padding-x; // default: null
-    //@include gradient-bg();
+    // @include gradient-bg();
   `,
 });
 

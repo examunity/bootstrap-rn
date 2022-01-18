@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
+import Text from '../Text';
 import { getStyles } from '../../utils';
-import Pressable from '../Pressable';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
@@ -15,23 +15,19 @@ const styles = StyleSheet.create({
   '.navbar-text': css`
     padding-top: $nav-link-padding-y;
     padding-bottom: $nav-link-padding-y;
-    color: $navbar-dark-color;
-
-    &:hover {
-      color: $navbar-dark-active-color;
-    }
+    color: $navbar-light-color;
   `,
 });
 
 const NavbarText = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['.navbargroup']);
+  const classes = getStyles(styles, ['.navbar-text']);
 
   return (
-    <Pressable {...elementProps} ref={ref} style={[classes, style]}>
+    <Text {...elementProps} ref={ref} style={[classes, style]}>
       {children}
-    </Pressable>
+    </Text>
   );
 });
 

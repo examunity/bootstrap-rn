@@ -72,6 +72,9 @@ function App() {
             <SampleModal />
           </View>
           <View style={styles.container}>
+            <SampleNavbar />
+          </View>
+          <View style={styles.container}>
             <SampleOffcanvas />
           </View>
           <View style={styles.container}>
@@ -85,9 +88,6 @@ function App() {
           </View>
           <View style={styles.container}>
             <Utilities />
-          </View>
-          <View style={styles.container}>
-            <SampleNavbar />
           </View>
         </Container>
       </ScrollView>

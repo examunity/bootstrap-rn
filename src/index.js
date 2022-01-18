@@ -8,6 +8,7 @@ import Button from './components/buttons/Button';
 import Card from './components/card/Card';
 import CloseButton from './components/close/CloseButton';
 import Container from './components/containers/Container';
+import Dropdown from './components/dropdown/Dropdown';
 import Checkbox from './components/forms/Checkbox';
 import Feedback from './components/forms/Feedback';
 import FormText from './components/forms/FormText';
@@ -16,16 +17,15 @@ import Radio from './components/forms/Radio';
 import Switch from './components/forms/Switch';
 import Input from './components/forms/Input';
 import Label from './components/forms/Label';
-import Navbar from './components/navbar/Navbar';
 import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
 import Modal from './components/modal/Modal';
+import Navbar from './components/navbar/Navbar';
 import Offcanvas from './components/offcanvas/Offcanvas';
 import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import Tooltip from './components/tooltip/Tooltip';
-import Dropdown from './components/dropdown/Dropdown';
 import Heading from './components/type/Heading';
 import Link from './components/type/Link';
 import Paragraph from './components/type/Paragraph';
@@ -46,6 +46,7 @@ export {
   Card,
   CloseButton,
   Container,
+  Dropdown,
   Checkbox,
   Feedback,
   FormText,
@@ -71,5 +72,4 @@ export {
   TextInput,
   ScrollView,
   View,
-  Dropdown,
 };

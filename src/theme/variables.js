@@ -1016,70 +1016,6 @@ const variables = css`
     },
   })};
 
-  // Navs
-
-  $nav-link-padding-y: 0.5rem !default;
-  $nav-link-padding-x: 1rem !default;
-  $nav-link-font-size: null !default;
-  $nav-link-font-weight: null !default;
-  $nav-link-color: $link-color !default;
-  $nav-link-hover-color: $link-hover-color !default;
-  $nav-link-transition: color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out !default;
-  $nav-link-disabled-color: $gray-600 !default;
-
-  $nav-tabs-border-color: $gray-300 !default;
-  $nav-tabs-border-width: $border-width !default;
-  $nav-tabs-border-radius: $border-radius !default;
-  $nav-tabs-link-hover-border-color: $gray-200 $gray-200 $nav-tabs-border-color !default;
-  $nav-tabs-link-active-color: $gray-700 !default;
-  $nav-tabs-link-active-bg: $body-bg !default;
-  $nav-tabs-link-active-border-color: $gray-300 $gray-300
-    $nav-tabs-link-active-bg !default;
-
-  $nav-pills-border-radius: $border-radius !default;
-  $nav-pills-link-active-color: $component-active-color !default;
-  $nav-pills-link-active-bg: $component-active-bg !default;
-
-  // Navbar
-
-  $navbar-padding-y: $spacer * 0.5 !default;
-  $navbar-padding-x: null !default;
-
-  $navbar-nav-link-padding-x: 0.5rem !default;
-
-  $navbar-brand-font-size: $font-size-lg !default;
-
-  $nav-link-height: $font-size-base * $line-height-base + $nav-link-padding-y *
-    2 !default;
-  $navbar-brand-height: $navbar-brand-font-size * $line-height-base !default;
-  $navbar-brand-padding-y: ($nav-link-height - $navbar-brand-height) * 0.5 !default;
-  $navbar-brand-margin-end: 1rem !default;
-
-  $navbar-toggler-padding-y: 0.25rem !default;
-  $navbar-toggler-padding-x: 0.75rem !default;
-  $navbar-toggler-font-size: $font-size-lg !default;
-  $navbar-toggler-border-radius: $btn-border-radius !default;
-  $navbar-toggler-focus-width: $btn-focus-width !default;
-  $navbar-toggler-transition: box-shadow 0.15s ease-in-out !default;
-
-  $navbar-dark-color: rgba($white, 0.55) !default;
-  $navbar-dark-hover-color: rgba($white, 0.75) !default;
-  $navbar-dark-active-color: $white !default;
-  $navbar-dark-disabled-color: rgba($white, 0.25) !default;
-  $navbar-dark-toggler-border-color: rgba($white, 0.1) !default;
-
-  $navbar-light-color: rgba($black, 0.55) !default;
-  $navbar-light-hover-color: rgba($black, 0.7) !default;
-  $navbar-light-active-color: rgba($black, 0.9) !default;
-  $navbar-light-disabled-color: rgba($black, 0.3) !default;
-  $navbar-light-toggler-border-color: rgba($black, 0.1) !default;
-
-  $navbar-light-brand-color: $navbar-light-active-color !default;
-  $navbar-light-brand-hover-color: $navbar-light-active-color !default;
-  $navbar-dark-brand-color: $navbar-dark-active-color !default;
-  $navbar-dark-brand-hover-color: $navbar-dark-active-color !default;
-
   // Z-index master list
   //
   // Warning: Avoid customizing these values. They're used for a bird's eye view
@@ -1094,6 +1030,122 @@ const variables = css`
   $zindex-modal: 1055;
   $zindex-popover: 1070;
   $zindex-tooltip: 1080;
+
+  // Navs
+
+  $nav-link-padding-y: 0.5rem;
+  $nav-link-padding-x: 1rem;
+  $nav-link-font-size: null;
+  $nav-link-font-weight: null;
+  $nav-link-color: $link-color;
+  $nav-link-hover-color: $link-hover-color;
+  $nav-link-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  $nav-link-disabled-color: $gray-600;
+
+  $nav-tabs-border-color: $gray-300;
+  $nav-tabs-border-width: $border-width;
+  $nav-tabs-border-radius: $border-radius;
+  $nav-tabs-link-hover-border-color: $gray-200 $gray-200 $nav-tabs-border-color;
+  $nav-tabs-link-active-color: $gray-700;
+  $nav-tabs-link-active-bg: $body-bg;
+  $nav-tabs-link-active-border-color: $gray-300 $gray-300
+    $nav-tabs-link-active-bg;
+
+  $nav-pills-border-radius: $border-radius;
+  $nav-pills-link-active-color: $component-active-color;
+  $nav-pills-link-active-bg: $component-active-bg;
+
+  // Navbar
+
+  $navbar-padding-y: $spacer * 0.5;
+  $navbar-padding-x: null;
+
+  $navbar-nav-link-padding-x: 0.5rem;
+
+  $navbar-brand-font-size: $font-size-lg;
+
+  $nav-link-height: $font-size-base * $line-height-base + $nav-link-padding-y *
+    2;
+  $navbar-brand-height: $navbar-brand-font-size * $line-height-base;
+  $navbar-brand-padding-y-intermediate-result: $nav-link-height -
+    $navbar-brand-height;
+  $navbar-brand-padding-y: $navbar-brand-padding-y-intermediate-result * 0.5;
+  $navbar-brand-margin-end: 1rem;
+
+  $navbar-toggler-padding-y: 0.25rem;
+  $navbar-toggler-padding-x: 0.75rem;
+  $navbar-toggler-font-size: $font-size-lg;
+  $navbar-toggler-border-radius: $btn-border-radius;
+  $navbar-toggler-focus-width: $btn-focus-width;
+  $navbar-toggler-transition: box-shadow 0.15s ease-in-out;
+
+  $navbar-dark-color: rgba($white, 0.55);
+  $navbar-dark-hover-color: rgba($white, 0.75);
+  $navbar-dark-active-color: $white;
+  $navbar-dark-disabled-color: rgba($white, 0.25);
+  $navbar-dark-toggler-border-color: rgba($white, 0.1);
+
+  $navbar-light-color: rgba($black, 0.55);
+  $navbar-light-hover-color: rgba($black, 0.7);
+  $navbar-light-active-color: rgba($black, 0.9);
+  $navbar-light-disabled-color: rgba($black, 0.3);
+  $navbar-light-toggler-border-color: rgba($black, 0.1);
+
+  $navbar-light-brand-color: $navbar-light-active-color;
+  $navbar-light-brand-hover-color: $navbar-light-active-color;
+  $navbar-dark-brand-color: $navbar-dark-active-color;
+  $navbar-dark-brand-hover-color: $navbar-dark-active-color;
+
+  // Dropdowns
+  //
+  // Dropdown menu container and contents.
+
+  $dropdown-min-width: 10rem;
+  $dropdown-padding-x: 0;
+  $dropdown-padding-y: 0.5rem;
+  $dropdown-spacer: 0.125rem;
+  $dropdown-font-size: $font-size-base;
+  $dropdown-color: $body-color;
+  $dropdown-bg: $white;
+  $dropdown-border-color: rgba($black, 0.15);
+  $dropdown-border-radius: $border-radius;
+  $dropdown-border-width: $border-width;
+  $dropdown-inner-border-radius: subtract(
+    $dropdown-border-radius,
+    $dropdown-border-width
+  );
+  $dropdown-divider-bg: $dropdown-border-color;
+  $dropdown-divider-margin-y: $spacer * 0.5;
+  $dropdown-box-shadow: $box-shadow;
+
+  $dropdown-link-color: $gray-900;
+  $dropdown-link-hover-color: shade-color($dropdown-link-color, 10%);
+  $dropdown-link-hover-bg: $gray-200;
+
+  $dropdown-link-active-color: $component-active-color;
+  $dropdown-link-active-bg: $component-active-bg;
+
+  $dropdown-link-disabled-color: $gray-500;
+
+  $dropdown-item-padding-y: $spacer * 0.25;
+  $dropdown-item-padding-x: $spacer;
+
+  $dropdown-header-color: $gray-600;
+  $dropdown-header-padding: $dropdown-padding-y $dropdown-item-padding-x;
+
+  $dropdown-dark-color: $gray-300;
+  $dropdown-dark-bg: $gray-800;
+  $dropdown-dark-border-color: $dropdown-border-color;
+  $dropdown-dark-divider-bg: $dropdown-divider-bg;
+  $dropdown-dark-box-shadow: null;
+  $dropdown-dark-link-color: $dropdown-dark-color;
+  $dropdown-dark-link-hover-color: $white;
+  $dropdown-dark-link-hover-bg: rgba($white, 0.15);
+  $dropdown-dark-link-active-color: $dropdown-link-active-color;
+  $dropdown-dark-link-active-bg: $dropdown-link-active-bg;
+  $dropdown-dark-link-disabled-color: $gray-500;
+  $dropdown-dark-header-color: $gray-500;
 
   // ...
 
@@ -1298,60 +1350,6 @@ const variables = css`
   $offcanvas-box-shadow: $modal-content-box-shadow-xs;
   $offcanvas-backdrop-bg: $modal-backdrop-bg;
   $offcanvas-backdrop-opacity: $modal-backdrop-opacity;
-
-  // Dropdowns
-  //
-  // Dropdown menu container and contents.
-
-  // scss-docs-start dropdown-variables
-  $dropdown-min-width: 10rem;
-  $dropdown-padding-x: 0;
-  $dropdown-padding-y: 0.5rem;
-  $dropdown-spacer: 0.125rem;
-  $dropdown-font-size: $font-size-base;
-  $dropdown-color: $body-color;
-  $dropdown-bg: $white;
-  $dropdown-border-color: rgba($black, 0.15);
-  $dropdown-border-radius: $border-radius;
-  $dropdown-border-width: $border-width;
-  $dropdown-inner-border-radius: subtract(
-    $dropdown-border-radius,
-    $dropdown-border-width
-  );
-  $dropdown-divider-bg: $dropdown-border-color;
-  $dropdown-divider-margin-y: $spacer * 0.5;
-  $dropdown-box-shadow: $box-shadow;
-
-  $dropdown-link-color: $gray-900;
-  $dropdown-link-hover-color: shade-color($dropdown-link-color, 10%);
-  $dropdown-link-hover-bg: $gray-200;
-
-  $dropdown-link-active-color: $component-active-color;
-  $dropdown-link-active-bg: $component-active-bg;
-
-  $dropdown-link-disabled-color: $gray-500;
-
-  $dropdown-item-padding-y: $spacer * 0.25;
-  $dropdown-item-padding-x: $spacer;
-
-  $dropdown-header-color: $gray-600;
-  $dropdown-header-padding: $dropdown-padding-y $dropdown-item-padding-x;
-  // scss-docs-end dropdown-variables
-
-  // scss-docs-start dropdown-dark-variables
-  $dropdown-dark-color: $gray-300;
-  $dropdown-dark-bg: $gray-800;
-  $dropdown-dark-border-color: $dropdown-border-color;
-  $dropdown-dark-divider-bg: $dropdown-divider-bg;
-  $dropdown-dark-box-shadow: null;
-  $dropdown-dark-link-color: $dropdown-dark-color;
-  $dropdown-dark-link-hover-color: $white;
-  $dropdown-dark-link-hover-bg: rgba($white, 0.15);
-  $dropdown-dark-link-active-color: $dropdown-link-active-color;
-  $dropdown-dark-link-active-bg: $dropdown-link-active-bg;
-  $dropdown-dark-link-disabled-color: $gray-500;
-  $dropdown-dark-header-color: $gray-500;
-  // scss-docs-end dropdown-dark-variables
 
   // ...
 `;

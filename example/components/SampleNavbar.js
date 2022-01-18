@@ -1,19 +1,19 @@
 import React from 'react';
-import { Navbar, Heading, Text } from 'bootstyle';
+import { Navbar, Container, Heading, Text } from 'bootstyle';
 
 function SampleNavbar() {
   return (
     <>
       <Heading size={2}>Navbar</Heading>
-      <Navbar>
-        <Navbar.Brand>BRAND</Navbar.Brand>
-        <Navbar.Text>
-          <Text>Nav Item</Text>
-        </Navbar.Text>
-        <Navbar.Text>
-          <Text>Nav Item</Text>
-        </Navbar.Text>
-        <Navbar.Text>TEST</Navbar.Text>
+      <Navbar styleName="bg-light">
+        <Container fluid styleName="flex-row">
+          <Navbar.Brand>
+            <Text>BRAND</Text>
+          </Navbar.Brand>
+          <Navbar.Text>Nav Item</Navbar.Text>
+          <Navbar.Text>Nav Item</Navbar.Text>
+          <Navbar.Text>TEST</Navbar.Text>
+        </Container>
       </Navbar>
     </>
   );
