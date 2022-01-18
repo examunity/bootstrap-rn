@@ -16,6 +16,7 @@ import Radio from './components/forms/Radio';
 import Switch from './components/forms/Switch';
 import Input from './components/forms/Input';
 import Label from './components/forms/Label';
+import Navbar from './components/navbar/Navbar';
 import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
@@ -57,6 +58,7 @@ export {
   Row,
   ListGroup,
   Modal,
+  Navbar,
   Offcanvas,
   Popover,
   Progress,

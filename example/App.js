@@ -17,6 +17,7 @@ import SampleCards from './components/SampleCards';
 import SampleGrid from './components/SampleGrid';
 import SampleListGroup from './components/SampleListGroup';
 import SampleModal from './components/SampleModal';
+import SampleNavbar from './components/SampleNavbar';
 import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
 import SampleTooltips from './components/SampleTooltips';
@@ -83,6 +84,9 @@ function App() {
           </View>
           <View style={styles.container}>
             <Utilities />
+          </View>
+          <View style={styles.container}>
+            <SampleNavbar />
           </View>
         </Container>
       </ScrollView>

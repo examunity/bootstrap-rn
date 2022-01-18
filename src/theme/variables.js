@@ -1016,6 +1016,70 @@ const variables = css`
     },
   })};
 
+  // Navs
+
+  $nav-link-padding-y: 0.5rem !default;
+  $nav-link-padding-x: 1rem !default;
+  $nav-link-font-size: null !default;
+  $nav-link-font-weight: null !default;
+  $nav-link-color: $link-color !default;
+  $nav-link-hover-color: $link-hover-color !default;
+  $nav-link-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out !default;
+  $nav-link-disabled-color: $gray-600 !default;
+
+  $nav-tabs-border-color: $gray-300 !default;
+  $nav-tabs-border-width: $border-width !default;
+  $nav-tabs-border-radius: $border-radius !default;
+  $nav-tabs-link-hover-border-color: $gray-200 $gray-200 $nav-tabs-border-color !default;
+  $nav-tabs-link-active-color: $gray-700 !default;
+  $nav-tabs-link-active-bg: $body-bg !default;
+  $nav-tabs-link-active-border-color: $gray-300 $gray-300
+    $nav-tabs-link-active-bg !default;
+
+  $nav-pills-border-radius: $border-radius !default;
+  $nav-pills-link-active-color: $component-active-color !default;
+  $nav-pills-link-active-bg: $component-active-bg !default;
+
+  // Navbar
+
+  $navbar-padding-y: $spacer * 0.5 !default;
+  $navbar-padding-x: null !default;
+
+  $navbar-nav-link-padding-x: 0.5rem !default;
+
+  $navbar-brand-font-size: $font-size-lg !default;
+
+  $nav-link-height: $font-size-base * $line-height-base + $nav-link-padding-y *
+    2 !default;
+  $navbar-brand-height: $navbar-brand-font-size * $line-height-base !default;
+  $navbar-brand-padding-y: ($nav-link-height - $navbar-brand-height) * 0.5 !default;
+  $navbar-brand-margin-end: 1rem !default;
+
+  $navbar-toggler-padding-y: 0.25rem !default;
+  $navbar-toggler-padding-x: 0.75rem !default;
+  $navbar-toggler-font-size: $font-size-lg !default;
+  $navbar-toggler-border-radius: $btn-border-radius !default;
+  $navbar-toggler-focus-width: $btn-focus-width !default;
+  $navbar-toggler-transition: box-shadow 0.15s ease-in-out !default;
+
+  $navbar-dark-color: rgba($white, 0.55) !default;
+  $navbar-dark-hover-color: rgba($white, 0.75) !default;
+  $navbar-dark-active-color: $white !default;
+  $navbar-dark-disabled-color: rgba($white, 0.25) !default;
+  $navbar-dark-toggler-border-color: rgba($white, 0.1) !default;
+
+  $navbar-light-color: rgba($black, 0.55) !default;
+  $navbar-light-hover-color: rgba($black, 0.7) !default;
+  $navbar-light-active-color: rgba($black, 0.9) !default;
+  $navbar-light-disabled-color: rgba($black, 0.3) !default;
+  $navbar-light-toggler-border-color: rgba($black, 0.1) !default;
+
+  $navbar-light-brand-color: $navbar-light-active-color !default;
+  $navbar-light-brand-hover-color: $navbar-light-active-color !default;
+  $navbar-dark-brand-color: $navbar-dark-active-color !default;
+  $navbar-dark-brand-hover-color: $navbar-dark-active-color !default;
+
   // Z-index master list
   //
   // Warning: Avoid customizing these values. They're used for a bird's eye view
