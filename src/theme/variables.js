@@ -1235,6 +1235,60 @@ const variables = css`
   $offcanvas-backdrop-bg: $modal-backdrop-bg;
   $offcanvas-backdrop-opacity: $modal-backdrop-opacity;
 
+  // Dropdowns
+  //
+  // Dropdown menu container and contents.
+
+  // scss-docs-start dropdown-variables
+  $dropdown-min-width: 10rem;
+  $dropdown-padding-x: 0;
+  $dropdown-padding-y: 0.5rem;
+  $dropdown-spacer: 0.125rem;
+  $dropdown-font-size: $font-size-base;
+  $dropdown-color: $body-color;
+  $dropdown-bg: $white;
+  $dropdown-border-color: rgba($black, 0.15);
+  $dropdown-border-radius: $border-radius;
+  $dropdown-border-width: $border-width;
+  $dropdown-inner-border-radius: subtract(
+    $dropdown-border-radius,
+    $dropdown-border-width
+  );
+  $dropdown-divider-bg: $dropdown-border-color;
+  $dropdown-divider-margin-y: $spacer * 0.5;
+  $dropdown-box-shadow: $box-shadow;
+
+  $dropdown-link-color: $gray-900;
+  $dropdown-link-hover-color: shade-color($dropdown-link-color, 10%);
+  $dropdown-link-hover-bg: $gray-200;
+
+  $dropdown-link-active-color: $component-active-color;
+  $dropdown-link-active-bg: $component-active-bg;
+
+  $dropdown-link-disabled-color: $gray-500;
+
+  $dropdown-item-padding-y: $spacer * 0.25;
+  $dropdown-item-padding-x: $spacer;
+
+  $dropdown-header-color: $gray-600;
+  $dropdown-header-padding: $dropdown-padding-y $dropdown-item-padding-x;
+  // scss-docs-end dropdown-variables
+
+  // scss-docs-start dropdown-dark-variables
+  $dropdown-dark-color: $gray-300;
+  $dropdown-dark-bg: $gray-800;
+  $dropdown-dark-border-color: $dropdown-border-color;
+  $dropdown-dark-divider-bg: $dropdown-divider-bg;
+  $dropdown-dark-box-shadow: null;
+  $dropdown-dark-link-color: $dropdown-dark-color;
+  $dropdown-dark-link-hover-color: $white;
+  $dropdown-dark-link-hover-bg: rgba($white, 0.15);
+  $dropdown-dark-link-active-color: $dropdown-link-active-color;
+  $dropdown-dark-link-active-bg: $dropdown-link-active-bg;
+  $dropdown-dark-link-disabled-color: $gray-500;
+  $dropdown-dark-header-color: $gray-500;
+  // scss-docs-end dropdown-dark-variables
+
   // ...
 `;
 

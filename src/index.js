@@ -24,6 +24,7 @@ import Offcanvas from './components/offcanvas/Offcanvas';
 import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import Tooltip from './components/tooltip/Tooltip';
+import Dropdown from './components/dropdown/Dropdown';
 import Heading from './components/type/Heading';
 import Link from './components/type/Link';
 import Paragraph from './components/type/Paragraph';
@@ -68,4 +69,5 @@ export {
   TextInput,
   ScrollView,
   View,
+  Dropdown,
 };

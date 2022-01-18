@@ -21,6 +21,7 @@ import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
 import SampleTooltips from './components/SampleTooltips';
 import SampleOffcanvas from './components/SampleOffcanvas';
+import SampleDropdown from './components/SampleDropdown';
 import Utilities from './components/Utilities';
 
 StyleSheet.build();
@@ -49,6 +50,9 @@ function App() {
           </View>
           <View style={styles.container}>
             <SampleBadges />
+          </View>
+          <View style={styles.container}>
+            <SampleDropdown />
           </View>
           <View style={styles.container}>
             <SampleButtons />
