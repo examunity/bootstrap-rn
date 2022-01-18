@@ -29,6 +29,19 @@ export function getStyles(styles, keys) {
   return keys.filter((key) => !!key).map((key) => styles[key]);
 }
 
+export default function concatRefs(...refs) {
+  return (element) => {
+    refs.forEach((ref) => {
+      if (typeof ref === 'function') {
+        ref(element);
+      } else if (ref) {
+        // eslint-disable-next-line no-param-reassign
+        ref.current = element;
+      }
+    });
+  };
+}
+
 export function convertToREM(value) {
   return value.replace(
     /([+-]+)?([\d.Ee]+)px/,
