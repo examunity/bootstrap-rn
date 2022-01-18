@@ -27,7 +27,7 @@ StyleSheet.build();
 
 const styles = StyleSheet.create({
   container: css`
-    align-items: center;
+    width: 320px;
     margin-vertical: 1rem;
   `,
 });
@@ -37,7 +37,7 @@ function App() {
     <Provider ssrViewport="lg">
       <StatusBar />
       <ScrollView>
-        <Container>
+        <Container styleName="align-items-center">
           <View style={styles.container}>
             <Content />
           </View>
