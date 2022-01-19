@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     font-size: $dropdown-font-size;
     color: $dropdown-color;
     text-align: left;
-    background-color: $gray-500; // $dropdown-bg;
+    background-color: $dropdown-bg;
     border: $dropdown-border-width solid $dropdown-border-color;
     border-radius: $dropdown-border-radius;
   `,

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Dropdown, Text, Heading, Button } from 'bootstyle';
+import { Dropdown, Text, Heading, Button, View } from 'bootstyle';
 
 function SampleDropdowns() {
-  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(true);
 
   return (
     <>
@@ -13,9 +13,21 @@ function SampleDropdowns() {
 
       <Dropdown visible={dropdownVisible} placement="bottom">
         <Dropdown.Menu>
-          <Dropdown.Item>Float 101</Dropdown.Item>
-          <Dropdown.Item>Float 102</Dropdown.Item>
-          <Dropdown.Item>Float 103</Dropdown.Item>
+          <Dropdown.Header>
+            <Text>Dropdown header</Text>
+          </Dropdown.Header>
+          <Dropdown.Divider />
+          <Dropdown.Item>
+            <View>
+              <Text>Dropdown Item 101</Text>
+            </View>
+          </Dropdown.Item>
+          <Dropdown.ItemText>Dropdown Item Text 101</Dropdown.ItemText>
+          <Dropdown.Item>
+            <View>
+              <Text>Dropdown Item 201</Text>
+            </View>
+          </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </>

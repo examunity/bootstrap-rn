@@ -5,6 +5,9 @@ import View from '../View';
 import Text from '../Text';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
+import DropdownItemText from './DropdownItemText';
+import DropdownHeader from './DropdownHeader';
+import DropdownDivider from './DropdownDivider';
 
 const PLACEMENTS = ['top', 'bottom', 'left', 'right'];
 
@@ -49,7 +52,10 @@ const Dropdown = React.forwardRef((props) => {
 Dropdown.displayName = 'Dropdown';
 Dropdown.propTypes = propTypes;
 
+Dropdown.ItemText = DropdownItemText;
+Dropdown.Header = DropdownHeader;
 Dropdown.Menu = DropdownMenu;
 Dropdown.Item = DropdownItem;
+Dropdown.Divider = DropdownDivider;
 
 export default Dropdown;
