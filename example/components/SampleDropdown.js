@@ -10,11 +10,13 @@ function SampleDropdowns() {
       <Button onPress={() => setDropdownVisible(!dropdownVisible)}>
         <Text>Show Dropdown</Text>
       </Button>
-      <Dropdown visible={dropdownVisible}>
-        <Text>Dropdown Item 1</Text>
-        <Text>Dropdown Item 2</Text>
-        <Text>Dropdown Item 3</Text>
-        <Text>Dropdown Item 4</Text>
+
+      <Dropdown visible={dropdownVisible} placement="bottom">
+        <Dropdown.Menu>
+          <Dropdown.Item>Float 101</Dropdown.Item>
+          <Dropdown.Item>Float 102</Dropdown.Item>
+          <Dropdown.Item>Float 103</Dropdown.Item>
+        </Dropdown.Menu>
       </Dropdown>
     </>
   );
