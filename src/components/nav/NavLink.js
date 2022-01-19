@@ -2,39 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable from '../Pressable';
+import Link from '../type/Link';
 import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.any,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.nav-link': css`
-    display: block;
+    // display: block;
     padding: $nav-link-padding-y $nav-link-padding-x;
-    //@include font-size($nav-link-font-size);
+    font-size: $nav-link-font-size;
     font-weight: $nav-link-font-weight;
     color: $nav-link-color;
-    //text-decoration: if($link-decoration == none, null, none);
-    //@include transition($nav-link-transition);
+    text-decoration: none; // if($link-decoration == none, null, none);
+    // @include transition($nav-link-transition);
 
     &:hover {
       color: $nav-link-hover-color;
-      //text-decoration: if($link-hover-decoration == underline, none, null);
+      text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
     &:focus {
       color: $nav-link-hover-color;
-      //text-decoration: if($link-hover-decoration == underline, none, null);
+      text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
   `,
   '.nav-link-disabled': css`
     color: $nav-link-disabled-color;
-    pointer-events: none;
-    cursor: default;
+    @include platform(web) {
+      pointer-events: none;
+      cursor: default;
+    }
   `,
   '.nav-link-active': css`
     color: $nav-tabs-link-active-color;
@@ -53,9 +56,9 @@ const NavLink = React.forwardRef((props, ref) => {
   ]);
 
   return (
-    <Pressable {...elementProps} ref={ref} style={[classes, style]}>
+    <Link {...elementProps} ref={ref} style={[classes, style]}>
       {children}
-    </Pressable>
+    </Link>
   );
 });
 

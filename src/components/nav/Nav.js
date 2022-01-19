@@ -11,16 +11,18 @@ import Pill from './Pill';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.nav': css`
     display: flex;
+    flex-direction: row; // added for bootstyle
     flex-wrap: wrap;
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none;
+    // list-style: none;
   `,
 });
 

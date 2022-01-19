@@ -7,17 +7,20 @@ import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.nav-tabs': css`
-    border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+    border-bottom-width: $nav-tabs-border-width;
+    border-style: solid;
+    border-color: $nav-tabs-border-color;
 
     margin-bottom: -$nav-tabs-border-width;
-    //background: none;
+    // background: none;
     border: $nav-tabs-border-width solid transparent;
-    //@include border-top-radius($nav-tabs-border-radius);
+    // @include border-top-radius($nav-tabs-border-radius);
   `,
 });
 
