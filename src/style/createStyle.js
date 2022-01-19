@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { BOOTSTYLE_STYLE } from './symbols';
+import { BOOTSTYLE_STYLE } from '../symbols';
 import mediaBreakpointBetween from './mixins/mediaBreakpointBetween';
 import mediaBreakpointDown from './mixins/mediaBreakpointDown';
 import mediaBreakpointOnly from './mixins/mediaBreakpointOnly';

@@ -1,7 +1,7 @@
 import parse from './parse';
 import transform from './transform';
 import createStyle from './createStyle';
-import { BOOTSTYLE_DEFINITION } from './symbols';
+import { BOOTSTYLE_DEFINITION } from '../symbols';
 
 export default function css(...args) {
   const ast = parse(...args);
