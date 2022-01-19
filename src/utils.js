@@ -29,7 +29,7 @@ export function getStyles(styles, keys) {
   return keys.filter((key) => !!key).map((key) => styles[key]);
 }
 
-export default function concatRefs(...refs) {
+export function concatRefs(...refs) {
   return (element) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {

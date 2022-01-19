@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown, Text, Heading, Button, View } from 'bootstyle';
 
 function SampleDropdowns() {
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-
   return (
     <>
       <Heading size={2}>Dropdown</Heading>
-      <Button onPress={() => setDropdownVisible(!dropdownVisible)}>
-        <Text>Show Dropdown</Text>
-      </Button>
-
-      <Dropdown visible={dropdownVisible} placement="bottom">
+      <Dropdown placement="bottom">
+        <Button onPress={Dropdown.toggle}>
+          <Text>Show Dropdown</Text>
+        </Button>
         <Dropdown.Menu>
           <Dropdown.Header>
             <Text>Dropdown header</Text>

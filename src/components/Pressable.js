@@ -4,9 +4,12 @@ import { Pressable as BasePressable } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
+import { concatRefs } from '../utils';
+import { BOOTSTYLE_ACTION } from '../symbols';
 
 const propTypes = {
   children: PropTypes.node,
+  onPress: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -16,7 +19,23 @@ const propTypes = {
 };
 
 const Pressable = React.forwardRef((props, ref) => {
-  const { children, style, textStyle, styleName, ...elementProps } = props;
+  const {
+    children,
+    onPress: action = () => {},
+    style,
+    textStyle,
+    styleName,
+    ...elementProps
+  } = props;
+
+  // Resolve action props
+  let actionProps;
+  if (action && action.$$typeof === BOOTSTYLE_ACTION) {
+    const context = useContext(action.context);
+    actionProps = action.handle(props, context);
+  } else {
+    actionProps = { onPress: action };
+  }
 
   const media = useMedia();
   const resolveStyle = useStyle(style, styleName);
@@ -28,7 +47,8 @@ const Pressable = React.forwardRef((props, ref) => {
   return (
     <BasePressable
       {...elementProps}
-      ref={ref}
+      {...actionProps}
+      ref={concatRefs(actionProps.ref, ref)}
       style={(interaction) => resolveStyle({ media, interaction })}
     >
       {hasTextStyle
