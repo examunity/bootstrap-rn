@@ -21,6 +21,7 @@ import Col from './components/grid/Col';
 import Row from './components/grid/Row';
 import ListGroup from './components/list-group/ListGroup';
 import Modal from './components/modal/Modal';
+import Nav from './components/nav/Nav';
 import Navbar from './components/navbar/Navbar';
 import Offcanvas from './components/offcanvas/Offcanvas';
 import Popover from './components/popover/Popover';
@@ -59,6 +60,7 @@ export {
   Row,
   ListGroup,
   Modal,
+  Nav,
   Navbar,
   Offcanvas,
   Popover,

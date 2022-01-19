@@ -17,6 +17,7 @@ import SampleCards from './components/SampleCards';
 import SampleGrid from './components/SampleGrid';
 import SampleListGroup from './components/SampleListGroup';
 import SampleModal from './components/SampleModal';
+import SampleNav from './components/SampleNav';
 import SampleNavbar from './components/SampleNavbar';
 import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
@@ -70,6 +71,9 @@ function App() {
           </View>
           <View style={styles.container}>
             <SampleModal />
+          </View>
+          <View style={styles.container}>
+            <SampleNav />
           </View>
           <View style={styles.container}>
             <SampleNavbar />
