@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dropdown, Text, Heading, Button, View } from 'bootstyle';
 
 function SampleDropdowns() {
-  const [dropdownVisible, setDropdownVisible] = useState(true);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   return (
     <>
