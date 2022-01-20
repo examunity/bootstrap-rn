@@ -21,17 +21,17 @@ const styles = StyleSheet.create({
   `,
 });
 
-function OffcanvasHeader(props) {
+const OffcanvasHeader = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.offcanvas-header']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       {children}
     </View>
   );
-}
+});
 
 OffcanvasHeader.propTypes = propTypes;
 

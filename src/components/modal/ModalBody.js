@@ -21,17 +21,17 @@ const styles = StyleSheet.create({
   `,
 });
 
-function ModalBody(props) {
+const ModalBody = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.modal-body']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       {children}
     </View>
   );
-}
+});
 
 ModalBody.propTypes = propTypes;
 

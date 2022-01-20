@@ -15,6 +15,8 @@ const propTypes = {
   title: PropTypes.string.isRequired,
   placement: PropTypes.oneOf(PLACEMENTS),
   visible: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -31,8 +33,15 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Tooltip = (props) => {
-  const { children, title, placement, visible = false } = props;
+const Tooltip = React.forwardRef((props, ref) => {
+  const {
+    children,
+    title,
+    placement,
+    visible = false,
+    style,
+    ...elementProps
+  } = props;
 
   const [showTooltip, setShowTooltip] = useState(visible);
   const tooltipClasses = getStyles(styles, ['.tooltip']);
@@ -52,13 +61,13 @@ const Tooltip = (props) => {
         from={tooltipButton}
         arrowStyle={{ backgroundColor: StyleSheet.value('tooltip-bg') }}
       >
-        <View style={[tooltipClasses]}>
+        <View {...elementProps} ref={ref} style={[tooltipClasses, style]}>
           <Text style={[tooltipInnerClasses]}>{title}</Text>
         </View>
       </Popover>
     </>
   );
-};
+});
 
 Tooltip.propTypes = propTypes;
 

@@ -19,17 +19,17 @@ const styles = StyleSheet.create({
   `,
 });
 
-function OffcanvasBody(props) {
+const OffcanvasBody = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.offcanvas-body']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       {children}
     </View>
   );
-}
+});
 
 OffcanvasBody.propTypes = propTypes;
 

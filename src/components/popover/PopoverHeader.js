@@ -8,6 +8,8 @@ import css from '../../style/css';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -27,20 +29,20 @@ const styles = StyleSheet.create({
   `,
 });
 
-const PopoverHeader = (props) => {
-  const { children } = props;
+const PopoverHeader = React.forwardRef((props, ref) => {
+  const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.popover-header']);
   const contentTextClasses = getStyles(styles, ['.popover-body-text']);
 
   return (
-    <View style={[classes]}>
+    <View {...elementProps} ref={ref} style={[classes]}>
       <TextStyleProvider style={contentTextClasses}>
         {children}
       </TextStyleProvider>
     </View>
   );
-};
+});
 
 PopoverHeader.propTypes = propTypes;
 

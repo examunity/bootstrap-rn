@@ -18,17 +18,17 @@ const styles = StyleSheet.create({
   `,
 });
 
-function OffcanvasTitle(props) {
+const OffcanvasTitle = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.offcanvas-title']);
 
   return (
-    <Heading size={5} {...elementProps} style={[classes, style]}>
+    <Heading size={5} {...elementProps} ref={ref} style={[classes, style]}>
       {children}
     </Heading>
   );
-}
+});
 
 OffcanvasTitle.propTypes = propTypes;
 

@@ -28,17 +28,17 @@ const styles = StyleSheet.create({
   `,
 });
 
-function ModalFooter(props) {
+const ModalFooter = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.modal-footer']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       {children}
     </View>
   );
-}
+});
 
 ModalFooter.propTypes = propTypes;
 

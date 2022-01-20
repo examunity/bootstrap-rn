@@ -17,6 +17,8 @@ const propTypes = {
   content: PropTypes.node.isRequired,
   placement: PropTypes.oneOf(PLACEMENTS),
   visible: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -29,8 +31,16 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Popover = (props) => {
-  const { children, title = null, content, placement, visible = false } = props;
+const Popover = React.forwardRef((props, ref) => {
+  const {
+    children,
+    title = null,
+    content,
+    placement,
+    visible = false,
+    style,
+    ...elementProps
+  } = props;
 
   const [showPopover, setShowPopover] = useState(visible);
   const tooltipButton = useRef();
@@ -51,14 +61,14 @@ const Popover = (props) => {
           backgroundColor: 'transparent',
         }}
       >
-        <View style={[classes]}>
+        <View {...elementProps} ref={ref} style={[classes]}>
           {title && <PopoverHeader>{title}</PopoverHeader>}
           <PopoverBody>{content}</PopoverBody>
         </View>
       </BasePopover>
     </>
   );
-};
+});
 
 Popover.propTypes = propTypes;
 

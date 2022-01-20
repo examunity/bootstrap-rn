@@ -27,17 +27,17 @@ const styles = StyleSheet.create({
   `,
 });
 
-function ModalHeader(props) {
+const ModalHeader = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.modal-header']);
 
   return (
-    <View {...elementProps} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       {children}
     </View>
   );
-}
+});
 
 ModalHeader.propTypes = propTypes;
 
