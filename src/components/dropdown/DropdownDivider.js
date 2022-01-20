@@ -1,8 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
 import View from '../View';
+
+const propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+};
 
 const styles = StyleSheet.create({
   '.dropdown-divider': css`
@@ -15,10 +21,14 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownDivider = () => {
+const DropdownDivider = React.forwardRef((props, ref) => {
+  const { style, ...elementProps } = props;
+
   const classes = getStyles(styles, ['.dropdown-divider']);
 
-  return <View style={[classes]} />;
-};
+  return <View {...elementProps} ref={ref} style={[classes, style]} />;
+});
+
+DropdownDivider.propTypes = propTypes;
 
 export default DropdownDivider;

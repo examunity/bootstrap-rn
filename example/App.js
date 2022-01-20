@@ -54,7 +54,7 @@ function App() {
           <View style={styles.container}>
             <SampleBadges />
           </View>
-          <View style={styles.container}>
+          <View style={[styles.container, { zIndex: 1 }]}>
             <SampleDropdown />
           </View>
           <View style={styles.container}>

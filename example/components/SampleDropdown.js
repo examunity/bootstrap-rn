@@ -14,9 +14,14 @@ function SampleDropdowns() {
             <Text>Dropdown header</Text>
           </Dropdown.Header>
           <Dropdown.Divider />
-          <Dropdown.Item>
+          <Dropdown.Item active disabled>
             <View>
               <Text>Dropdown Item 101</Text>
+            </View>
+          </Dropdown.Item>
+          <Dropdown.Item active>
+            <View>
+              <Text>Dropdown Item 102</Text>
             </View>
           </Dropdown.Item>
           <Dropdown.ItemText>Dropdown Item Text 101</Dropdown.ItemText>

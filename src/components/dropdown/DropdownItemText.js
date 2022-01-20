@@ -7,6 +7,8 @@ import Text from '../Text';
 
 const propTypes = {
   children: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -17,12 +19,16 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownItemText = (props) => {
-  const { children } = props;
+const DropdownItemText = React.forwardRef((props, ref) => {
+  const { children, style, ...elementProps } = props;
   const classes = getStyles(styles, ['.dropdown-item-text']);
 
-  return <Text style={[classes]}>{children}</Text>;
-};
+  return (
+    <Text {...elementProps} ref={ref} style={[classes, style]}>
+      {children}
+    </Text>
+  );
+});
 
 DropdownItemText.propTypes = propTypes;
 

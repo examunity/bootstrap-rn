@@ -1120,7 +1120,9 @@ const variables = css`
   $dropdown-box-shadow: $box-shadow;
 
   $dropdown-link-color: $gray-900;
-  $dropdown-link-hover-color: shade-color($dropdown-link-color, 10%);
+
+  $dropdown-link-hover-color: ${(t) =>
+    shadeColor(0.1, t['dropdown-link-color'])};
   $dropdown-link-hover-bg: $gray-200;
 
   $dropdown-link-active-color: $component-active-color;
