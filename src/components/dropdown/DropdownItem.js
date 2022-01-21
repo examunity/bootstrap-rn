@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
       background-color: $dropdown-link-hover-bg;
     }
     &:focus {
-      color: $dropdown-link-hover-color;
       // @include gradient-bg($dropdown-link-hover-bg);
       background-color: $dropdown-link-hover-bg;
     }
@@ -44,14 +43,13 @@ const styles = StyleSheet.create({
 
     &:hover {
       color: $dropdown-link-hover-color;
-      // text-decoration: if($link-hover-decoration == underline, none, null);
+      text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
     &:focus {
       color: $dropdown-link-hover-color;
-      // text-decoration: if($link-hover-decoration == underline, none, null);
+      text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
   `,
-
   '.dropdown-item-active': css`
     // @include gradient-bg($dropdown-link-active-bg);
     background-color: $dropdown-link-active-bg;
@@ -66,6 +64,7 @@ const styles = StyleSheet.create({
   '.dropdown-item-active-text': css`
     color: $dropdown-link-active-color;
     text-decoration: none;
+
     &:hover {
       color: $dropdown-link-active-color;
     }
@@ -75,7 +74,6 @@ const styles = StyleSheet.create({
   `,
 
   '.dropdown-item-disabled': css`
-    color: $dropdown-link-disabled-color;
     // pointer-events: none;
     background-color: transparent;
     // Remove CSS gradients if they're enabled
@@ -90,6 +88,7 @@ const styles = StyleSheet.create({
   `,
   '.dropdown-item-disabled-text': css`
     color: $dropdown-link-disabled-color;
+
     &:hover {
       color: $dropdown-link-disabled-color;
     }
@@ -131,6 +130,7 @@ const DropdownItem = (props) => {
         dropdown.setVisible(false);
         handlePress(event);
       }}
+      disabled={disabled}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >

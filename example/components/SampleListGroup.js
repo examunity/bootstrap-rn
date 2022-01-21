@@ -34,6 +34,9 @@ function SampleListGroup() {
         <ListGroup.ItemAction>
           <Text>Action</Text>
         </ListGroup.ItemAction>
+        <ListGroup.ItemAction disabled>
+          <Text>disabled ?</Text>
+        </ListGroup.ItemAction>
         <ListGroup.ItemAction color="danger">
           <Text>Action</Text>
         </ListGroup.ItemAction>
