@@ -26,15 +26,11 @@ const styles = StyleSheet.create({
     border: 0;
 
     &:hover {
-      color: $dropdown-link-hover-color;
-      // text-decoration: if($link-hover-decoration == underline, none, null);
       // @include gradient-bg($dropdown-link-hover-bg);
       background-color: $dropdown-link-hover-bg;
     }
-
     &:focus {
       color: $dropdown-link-hover-color;
-      // text-decoration: if($link-hover-decoration == underline, none, null);
       // @include gradient-bg($dropdown-link-hover-bg);
       background-color: $dropdown-link-hover-bg;
     }
@@ -45,14 +41,39 @@ const styles = StyleSheet.create({
     // text-align: inherit;
     text-decoration: none; // if($link-decoration == none, null, none);
     // white-space: nowrap;
+
+    &:hover {
+      color: $dropdown-link-hover-color;
+      // text-decoration: if($link-hover-decoration == underline, none, null);
+    }
+    &:focus {
+      color: $dropdown-link-hover-color;
+      // text-decoration: if($link-hover-decoration == underline, none, null);
+    }
   `,
 
   '.dropdown-item-active': css`
-    color: $dropdown-link-active-color;
-    text-decoration: none;
     // @include gradient-bg($dropdown-link-active-bg);
     background-color: $dropdown-link-active-bg;
+
+    &:hover {
+      background-color: $dropdown-link-active-bg;
+    }
+    &:focus {
+      background-color: $dropdown-link-active-bg;
+    }
   `,
+  '.dropdown-item-active-text': css`
+    color: $dropdown-link-active-color;
+    text-decoration: none;
+    &:hover {
+      color: $dropdown-link-active-color;
+    }
+    &:focus {
+      color: $dropdown-link-active-color;
+    }
+  `,
+
   '.dropdown-item-disabled': css`
     color: $dropdown-link-disabled-color;
     // pointer-events: none;
@@ -61,13 +82,19 @@ const styles = StyleSheet.create({
     // background-image: if($enable-gradients, none, null);
 
     &:hover {
-      color: $dropdown-link-disabled-color;
       background-color: transparent;
     }
-
+    &:focus {
+      background-color: transparent;
+    }
+  `,
+  '.dropdown-item-disabled-text': css`
+    color: $dropdown-link-disabled-color;
+    &:hover {
+      color: $dropdown-link-disabled-color;
+    }
     &:focus {
       color: $dropdown-link-disabled-color;
-      background-color: transparent;
     }
   `,
 });
@@ -93,7 +120,8 @@ const DropdownItem = (props) => {
 
   const textClasses = getStyles(styles, [
     '.dropdown-item-text',
-    disabled && '.dropdown-item-disabled',
+    active && '.dropdown-item-active-text',
+    disabled && '.dropdown-item-disabled-text',
   ]);
 
   return (
