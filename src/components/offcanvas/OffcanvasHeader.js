@@ -33,6 +33,7 @@ const OffcanvasHeader = React.forwardRef((props, ref) => {
   );
 });
 
+OffcanvasHeader.displayName = 'OffcanvasHeader';
 OffcanvasHeader.propTypes = propTypes;
 
 export default OffcanvasHeader;

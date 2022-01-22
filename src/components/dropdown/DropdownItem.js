@@ -139,6 +139,7 @@ const DropdownItem = (props) => {
   );
 };
 
+DropdownItem.displayName = 'DropdownItem';
 DropdownItem.propTypes = propTypes;
 
 export default DropdownItem;

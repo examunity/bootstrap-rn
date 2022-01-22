@@ -30,6 +30,7 @@ const ModalTitle = React.forwardRef((props, ref) => {
   );
 });
 
+ModalTitle.displayName = 'ModalTitle';
 ModalTitle.propTypes = propTypes;
 
 export default ModalTitle;

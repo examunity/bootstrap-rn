@@ -39,6 +39,7 @@ const ModalHeader = React.forwardRef((props, ref) => {
   );
 });
 
+ModalHeader.displayName = 'ModalHeader';
 ModalHeader.propTypes = propTypes;
 
 export default ModalHeader;

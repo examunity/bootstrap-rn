@@ -31,6 +31,7 @@ const OffcanvasBody = React.forwardRef((props, ref) => {
   );
 });
 
+OffcanvasBody.displayName = 'OffcanvasBody';
 OffcanvasBody.propTypes = propTypes;
 
 export default OffcanvasBody;

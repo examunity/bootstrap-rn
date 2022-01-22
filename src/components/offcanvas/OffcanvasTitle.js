@@ -30,6 +30,7 @@ const OffcanvasTitle = React.forwardRef((props, ref) => {
   );
 });
 
+OffcanvasTitle.displayName = 'OffcanvasTitle';
 OffcanvasTitle.propTypes = propTypes;
 
 export default OffcanvasTitle;

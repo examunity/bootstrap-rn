@@ -30,6 +30,7 @@ const DropdownItemText = React.forwardRef((props, ref) => {
   );
 });
 
+DropdownItemText.displayName = 'DropdownItemText';
 DropdownItemText.propTypes = propTypes;
 
 export default DropdownItemText;

@@ -29,6 +29,7 @@ const DropdownDivider = React.forwardRef((props, ref) => {
   return <View {...elementProps} ref={ref} style={[classes, style]} />;
 });
 
+DropdownDivider.displayName = 'DropdownDivider';
 DropdownDivider.propTypes = propTypes;
 
 export default DropdownDivider;
