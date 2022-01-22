@@ -1,26 +1,27 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import useViewport from './hooks/useViewport';
-import StyleSheet from './style/StyleSheet';
-import utilities from './theme/utilities';
 import Context from './Context';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types,
+  utilities: PropTypes.object,
+  // eslint-disable-next-line react/forbid-prop-types,
+  components: PropTypes.object,
   ssrViewport: PropTypes.string,
 };
 
 function Provider(props) {
-  const { children, ssrViewport } = props;
+  const { children, utilities = {}, components = {}, ssrViewport } = props;
 
   const viewport = useViewport(ssrViewport);
-
-  const utilitiesStyles = useMemo(() => StyleSheet.create(utilities), []);
 
   const counter = useRef(0);
 
   const context = {
-    utilitiesStyles,
+    utilities,
+    components,
     getViewport() {
       return viewport;
     },

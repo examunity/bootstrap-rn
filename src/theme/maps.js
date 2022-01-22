@@ -28,3 +28,13 @@ export const NEGATIVE_SPACERS = each(SPACERS, (key, value) => {
 });
 
 export const GUTTERS = SPACERS;
+
+const maps = {
+  UTILITIES_COLORS,
+  UTILITIES_TEXT_COLORS,
+  UTILITIES_BG_COLORS,
+  NEGATIVE_SPACERS,
+  GUTTERS,
+};
+
+export default maps;

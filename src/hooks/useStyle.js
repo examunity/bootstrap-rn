@@ -13,7 +13,7 @@ const normalize = (style) => {
 };
 
 function useStyle(style, styleName) {
-  const { utilitiesStyles } = useContext(Context);
+  const { utilities: utilitiesStyles } = useContext(Context);
 
   const utilities = useMemo(() => {
     if (!styleName) {

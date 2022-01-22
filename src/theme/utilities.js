@@ -1,6 +1,4 @@
-import css from '../style/css';
 import {
-  GRID_BREAKPOINTS,
   BORDER_WIDTHS,
   FONT_SIZES,
   POSITION_VALUES,
@@ -12,44 +10,9 @@ import {
   UTILITIES_BG_COLORS,
   NEGATIVE_SPACERS,
 } from './maps';
-import { each } from '../utils';
-
-export function makeUtility(options) {
-  return each(options.values, (key, value) => {
-    const name = options.class || options.property;
-    const suffix = key === 'null' ? '' : `-${key}`;
-
-    const styles = {
-      [`${name}${suffix}`]: css`
-        ${options.property}: ${value};
-      `,
-    };
-
-    if (!options.responsive) {
-      return styles;
-    }
-
-    return {
-      ...styles,
-      ...each(GRID_BREAKPOINTS, (breakpoint) => {
-        if (breakpoint === 'xs') {
-          return null;
-        }
-
-        return {
-          [`${name}-${breakpoint}${suffix}`]: css`
-            @include media-breakpoint-up(${breakpoint}) {
-              ${options.property}: ${value};
-            }
-          `,
-        };
-      }),
-    };
-  });
-}
 
 const utilities = {
-  ...makeUtility({
+  align: {
     property: 'text-align-vertical',
     class: 'align',
     values: {
@@ -60,8 +23,8 @@ const utilities = {
       // 'text-bottom': 'text-bottom',
       // 'text-top': 'text-top',
     },
-  }),
-  /* ...makeUtility({
+  },
+  /* float: {
     responsive: true,
     property: 'float',
     values: {
@@ -69,9 +32,9 @@ const utilities = {
       end: 'right',
       none: 'none',
     },
-  }), */
+  }, */
   // Opacity utilities
-  ...makeUtility({
+  opacity: {
     property: 'opacity',
     values: {
       0: '0',
@@ -80,8 +43,8 @@ const utilities = {
       75: '0.75',
       100: '1',
     },
-  }),
-  ...makeUtility({
+  },
+  overflow: {
     property: 'overflow',
     values: {
       // auto: 'auto',
@@ -89,8 +52,8 @@ const utilities = {
       visible: 'visible',
       scroll: 'scroll',
     },
-  }),
-  ...makeUtility({
+  },
+  display: {
     responsive: true,
     print: true,
     property: 'display',
@@ -107,8 +70,8 @@ const utilities = {
       // 'inline-flex': 'inline-flex',
       none: 'none',
     },
-  }),
-  ...makeUtility({
+  },
+  shadow: {
     property: 'box-shadow',
     class: 'shadow',
     values: {
@@ -117,8 +80,8 @@ const utilities = {
       lg: (t) => t['box-shadow-lg'],
       none: 'none',
     },
-  }),
-  ...makeUtility({
+  },
+  position: {
     property: 'position',
     values: {
       // static: 'static',
@@ -127,26 +90,26 @@ const utilities = {
       // fixed: 'fixed',
       // sticky: 'sticky',
     },
-  }),
-  ...makeUtility({
+  },
+  top: {
     property: 'top',
     values: POSITION_VALUES,
-  }),
-  ...makeUtility({
+  },
+  bottom: {
     property: 'bottom',
     values: POSITION_VALUES,
-  }),
-  ...makeUtility({
+  },
+  start: {
     property: 'left',
     class: 'start',
     values: POSITION_VALUES,
-  }),
-  ...makeUtility({
+  },
+  end: {
     property: 'right',
     class: 'end',
     values: POSITION_VALUES,
-  }),
-  /* ...makeUtility({
+  },
+  /* translateMiddle: {
     property: 'transform',
     class: 'translate-middle',
     values: {
@@ -154,59 +117,59 @@ const utilities = {
       x: translateX(-50%),
       y: translateY(-50%),
     },
-  }), */
-  ...makeUtility({
+  }, */
+  border: {
     property: 'border',
     values: {
       null: (t) => `${t['border-width']} solid ${t['border-color']}`,
       0: '0',
     },
-  }),
+  },
   // TODO: Find a way to write border-top as border-top-width, ...
-  /* ...makeUtility({
+  /* borderTop: {
     property: 'border-top',
     values: {
       null: (t) => `${t['border-width']} solid ${t['border-color']}`,
       0: '0',
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* borderRight: {
     property: 'border-right',
     class: 'border-end',
     values: {
       null: (t) => `${t['border-width']} solid ${t['border-color']}`,
       0: '0',
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* borderBottom: {
     property: 'border-bottom',
     values: {
       null: (t) => `${t['border-width']} solid ${t['border-color']}`,
       0: '0',
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* borderLeft: {
     property: 'border-left',
     class: 'border-start',
     values: {
       null: (t) => `${t['border-width']} solid ${t['border-color']}`,
       0: '0',
     },
-  }), */
-  ...makeUtility({
+  }, */
+  borderColor: {
     property: 'border-color',
     class: 'border',
     values: {
       ...THEME_COLORS,
       white: 'white',
     },
-  }),
-  ...makeUtility({
+  },
+  borderWidth: {
     property: 'border-width',
     class: 'border',
     values: BORDER_WIDTHS,
-  }),
-  ...makeUtility({
+  },
+  width: {
     property: 'width',
     class: 'w',
     values: {
@@ -216,29 +179,29 @@ const utilities = {
       100: '100%',
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  maxWidth: {
     property: 'max-width',
     class: 'mw',
     values: {
       100: '100%',
     },
-  }),
-  ...makeUtility({
+  },
+  viewportWidth: {
     property: 'width',
     class: 'vw',
     values: {
       100: '100vw', // TODO: native support
     },
-  }),
-  ...makeUtility({
+  },
+  minViewportWidth: {
     property: 'min-width',
     class: 'min-vw',
     values: {
       100: '100vw', // TODO: native support
     },
-  }),
-  ...makeUtility({
+  },
+  height: {
     property: 'height',
     class: 'h',
     values: {
@@ -248,37 +211,37 @@ const utilities = {
       100: '100%',
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  maxHeight: {
     property: 'max-height',
     class: 'mh',
     values: {
       100: '100%',
     },
-  }),
-  ...makeUtility({
+  },
+  viewportHeight: {
     property: 'height',
     class: 'vh',
     values: {
       100: '100vh', // TODO: native support
     },
-  }),
-  ...makeUtility({
+  },
+  minViewportHeight: {
     property: 'min-height',
     class: 'min-vh',
     values: {
       100: '100vh', // TODO: native support
     },
-  }),
+  },
   // Flex utilities
-  ...makeUtility({
+  flex: {
     responsive: true,
     property: 'flex',
     values: {
       fill: '1 1 auto',
     },
-  }),
-  ...makeUtility({
+  },
+  flexDirection: {
     responsive: true,
     property: 'flex-direction',
     class: 'flex',
@@ -288,8 +251,8 @@ const utilities = {
       'row-reverse': 'row-reverse',
       'column-reverse': 'column-reverse',
     },
-  }),
-  ...makeUtility({
+  },
+  flexGrow: {
     responsive: true,
     property: 'flex-grow',
     class: 'flex',
@@ -297,8 +260,8 @@ const utilities = {
       'grow-0': '0',
       'grow-1': '1',
     },
-  }),
-  ...makeUtility({
+  },
+  flexShrink: {
     responsive: true,
     property: 'flex-shrink',
     class: 'flex',
@@ -306,8 +269,8 @@ const utilities = {
       'shrink-0': '0',
       'shrink-1': '1',
     },
-  }),
-  ...makeUtility({
+  },
+  flexWrap: {
     responsive: true,
     property: 'flex-wrap',
     class: 'flex',
@@ -316,14 +279,14 @@ const utilities = {
       nowrap: 'nowrap',
       'wrap-reverse': 'wrap-reverse',
     },
-  }),
-  /* ...makeUtility({
+  },
+  /* gap: {
     responsive: true,
     property: 'gap',
     class: 'gap',
     values: SPACERS,
-  }), */
-  ...makeUtility({
+  }, */
+  justifyContent: {
     responsive: true,
     property: 'justify-content',
     values: {
@@ -334,8 +297,8 @@ const utilities = {
       around: 'space-around',
       // evenly: 'space-evenly', // TODO: For some reason this is converted into "spacNaNvenly"
     },
-  }),
-  ...makeUtility({
+  },
+  alignItems: {
     responsive: true,
     property: 'align-items',
     values: {
@@ -345,8 +308,8 @@ const utilities = {
       baseline: 'baseline',
       stretch: 'stretch',
     },
-  }),
-  ...makeUtility({
+  },
+  alignContent: {
     responsive: true,
     property: 'align-content',
     values: {
@@ -357,8 +320,8 @@ const utilities = {
       around: 'space-around',
       stretch: 'stretch',
     },
-  }),
-  ...makeUtility({
+  },
+  alignSelf: {
     responsive: true,
     property: 'align-self',
     values: {
@@ -369,8 +332,8 @@ const utilities = {
       baseline: 'baseline',
       stretch: 'stretch',
     },
-  }),
-  /* ...makeUtility({
+  },
+  /* order: {
     responsive: true,
     property: 'order',
     values: {
@@ -383,9 +346,9 @@ const utilities = {
       5: '5',
       last: '6',
     },
-  }), */
+  }, */
   // Margin utilities
-  ...makeUtility({
+  margin: {
     responsive: true,
     property: 'margin',
     class: 'm',
@@ -393,8 +356,8 @@ const utilities = {
       ...SPACERS,
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  marginX: {
     responsive: true,
     property: 'margin-horizontal',
     class: 'mx',
@@ -402,8 +365,8 @@ const utilities = {
       ...SPACERS,
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  marginY: {
     responsive: true,
     property: 'margin-vertical',
     class: 'my',
@@ -411,8 +374,8 @@ const utilities = {
       ...SPACERS,
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  marginTop: {
     responsive: true,
     property: 'margin-top',
     class: 'mt',
@@ -420,8 +383,8 @@ const utilities = {
       ...SPACERS,
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  marginEnd: {
     responsive: true,
     property: 'margin-right',
     class: 'me',
@@ -429,8 +392,8 @@ const utilities = {
       ...SPACERS,
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  marginBottom: {
     responsive: true,
     property: 'margin-bottom',
     class: 'mb',
@@ -438,8 +401,8 @@ const utilities = {
       ...SPACERS,
       auto: 'auto',
     },
-  }),
-  ...makeUtility({
+  },
+  marginStart: {
     responsive: true,
     property: 'margin-left',
     class: 'ms',
@@ -447,116 +410,116 @@ const utilities = {
       ...SPACERS,
       auto: 'auto',
     },
-  }),
+  },
   // Negative margin utilities
-  ...makeUtility({
+  negativeMargin: {
     responsive: true,
     property: 'margin',
     class: 'm',
     values: NEGATIVE_SPACERS,
-  }),
-  ...makeUtility({
+  },
+  negativeMarginX: {
     responsive: true,
     property: 'margin-horizontal',
     class: 'mx',
     values: NEGATIVE_SPACERS,
-  }),
-  ...makeUtility({
+  },
+  negativeMarginY: {
     responsive: true,
     property: 'margin-vertical',
     class: 'my',
     values: NEGATIVE_SPACERS,
-  }),
-  ...makeUtility({
+  },
+  negativeMarginTop: {
     responsive: true,
     property: 'margin-top',
     class: 'mt',
     values: NEGATIVE_SPACERS,
-  }),
-  ...makeUtility({
+  },
+  negativeMarginEnd: {
     responsive: true,
     property: 'margin-right',
     class: 'me',
     values: NEGATIVE_SPACERS,
-  }),
-  ...makeUtility({
+  },
+  negativeMarginBottom: {
     responsive: true,
     property: 'margin-bottom',
     class: 'mb',
     values: NEGATIVE_SPACERS,
-  }),
-  ...makeUtility({
+  },
+  negativeMarginStart: {
     responsive: true,
     property: 'margin-left',
     class: 'ms',
     values: NEGATIVE_SPACERS,
-  }),
+  },
   // Padding utilities
-  ...makeUtility({
+  padding: {
     responsive: true,
     property: 'padding',
     class: 'p',
     values: SPACERS,
-  }),
-  ...makeUtility({
+  },
+  paddingX: {
     responsive: true,
     property: 'padding-horizontal',
     class: 'px',
     values: SPACERS,
-  }),
-  ...makeUtility({
+  },
+  paddingY: {
     responsive: true,
     property: 'padding-vertical',
     class: 'py',
     values: SPACERS,
-  }),
-  ...makeUtility({
+  },
+  paddingTop: {
     responsive: true,
     property: 'padding-top',
     class: 'pt',
     values: SPACERS,
-  }),
-  ...makeUtility({
+  },
+  paddingEnd: {
     responsive: true,
     property: 'padding-right',
     class: 'pe',
     values: SPACERS,
-  }),
-  ...makeUtility({
+  },
+  paddingBottom: {
     responsive: true,
     property: 'padding-bottom',
     class: 'pb',
     values: SPACERS,
-  }),
-  ...makeUtility({
+  },
+  paddingStart: {
     responsive: true,
     property: 'padding-left',
     class: 'ps',
     values: SPACERS,
-  }),
+  },
   // Text
-  ...makeUtility({
+  fontFamily: {
     property: 'font-family',
     class: 'font',
     values: {
       monospace: (t) => t['font-family-monospace'],
     },
-  }),
-  ...makeUtility({
+  },
+  fontSize: {
     rfs: true,
     property: 'font-size',
     class: 'fs',
     values: FONT_SIZES,
-  }),
-  ...makeUtility({
+  },
+  fontStyle: {
     property: 'font-style',
     class: 'fst',
     values: {
       italic: 'italic',
       normal: 'normal',
     },
-  }),
-  ...makeUtility({
+  },
+  fontWeight: {
     property: 'font-weight',
     class: 'fw',
     values: {
@@ -566,8 +529,8 @@ const utilities = {
       bold: (t) => t['font-weight-bold'],
       // bolder: (t) => t['font-weight-bolder'],
     },
-  }),
-  ...makeUtility({
+  },
+  lineHeight: {
     property: 'line-height',
     class: 'lh',
     // Multiply line-height with font-size for react-native support.
@@ -577,8 +540,8 @@ const utilities = {
       base: (t) => `${t['font-size-base']} * ${t['line-height-base']}`,
       lg: (t) => `${t['font-size-lg']} * ${t['line-height-lg']}`,
     },
-  }),
-  ...makeUtility({
+  },
+  textAlign: {
     responsive: true,
     property: 'text-align',
     class: 'text',
@@ -587,8 +550,8 @@ const utilities = {
       end: 'right',
       center: 'center',
     },
-  }),
-  ...makeUtility({
+  },
+  textDecoration: {
     property: 'text-decoration',
     class: 'text',
     values: {
@@ -596,8 +559,8 @@ const utilities = {
       underline: 'underline',
       'line-through': 'line-through',
     },
-  }),
-  ...makeUtility({
+  },
+  textTransform: {
     property: 'text-transform',
     class: 'text',
     values: {
@@ -605,24 +568,24 @@ const utilities = {
       uppercase: 'uppercase',
       capitalize: 'capitalize',
     },
-  }),
-  /* ...makeUtility({
+  },
+  /* whiteSpace: {
     property: 'white-space',
     class: 'text',
     values: {
       wrap: 'normal',
       nowrap: 'nowrap',
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* wordWrap: {
     property: ['word-wrap', 'word-break'],
     class: 'text',
     values: {
       break: 'break-word',
     },
     rtl: false,
-  }), */
-  ...makeUtility({
+  }, */
+  color: {
     property: 'color',
     class: 'text',
     // 'local-vars': { 'text-opacity': 1 },
@@ -632,8 +595,8 @@ const utilities = {
       'black-50': (t) => `rgba(${t.black}, 0.5)`,
       'white-50': (t) => `rgba(${t.white}, 0.5)`,
     },
-  }),
-  ...makeUtility({
+  },
+  textOpacity: {
     property: 'opacity',
     // 'css-var': true,
     class: 'text-opacity',
@@ -643,8 +606,8 @@ const utilities = {
       75: '0.75',
       100: '1',
     },
-  }),
-  ...makeUtility({
+  },
+  backgroundColor: {
     property: 'background-color',
     class: 'bg',
     // 'local-vars': { 'bg-opacity': 1 },
@@ -652,8 +615,8 @@ const utilities = {
       ...UTILITIES_BG_COLORS,
       transparent: 'transparent',
     },
-  }),
-  ...makeUtility({
+  },
+  bgOpacity: {
     property: 'opacity',
     // 'css-var': true,
     class: 'bg-opacity',
@@ -664,31 +627,31 @@ const utilities = {
       75: '0.75',
       100: '1',
     },
-  }),
-  /* ...makeUtility({
+  },
+  /* gradient: {
     property: 'background-image',
     class: 'bg',
     values: {
       gradient: 'var(--#{$variable-prefix}gradient))',
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* userSelect: {
     property: 'user-select',
     values: {
       all: 'all',
       auto: 'auto',
       none: 'none',
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* pointerEvents: {
     property: 'pointer-events',
     class: 'pe',
     values: {
       none: 'none',
       auto: 'auto',
     },
-  }), */
-  ...makeUtility({
+  }, */
+  rounded: {
     property: 'border-radius',
     class: 'rounded',
     values: {
@@ -700,44 +663,44 @@ const utilities = {
       circle: '500px', // TODO: How to implement 50%?
       pill: (t) => t['border-radius-pill'],
     },
-  }),
+  },
   // TODO: Support multiple properties for rounded-* utilities.
-  /* ...makeUtility({
+  /* roundedTop: {
     property: ['border-top-left-radius', 'border-top-right-radius'],
     class: 'rounded-top',
     values: {
       null: (t) => t['border-radius'],
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* roundedEnd: {
     property: ['border-top-right-radius', 'border-bottom-right-radius'],
     class: 'rounded-end',
     values: {
       null: (t) => t['border-radius'],
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* roundedBottom: {
     property: ['border-bottom-right-radius', 'border-bottom-left-radius'],
     class: 'rounded-bottom',
     values: {
       null: (t) => t['border-radius'],
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* roundedStart: {
     property: ['border-bottom-left-radius', 'border-top-left-radius'],
     class: 'rounded-start',
     values: {
       null: (t) => t['border-radius'],
     },
-  }), */
-  /* ...makeUtility({
+  }, */
+  /* visibility: {
     property: 'visibility',
     class: 'null',
     values: {
       visible: 'visible',
       invisible: 'hidden',
     },
-  }), */
+  }, */
 };
 
 export default utilities;

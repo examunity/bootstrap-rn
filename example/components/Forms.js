@@ -24,7 +24,7 @@ function Forms() {
   return (
     <>
       <Heading size={2}>Forms</Heading>
-      <View styleName="w-100 align-items-center">
+      <View styleName="w-100 as-center">
         <Checkbox
           value={value}
           onChange={() => {

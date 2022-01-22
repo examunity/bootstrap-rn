@@ -1,39 +1,12 @@
 import { StyleSheet as BaseStyleSheet } from 'react-native';
-import transform from './transform';
-import { BOOTSTYLE_DEFINITION } from '../symbols';
-import variables from '../theme/variables';
 
-let activeThemeKey = null;
+let activeKey = null;
 
-const themes = [];
+const themes = {};
 const sheets = [];
 
-const updateThemeKey = (source) => {
-  const hash = JSON.stringify(source);
-
-  const key = themes.findIndex((theme) => theme.hash === hash);
-
-  if (key === -1) {
-    const length = themes.push({ hash, source });
-
-    return length - 1;
-  }
-
-  return key;
-};
-
-const resolveVariables = (theme) => {
-  if (variables.$$typeof !== BOOTSTYLE_DEFINITION) {
-    return { ...variables, ...theme.variables };
-  }
-
-  const result = transform(variables.ast.children, theme);
-
-  return result[0].variables;
-};
-
 const createSheet = (sheet) => {
-  const theme = themes[activeThemeKey].source;
+  const theme = themes[activeKey];
 
   const statelessSource = {};
   const statefulSource = {};
@@ -41,7 +14,7 @@ const createSheet = (sheet) => {
   // Apply theme to themeable styles.
   Object.entries(sheet.source).forEach(([key, style]) => {
     // Resolve theme.
-    const value = typeof style === 'function' ? style(theme) : style;
+    const value = typeof style === 'function' ? style(theme, activeKey) : style;
 
     if (typeof value === 'function') {
       statefulSource[key] = value;
@@ -89,9 +62,9 @@ const StyleSheet = {
     };
 
     // If initialized, set active sheet based by active theme.
-    if (activeThemeKey !== null) {
-      sheet.cache[activeThemeKey] = createSheet(sheet);
-      sheet.active = sheet.cache[activeThemeKey];
+    if (activeKey !== null) {
+      sheet.cache[activeKey] = createSheet(sheet);
+      sheet.active = sheet.cache[activeKey];
     } else {
       // Placeholder until build method is called.
       sheet.active = {};
@@ -101,41 +74,41 @@ const StyleSheet = {
 
     return sheet.active;
   },
-  build(theme = {}) {
-    const themeKey = updateThemeKey({
-      variables: resolveVariables(theme),
-    });
+  build(theme, key = 'default') {
+    if (!themes[key]) {
+      themes[key] = theme;
+    }
 
     // If theme is already set, we don't need to do anything.
-    if (themeKey === activeThemeKey) {
+    if (key === activeKey) {
       return;
     }
 
     // Set new theme active.
-    activeThemeKey = themeKey;
+    activeKey = key;
 
     // Update style sheets.
-    sheets.forEach((_, key) => {
+    sheets.forEach((_, i) => {
       // If there is no result for the active theme, we'll create a themed
       // style sheet.
-      if (!sheets[key].cache[themeKey]) {
-        sheets[key].cache[themeKey] = createSheet(sheets[key]);
+      if (!sheets[i].cache[key]) {
+        sheets[i].cache[key] = createSheet(sheets[i]);
       }
 
       // Assign active object, which is also returned from the create
       // function, so style changes will be applied on next rerender in
       // the components as well.
-      Object.assign(sheets[key].active, sheets[key].cache[themeKey]);
+      Object.assign(sheets[i].active, sheets[i].cache[key]);
     });
   },
   value(key) {
-    if (activeThemeKey === null) {
+    if (activeKey === null) {
       throw new Error('Use of StyleSheet.value() before initializing.');
     }
 
-    const theme = themes[activeThemeKey].source;
+    const theme = themes[activeKey];
 
-    return theme.variables[key];
+    return theme[key];
   },
 };
 

@@ -3,23 +3,26 @@ import rem from './rem';
 import formula from './formula';
 import rgba from './rgba';
 
-const applyVariables = (variables, value) =>
-  typeof value === 'function' ? value(variables) : value;
+const applyVariables = (variables, key, value) =>
+  typeof value === 'function' ? value(variables, key) : value;
 
 const applyTransforms = (result) => rgba(formula(rem(result)));
 
-const resolveValue = (value, definition, theme) => {
-  const variables = { ...theme.variables, ...definition.variables };
+const resolveValue = (value, definition, theme, options) => {
+  const variables = options.preferTheme
+    ? { ...definition.variables, ...theme }
+    : { ...theme, ...definition.variables };
 
   // If there is only one part, we allow other results than strings as well.
   if (value.length === 1) {
-    const result = applyVariables(variables, value[0]);
+    const result = applyVariables(variables, options.key, value[0]);
 
     return typeof result === 'string' ? applyTransforms(result) : result;
   }
 
   const stringifiedResult = value.reduce(
-    (previous, current) => `${previous}${applyVariables(variables, current)}`,
+    (previous, current) =>
+      `${previous}${applyVariables(variables, options.key, current)}`,
     '',
   );
 
@@ -29,6 +32,7 @@ const resolveValue = (value, definition, theme) => {
 export default function transform(
   children,
   theme,
+  options = {},
   scopes = [],
   variables = {},
 ) {
@@ -43,7 +47,7 @@ export default function transform(
   children.forEach((child) => {
     if (child.type === 'variable' || child.type === 'declaration') {
       // Transform value to react native compatible value.
-      const value = resolveValue(child.value, definitions[0], theme);
+      const value = resolveValue(child.value, definitions[0], theme, options);
 
       if (child.type === 'variable') {
         definitions[0].variables[child.name] = value;
@@ -73,6 +77,7 @@ export default function transform(
         transform(
           child.children,
           theme,
+          options,
           // Add child scopes to current scopes.
           [...scopes, ...child.scopes],
           // Pass down variables, so that we can extend them.
@@ -82,5 +87,10 @@ export default function transform(
     }
   });
 
-  return definitions;
+  // Filter empty definitions and return.
+  return definitions.filter(
+    (definition) =>
+      Object.keys(definition.declarations).length > 0 ||
+      Object.keys(definition.variables).length > 0,
+  );
 }

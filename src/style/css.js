@@ -1,14 +1,16 @@
 import parse from './parse';
 import transform from './transform';
 import createStyle from './createStyle';
-import { BOOTSTYLE_DEFINITION } from '../symbols';
 
 export default function css(...args) {
   const ast = parse(...args);
 
-  const result = (theme) => createStyle(transform(ast.children, theme));
+  const result = (theme, key) => {
+    const transformed = transform(ast.children, theme, { key });
 
-  result.$$typeof = BOOTSTYLE_DEFINITION;
+    return createStyle(transformed);
+  };
+
   result.ast = ast;
 
   return result;

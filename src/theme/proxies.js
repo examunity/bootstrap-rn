@@ -244,3 +244,32 @@ export const FORM_VALIDATION_STATES = makeProxy('form-validation-states', [
   'valid',
   'invalid',
 ]);
+
+const proxies = {
+  GRAYS,
+  COLORS,
+  THEME_COLORS,
+  BLUES,
+  INDIGOS,
+  PURPLES,
+  PINKS,
+  REDS,
+  ORANGES,
+  YELLOWS,
+  GREENS,
+  TEALS,
+  CYANS,
+  SPACERS,
+  POSITION_VALUES,
+  GRID_BREAKPOINTS,
+  CONTAINER_MAX_WIDTHS,
+  GRID_COLUMNS,
+  GRID_ROW_COLUMNS,
+  BORDER_WIDTHS,
+  ASPECT_RATIOS,
+  FONT_SIZES,
+  DISPLAY_FONT_SIZES,
+  FORM_VALIDATION_STATES,
+};
+
+export default proxies;

@@ -1,11 +1,13 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import {
+  makeTheme,
+  makeUtilities,
+  css,
+  StyleSheet,
   Provider,
   Container,
   View,
-  StyleSheet,
-  css,
   ScrollView,
 } from 'bootstyle';
 import Content from './components/Content';
@@ -26,7 +28,68 @@ import SampleOffcanvas from './components/SampleOffcanvas';
 import SampleDropdown from './components/SampleDropdown';
 import Utilities from './components/Utilities';
 
-StyleSheet.build();
+StyleSheet.build(
+  // Test custom theme variables.
+  makeTheme(css`
+    $primary: blue;
+  `),
+);
+
+const utilities = StyleSheet.create(
+  makeUtilities((u) => ({
+    // Test overwrite utility styles.
+    justifyContent: {
+      ...u.justifyContent,
+      class: 'jc',
+    },
+    alignItems: {
+      ...u.alignItems,
+      class: 'ai',
+    },
+    alignContent: {
+      ...u.alignContent,
+      class: 'ac',
+    },
+    alignSelf: {
+      ...u.alignSelf,
+      class: 'as',
+    },
+    // Test add utility styles.
+    marginLeft: {
+      ...u.marginStart,
+      class: 'ml',
+    },
+    marginRight: {
+      ...u.marginEnd,
+      class: 'mr',
+    },
+    negativeMarginLeft: {
+      ...u.negativeMarginStart,
+      class: 'ml',
+    },
+    negativeMarginRight: {
+      ...u.negativeMarginEnd,
+      class: 'mr',
+    },
+    paddingLeft: {
+      ...u.paddingStart,
+      class: 'pl',
+    },
+    paddingRight: {
+      ...u.paddingEnd,
+      class: 'pr',
+    },
+  })),
+);
+
+// TODO: Make components customizable
+/* const components = {
+  Button: StyleSheet.create({
+    '.btn': css`
+      ...
+    `,
+  }),
+}; */
 
 const styles = StyleSheet.create({
   container: css`
@@ -38,10 +101,10 @@ const styles = StyleSheet.create({
 
 function App() {
   return (
-    <Provider ssrViewport="lg">
+    <Provider utilities={utilities} ssrViewport="lg">
       <StatusBar />
       <ScrollView>
-        <Container styleName="align-items-center">
+        <Container styleName="ai-center">
           <View style={styles.container}>
             <Content />
           </View>

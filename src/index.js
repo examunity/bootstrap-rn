@@ -1,4 +1,6 @@
 import css from './style/css';
+import makeUtilities from './style/makeUtilities';
+import makeTheme from './style/makeTheme';
 import StyleSheet from './style/StyleSheet';
 import Context from './Context';
 import Provider from './Provider';
@@ -38,6 +40,8 @@ import View from './components/View';
 
 export {
   css,
+  makeUtilities,
+  makeTheme,
   StyleSheet,
   Context,
   Provider,
