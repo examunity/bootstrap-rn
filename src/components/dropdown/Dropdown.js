@@ -59,6 +59,7 @@ const Dropdown = React.forwardRef((props, ref) => {
 Dropdown.displayName = 'Dropdown';
 Dropdown.propTypes = propTypes;
 
+Dropdown.Context = DropdownContext;
 Dropdown.ItemText = DropdownItemText;
 Dropdown.Header = DropdownHeader;
 Dropdown.Menu = DropdownMenu;
