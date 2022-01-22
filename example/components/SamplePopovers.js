@@ -1,17 +1,21 @@
 import React from 'react';
-import { Popover, Heading, Text } from 'bootstyle';
+import { Heading, injectPopover, Button, Text } from 'bootstyle';
+
+const PopoverButton = injectPopover(Button);
 
 function SamplePopovers() {
   return (
     <>
       <Heading size={2}>Popovers</Heading>
-      <Popover
-        placement="bottom"
-        title={<Text>Title</Text>}
-        content={<Text>This is the content of Popover</Text>}
+      <PopoverButton
+        popover={{
+          title: 'Title',
+          content: <Text>This is the content of Popover</Text>,
+          placement: 'bottom',
+        }}
       >
         <Text>Open this Popover</Text>
-      </Popover>
+      </PopoverButton>
     </>
   );
 }

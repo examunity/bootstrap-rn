@@ -42,6 +42,10 @@ export function concatRefs(...refs) {
   };
 }
 
+export function optional(condition, value) {
+  return condition ? value : undefined;
+}
+
 export function convertToREM(value) {
   return value.replace(
     /([+-]+)?([\d.Ee]+)px/,

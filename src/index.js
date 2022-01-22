@@ -26,8 +26,10 @@ import Modal from './components/modal/Modal';
 import Nav from './components/nav/Nav';
 import Navbar from './components/navbar/Navbar';
 import Offcanvas from './components/offcanvas/Offcanvas';
+import injectPopover from './components/popover/injectPopover';
 import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
+import injectTooltip from './components/tooltip/injectTooltip';
 import Tooltip from './components/tooltip/Tooltip';
 import Heading from './components/type/Heading';
 import Link from './components/type/Link';
@@ -67,8 +69,10 @@ export {
   Nav,
   Navbar,
   Offcanvas,
+  injectPopover,
   Popover,
   Progress,
+  injectTooltip,
   Tooltip,
   Heading,
   Link,

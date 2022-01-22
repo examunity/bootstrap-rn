@@ -1,75 +1,70 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import BasePopover from 'react-native-popover-view'; // { PopoverMode }
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
-import PopoverBody from './PopoverBody';
-import PopoverHeader from './PopoverHeader';
-import Button from '../buttons/Button';
 import View from '../View';
-
-const PLACEMENTS = ['top', 'bottom', 'left', 'right', 'auto'];
+import TextStyleProvider from '../../style/TextStyleProvider';
+import PopoverHeader from './PopoverHeader';
+import PopoverBody from './PopoverBody';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.node,
-  content: PropTypes.node.isRequired,
-  placement: PropTypes.oneOf(PLACEMENTS),
-  visible: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.popover': css`
-    background-color: $popover-bg;
-    border-radius: $popover-border-radius;
+    // position: absolute;
+    // top: 0;
+    // left: 0 #{"/* rtl:ignore */"};
+    z-index: $zindex-popover;
+    // display: block;
     max-width: $popover-max-width;
-    border-width: $popover-border-width;
-    border-color: $popover-border-color;
+    background-color: $popover-bg;
+    // background-clip: padding-box;
+    border: $popover-border-width solid $popover-border-color;
+    border-radius: $popover-border-radius;
+    // @include box-shadow($popover-box-shadow);
+  `,
+  '.popover-text': css`
+    // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
+    // So reset our font and text properties to avoid inheriting weird values.
+    // @include reset-text();
+    font-size: $popover-font-size;
+    // Allow breaking very long words so they don't overflow the popover's bounds
+    // word-wrap: break-word;
   `,
 });
 
 const Popover = React.forwardRef((props, ref) => {
-  const {
-    children,
-    title = null,
-    content,
-    placement,
-    visible = false,
-    style,
-    ...elementProps
-  } = props;
-
-  const [showPopover, setShowPopover] = useState(visible);
-  const tooltipButton = useRef();
+  const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.popover']);
+
+  const textClasses = getStyles(styles, ['.popover-text']);
+
+  // Accessiblity role tooltip is only supported on web.
+  const role = Platform.OS === 'web' ? 'tooltip' : null;
+
   return (
-    <>
-      <Button ref={tooltipButton} onPress={() => setShowPopover(true)}>
-        {children}
-      </Button>
-      <BasePopover
-        isVisible={showPopover}
-        // arrowStyle={{ backgroundColor: 'transparent' }}
-        onRequestClose={() => setShowPopover(false)}
-        placement={placement}
-        from={tooltipButton}
-        popoverStyle={{
-          backgroundColor: 'transparent',
-        }}
-      >
-        <View {...elementProps} ref={ref} style={[classes]}>
-          {title && <PopoverHeader>{title}</PopoverHeader>}
-          <PopoverBody>{content}</PopoverBody>
-        </View>
-      </BasePopover>
-    </>
+    <View
+      {...elementProps}
+      ref={ref}
+      accessibilityRole={role}
+      style={[classes, style]}
+    >
+      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+    </View>
   );
 });
 
+Popover.displayName = 'Popover';
 Popover.propTypes = propTypes;
+
+Popover.Header = PopoverHeader;
+Popover.Body = PopoverBody;
 
 export default Popover;

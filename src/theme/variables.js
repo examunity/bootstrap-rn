@@ -1211,6 +1211,12 @@ const variables = css`
   $popover-body-padding-y: $spacer;
   $popover-body-padding-x: $spacer;
 
+  $popover-arrow-width: 1rem;
+  $popover-arrow-height: 0.5rem;
+  $popover-arrow-color: $popover-bg;
+
+  $popover-arrow-outer-color: $popover-border-color;
+
   // ...
 
   // Badges
