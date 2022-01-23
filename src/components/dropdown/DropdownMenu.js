@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
 const DropdownMenu = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
-  const dropdown = useContext(DropdownContext);
+  const context = useContext(DropdownContext);
 
   invariant(
-    dropdown,
+    context,
     'DropdownMenu can only be used inside a Dropdown component.',
   );
 
-  const { identifier, visible, menuRef, menuPos } = dropdown;
+  const { identifier, visible, menuRef, menuPos } = context;
 
   if (!visible) {
     return null;

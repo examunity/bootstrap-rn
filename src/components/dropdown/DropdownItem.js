@@ -109,7 +109,7 @@ const DropdownItem = (props) => {
     ...elementProps
   } = props;
 
-  const dropdown = useContext(DropdownContext);
+  const context = useContext(DropdownContext);
 
   const classes = getStyles(styles, [
     '.dropdown-item',
@@ -127,7 +127,7 @@ const DropdownItem = (props) => {
     <Pressable
       {...elementProps}
       onPress={(event) => {
-        dropdown.setVisible(false);
+        context.setVisible(false);
         handlePress(event);
       }}
       disabled={disabled}
