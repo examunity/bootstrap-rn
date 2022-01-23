@@ -29,7 +29,7 @@ export const OverlayPropTypes = {
   arrowStyle: PropTypes.any,
 };
 
-function useOverlay(target, template, config) {
+export default function useOverlay(target, template, config) {
   const {
     trigger: rawTrigger,
     placement,
@@ -138,5 +138,3 @@ function useOverlay(target, template, config) {
     </Overlay>
   );
 }
-
-export default useOverlay;

@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import invariant from 'tiny-invariant';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import TextStyleProvider from '../../style/TextStyleProvider';
 import { getStyles, concatRefs } from '../../utils';
+import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
 
 const propTypes = {
@@ -40,14 +40,9 @@ const styles = StyleSheet.create({
 const DropdownMenu = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
-  const context = useContext(DropdownContext);
+  const dropdown = useForcedContext(DropdownContext);
 
-  invariant(
-    context,
-    'DropdownMenu can only be used inside a Dropdown component.',
-  );
-
-  const { identifier, visible, menuRef, menuPos } = context;
+  const { identifier, visible, menuRef, menuPos } = dropdown;
 
   if (!visible) {
     return null;

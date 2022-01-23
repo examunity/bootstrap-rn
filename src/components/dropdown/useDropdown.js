@@ -4,10 +4,10 @@ import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
 
 export default function useDropdown(
-  placement,
   defaultVisible,
   controlledVisible,
   onToggle,
+  placement,
 ) {
   const identifier = useIdentifier('dropdown');
 
