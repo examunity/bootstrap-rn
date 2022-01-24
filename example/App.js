@@ -26,7 +26,7 @@ import SampleProgress from './components/SampleProgress';
 import SampleTooltips from './components/SampleTooltips';
 import SampleOffcanvas from './components/SampleOffcanvas';
 import SampleDropdown from './components/SampleDropdown';
-import SampleCollpase from './components/SampleCollpase';
+import SampleCollapse from './components/SampleCollapse';
 import Utilities from './components/Utilities';
 
 StyleSheet.build(
@@ -119,7 +119,7 @@ function App() {
             <SampleBadges />
           </View>
           <View>
-            <SampleCollpase />
+            <SampleCollapse />
           </View>
           <View style={[styles.container, { zIndex: 1 }]}>
             <SampleDropdown />
