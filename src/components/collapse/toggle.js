@@ -8,8 +8,9 @@ const toggle = {
     ref: context.triggerRef,
     onPress: () => {
       context.setVisible((value) => !value);
+
+      console.log('collapse toggle');
     },
-    accessibilityHasPopup: true,
     accessibilityExpanded: context.visible,
   }),
   context: CollapseContext,

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CollapseContext from './CollapseContext';
 import useCollapse from './useCollapse';
-import toggle from './toggle';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -25,7 +24,5 @@ const CollapseProvider = (props) => {
 
 CollapseProvider.displayName = 'CollapseProvider';
 CollapseProvider.propTypes = propTypes;
-
-CollapseProvider.toggle = toggle;
 
 export default CollapseProvider;

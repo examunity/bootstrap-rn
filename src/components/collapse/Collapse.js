@@ -7,6 +7,7 @@ import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import CollapseContext from './CollapseContext';
 import CollapseProvider from './CollapseProvider';
+import toggle from './toggle';
 
 const propTypes = {
   children: PropTypes.node,
@@ -24,7 +25,6 @@ const Collapse = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const collapse = useForcedContext(CollapseContext);
-
   const { identifier, visible } = collapse;
 
   if (!visible) {
@@ -48,7 +48,7 @@ const Collapse = React.forwardRef((props, ref) => {
 Collapse.displayName = 'Collapse';
 Collapse.propTypes = propTypes;
 
-Collapse.Context = CollapseContext;
 Collapse.Provider = CollapseProvider;
+CollapseProvider.toggle = toggle;
 
 export default Collapse;
