@@ -1,12 +1,11 @@
 import React from 'react';
-import { Collapse, Heading, Text, Button, Card } from 'bootstyle';
+import { Collapse, Heading, Text, View, Button, Card } from 'bootstyle';
 
-function SampleCollpase() {
-  const visible = true;
+function SampleCollapse() {
   return (
-    <>
+    <View styleName="ai-center">
       <Heading size={2}>Collapse</Heading>
-      <Collapse.Provider defaultVisible={visible}>
+      <Collapse.Provider>
         <Button onPress={Collapse.toggle}>
           <Text>Collapse</Text>
         </Button>
@@ -18,8 +17,8 @@ function SampleCollpase() {
           </Card>
         </Collapse>
       </Collapse.Provider>
-    </>
+    </View>
   );
 }
 
-export default SampleCollpase;
+export default SampleCollapse;

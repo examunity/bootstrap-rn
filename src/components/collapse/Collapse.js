@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyleSheet from '../../style/StyleSheet';
-import css from '../../style/css';
 import View from '../View';
-import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import CollapseContext from './CollapseContext';
 import CollapseProvider from './CollapseProvider';
@@ -11,35 +8,19 @@ import toggle from './toggle';
 
 const propTypes = {
   children: PropTypes.node,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
 };
 
-const styles = StyleSheet.create({
-  '.collapse': css`
-    display: none;
-  `,
-});
-
 const Collapse = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const { children, ...elementProps } = props;
 
-  const collapse = useForcedContext(CollapseContext);
-  const { identifier, visible } = collapse;
+  const { identifier, visible } = useForcedContext(CollapseContext);
 
   if (!visible) {
     return null;
   }
 
-  const classes = getStyles(styles, [!collapse.visible && '.collapse']);
-
   return (
-    <View
-      {...elementProps}
-      ref={ref}
-      accessibilityLabelledBy={identifier}
-      style={[classes, style]}
-    >
+    <View {...elementProps} ref={ref} nativeID={identifier}>
       {children}
     </View>
   );
@@ -49,6 +30,6 @@ Collapse.displayName = 'Collapse';
 Collapse.propTypes = propTypes;
 
 Collapse.Provider = CollapseProvider;
-CollapseProvider.toggle = toggle;
+Collapse.toggle = toggle;
 
 export default Collapse;
