@@ -7,6 +7,8 @@ import Provider from './Provider';
 import Alert from './components/alert/Alert';
 import Badge from './components/badge/Badge';
 import Button from './components/buttons/Button';
+import ButtonGroup from './components/button-group/ButtonGroup';
+import ButtonToolbar from './components/button-group/ButtonToolbar';
 import Card from './components/card/Card';
 import CloseButton from './components/close/CloseButton';
 import Container from './components/containers/Container';
@@ -51,6 +53,8 @@ export {
   Alert,
   Badge,
   Button,
+  ButtonGroup,
+  ButtonToolbar,
   Card,
   CloseButton,
   Container,
