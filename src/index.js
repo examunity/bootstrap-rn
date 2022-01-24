@@ -39,6 +39,7 @@ import Text from './components/Text';
 import TextInput from './components/TextInput';
 import ScrollView from './components/ScrollView';
 import View from './components/View';
+import Collapse from './components/Collapse';
 
 export {
   css,
@@ -82,4 +83,5 @@ export {
   TextInput,
   ScrollView,
   View,
+  Collapse,
 };
