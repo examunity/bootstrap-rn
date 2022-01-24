@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import invariant from 'tiny-invariant';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import TextStyleProvider from '../../style/TextStyleProvider';
@@ -8,6 +7,7 @@ import View from '../View';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
+import useForcedContext from '../../hooks/useForcedContext';
 import ListGroupContext from './ListGroupContext';
 
 const propTypes = {
@@ -99,12 +99,7 @@ const ListGroupItem = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
-  const context = useContext(ListGroupContext);
-
-  invariant(
-    context,
-    'ListGroupItem can only be used inside a ListGroup component.',
-  );
+  const { flush } = useForcedContext(ListGroupContext);
 
   const classes = getStyles(styles, [
     '.list-group-item',
@@ -114,8 +109,8 @@ const ListGroupItem = React.forwardRef((props, ref) => {
     disabled && '.list-group-item-disabled',
     !first && '.list-group-item-not-first',
     !first && active && '.list-group-item-not-first-active',
-    context.flush && '.list-group-item-flush',
-    context.flush && last && '.list-group-item-flush-last',
+    flush && '.list-group-item-flush',
+    flush && last && '.list-group-item-flush-last',
     color && `.list-group-item-${color}`,
   ]);
 

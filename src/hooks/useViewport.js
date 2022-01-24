@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 
-function useViewport(initialViewport) {
+export default function useViewport(initialViewport) {
   const [viewport, setViewport] = useState(initialViewport);
   const breakpoints = StyleSheet.value('grid-breakpoints');
 
@@ -45,5 +45,3 @@ function useViewport(initialViewport) {
 
   return viewport;
 }
-
-export default useViewport;

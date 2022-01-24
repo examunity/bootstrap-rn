@@ -12,7 +12,7 @@ const normalize = (style) => {
     .reduce((res, val) => [...res, ...normalize(val)], []);
 };
 
-function useStyle(style, styleName) {
+export default function useStyle(style, styleName) {
   const { utilities: utilitiesStyles } = useContext(Context);
 
   const utilities = useMemo(() => {
@@ -57,5 +57,3 @@ function useStyle(style, styleName) {
     return [...basicStyles, ...interactionStyles];
   };
 }
-
-export default useStyle;

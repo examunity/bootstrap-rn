@@ -11,7 +11,6 @@ import DropdownItemText from './DropdownItemText';
 import DropdownHeader from './DropdownHeader';
 import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
-import dismiss from './dismiss';
 import toggle from './toggle';
 
 const PLACEMENTS = ['top', 'bottom', 'left', 'right'];
@@ -43,7 +42,7 @@ const Dropdown = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
-  const dropdown = useDropdown(placement, defaultVisible, visible, onToggle);
+  const dropdown = useDropdown(defaultVisible, visible, onToggle, placement);
 
   const classes = getStyles(styles, ['.dropdown']);
 
@@ -65,7 +64,6 @@ Dropdown.Header = DropdownHeader;
 Dropdown.Menu = DropdownMenu;
 Dropdown.Item = DropdownItem;
 Dropdown.Divider = DropdownDivider;
-Dropdown.dismiss = dismiss;
 Dropdown.toggle = toggle;
 
 export default Dropdown;

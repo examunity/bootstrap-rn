@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import invariant from 'tiny-invariant';
 import StyleSheet from '../../style/StyleSheet';
 import TextStyleProvider from '../../style/TextStyleProvider';
 import css from '../../style/css';
 import Text from '../Text';
 import View from '../View';
 import { getStyles } from '../../utils';
+import useForcedContext from '../../hooks/useForcedContext';
 import ProgressContext from './ProgressContext';
 
 const propTypes = {
@@ -42,18 +42,11 @@ const getPercentage = (value, min, max) => {
 const ProgressBar = React.forwardRef((props, ref) => {
   const { children, value, style, ...elementProps } = props;
 
-  const context = useContext(ProgressContext);
-
-  invariant(
-    context,
-    'ProgressBar can only be used inside a Progress component.',
-  );
+  const { min, max } = useForcedContext(ProgressContext);
 
   const classes = getStyles(styles, ['.progress-bar']);
 
   const textClasses = getStyles(styles, ['.progress-bar-text']);
-
-  const { min, max } = context;
 
   return (
     <View
