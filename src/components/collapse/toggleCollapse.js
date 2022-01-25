@@ -1,18 +1,16 @@
 import { BOOTSTYLE_ACTION } from '../../symbols';
-import DropdownContext from './DropdownContext';
+import CollapseContext from './CollapseContext';
 
-const toggle = {
+const toggleCollapse = {
   $$typeof: BOOTSTYLE_ACTION,
   handle: (props, context) => ({
-    nativeID: context.identifier,
-    ref: context.triggerRef,
     onPress: () => {
       context.setVisible((value) => !value);
     },
-    accessibilityHasPopup: true,
     accessibilityExpanded: context.visible,
+    accessibilityControls: context.identifier,
   }),
-  context: DropdownContext,
+  context: CollapseContext,
 };
 
-export default toggle;
+export default toggleCollapse;
