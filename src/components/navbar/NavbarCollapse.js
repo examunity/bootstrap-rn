@@ -7,6 +7,7 @@ import useForcedContext from '../../hooks/useForcedContext';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
+import useMedia from '../../hooks/useMedia';
 import NavbarContext from './NavbarContext';
 
 const propTypes = {
@@ -38,6 +39,7 @@ const NavbarCollapse = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const { expand, expanded } = useForcedContext(NavbarContext);
+  const media = useMedia();
 
   const classes = getStyles(styles, [
     '.navbar-collapse',
@@ -45,8 +47,9 @@ const NavbarCollapse = React.forwardRef((props, ref) => {
       `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-collapse`,
   ]);
 
-  // TODO: Calculate expanded based on expand?
-  if (!expanded) {
+  const show = expanded || (expand && (expand === true || media.up(expand)));
+
+  if (!show) {
     return null;
   }
 
