@@ -31,9 +31,9 @@ import Utilities from './components/Utilities';
 
 StyleSheet.build(
   // Test custom theme variables.
-  makeTheme(css`
+  makeTheme(/* css`
     $primary: blue;
-  `),
+  ` */),
 );
 
 const utilities = StyleSheet.create(
@@ -94,9 +94,8 @@ const utilities = StyleSheet.create(
 
 const styles = StyleSheet.create({
   container: css`
-    width: 320px;
+    max-width: 500px;
     margin-vertical: 1rem;
-    align-items: center;
   `,
 });
 
@@ -105,7 +104,7 @@ function App() {
     <Provider utilities={utilities} ssrViewport="lg">
       <StatusBar />
       <ScrollView>
-        <Container styleName="ai-center">
+        <Container style={styles.container}>
           <View style={styles.container}>
             <Content />
           </View>
@@ -118,7 +117,7 @@ function App() {
           <View style={styles.container}>
             <SampleBadges />
           </View>
-          <View>
+          <View style={styles.container}>
             <SampleCollapse />
           </View>
           <View style={[styles.container, { zIndex: 1 }]}>

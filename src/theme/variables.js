@@ -98,6 +98,28 @@ const svgs = {
       />
     </Svg>
   ),
+  'navbar-dark-toggler-icon-bg': (t) => (
+    <Svg viewBox="0 0 30 30">
+      <Path
+        stroke={t['navbar-dark-color']}
+        strokeLinecap="round"
+        strokeMiterlimit="10"
+        strokeWidth="2"
+        d="M4 7h22M4 15h22M4 23h22"
+      />
+    </Svg>
+  ),
+  'navbar-light-toggler-icon-bg': (t) => (
+    <Svg viewBox="0 0 30 30">
+      <Path
+        stroke={t['navbar-light-color']}
+        strokeLinecap="round"
+        strokeMiterlimit="10"
+        strokeWidth="2"
+        d="M4 7h22M4 15h22M4 23h22"
+      />
+    </Svg>
+  ),
   'btn-close-bg': (t) => (
     <Svg viewBox="0 0 16 16" fill={t['btn-close-color']} tabIndex={-1}>
       <Path
@@ -1084,12 +1106,14 @@ const variables = css`
   $navbar-dark-hover-color: rgba($white, 0.75);
   $navbar-dark-active-color: $white;
   $navbar-dark-disabled-color: rgba($white, 0.25);
+  $navbar-dark-toggler-icon-bg: ${svgs['navbar-dark-toggler-icon-bg']};
   $navbar-dark-toggler-border-color: rgba($white, 0.1);
 
   $navbar-light-color: rgba($black, 0.55);
   $navbar-light-hover-color: rgba($black, 0.7);
   $navbar-light-active-color: rgba($black, 0.9);
   $navbar-light-disabled-color: rgba($black, 0.3);
+  $navbar-light-toggler-icon-bg: ${svgs['navbar-light-toggler-icon-bg']};
   $navbar-light-toggler-border-color: rgba($black, 0.1);
 
   $navbar-light-brand-color: $navbar-light-active-color;

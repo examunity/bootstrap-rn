@@ -1,9 +1,9 @@
 import React from 'react';
-import { Collapse, Heading, Text, View, Button, Card } from 'bootstyle';
+import { Collapse, Heading, Text, Button, Card } from 'bootstyle';
 
 function SampleCollapse() {
   return (
-    <View styleName="ai-center">
+    <>
       <Heading size={2}>Collapse</Heading>
       <Collapse.Provider>
         <Button onPress={Collapse.toggle}>
@@ -17,7 +17,7 @@ function SampleCollapse() {
           </Card>
         </Collapse>
       </Collapse.Provider>
-    </View>
+    </>
   );
 }
 

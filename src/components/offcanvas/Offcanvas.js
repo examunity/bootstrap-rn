@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Modal as BaseModal } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
-import { getStyles } from '../../utils';
 import css from '../../style/css';
 import TextStyleProvider from '../../style/TextStyleProvider';
 import ScrollView from '../ScrollView';
 import View from '../View';
+import { GRID_BREAKPOINTS } from '../../theme/proxies';
+import { infix, next } from '../../theme/breakpoints';
+import { getStyles, each } from '../../utils';
+import NavbarContext from '../navbar/NavbarContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
 import OffcanvasBody from './OffcanvasBody';
@@ -93,6 +96,24 @@ const styles = StyleSheet.create({
     border-color: $offcanvas-border-color;
     // transform: translateY(100%);
   `,
+  // Navbar styles
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+    [`.navbar-expand${infix(next(breakpoint))} .offcanvas`]: css`
+      @include media-breakpoint-up(${next(breakpoint)}) {
+        // position: inherit;
+        bottom: 0;
+        // z-index: auto;
+        flex-grow: 1;
+        // visibility: visible !important; // stylelint-disable-line declaration-no-important
+        background-color: transparent;
+        border-right-width: 0;
+        border-left-width: 0;
+        // @include box-shadow(none);
+        // @include transition(none);
+        // transform: none;
+      }
+    `,
+  })),
 });
 
 const Offcanvas = React.forwardRef((props, ref) => {
@@ -106,8 +127,18 @@ const Offcanvas = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
+  const navbar = useContext(NavbarContext);
+
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
-  const classes = getStyles(styles, ['.offcanvas', `.offcanvas-${placement}`]);
+  const classes = getStyles(styles, [
+    '.offcanvas',
+    `.offcanvas-${placement}`,
+    navbar &&
+      navbar.expand &&
+      `.navbar-expand${
+        navbar.expand === true ? '' : `-${navbar.expand}`
+      } .offcanvas`,
+  ]);
   const textClasses = getStyles(styles, ['.offcanvas-content-text']);
 
   return (

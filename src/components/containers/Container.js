@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { CONTAINER_MAX_WIDTHS } from '../../theme/proxies';
 import { getStyles } from '../../utils';
+import NavbarContext from '../navbar/NavbarContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -14,7 +15,7 @@ const propTypes = {
 };
 
 const styles = StyleSheet.create({
-  base: css`
+  '.container': css`
     width: 100%;
     padding-right: $container-padding-x;
     padding-left: $container-padding-x;
@@ -76,15 +77,27 @@ const styles = StyleSheet.create({
       max-width: ${(t) => t['container-max-widths'].xxl};
     }
   `,
+  // Navbar styles
+  '.navbar .container': css`
+    display: flex;
+    flex-direction: row; // added for bootstyle
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  `,
 });
 
 const Container = React.forwardRef((props, ref) => {
   const { fluid = 'sm', style, ...elementProps } = props;
 
+  const navbar = useContext(NavbarContext);
+
   const classes = getStyles(styles, [
-    'base',
+    '.container',
     // Hint: Bootstrap's .container class is identical with .container-sm.
     fluid !== true && `.container-${fluid}`,
+    // Navbar styles
+    navbar && '.navbar .container',
   ]);
 
   return <View {...elementProps} ref={ref} style={[classes, style]} />;

@@ -4,6 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { GRID_BREAKPOINTS, GRID_COLUMNS } from '../../theme/proxies';
+import { infix } from '../../theme/breakpoints';
 import { getStyles, each, makeArray, normalize } from '../../utils';
 
 const sizes = makeArray(GRID_COLUMNS);
@@ -17,14 +18,6 @@ const propTypes = {
   sizeXl: PropTypes.oneOf(['auto', ...sizes]),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
-};
-
-const infix = (breakpoint) => {
-  if (breakpoint === 'xs') {
-    return '';
-  }
-
-  return `-${breakpoint}`;
 };
 
 const styles = StyleSheet.create({

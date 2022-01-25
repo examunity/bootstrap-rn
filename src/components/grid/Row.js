@@ -15,7 +15,6 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.row': css`
     display: flex;
-    width: 100%; // added for bootstyle
     flex-direction: row; // added for bootstyle
     flex-wrap: wrap;
     margin-top: 0;

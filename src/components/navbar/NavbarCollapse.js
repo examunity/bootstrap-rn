@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import { getStyles } from '../../utils';
+import useForcedContext from '../../hooks/useForcedContext';
+import { GRID_BREAKPOINTS } from '../../theme/proxies';
+import { infix, next } from '../../theme/breakpoints';
+import { getStyles, each } from '../../utils';
+import NavbarContext from './NavbarContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -13,23 +17,38 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.navbar-collapse': css`
+    flex-direction: row; // added for bootstyle
     flex-basis: 100%;
     flex-grow: 1;
+    // For always expanded or extra full navbars, ensure content aligns itself
+    // properly vertically. Can be easily overridden with flex utilities.
     align-items: center;
-
-    &:hover {
-      //text-decoration: if($link-hover-decoration == underline, none, null);
-    }
-    &:focus {
-      //text-decoration: if($link-hover-decoration == underline, none, null);
-    }
   `,
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+    [`.navbar-expand${infix(next(breakpoint))} .navbar-collapse`]: css`
+      @include media-breakpoint-up(${next(breakpoint)}) {
+        display: flex;
+        flex-basis: auto;
+      }
+    `,
+  })),
 });
 
 const NavbarCollapse = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['.navbar-collapse']);
+  const { expand, expanded } = useForcedContext(NavbarContext);
+
+  const classes = getStyles(styles, [
+    '.navbar-collapse',
+    expand &&
+      `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-collapse`,
+  ]);
+
+  // TODO: Calculate expanded based on expand?
+  if (!expanded) {
+    return null;
+  }
 
   return (
     <View {...elementProps} ref={ref} style={[classes, style]}>

@@ -29,7 +29,9 @@ function SampleListGroup() {
         </>
       </ListGroup>
 
-      <Heading size={6}>ListGroupItemAction sample</Heading>
+      <Heading size={6} styleName="mt-3">
+        ListGroupItemAction sample
+      </Heading>
       <ListGroup flush>
         <ListGroup.ItemAction>
           <Text>Action</Text>

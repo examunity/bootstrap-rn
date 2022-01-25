@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
+import useForcedContext from '../../hooks/useForcedContext';
 import { getStyles } from '../../utils';
+import NavbarContext from './NavbarContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -31,14 +33,39 @@ const styles = StyleSheet.create({
       text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
   `,
+  '.navbar-light .navbar-brand-text': css`
+    color: $navbar-light-brand-color;
+
+    &:hover {
+      color: $navbar-light-brand-hover-color;
+    }
+    &:focus {
+      color: $navbar-light-brand-hover-color;
+    }
+  `,
+  '.navbar-dark .navbar-brand-text': css`
+    color: $navbar-dark-brand-color;
+
+    &:hover {
+      color: $navbar-dark-brand-hover-color;
+    }
+    &:focus {
+      color: $navbar-dark-brand-hover-color;
+    }
+  `,
 });
 
 const NavbarBrand = React.forwardRef((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
+  const { variant } = useForcedContext(NavbarContext);
+
   const classes = getStyles(styles, ['.navbar-brand']);
 
-  const textClasses = getStyles(styles, ['.navbar-brand-text']);
+  const textClasses = getStyles(styles, [
+    '.navbar-brand-text',
+    `.navbar-${variant} .navbar-brand-text`,
+  ]);
 
   return (
     <Pressable
