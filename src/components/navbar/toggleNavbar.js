@@ -1,17 +1,24 @@
 import { BOOTSTYLE_ACTION } from '../../symbols';
+import { concatFns } from '../../utils';
 import NavbarContext from './NavbarContext';
 
 const toggleNavbar = {
   $$typeof: BOOTSTYLE_ACTION,
-  handle: (props, context) => ({
-    nativeID: context.identifier,
-    onPress: () => {
-      context.setExpanded((value) => !value);
-    },
-    accessibilitControls: context.identifier,
-    accessibilityExpanded: context.expanded,
-    accessibilityLabel: 'Toggle navigation',
-  }),
+  handle: (props, context) => {
+    const { onPress: handlePress, ...restProps } = props;
+
+    return {
+      ...restProps,
+      nativeID: context.identifier,
+      onPress: concatFns(() => {
+        context.setExpanded((value) => !value);
+        if (handlePress) handlePress();
+      }, handlePress),
+      accessibilitControls: context.identifier,
+      accessibilityExpanded: context.expanded,
+      accessibilityLabel: 'Toggle navigation',
+    };
+  },
   context: NavbarContext,
 };
 

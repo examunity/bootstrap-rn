@@ -6,7 +6,7 @@ function SampleDropdowns() {
     <>
       <Heading size={2}>Dropdown</Heading>
       <Dropdown placement="bottom">
-        <Button onPress={Dropdown.toggle}>
+        <Button toggle={Dropdown}>
           <Text>Show Dropdown</Text>
         </Button>
         <Dropdown.Menu>

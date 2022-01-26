@@ -6,7 +6,7 @@ function SampleCollapse() {
     <>
       <Heading size={2}>Collapse</Heading>
       <Collapse.Provider>
-        <Button onPress={Collapse.toggle}>
+        <Button toggle={Collapse}>
           <Text>Collapse</Text>
         </Button>
         <Collapse>

@@ -30,6 +30,6 @@ Collapse.displayName = 'Collapse';
 Collapse.propTypes = propTypes;
 
 Collapse.Provider = CollapseProvider;
-Collapse.toggleCollapse = toggleCollapse;
+Collapse.toggle = toggleCollapse;
 
 export default Collapse;

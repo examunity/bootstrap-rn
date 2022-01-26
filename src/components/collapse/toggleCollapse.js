@@ -1,15 +1,21 @@
 import { BOOTSTYLE_ACTION } from '../../symbols';
+import { concatFns } from '../../utils';
 import CollapseContext from './CollapseContext';
 
 const toggleCollapse = {
   $$typeof: BOOTSTYLE_ACTION,
-  handle: (props, context) => ({
-    onPress: () => {
-      context.setVisible((value) => !value);
-    },
-    accessibilityExpanded: context.visible,
-    accessibilityControls: context.identifier,
-  }),
+  handle: (props, context) => {
+    const { onPress: handlePress, ...restProps } = props;
+
+    return {
+      ...restProps,
+      onPress: concatFns(() => {
+        context.setVisible((value) => !value);
+      }, handlePress),
+      accessibilityExpanded: context.visible,
+      accessibilityControls: context.identifier,
+    };
+  },
   context: CollapseContext,
 };
 

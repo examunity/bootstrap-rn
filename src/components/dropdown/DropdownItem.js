@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
-import { getStyles } from '../../utils';
+import { getStyles, concatFns } from '../../utils';
 import css from '../../style/css';
 import Pressable from '../Pressable';
 import DropdownContext from './DropdownContext';
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 const DropdownItem = (props) => {
   const {
     children,
-    onPress: handlePress = () => {},
+    onPress: handlePress,
     active = false,
     disabled = false,
     style,
@@ -126,10 +126,9 @@ const DropdownItem = (props) => {
   return (
     <Pressable
       {...elementProps}
-      onPress={(event) => {
+      onPress={concatFns(() => {
         context.setVisible(false);
-        handlePress(event);
-      }}
+      }, handlePress)}
       disabled={disabled}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}

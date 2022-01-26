@@ -42,8 +42,22 @@ export function concatRefs(...refs) {
   };
 }
 
+export function concatFns(...fns) {
+  return (event) => {
+    fns.forEach((fn) => {
+      if (fn) {
+        fn(event);
+      }
+    });
+  };
+}
+
 export function optional(condition, value) {
   return condition ? value : undefined;
+}
+
+export function getElementId(identifier, name) {
+  return `${identifier}${name ? `-${name}` : ''}`;
 }
 
 export function convertToREM(value) {

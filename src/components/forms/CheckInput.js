@@ -5,7 +5,7 @@ import css from '../../style/css';
 import Pressable from '../Pressable';
 import View from '../View';
 import Text from '../Text';
-import { getStyles, each } from '../../utils';
+import { getStyles, each, concatFns } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 
 const propTypes = {
@@ -144,8 +144,8 @@ const CheckInput = React.forwardRef((props, ref) => {
     children,
     type,
     value,
-    onChange = () => {},
-    onPress = () => {},
+    onChange: handleChange,
+    onPress: handlePress,
     label,
     disabled = false,
     valid = false,
@@ -188,11 +188,6 @@ const CheckInput = React.forwardRef((props, ref) => {
     invalid && '.form-check-label.is-invalid',
   ]);
 
-  const handlePress = (event) => {
-    onChange(value);
-    onPress(event);
-  };
-
   // TODO &:focus, &:active
 
   return (
@@ -202,7 +197,9 @@ const CheckInput = React.forwardRef((props, ref) => {
       accessibilityRole={type}
       accessibilityChecked={value}
       accessibilityLabel={label}
-      onPress={handlePress}
+      onPress={concatFns(() => {
+        handleChange(value);
+      }, handlePress)}
       disabled={disabled}
       style={[classes, style]}
     >

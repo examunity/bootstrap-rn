@@ -100,7 +100,7 @@ const NavbarToggler = React.forwardRef((props, ref) => {
     <Pressable
       {...elementProps}
       ref={ref}
-      onPress={toggleNavbar}
+      toggle={toggleNavbar}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >
