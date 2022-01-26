@@ -5,7 +5,8 @@ import css from '../../style/css';
 import Link from '../type/Link';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
-import { getStyles, each } from '../../utils';
+import { getStyles, each, optional } from '../../utils';
+import useAction from '../../hooks/useAction';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
@@ -164,7 +165,9 @@ const styles = StyleSheet.create({
 });
 
 const NavLink = React.forwardRef((props, ref) => {
-  const { children, active, disabled, style, ...elementProps } = props;
+  const [actionProps, actionRef] = useAction(props, ref);
+
+  const { children, active, disabled, style, ...elementProps } = actionProps;
 
   const { variant } = useForcedContext(NavContext);
   const navbar = useContext(NavbarContext);
@@ -192,7 +195,13 @@ const NavLink = React.forwardRef((props, ref) => {
   ]);
 
   return (
-    <Link {...elementProps} ref={ref} style={[classes, style]}>
+    <Link
+      {...elementProps}
+      ref={actionRef}
+      {...optional(active, { accessibilityCurrent: true })}
+      disabled={disabled}
+      style={[classes, style]}
+    >
       {children}
     </Link>
   );

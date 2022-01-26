@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -9,6 +10,7 @@ import { getStyles, each } from '../../utils';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
 import NavLink from './NavLink';
+import TabContext from './TabContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -48,10 +50,23 @@ const styles = StyleSheet.create({
   })),
 });
 
+const getRole = (tabbable, navbar) => {
+  if (tabbable) {
+    return 'tablist';
+  }
+
+  if (Platform.OS === 'web' && !navbar) {
+    return 'navigation';
+  }
+
+  return null;
+};
+
 const Nav = React.forwardRef((props, ref) => {
   const { children, variant, style, ...elementProps } = props;
 
   const navbar = useContext(NavbarContext);
+  const tabbable = useContext(TabContext);
 
   const classes = getStyles(styles, [
     !navbar && '.nav',
@@ -66,7 +81,12 @@ const Nav = React.forwardRef((props, ref) => {
   ]);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
+    <View
+      {...elementProps}
+      ref={ref}
+      accessibilityRole={getRole(tabbable, navbar)}
+      style={[classes, style]}
+    >
       <NavContext.Provider value={{ variant }}>{children}</NavContext.Provider>
     </View>
   );
