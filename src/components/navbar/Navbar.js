@@ -12,6 +12,7 @@ import NavbarCollapse from './NavbarCollapse';
 import NavbarToggler from './NavbarToggler';
 import NavbarContext from './NavbarContext';
 import useNavbar from './useNavbar';
+import dismissNavbar from './dismissNavbar';
 import toggleNavbar from './toggleNavbar';
 
 const propTypes = {
@@ -87,6 +88,7 @@ Navbar.Brand = NavbarBrand;
 Navbar.Text = NavbarText;
 Navbar.Collapse = NavbarCollapse;
 Navbar.Toggler = NavbarToggler;
+Navbar.dismiss = dismissNavbar;
 Navbar.toggle = toggleNavbar;
 
 export default Navbar;

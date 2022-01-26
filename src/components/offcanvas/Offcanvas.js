@@ -9,6 +9,7 @@ import View from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
+import useMedia from '../../hooks/useMedia';
 import NavbarContext from '../navbar/NavbarContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
@@ -18,10 +19,10 @@ export const PLACEMENTS = ['top', 'bottom', 'start', 'end']; // , 'auto'
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  visible: PropTypes.bool.isRequired,
+  visible: PropTypes.bool,
   placement: PropTypes.oneOf(PLACEMENTS),
   backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
-  onToggle: PropTypes.func.isRequired,
+  onToggle: PropTypes.func,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -122,11 +123,12 @@ const Offcanvas = React.forwardRef((props, ref) => {
     visible,
     placement = 'top',
     backdrop = true,
-    onToggle,
+    onToggle: handleToggle,
     style,
     ...elementProps
   } = props;
 
+  const media = useMedia();
   const navbar = useContext(NavbarContext);
 
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
@@ -141,8 +143,25 @@ const Offcanvas = React.forwardRef((props, ref) => {
   ]);
   const textClasses = getStyles(styles, ['.offcanvas-content-text']);
 
+  // Render children without modal for navbar.
+  if (
+    navbar &&
+    navbar.expand &&
+    (navbar.expand === true || media.up(navbar.expand))
+  ) {
+    return (
+      <View {...elementProps} ref={ref} style={[classes, style]}>
+        <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      </View>
+    );
+  }
+
   return (
-    <BaseModal transparent visible={visible} onRequestClose={onToggle}>
+    <BaseModal
+      transparent
+      visible={navbar ? navbar.expanded : visible}
+      onRequestClose={handleToggle}
+    >
       {backdrop && <View style={backdropClasses} />}
       <ScrollView {...elementProps} ref={ref} style={[classes, style]}>
         <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>

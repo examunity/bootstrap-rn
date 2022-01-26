@@ -1,5 +1,13 @@
 import React from 'react';
-import { Navbar, Nav, Container, Heading, Text } from 'bootstyle';
+import {
+  Navbar,
+  Nav,
+  Container,
+  Heading,
+  Text,
+  Offcanvas,
+  CloseButton,
+} from 'bootstyle';
 
 function SampleNavbar() {
   return (
@@ -37,6 +45,28 @@ function SampleNavbar() {
             </Nav>
             <Navbar.Text>Test</Navbar.Text>
           </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Navbar expand="lg" styleName="bg-light">
+        <Container fluid>
+          <Navbar.Brand>
+            <Text>Navbar</Text>
+          </Navbar.Brand>
+          <Navbar.Toggler />
+          <Offcanvas placement="end">
+            <Offcanvas.Header>
+              <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+              <CloseButton dismiss={Navbar} />
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav>
+                <Nav.Link active>Home</Nav.Link>
+                <Nav.Link>Features</Nav.Link>
+                <Nav.Link>Pricing</Nav.Link>
+                <Nav.Link disabled>Disabled</Nav.Link>
+              </Nav>
+            </Offcanvas.Body>
+          </Offcanvas>
         </Container>
       </Navbar>
     </>
