@@ -655,9 +655,9 @@ const variables = css`
   $lead-font-size: $font-size-base * 1.25;
   $lead-font-weight: 300;
 
-  $small-font-size: 0.875rem; // 0.875em;
+  $small-font-size: $font-size-base * 0.875; // 0.875em;
 
-  $sub-sup-font-size: 0.75rem; // 0.75em;
+  $sub-sup-font-size: $font-size-base * 0.75; // 0.75em;
 
   $text-muted: $gray-600;
 
@@ -679,7 +679,7 @@ const variables = css`
   $legend-font-size: 1.5rem;
   $legend-font-weight: null;
 
-  $mark-padding: 0.2rem; // 0.2em;
+  $mark-padding: $font-size-base * 0.2; // 0.2em;
 
   $dt-font-weight: $font-weight-bold;
 
@@ -870,7 +870,7 @@ const variables = css`
 
   $form-color-width: 3rem;
 
-  $form-check-input-width: 1rem; // 1em;
+  $form-check-input-width: $font-size-base * 1; // 1em;
   $form-check-min-height: $font-size-base * $line-height-base;
   $form-check-padding-start: $form-check-input-width + 0.5rem; // 0.5em;
   $form-check-margin-bottom: 0.125rem;
@@ -882,7 +882,7 @@ const variables = css`
 
   $form-check-input-bg: $input-bg;
   $form-check-input-border: 1px solid rgba($black, 0.25);
-  $form-check-input-border-radius: 0.25rem; // 0.25em;
+  $form-check-input-border-radius: $font-size-base * 0.25; // 0.25em;
   $form-check-radio-border-radius: 50px; // 50%;
   $form-check-input-focus-border: $input-focus-border-color;
   $form-check-input-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -1245,11 +1245,11 @@ const variables = css`
 
   // Badges
 
-  $badge-font-size: 0.75rem; // 0.75em;
+  $badge-font-size: $font-size-base * 0.75; // 0.75em;
   $badge-font-weight: $font-weight-bold;
   $badge-color: $white;
-  $badge-padding-y: 0.75 * 0.35rem; // 0.35em;
-  $badge-padding-x: 0.75 * 0.65rem; // 0.65em;
+  $badge-padding-y: $badge-font-size * 0.35; // 0.35em;
+  $badge-padding-x: $badge-font-size * 0.65; // 0.65em;
   $badge-border-radius: $border-radius;
 
   // Modals
@@ -1354,9 +1354,9 @@ const variables = css`
 
   // Close
 
-  $btn-close-width: 1rem; // 1em;
+  $btn-close-width: $font-size-base * 1; // 1em;
   $btn-close-height: $btn-close-width;
-  $btn-close-padding-x: 0.25rem; // .25em;
+  $btn-close-padding-x: $font-size-base * 0.25; // .25em;
   $btn-close-padding-y: $btn-close-padding-x;
   $btn-close-color: $black;
   $btn-close-bg: ${svgs['btn-close-bg']};
