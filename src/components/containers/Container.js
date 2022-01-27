@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import { CONTAINER_MAX_WIDTHS } from '../../theme/proxies';
-import { getStyles } from '../../utils';
+import { CONTAINER_MAX_WIDTHS, GRID_BREAKPOINTS } from '../../theme/proxies';
+import { getStyles, each } from '../../utils';
+import { infix, next } from '../../theme/breakpoints';
 import NavbarContext from '../navbar/NavbarContext';
 
 const propTypes = {
@@ -85,6 +86,13 @@ const styles = StyleSheet.create({
     align-items: center;
     justify-content: space-between;
   `,
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+    [`.navbar-expand${infix(next(breakpoint))} .container`]: css`
+      @include media-breakpoint-up(${next(breakpoint)}) {
+        flex-wrap: nowrap;
+      }
+    `,
+  })),
 });
 
 const Container = React.forwardRef((props, ref) => {
@@ -98,6 +106,11 @@ const Container = React.forwardRef((props, ref) => {
     fluid !== true && `.container-${fluid}`,
     // Navbar styles
     navbar && '.navbar .container',
+    navbar &&
+      navbar.expand &&
+      `.navbar-expand${
+        navbar.expand === true ? '' : `-${navbar.expand}`
+      } .container`,
   ]);
 
   return <View {...elementProps} ref={ref} style={[classes, style]} />;

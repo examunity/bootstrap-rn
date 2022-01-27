@@ -28,8 +28,8 @@ function SampleNav() {
             <Text>Page 1</Text>
           </Nav.Link>
           <Nav.Link toggle={Tab} target="pane-2">
-            <Text>Page 2</Text>
-            <Badge styleName="bg-secondary ml-2">
+            <Text>Page 2</Text>{' '}
+            <Badge styleName="bg-secondary">
               <Text>8</Text>
             </Badge>
           </Nav.Link>

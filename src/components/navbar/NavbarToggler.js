@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   `,
   '.navbar-toggler-text': css`
     font-size: $navbar-toggler-font-size;
-    line-height: $navbar-toggler-font-size * 1;
+    line-height: $navbar-toggler-font-size * $line-height-base;
 
     &:hover {
       text-decoration: none;
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
   `,
   '.navbar-toggler-icon': css`
     // display: inline-block;
-    width: 1.5rem; // 1.5em;
-    height: 1.5rem; // 1.5em;
+    width: $navbar-toggler-font-size * 1.5; // 1.5em;
+    height: $navbar-toggler-font-size * 1.5; // 1.5em;
     // vertical-align: middle;
     // background-repeat: no-repeat;
     // background-position: center;

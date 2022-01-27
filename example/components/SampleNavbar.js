@@ -47,7 +47,7 @@ function SampleNavbar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Navbar expand="lg" styleName="bg-light">
+      <Navbar styleName="bg-light">
         <Container fluid>
           <Navbar.Brand>
             <Text>Navbar</Text>
@@ -65,6 +65,7 @@ function SampleNavbar() {
                 <Nav.Link>Pricing</Nav.Link>
                 <Nav.Link disabled>Disabled</Nav.Link>
               </Nav>
+              <Navbar.Text>Test</Navbar.Text>
             </Offcanvas.Body>
           </Offcanvas>
         </Container>

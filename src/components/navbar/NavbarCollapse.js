@@ -18,16 +18,16 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.navbar-collapse': css`
-    flex-direction: row; // added for bootstyle
     flex-basis: 100%;
     flex-grow: 1;
     // For always expanded or extra full navbars, ensure content aligns itself
     // properly vertically. Can be easily overridden with flex utilities.
-    align-items: center;
+    // align-items: center;
   `,
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-collapse`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
+        flex-direction: row; // added for bootstyle
         display: flex;
         flex-basis: auto;
       }

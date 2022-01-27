@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .offcanvas`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
-        // position: inherit;
+        position: relative; // inherit;
         bottom: 0;
         // z-index: auto;
         flex-grow: 1;
