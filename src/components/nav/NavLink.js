@@ -48,9 +48,12 @@ const styles = StyleSheet.create({
   '.nav-tabs .nav-link': css`
     margin-bottom: -$nav-tabs-border-width;
     background: transparent; // none;
-    border: $nav-tabs-border-width solid transparent;
-    border-top-start-radius: $nav-tabs-border-radius;
-    border-top-end-radius: $nav-tabs-border-radius;
+    // Use longform for border, so that the border color is applied correctly on Android.
+    border-width: $nav-tabs-border-width;
+    border-style: solid;
+    border-color: transparent transparent;
+    border-top-left-radius: $nav-tabs-border-radius;
+    border-top-right-radius: $nav-tabs-border-radius;
 
     &:hover {
       // Prevents active .nav-link tab overlapping focus outline of previous/next .nav-link

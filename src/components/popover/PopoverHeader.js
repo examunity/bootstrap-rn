@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     border-bottom-width: $popover-border-width;
     border-style: solid;
     border-color: $popover-border-color;
-    border-top-start-radius: $popover-border-radius;
-    border-top-end-radius: $popover-border-radius;
+    border-top-left-radius: $popover-border-radius;
+    border-top-right-radius: $popover-border-radius;
   `,
 });
 

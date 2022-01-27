@@ -34,12 +34,12 @@ export const styles = StyleSheet.create({
     text-decoration: none; // if($link-decoration == none, null, none);
   `,
   '.list-group-item-first': css`
-    border-top-start-radius: $list-group-border-radius;
-    border-top-end-radius: $list-group-border-radius;
+    border-top-left-radius: $list-group-border-radius;
+    border-top-right-radius: $list-group-border-radius;
   `,
   '.list-group-item-last': css`
-    border-bottom-start-radius: $list-group-border-radius;
-    border-bottom-end-radius: $list-group-border-radius;
+    border-bottom-left-radius: $list-group-border-radius;
+    border-bottom-right-radius: $list-group-border-radius;
   `,
   '.list-group-item-disabled': css`
     // pointer-events: none;
@@ -64,10 +64,10 @@ export const styles = StyleSheet.create({
     border-top-width: $list-group-border-width;
   `,
   '.list-group-item-flush': css`
-    border-top-start-radius: 0; // added for bootstyle
-    border-top-end-radius: 0; // added for bootstyle
-    border-bottom-start-radius: 0; // added for bootstyle
-    border-bottom-end-radius: 0; // added for bootstyle
+    border-top-left-radius: 0; // added for bootstyle
+    border-top-right-radius: 0; // added for bootstyle
+    border-bottom-left-radius: 0; // added for bootstyle
+    border-bottom-right-radius: 0; // added for bootstyle
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: $list-group-border-width;

@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     border-bottom-width: $modal-header-border-width;
     border-style: solid;
     border-color: $modal-header-border-color;
-    border-top-start-radius: $modal-content-inner-border-radius;
-    border-top-end-radius: $modal-content-inner-border-radius;
+    border-top-left-radius: $modal-content-inner-border-radius;
+    border-top-right-radius: $modal-content-inner-border-radius;
   `,
 });
 
