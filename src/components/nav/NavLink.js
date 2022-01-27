@@ -168,7 +168,10 @@ const styles = StyleSheet.create({
 });
 
 const NavLink = React.forwardRef((props, ref) => {
-  const [actionProps, actionRef] = useAction(props, ref);
+  // Get component specific props before using useAction.
+  const { ...restProps } = props;
+
+  const [actionProps, actionRef] = useAction(restProps, ref);
 
   const { children, active, disabled, style, ...elementProps } = actionProps;
 

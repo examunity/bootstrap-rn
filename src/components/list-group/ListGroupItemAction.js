@@ -96,14 +96,14 @@ const actionStyles = StyleSheet.create({
 });
 
 const ListGroupItemAction = React.forwardRef((props, ref) => {
-  const [actionProps, actionRef] = useAction(props, ref);
+  // Get component specific props before using useAction.
+  const { color, first = false, last = false, ...restProps } = props;
+
+  const [actionProps, actionRef] = useAction(restProps, ref);
 
   const {
     children,
-    color,
     active = false,
-    first = false,
-    last = false,
     disabled = false,
     style,
     textStyle,
