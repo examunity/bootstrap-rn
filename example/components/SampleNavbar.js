@@ -21,10 +21,18 @@ function SampleNavbar() {
           <Navbar.Toggler />
           <Navbar.Collapse>
             <Nav>
-              <Nav.Link active>Home</Nav.Link>
-              <Nav.Link>Features</Nav.Link>
-              <Nav.Link>Pricing</Nav.Link>
-              <Nav.Link disabled>Disabled</Nav.Link>
+              <Nav.Link active>
+                <Text>Home</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Features</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Pricing</Text>
+              </Nav.Link>
+              <Nav.Link disabled>
+                <Text>Disabled</Text>
+              </Nav.Link>
             </Nav>
             <Navbar.Text>Test</Navbar.Text>
           </Navbar.Collapse>
@@ -38,10 +46,18 @@ function SampleNavbar() {
           <Navbar.Toggler />
           <Navbar.Collapse>
             <Nav>
-              <Nav.Link active>Home</Nav.Link>
-              <Nav.Link>Features</Nav.Link>
-              <Nav.Link>Pricing</Nav.Link>
-              <Nav.Link disabled>Disabled</Nav.Link>
+              <Nav.Link active>
+                <Text>Home</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Features</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Pricing</Text>
+              </Nav.Link>
+              <Nav.Link disabled>
+                <Text>Disabled</Text>
+              </Nav.Link>
             </Nav>
             <Navbar.Text>Test</Navbar.Text>
           </Navbar.Collapse>
@@ -60,10 +76,18 @@ function SampleNavbar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav>
-                <Nav.Link active>Home</Nav.Link>
-                <Nav.Link>Features</Nav.Link>
-                <Nav.Link>Pricing</Nav.Link>
-                <Nav.Link disabled>Disabled</Nav.Link>
+                <Nav.Link active>
+                  <Text>Home</Text>
+                </Nav.Link>
+                <Nav.Link>
+                  <Text>Features</Text>
+                </Nav.Link>
+                <Nav.Link>
+                  <Text>Pricing</Text>
+                </Nav.Link>
+                <Nav.Link disabled>
+                  <Text>Disabled</Text>
+                </Nav.Link>
               </Nav>
               <Navbar.Text>Test</Navbar.Text>
             </Offcanvas.Body>

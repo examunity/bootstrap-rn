@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Link from '../type/Link';
+import Pressable from '../Pressable';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, optional } from '../../utils';
@@ -17,17 +17,23 @@ const propTypes = {
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.nav-link': css`
     // display: block;
+    flex-direction: row; // added for bootstyle
+    align-items: center; // added for bootstyle
     padding: $nav-link-padding-y $nav-link-padding-x;
+    // @include transition($nav-link-transition);
+  `,
+  '.nav-link-text': css`
     font-size: $nav-link-font-size;
     font-weight: $nav-link-font-weight;
     color: $nav-link-color;
     text-decoration: none; // if($link-decoration == none, null, none);
-    // @include transition($nav-link-transition);
 
     &:hover {
       color: $nav-link-hover-color;
@@ -39,11 +45,13 @@ const styles = StyleSheet.create({
     }
   `,
   '.nav-link-disabled': css`
-    color: $nav-link-disabled-color;
     @include platform(web) {
       pointer-events: none;
       cursor: default;
     }
+  `,
+  '.nav-link-disabled-text': css`
+    color: $nav-link-disabled-color;
   `,
   '.nav-tabs .nav-link': css`
     margin-bottom: -$nav-tabs-border-width;
@@ -67,24 +75,33 @@ const styles = StyleSheet.create({
     }
   `,
   '.nav-tabs .nav-link-disabled': css`
-    color: $nav-link-disabled-color;
     background-color: transparent;
     border-color: transparent;
   `,
+  '.nav-tabs .nav-link-disabled-text': css`
+    color: $nav-link-disabled-color;
+  `,
   '.nav-tabs .nav-link-active': css`
-    color: $nav-tabs-link-active-color;
     background-color: $nav-tabs-link-active-bg;
     border-color: $nav-tabs-link-active-border-color;
 
     &:hover {
-      color: $nav-tabs-link-active-color; // added for bootstyle
       background-color: $nav-tabs-link-active-bg; // added for bootstyle
       border-color: $nav-tabs-link-active-border-color; // added for bootstyle
     }
     &:focus {
-      color: $nav-tabs-link-active-color; // added for bootstyle
       background-color: $nav-tabs-link-active-bg; // added for bootstyle
       border-color: $nav-tabs-link-active-border-color; // added for bootstyle
+    }
+  `,
+  '.nav-tabs .nav-link-active-text': css`
+    color: $nav-tabs-link-active-color;
+
+    &:hover {
+      color: $nav-tabs-link-active-color; // added for bootstyle
+    }
+    &:focus {
+      color: $nav-tabs-link-active-color; // added for bootstyle
     }
   `,
   '.nav-pills .nav-link': css`
@@ -93,17 +110,24 @@ const styles = StyleSheet.create({
     border-radius: $nav-pills-border-radius;
   `,
   '.nav-pills .nav-link-active': css`
-    color: $nav-pills-link-active-color;
     // @include gradient-bg($nav-pills-link-active-bg);
     background-color: $nav-pills-link-active-bg; // added for bootstyle
 
     &:hover {
-      color: $nav-pills-link-active-color; // added for bootstyle
       background-color: $nav-pills-link-active-bg; // added for bootstyle
     }
     &:focus {
-      color: $nav-pills-link-active-color; // added for bootstyle
       background-color: $nav-pills-link-active-bg; // added for bootstyle
+    }
+  `,
+  '.nav-pills .nav-link-active-text': css`
+    color: $nav-pills-link-active-color;
+
+    &:hover {
+      color: $nav-pills-link-active-color; // added for bootstyle
+    }
+    &:focus {
+      color: $nav-pills-link-active-color; // added for bootstyl
     }
   `,
   // Navbar styles
@@ -119,7 +143,7 @@ const styles = StyleSheet.create({
       }
     `,
   })),
-  '.navbar-light .navbar-nav .nav-link': css`
+  '.navbar-light .navbar-nav .nav-link-text': css`
     color: $navbar-light-color;
 
     &:hover {
@@ -129,10 +153,10 @@ const styles = StyleSheet.create({
       color: $navbar-light-hover-color;
     }
   `,
-  '.navbar-light .navbar-nav .nav-link-disabled': css`
+  '.navbar-light .navbar-nav .nav-link-disabled-text': css`
     color: $navbar-light-disabled-color;
   `,
-  '.navbar-light .navbar-nav .nav-link-active': css`
+  '.navbar-light .navbar-nav .nav-link-active-text': css`
     color: $navbar-light-active-color;
 
     &:hover {
@@ -142,7 +166,7 @@ const styles = StyleSheet.create({
       color: $navbar-light-active-color; // added for bootstyle
     }
   `,
-  '.navbar-dark .navbar-nav .nav-link': css`
+  '.navbar-dark .navbar-nav .nav-link-text': css`
     color: $navbar-dark-color;
 
     &:hover {
@@ -152,10 +176,10 @@ const styles = StyleSheet.create({
       color: $navbar-dark-hover-color;
     }
   `,
-  '.navbar-dark .navbar-nav .nav-link-disabled': css`
+  '.navbar-dark .navbar-nav .nav-link-disabled-text': css`
     color: $navbar-dark-disabled-color;
   `,
-  '.navbar-dark .navbar-nav .nav-link-active': css`
+  '.navbar-dark .navbar-nav .nav-link-active-text': css`
     color: $navbar-dark-active-color;
 
     &:hover {
@@ -173,7 +197,14 @@ const NavLink = React.forwardRef((props, ref) => {
 
   const [actionProps, actionRef] = useAction(restProps, ref);
 
-  const { children, active, disabled, style, ...elementProps } = actionProps;
+  const {
+    children,
+    active,
+    disabled,
+    style,
+    textStyle,
+    ...elementProps
+  } = actionProps;
 
   const { variant } = useForcedContext(NavContext);
   const navbar = useContext(NavbarContext);
@@ -200,16 +231,39 @@ const NavLink = React.forwardRef((props, ref) => {
       `.navbar-${navbar.variant} .navbar-nav .nav-link-active`,
   ]);
 
+  const textClasses = getStyles(styles, [
+    '.nav-link-text',
+    disabled && '.nav-link-disabled-text',
+    variant && `.nav-${variant} .nav-link-text`,
+    variant === 'tabs' && disabled && '.nav-tabs .nav-link-disabled-text',
+    variant && active && `.nav-${variant} .nav-link-active-text`,
+    // Navbar styles
+    navbar && '.navbar-nav .nav-link-text',
+    navbar &&
+      navbar.expand &&
+      `.navbar-expand${
+        navbar.expand === true ? '' : `-${navbar.expand}`
+      } .navbar-nav .nav-link-text`,
+    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link-text`,
+    navbar &&
+      disabled &&
+      `.navbar-${navbar.variant} .navbar-nav .nav-link-disabled-text`,
+    navbar &&
+      active &&
+      `.navbar-${navbar.variant} .navbar-nav .nav-link-active-text`,
+  ]);
+
   return (
-    <Link
+    <Pressable
       {...elementProps}
       ref={actionRef}
       {...optional(active, { accessibilityCurrent: true })}
       disabled={disabled}
       style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
     >
       {children}
-    </Link>
+    </Pressable>
   );
 });
 

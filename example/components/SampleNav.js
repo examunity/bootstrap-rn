@@ -6,20 +6,44 @@ function SampleNav() {
     <>
       <Heading size={2}>Nav</Heading>
       <Nav variant="tabs" styleName="mb-3">
-        <Nav.Link>Ron</Nav.Link>
-        <Nav.Link>Patrik</Nav.Link>
-        <Nav.Link>Anton</Nav.Link>
-        <Nav.Link>Markus</Nav.Link>
-        <Nav.Link active>active</Nav.Link>
-        <Nav.Link disabled>disabled</Nav.Link>
+        <Nav.Link>
+          <Text>Ron</Text>
+        </Nav.Link>
+        <Nav.Link>
+          <Text>Patrik</Text>
+        </Nav.Link>
+        <Nav.Link>
+          <Text>Anton</Text>
+        </Nav.Link>
+        <Nav.Link>
+          <Text>Markus</Text>
+        </Nav.Link>
+        <Nav.Link active>
+          <Text>active</Text>
+        </Nav.Link>
+        <Nav.Link disabled>
+          <Text>disabled</Text>
+        </Nav.Link>
       </Nav>
       <Nav variant="pills" styleName="mb-3">
-        <Nav.Link>Ron</Nav.Link>
-        <Nav.Link>Patrik</Nav.Link>
-        <Nav.Link>Anton</Nav.Link>
-        <Nav.Link>Markus</Nav.Link>
-        <Nav.Link active>active</Nav.Link>
-        <Nav.Link disabled>disabled</Nav.Link>
+        <Nav.Link>
+          <Text>Ron</Text>
+        </Nav.Link>
+        <Nav.Link>
+          <Text>Patrik</Text>
+        </Nav.Link>
+        <Nav.Link>
+          <Text>Anton</Text>
+        </Nav.Link>
+        <Nav.Link>
+          <Text>Markus</Text>
+        </Nav.Link>
+        <Nav.Link active>
+          <Text>active</Text>
+        </Nav.Link>
+        <Nav.Link disabled>
+          <Text>disabled</Text>
+        </Nav.Link>
       </Nav>
 
       <Tab.Provider defaultActiveTarget="pane-1">
@@ -28,8 +52,8 @@ function SampleNav() {
             <Text>Page 1</Text>
           </Nav.Link>
           <Nav.Link toggle={Tab} target="pane-2">
-            <Text>Page 2</Text>{' '}
-            <Badge styleName="bg-secondary">
+            <Text>Page 2</Text>
+            <Badge styleName="bg-secondary ml-2">
               <Text>8</Text>
             </Badge>
           </Nav.Link>
