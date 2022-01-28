@@ -119,7 +119,6 @@ function Forms() {
           placeholder="Test"
           useNativeComponent
           invalid={error}
-          disabled
         >
           <Picker.Item label="Football" value="football" />
           <Picker.Item label="Baseball" value="baseball" />

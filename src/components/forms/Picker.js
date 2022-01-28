@@ -8,8 +8,8 @@ import useMedia from '../../hooks/useMedia';
 import { getStyles, each } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import useStyle from '../../hooks/useStyle';
+import Offcanvas from '../offcanvas/Offcanvas';
 import PickerContext from './PickerContext';
-import PickerDialog from './PickerDialog';
 import PickerItem from './PickerItem';
 
 const propTypes = {
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
       }
     `,
   })),
+  '.form-select-offcanvas': css``,
+  '.form-select-offcanvas-body': css`
+    align-items: center;
+  `,
 });
 
 const Picker = React.forwardRef((props, ref) => {
@@ -176,6 +180,11 @@ const Picker = React.forwardRef((props, ref) => {
     );
   }
 
+  const offcanvasClasses = getStyles(styles, ['.form-select-offcanvas']);
+  const offcanvasBodyClasses = getStyles(styles, [
+    '.form-select-offcanvas-body',
+  ]);
+
   const items = React.Children.map(children, (child) => ({
     label: child.props.label,
     value: child.props.value,
@@ -212,7 +221,16 @@ const Picker = React.forwardRef((props, ref) => {
       >
         {selectedItem ? selectedItem.label : placeholder}
       </Text>
-      <PickerDialog visible={open}>{children}</PickerDialog>
+      <Offcanvas
+        placement="bottom"
+        visible={open}
+        onToggle={() => {
+          setOpen(false);
+        }}
+        style={offcanvasClasses}
+      >
+        <Offcanvas.Body style={offcanvasBodyClasses}>{children}</Offcanvas.Body>
+      </Offcanvas>
     </PickerContext.Provider>
   );
 });
