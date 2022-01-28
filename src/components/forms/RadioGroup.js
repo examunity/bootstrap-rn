@@ -9,7 +9,7 @@ const propTypes = {
     PropTypes.bool,
     PropTypes.number,
     PropTypes.string,
-  ]).isRequired,
+  ]),
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
 };

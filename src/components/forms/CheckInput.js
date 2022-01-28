@@ -198,7 +198,7 @@ const CheckInput = React.forwardRef((props, ref) => {
       accessibilityChecked={value}
       accessibilityLabel={label}
       onPress={concatFns(() => {
-        handleChange(value);
+        handleChange(!value);
       }, handlePress)}
       disabled={disabled}
       style={[classes, style]}

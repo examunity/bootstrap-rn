@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import useForcedContext from '../../hooks/useForcedContext';
 import CheckInput from './CheckInput';
 import RadioGroup from './RadioGroup';
 import RadioContext from './RadioContext';
@@ -9,13 +10,13 @@ const propTypes = {
     PropTypes.bool,
     PropTypes.number,
     PropTypes.string,
-  ]).isRequired,
+  ]),
 };
 
 const Radio = React.forwardRef((props, ref) => {
   const { value, ...elementProps } = props;
 
-  const context = useContext(RadioContext);
+  const context = useForcedContext(RadioContext);
 
   return (
     <CheckInput

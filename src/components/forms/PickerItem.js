@@ -16,7 +16,7 @@ const propTypes = {
     PropTypes.bool,
     PropTypes.number,
     PropTypes.string,
-  ]).isRequired,
+  ]),
   disabled: PropTypes.bool,
 };
 
