@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
-import { getStyles, each } from '../../utils';
+import { getStyles, each, optional } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor, shadeColor } from '../../theme/functions';
 import useAction from '../../hooks/useAction';
@@ -144,6 +144,7 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     <Pressable
       {...elementProps}
       ref={actionRef}
+      {...optional(active, { accessibilityCurrent: true })}
       disabled={disabled}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
