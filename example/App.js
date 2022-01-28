@@ -12,6 +12,7 @@ import {
 } from 'bootstyle';
 import Content from './components/Content';
 import Forms from './components/Forms';
+import FormikForms from './components/FormikForms';
 import SampleAlerts from './components/SampleAlerts';
 import SampleBadges from './components/SampleBadges';
 import SampleButtons from './components/SampleButtons';
@@ -110,6 +111,9 @@ function App() {
           </View>
           <View style={styles.container}>
             <Forms />
+          </View>
+          <View style={styles.container}>
+            <FormikForms />
           </View>
           <View style={styles.container}>
             <SampleAlerts />
