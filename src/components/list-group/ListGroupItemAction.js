@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
-import { getStyles, each, optional } from '../../utils';
+import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor, shadeColor } from '../../theme/functions';
-import useAction from '../../hooks/useAction';
 import useForcedContext from '../../hooks/useForcedContext';
 import { styles as baseStyles } from './ListGroupItem';
 import ListGroupContext from './ListGroupContext';
@@ -14,14 +13,18 @@ import ListGroupContext from './ListGroupContext';
 const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
-  active: PropTypes.bool,
   first: PropTypes.bool,
   last: PropTypes.bool,
+  active: PropTypes.bool,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
+  activeStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
   textStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  activeTextStyle: PropTypes.any,
 };
 
 const actionStyles = StyleSheet.create({
@@ -96,19 +99,19 @@ const actionStyles = StyleSheet.create({
 });
 
 const ListGroupItemAction = React.forwardRef((props, ref) => {
-  // Get component specific props before using useAction.
-  const { color, first = false, last = false, ...restProps } = props;
-
-  const [actionProps, actionRef] = useAction(restProps, ref);
-
   const {
     children,
+    color,
+    first = false,
+    last = false,
     active = false,
     disabled = false,
     style,
+    activeStyle,
     textStyle,
+    activeTextStyle,
     ...elementProps
-  } = actionProps;
+  } = props;
 
   const { flush } = useForcedContext(ListGroupContext);
 
@@ -117,7 +120,6 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, [
     '.list-group-item',
     '.list-group-item-action',
-    active && '.list-group-item-active',
     first && '.list-group-item-first',
     last && '.list-group-item-last',
     disabled && '.list-group-item-disabled',
@@ -127,27 +129,37 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     flush && last && '.list-group-item-flush-last',
     color && `.list-group-item-${color}`,
     color && `.list-group-item-${color}-action`,
-    color && active && `.list-group-item-${color}-action-active`,
+  ]);
+
+  const activeClasses = getStyles(styles, [
+    '.list-group-item-active',
+    color && `.list-group-item-${color}-action-active`,
   ]);
 
   const textClasses = getStyles(styles, [
     '.list-group-item-text',
     '.list-group-item-action-text',
-    active && '.list-group-item-active-text',
     disabled && '.list-group-item-disabled-text',
     color && `.list-group-item-${color}-text`,
     color && `.list-group-item-${color}-action-text`,
-    color && active && `.list-group-item-${color}-action-active-text`,
+  ]);
+
+  const activeTextClasses = getStyles(styles, [
+    '.list-group-item-active-text',
+    color && `.list-group-item-${color}-action-active-text`,
   ]);
 
   return (
     <Pressable
       {...elementProps}
-      ref={actionRef}
-      {...optional(active, { accessibilityCurrent: true })}
+      ref={ref}
+      tabbable
+      active={active}
       disabled={disabled}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
+      style={[...classes, style]}
+      activeStyle={[...activeClasses, activeStyle]}
+      textStyle={[...textClasses, textStyle]}
+      activeTextStyle={[...activeTextClasses, activeTextStyle]}
     >
       {children}
     </Pressable>

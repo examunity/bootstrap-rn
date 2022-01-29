@@ -5,8 +5,7 @@ import css from '../../style/css';
 import Pressable from '../Pressable';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
-import { getStyles, each, optional } from '../../utils';
-import useAction from '../../hooks/useAction';
+import { getStyles, each } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
@@ -18,7 +17,11 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
+  activeStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
   textStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  activeTextStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -192,19 +195,16 @@ const styles = StyleSheet.create({
 });
 
 const NavLink = React.forwardRef((props, ref) => {
-  // Get component specific props before using useAction.
-  const { ...restProps } = props;
-
-  const [actionProps, actionRef] = useAction(restProps, ref);
-
   const {
     children,
     active,
     disabled,
     style,
+    activeStyle,
     textStyle,
+    activeTextStyle,
     ...elementProps
-  } = actionProps;
+  } = props;
 
   const { variant } = useForcedContext(NavContext);
   const navbar = useContext(NavbarContext);
@@ -214,7 +214,6 @@ const NavLink = React.forwardRef((props, ref) => {
     disabled && '.nav-link-disabled',
     variant && `.nav-${variant} .nav-link`,
     variant === 'tabs' && disabled && '.nav-tabs .nav-link-disabled',
-    variant && active && `.nav-${variant} .nav-link-active`,
     // Navbar styles
     navbar && '.navbar-nav .nav-link',
     navbar &&
@@ -226,9 +225,12 @@ const NavLink = React.forwardRef((props, ref) => {
     navbar &&
       disabled &&
       `.navbar-${navbar.variant} .navbar-nav .nav-link-disabled`,
-    navbar &&
-      active &&
-      `.navbar-${navbar.variant} .navbar-nav .nav-link-active`,
+  ]);
+
+  const activeClasses = getStyles(styles, [
+    variant && `.nav-${variant} .nav-link-active`,
+    // Navbar styles
+    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link-active`,
   ]);
 
   const textClasses = getStyles(styles, [
@@ -236,31 +238,34 @@ const NavLink = React.forwardRef((props, ref) => {
     disabled && '.nav-link-disabled-text',
     variant && `.nav-${variant} .nav-link-text`,
     variant === 'tabs' && disabled && '.nav-tabs .nav-link-disabled-text',
-    variant && active && `.nav-${variant} .nav-link-active-text`,
     // Navbar styles
     navbar && '.navbar-nav .nav-link-text',
     navbar &&
       navbar.expand &&
-      `.navbar-expand${
-        navbar.expand === true ? '' : `-${navbar.expand}`
-      } .navbar-nav .nav-link-text`,
+      `.navbar-expand${infix(navbar.expand)} .navbar-nav .nav-link-text`,
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link-text`,
     navbar &&
       disabled &&
       `.navbar-${navbar.variant} .navbar-nav .nav-link-disabled-text`,
-    navbar &&
-      active &&
-      `.navbar-${navbar.variant} .navbar-nav .nav-link-active-text`,
+  ]);
+
+  const activeTextClasses = getStyles(styles, [
+    variant && `.nav-${variant} .nav-link-active-text`,
+    // Navbar styles
+    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link-active-text`,
   ]);
 
   return (
     <Pressable
       {...elementProps}
-      ref={actionRef}
-      {...optional(active, { accessibilityCurrent: true })}
+      ref={ref}
+      tabbable
+      active={active}
       disabled={disabled}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
+      style={[...classes, style]}
+      activeStyle={[...activeClasses, activeStyle]}
+      textStyle={[...textClasses, textStyle]}
+      activeTextStyle={[...activeTextClasses, activeTextStyle]}
     >
       {children}
     </Pressable>

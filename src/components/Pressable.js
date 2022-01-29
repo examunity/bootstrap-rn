@@ -8,11 +8,15 @@ import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   children: PropTypes.node,
-  onPress: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  active: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
+  activeStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
   textStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  activeTextStyle: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
   styleName: PropTypes.any,
 };
@@ -22,16 +26,23 @@ const Pressable = React.forwardRef((props, ref) => {
 
   const {
     children,
+    active = false,
     style,
+    activeStyle,
     textStyle,
+    activeTextStyle,
     styleName,
     ...elementProps
   } = actionProps;
 
   const media = useMedia();
-  const resolveStyle = useStyle(style, styleName);
+  const resolveStyle = useStyle([style, active && activeStyle], styleName);
   const context = useContext(TextStyleContext);
-  const resolveTextStyle = useStyle([context && context.style, textStyle]);
+  const resolveTextStyle = useStyle([
+    context && context.style,
+    textStyle,
+    active && activeTextStyle,
+  ]);
 
   const hasTextStyle = (context && context.style) || textStyle;
 

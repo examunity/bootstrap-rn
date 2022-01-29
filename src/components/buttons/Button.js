@@ -14,11 +14,16 @@ const propTypes = {
   color: PropTypes.oneOf([...Object.keys(THEME_COLORS), 'link']),
   size: PropTypes.oneOf(['lg', 'sm']),
   outline: PropTypes.bool,
+  active: PropTypes.bool,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
+  activeStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
   textStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  activeTextStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -102,15 +107,6 @@ const styles = StyleSheet.create({
         // background-image: if($enable-gradients, none, null);
         border-color: ${(t) =>
           shadeColor(t['btn-active-border-shade-amount'], value(t))};
-
-        /* &:focus {
-          @if $enable-shadows {
-            @include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5));
-          } @else {
-            // Avoid using mixin so we can pass custom focus shadow properly
-            box-shadow: 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5);
-          }
-        } */
       }
     `,
     [`.btn-${color}-text`]: css`
@@ -127,6 +123,17 @@ const styles = StyleSheet.create({
       &:active {
         color: ${(t) => colorContrast(value(t))};
       }
+    `,
+    [`.btn-${color}-active`]: css`
+      background-color: ${(t) =>
+        shadeColor(t['btn-active-bg-shade-amount'], value(t))};
+      // Remove CSS gradients if they're enabled
+      // background-image: if($enable-gradients, none, null);
+      border-color: ${(t) =>
+        shadeColor(t['btn-active-border-shade-amount'], value(t))};
+    `,
+    [`.btn-${color}-active-text`]: css`
+      color: ${(t) => colorContrast(value(t))};
     `,
     [`.btn-${color}-disabled`]: css`
       $disabled-background: ${value};
@@ -246,9 +253,12 @@ const Button = React.forwardRef((props, ref) => {
     color = 'primary',
     size,
     outline = false,
+    active = false,
     disabled = false,
     style,
+    activeStyle,
     textStyle,
+    activeTextStyle,
     ...elementProps
   } = props;
 
@@ -266,6 +276,10 @@ const Button = React.forwardRef((props, ref) => {
     size === 'sm' && '.btn-sm',
   ]);
 
+  const activeClasses = getStyles(styles, [
+    `${getVariant(color, outline)}-active`,
+  ]);
+
   const textClasses = getStyles(styles, [
     '.btn-text',
     `${getVariant(color, outline)}-text`,
@@ -276,12 +290,20 @@ const Button = React.forwardRef((props, ref) => {
     size === 'sm' && '.btn-sm-text',
   ]);
 
+  const activeTextClasses = getStyles(styles, [
+    `${getVariant(color, outline)}-active-text`,
+  ]);
+
   return (
     <Pressable
       {...elementProps}
       ref={ref}
+      active={active}
+      disabled={disabled}
       style={[...classes, style]}
+      activeStyle={[...activeClasses, activeStyle]}
       textStyle={[...textClasses, textStyle]}
+      activeTextStyle={[...activeTextClasses, activeTextStyle]}
     >
       {children}
     </Pressable>
