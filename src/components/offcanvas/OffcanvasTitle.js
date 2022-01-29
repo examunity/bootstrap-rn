@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Heading from '../type/Heading';
+import Heading from '../Heading';
 import { getStyles } from '../../utils';
 
 const propTypes = {

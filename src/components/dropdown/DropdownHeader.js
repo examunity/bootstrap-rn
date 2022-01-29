@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
-import Heading from '../type/Heading';
+import Heading from '../Heading';
 
 const propTypes = {
   children: PropTypes.node.isRequired,

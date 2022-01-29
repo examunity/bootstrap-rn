@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyleSheet from '../../style/StyleSheet';
-import css from '../../style/css';
-import Text from '../Text';
-import { getStyles, each } from '../../utils';
+import StyleSheet from '../style/StyleSheet';
+import css from '../style/css';
+import Text from './Text';
+import { getStyles, each } from '../utils';
 
 const FONT_SIZES = {
   1: (t) => t['h1-font-size'],

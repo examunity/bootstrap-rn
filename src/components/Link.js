@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import StyleSheet from '../../style/StyleSheet';
-import css from '../../style/css';
-import Text from '../Text';
-import { getStyles } from '../../utils';
-import useMedia from '../../hooks/useMedia';
-import useStyle from '../../hooks/useStyle';
+import StyleSheet from '../style/StyleSheet';
+import css from '../style/css';
+import Text from './Text';
+import { getStyles } from '../utils';
+import useMedia from '../hooks/useMedia';
+import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   children: PropTypes.node.isRequired,

@@ -34,13 +34,13 @@ import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import injectTooltip from './components/tooltip/injectTooltip';
 import Tooltip from './components/tooltip/Tooltip';
-import Heading from './components/type/Heading';
-import Link from './components/type/Link';
-import Paragraph from './components/type/Paragraph';
+import Heading from './components/Heading';
+import Link from './components/Link';
+import Paragraph from './components/Paragraph';
 import Pressable from './components/Pressable';
+import ScrollView from './components/ScrollView';
 import Text from './components/Text';
 import TextInput from './components/TextInput';
-import ScrollView from './components/ScrollView';
 import View from './components/View';
 import Collapse from './components/collapse/Collapse';
 
@@ -85,9 +85,9 @@ export {
   Link,
   Paragraph,
   Pressable,
+  ScrollView,
   Text,
   TextInput,
-  ScrollView,
   View,
   Collapse,
 };
