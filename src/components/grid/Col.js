@@ -21,6 +21,23 @@ const propTypes = {
 };
 
 const styles = StyleSheet.create({
+  '*': css`
+    // Add box sizing if only the grid is loaded
+    /* box-sizing: if(
+      variable-exists(include-column-box-sizing) and $include-column-box-sizing,
+      border-box,
+      null
+    ); */
+    // Prevent columns from becoming too narrow when at smaller grid tiers by
+    // always setting "width: 100%;". This works because we set the width
+    // later on to override this initial width.
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%; // Prevent ".col-auto", ".col" (& responsive variants) from breaking out the grid
+    padding-right: $grid-gutter-width * 0.5;
+    padding-left: $grid-gutter-width * 0.5;
+    margin-top: 0;
+  `,
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.col${infix(breakpoint)}`]: css`
       @include media-breakpoint-up(${breakpoint}) {
@@ -64,6 +81,7 @@ const Col = React.forwardRef((props, ref) => {
   } = props;
 
   const classes = getStyles(styles, [
+    '*',
     `.col-${size.toString()}`,
     sizeSm && `.col-sm-${sizeSm.toString()}`,
     sizeMd && `.col-md-${sizeMd.toString()}`,
