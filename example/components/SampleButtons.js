@@ -8,8 +8,11 @@ function SampleButtons() {
       <Button>
         <Text>Ron</Text>
       </Button>
-      <Button color="secondary" outline>
+      <Button color="secondary" outline styleName="mb-3">
         <Text>Markus</Text>
+      </Button>
+      <Button toggle={Button}>
+        <Text>Toggle button</Text>
       </Button>
     </>
   );
