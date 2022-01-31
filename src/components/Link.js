@@ -11,7 +11,6 @@ import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  to: PropTypes.string,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   onFocus: PropTypes.func,

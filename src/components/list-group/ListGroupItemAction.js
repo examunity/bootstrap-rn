@@ -156,7 +156,6 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     <Pressable
       {...elementProps}
       ref={modifierRef}
-      tabbable
       active={active}
       disabled={disabled}
       style={[...classes, style]}

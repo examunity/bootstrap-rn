@@ -9,7 +9,6 @@ import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   children: PropTypes.node,
-  to: PropTypes.string,
   active: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -39,13 +38,11 @@ const Pressable = React.forwardRef((props, ref) => {
   } = actionProps;
 
   const media = useMedia();
-  const resolveStyle = useStyle([style, active && activeStyle], styleName);
+  const resolveStyle = useStyle(style, styleName);
+  const resolveActiveStyle = useStyle(active && activeStyle);
   const context = useContext(TextStyleContext);
-  const resolveTextStyle = useStyle([
-    context && context.style,
-    textStyle,
-    active && activeTextStyle,
-  ]);
+  const resolveTextStyle = useStyle([context && context.style, textStyle]);
+  const resolveActiveTextStyle = useStyle(active && activeTextStyle);
 
   const hasTextStyle = (context && context.style) || textStyle;
 
@@ -54,13 +51,19 @@ const Pressable = React.forwardRef((props, ref) => {
       {...elementProps}
       ref={actionRef}
       accessibilityRole="button"
-      style={(interaction) => resolveStyle({ media, interaction })}
+      style={(interaction) => [
+        resolveStyle({ media, interaction }),
+        resolveActiveStyle({ media, interaction }),
+      ]}
     >
       {hasTextStyle
         ? (interaction) => (
             <TextStyleContext.Provider
               value={{
-                style: resolveTextStyle({ media, interaction }),
+                style: [
+                  resolveTextStyle({ media, interaction }),
+                  resolveActiveTextStyle({ media, interaction }),
+                ],
                 hasAncestor: context && context.hasTextAncestor,
               }}
             >
