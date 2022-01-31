@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import { BOOTSTYLE_STYLE } from '../symbols';
+import { BOOTSTYLE_STYLE } from '../style/createStyle';
 import Context from '../Context';
 
 const normalize = (style) => {

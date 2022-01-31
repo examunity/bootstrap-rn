@@ -1,25 +1,12 @@
-import invariant from 'tiny-invariant';
-import useForcedContext from './useForcedContext';
-import { BOOTSTYLE_ACTION } from '../symbols';
 import { concatRefs } from '../utils';
 
-const getAction = (toggle, dismiss) => {
+const getActionHook = (toggle, dismiss) => {
   if (toggle) {
-    const action = toggle.toggle || toggle;
-    invariant(
-      action.$$typeof === BOOTSTYLE_ACTION,
-      'Prop "toggle" is set, but no action found.',
-    );
-    return action;
+    return toggle.useToggle || toggle;
   }
 
   if (dismiss) {
-    const action = dismiss.dismiss || dismiss;
-    invariant(
-      action.$$typeof === BOOTSTYLE_ACTION,
-      'Prop "dismiss" is set, but no action found.',
-    );
-    return action;
+    return dismiss.useDismiss || dismiss;
   }
 
   return null;
@@ -28,15 +15,13 @@ const getAction = (toggle, dismiss) => {
 export default function useAction(props, ref) {
   const { toggle, dismiss, ...restProps } = props;
 
-  const action = getAction(toggle, dismiss);
+  const useActionHook = getActionHook(toggle, dismiss);
 
-  if (!action) {
+  if (!useActionHook) {
     return [props, ref];
   }
 
-  const context = useForcedContext(action.context);
+  const { ref: actionRef, ...actionProps } = useActionHook(restProps);
 
-  const { ref: actionRef, ...actionProps } = action.handle(props, context);
-
-  return [{ ...restProps, ...actionProps }, concatRefs(actionRef, ref)];
+  return [actionProps, concatRefs(actionRef, ref)];
 }

@@ -4,7 +4,7 @@ import View from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import CollapseContext from './CollapseContext';
 import CollapseProvider from './CollapseProvider';
-import toggleCollapse from './toggleCollapse';
+import useToggleCollapse from './useToggleCollapse';
 
 const propTypes = {
   children: PropTypes.node,
@@ -30,6 +30,6 @@ Collapse.displayName = 'Collapse';
 Collapse.propTypes = propTypes;
 
 Collapse.Provider = CollapseProvider;
-Collapse.toggle = toggleCollapse;
+Collapse.useToggle = useToggleCollapse;
 
 export default Collapse;

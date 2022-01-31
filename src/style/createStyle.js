@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { BOOTSTYLE_STYLE } from '../symbols';
 import mediaBreakpointBetween from './mixins/mediaBreakpointBetween';
 import mediaBreakpointDown from './mixins/mediaBreakpointDown';
 import mediaBreakpointOnly from './mixins/mediaBreakpointOnly';
 import mediaBreakpointUp from './mixins/mediaBreakpointUp';
 import platform from './mixins/platform';
+
+export const BOOTSTYLE_STYLE = Symbol.for('bootstyle.style');
 
 const mixins = {
   'media-breakpoint-between': mediaBreakpointBetween,

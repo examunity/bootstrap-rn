@@ -6,6 +6,7 @@ import Pressable from '../Pressable';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
+import useModifier from '../../hooks/useModifier';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
@@ -195,6 +196,8 @@ const styles = StyleSheet.create({
 });
 
 const NavLink = React.forwardRef((props, ref) => {
+  const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
+
   const {
     children,
     active,
@@ -204,7 +207,7 @@ const NavLink = React.forwardRef((props, ref) => {
     textStyle,
     activeTextStyle,
     ...elementProps
-  } = props;
+  } = modifierProps;
 
   const { variant } = useForcedContext(NavContext);
   const navbar = useContext(NavbarContext);
@@ -258,7 +261,7 @@ const NavLink = React.forwardRef((props, ref) => {
   return (
     <Pressable
       {...elementProps}
-      ref={ref}
+      ref={modifierRef}
       tabbable
       active={active}
       disabled={disabled}

@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Pressable as BasePressable } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
+import useModifier from '../hooks/useModifier';
 import useAction from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   children: PropTypes.node,
+  to: PropTypes.string,
   active: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -22,7 +24,8 @@ const propTypes = {
 };
 
 const Pressable = React.forwardRef((props, ref) => {
-  const [actionProps, actionRef] = useAction(props, ref);
+  const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
+  const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
 
   const {
     children,
@@ -50,6 +53,7 @@ const Pressable = React.forwardRef((props, ref) => {
     <BasePressable
       {...elementProps}
       ref={actionRef}
+      accessibilityRole="button"
       style={(interaction) => resolveStyle({ media, interaction })}
     >
       {hasTextStyle

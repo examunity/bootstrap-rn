@@ -8,6 +8,7 @@ import Pressable from '../Pressable';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
+import useToggleButton from './useToggleButton';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -312,5 +313,7 @@ const Button = React.forwardRef((props, ref) => {
 
 Button.displayName = 'Button';
 Button.propTypes = propTypes;
+
+Button.useToggle = useToggleButton;
 
 export default Button;

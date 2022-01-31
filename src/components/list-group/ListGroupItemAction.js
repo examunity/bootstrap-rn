@@ -6,6 +6,7 @@ import Pressable from '../Pressable';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor, shadeColor } from '../../theme/functions';
+import useModifier from '../../hooks/useModifier';
 import useForcedContext from '../../hooks/useForcedContext';
 import { styles as baseStyles } from './ListGroupItem';
 import ListGroupContext from './ListGroupContext';
@@ -99,6 +100,8 @@ const actionStyles = StyleSheet.create({
 });
 
 const ListGroupItemAction = React.forwardRef((props, ref) => {
+  const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
+
   const {
     children,
     color,
@@ -111,7 +114,7 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     textStyle,
     activeTextStyle,
     ...elementProps
-  } = props;
+  } = modifierProps;
 
   const { flush } = useForcedContext(ListGroupContext);
 
@@ -152,7 +155,7 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
   return (
     <Pressable
       {...elementProps}
-      ref={ref}
+      ref={modifierRef}
       tabbable
       active={active}
       disabled={disabled}

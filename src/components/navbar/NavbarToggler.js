@@ -9,7 +9,7 @@ import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext from './NavbarContext';
-import toggleNavbar from './toggleNavbar';
+import useToggleNavbar from './useToggleNavbar';
 
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -100,7 +100,7 @@ const NavbarToggler = React.forwardRef((props, ref) => {
     <Pressable
       {...elementProps}
       ref={ref}
-      toggle={toggleNavbar}
+      toggle={useToggleNavbar}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >

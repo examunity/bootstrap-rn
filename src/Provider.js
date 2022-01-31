@@ -8,12 +8,12 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types,
   utilities: PropTypes.object,
   // eslint-disable-next-line react/forbid-prop-types,
-  components: PropTypes.object,
+  modifiers: PropTypes.object,
   ssrViewport: PropTypes.string,
 };
 
 function Provider(props) {
-  const { children, utilities = {}, components = {}, ssrViewport } = props;
+  const { children, utilities = {}, modifiers = {}, ssrViewport } = props;
 
   const viewport = useViewport(ssrViewport);
 
@@ -21,7 +21,7 @@ function Provider(props) {
 
   const context = {
     utilities,
-    components,
+    modifiers,
     getViewport() {
       return viewport;
     },

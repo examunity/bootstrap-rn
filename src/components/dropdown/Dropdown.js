@@ -11,7 +11,7 @@ import DropdownItemText from './DropdownItemText';
 import DropdownHeader from './DropdownHeader';
 import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
-import toggleDropdown from './toggleDropdown';
+import useToggleDropdown from './useToggleDropdown';
 
 const PLACEMENTS = ['top', 'bottom', 'left', 'right'];
 
@@ -64,6 +64,6 @@ Dropdown.Header = DropdownHeader;
 Dropdown.Menu = DropdownMenu;
 Dropdown.Item = DropdownItem;
 Dropdown.Divider = DropdownDivider;
-Dropdown.toggle = toggleDropdown;
+Dropdown.useToggle = useToggleDropdown;
 
 export default Dropdown;

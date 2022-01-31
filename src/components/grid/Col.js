@@ -7,7 +7,7 @@ import { GRID_BREAKPOINTS, GRID_COLUMNS } from '../../theme/proxies';
 import { infix } from '../../theme/breakpoints';
 import { getStyles, each, makeArray, normalize } from '../../utils';
 
-const sizes = makeArray(GRID_COLUMNS);
+const sizes = makeArray(GRID_COLUMNS).map((v) => v + 1);
 
 const propTypes = {
   children: PropTypes.node.isRequired,

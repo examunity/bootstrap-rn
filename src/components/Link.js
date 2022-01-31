@@ -4,11 +4,14 @@ import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import Text from './Text';
 import { getStyles } from '../utils';
+import useModifier from '../hooks/useModifier';
+import useAction from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  to: PropTypes.string,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   onFocus: PropTypes.func,
@@ -32,6 +35,9 @@ const styles = StyleSheet.create({
 });
 
 const Link = React.forwardRef((props, ref) => {
+  const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
+  const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
+
   const {
     children,
     onMouseEnter = () => {},
@@ -42,7 +48,7 @@ const Link = React.forwardRef((props, ref) => {
     onPressOut = () => {},
     style,
     ...elementProps
-  } = props;
+  } = actionProps;
 
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -53,11 +59,13 @@ const Link = React.forwardRef((props, ref) => {
 
   const resolveStyle = useStyle([classes, style]);
 
+  // const role = link ? 'link' : 'button';
+
   return (
     <Text
       {...elementProps}
-      ref={ref}
-      accessibilityRole="link"
+      ref={actionRef}
+      accessibilityRole="button"
       accessible
       onMouseEnter={() => {
         setHovered(true);
