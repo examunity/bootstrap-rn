@@ -1,15 +1,13 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 import {
   makeTheme,
   makeUtilities,
-  css,
+  // css,
   StyleSheet,
   Provider,
-  Container,
-  View,
-  ScrollView,
 } from 'bootstyle';
+import { Router, Routes, Route } from './libs/react-router';
+import Layout from './components/Layout';
 import Content from './components/Content';
 import Forms from './components/Forms';
 import FormikForms from './components/FormikForms';
@@ -29,6 +27,8 @@ import SampleOffcanvas from './components/SampleOffcanvas';
 import SampleDropdown from './components/SampleDropdown';
 import SampleCollapse from './components/SampleCollapse';
 import Utilities from './components/Utilities';
+import useLink from './hooks/useLink';
+import useActive from './hooks/useActive';
 
 StyleSheet.build(
   // Test custom theme variables.
@@ -93,79 +93,46 @@ const utilities = StyleSheet.create(
   }),
 }; */
 
-const styles = StyleSheet.create({
-  container: css`
-    max-width: 500px;
-    margin-vertical: 1rem;
-  `,
-});
+const modifiers = {
+  useTabbable(props, ref) {
+    const active = useActive(props);
+    return { ...props, active, ref };
+  },
+  useActionable(props, ref) {
+    const linkProps = useLink(props);
+    return { ...linkProps, ref };
+  },
+};
 
 function App() {
   return (
-    <Provider utilities={utilities} ssrViewport="lg">
-      <StatusBar />
-      <ScrollView>
-        <Container style={styles.container}>
-          <View style={styles.container}>
-            <Content />
-          </View>
-          <View style={styles.container}>
-            <Forms />
-          </View>
-          <View style={styles.container}>
-            <FormikForms />
-          </View>
-          <View style={styles.container}>
-            <SampleAlerts />
-          </View>
-          <View style={styles.container}>
-            <SampleBadges />
-          </View>
-          <View style={styles.container}>
-            <SampleCollapse />
-          </View>
-          <View style={[styles.container, { zIndex: 1 }]}>
-            <SampleDropdown />
-          </View>
-          <View style={styles.container}>
-            <SampleButtons />
-          </View>
-          <View style={styles.container}>
-            <SampleCards />
-          </View>
-          <View style={styles.container}>
-            <SampleGrid />
-          </View>
-          <View style={styles.container}>
-            <SampleListGroup />
-          </View>
-          <View style={styles.container}>
-            <SampleModal />
-          </View>
-          <View style={styles.container}>
-            <SampleNav />
-          </View>
-          <View style={styles.container}>
-            <SampleNavbar />
-          </View>
-          <View style={styles.container}>
-            <SampleOffcanvas />
-          </View>
-          <View style={styles.container}>
-            <SamplePopovers />
-          </View>
-          <View style={styles.container}>
-            <SampleProgress />
-          </View>
-          <View style={styles.container}>
-            <SampleTooltips />
-          </View>
-          <View style={styles.container}>
-            <Utilities />
-          </View>
-        </Container>
-      </ScrollView>
-    </Provider>
+    <Router>
+      <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Content />} />
+            <Route path="forms" element={<Forms />} />
+            <Route path="alerts" element={<SampleAlerts />} />
+            <Route path="badges" element={<SampleBadges />} />
+            <Route path="buttons" element={<SampleButtons />} />
+            <Route path="cards" element={<SampleCards />} />
+            <Route path="collapse" element={<SampleCollapse />} />
+            <Route path="dropdown" element={<SampleDropdown />} />
+            <Route path="grid" element={<SampleGrid />} />
+            <Route path="list-group" element={<SampleListGroup />} />
+            <Route path="modal" element={<SampleModal />} />
+            <Route path="nav" element={<SampleNav />} />
+            <Route path="navbar" element={<SampleNavbar />} />
+            <Route path="offcanvas" element={<SampleOffcanvas />} />
+            <Route path="popovers" element={<SamplePopovers />} />
+            <Route path="progress" element={<SampleProgress />} />
+            <Route path="tooltips" element={<SampleTooltips />} />
+            <Route path="utilities" element={<Utilities />} />
+            <Route path="formik" element={<FormikForms />} />
+          </Route>
+        </Routes>
+      </Provider>
+    </Router>
   );
 }
 

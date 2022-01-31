@@ -9,14 +9,23 @@ function Content() {
       <Heading size={4}>Bootstrap Text H4</Heading>
       <Heading size={5}>Bootstrap Text H5</Heading>
       <Heading size={6}>Bootstrap Text H6</Heading>
-      <Link
-        onPress={() => {
-          // eslint-disable-next-line no-console
-          console.log('pressed!');
-        }}
-      >
-        Link
-      </Link>
+      <Text>
+        This is a very long text lorem ipsum lorem ipsum lorem ipsum This is a
+        very long text lorem ipsum lorem ipsum lorem ipsum This is a very long
+        text lorem ipsum lorem ipsum lorem ipsum This is a very long text lorem
+        ipsum lorem ipsum lorem ipsum{' '}
+        <Link
+          onPress={() => {
+            // eslint-disable-next-line no-console
+            console.log('pressed!');
+          }}
+        >
+          This is a very long text lorem ipsum lorem ipsum lorem ipsum
+        </Link>{' '}
+        This is a very long text lorem ipsum lorem ipsum lorem ipsum This is a
+        very long text lorem ipsum lorem ipsum lorem ipsum This is a very long
+        text lorem ipsum lorem ipsum lorem ipsum
+      </Text>
       <Text small>Small text</Text>
       <Text mark>Marked text</Text>
     </>
