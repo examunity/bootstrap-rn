@@ -35,6 +35,7 @@ import Progress from './components/progress/Progress';
 import injectTooltip from './components/tooltip/injectTooltip';
 import Tooltip from './components/tooltip/Tooltip';
 import Heading from './components/Heading';
+import Image from './components/Image';
 import Link from './components/Link';
 import Paragraph from './components/Paragraph';
 import Pressable from './components/Pressable';
@@ -43,6 +44,8 @@ import Text from './components/Text';
 import TextInput from './components/TextInput';
 import View from './components/View';
 import Collapse from './components/collapse/Collapse';
+import useMedia from './hooks/useMedia';
+import useStyle from './hooks/useStyle';
 
 export {
   css,
@@ -82,6 +85,7 @@ export {
   injectTooltip,
   Tooltip,
   Heading,
+  Image,
   Link,
   Paragraph,
   Pressable,
@@ -90,4 +94,6 @@ export {
   TextInput,
   View,
   Collapse,
+  useMedia,
+  useStyle,
 };
