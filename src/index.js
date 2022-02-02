@@ -34,6 +34,7 @@ import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import injectTooltip from './components/tooltip/injectTooltip';
 import Tooltip from './components/tooltip/Tooltip';
+import BackgroundImage from './components/BackgroundImage';
 import Heading from './components/Heading';
 import Image from './components/Image';
 import Link from './components/Link';
@@ -84,6 +85,7 @@ export {
   Progress,
   injectTooltip,
   Tooltip,
+  BackgroundImage,
   Heading,
   Image,
   Link,
