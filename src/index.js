@@ -6,11 +6,12 @@ import Context from './Context';
 import Provider from './Provider';
 import Alert from './components/alert/Alert';
 import Badge from './components/badge/Badge';
-import Button from './components/buttons/Button';
 import ButtonGroup from './components/button-group/ButtonGroup';
 import ButtonToolbar from './components/button-group/ButtonToolbar';
+import Button from './components/buttons/Button';
 import Card from './components/card/Card';
 import CloseButton from './components/close/CloseButton';
+import Collapse from './components/collapse/Collapse';
 import Container from './components/containers/Container';
 import Dropdown from './components/dropdown/Dropdown';
 import Checkbox from './components/forms/Checkbox';
@@ -34,9 +35,9 @@ import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import injectTooltip from './components/tooltip/injectTooltip';
 import Tooltip from './components/tooltip/Tooltip';
-import BackgroundImage from './components/BackgroundImage';
 import Heading from './components/Heading';
 import Image from './components/Image';
+import ImageBackground from './components/ImageBackground';
 import Link from './components/Link';
 import Paragraph from './components/Paragraph';
 import Pressable from './components/Pressable';
@@ -44,7 +45,6 @@ import ScrollView from './components/ScrollView';
 import Text from './components/Text';
 import TextInput from './components/TextInput';
 import View from './components/View';
-import Collapse from './components/collapse/Collapse';
 import useMedia from './hooks/useMedia';
 import useStyle from './hooks/useStyle';
 
@@ -57,11 +57,12 @@ export {
   Provider,
   Alert,
   Badge,
-  Button,
   ButtonGroup,
   ButtonToolbar,
+  Button,
   Card,
   CloseButton,
+  Collapse,
   Container,
   Dropdown,
   Checkbox,
@@ -85,9 +86,9 @@ export {
   Progress,
   injectTooltip,
   Tooltip,
-  BackgroundImage,
   Heading,
   Image,
+  ImageBackground,
   Link,
   Paragraph,
   Pressable,
@@ -95,7 +96,6 @@ export {
   Text,
   TextInput,
   View,
-  Collapse,
   useMedia,
   useStyle,
 };

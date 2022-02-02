@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BackgroundImage as BaseBackgroundImage } from 'react-native';
+import { ImageBackground as BaseImageBackground } from 'react-native';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 
@@ -11,14 +11,14 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
-const BackgroundImage = React.forwardRef((props, ref) => {
+const ImageBackground = React.forwardRef((props, ref) => {
   const { style, styleName, ...elementProps } = props;
 
   const media = useMedia();
   const resolveStyle = useStyle(style, styleName);
 
   return (
-    <BaseBackgroundImage
+    <BaseImageBackground
       {...elementProps}
       ref={ref}
       style={resolveStyle({ media })}
@@ -26,7 +26,7 @@ const BackgroundImage = React.forwardRef((props, ref) => {
   );
 });
 
-BackgroundImage.displayName = 'BackgroundImage';
-BackgroundImage.propTypes = propTypes;
+ImageBackground.displayName = 'ImageBackground';
+ImageBackground.propTypes = propTypes;
 
-export default BackgroundImage;
+export default ImageBackground;
