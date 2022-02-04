@@ -76,6 +76,9 @@ function Layout() {
                 <ListGroup.ItemAction to="/progress">
                   <Text>Progress</Text>
                 </ListGroup.ItemAction>
+                <ListGroup.ItemAction to="/toasts">
+                  <Text>Toasts</Text>
+                </ListGroup.ItemAction>
                 <ListGroup.ItemAction to="/tooltips">
                   <Text>Tooltips</Text>
                 </ListGroup.ItemAction>

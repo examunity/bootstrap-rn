@@ -57,7 +57,12 @@ const Alert = React.forwardRef((props, ref) => {
   const textClasses = getStyles(styles, [`.alert-${color}-text`]);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
+    <View
+      {...elementProps}
+      ref={ref}
+      accessibilityRole="alert"
+      style={[classes, style]}
+    >
       <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );

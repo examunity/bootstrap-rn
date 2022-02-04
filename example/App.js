@@ -22,6 +22,7 @@ import SampleNav from './components/SampleNav';
 import SampleNavbar from './components/SampleNavbar';
 import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
+import SampleToasts from './components/SampleToasts';
 import SampleTooltips from './components/SampleTooltips';
 import SampleOffcanvas from './components/SampleOffcanvas';
 import SampleDropdown from './components/SampleDropdown';
@@ -126,6 +127,7 @@ function App() {
             <Route path="offcanvas" element={<SampleOffcanvas />} />
             <Route path="popovers" element={<SamplePopovers />} />
             <Route path="progress" element={<SampleProgress />} />
+            <Route path="toasts" element={<SampleToasts />} />
             <Route path="tooltips" element={<SampleTooltips />} />
             <Route path="utilities" element={<Utilities />} />
             <Route path="formik" element={<FormikForms />} />

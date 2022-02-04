@@ -1243,7 +1243,23 @@ const variables = css`
 
   $popover-arrow-outer-color: $popover-border-color;
 
-  // ...
+  // Toasts
+
+  $toast-max-width: 350px;
+  $toast-padding-x: 0.75rem;
+  $toast-padding-y: 0.5rem;
+  $toast-font-size: 0.875rem;
+  $toast-color: null;
+  $toast-background-color: rgba($white, 0.85);
+  $toast-border-width: 1px;
+  $toast-border-color: rgba($black, 0.1);
+  $toast-border-radius: $border-radius;
+  $toast-box-shadow: $box-shadow;
+  $toast-spacing: $container-padding-x;
+
+  $toast-header-color: $gray-600;
+  $toast-header-background-color: rgba($white, 0.85);
+  $toast-header-border-color: rgba($black, 0.05);
 
   // Badges
 

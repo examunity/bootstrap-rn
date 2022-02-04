@@ -33,6 +33,8 @@ import Offcanvas from './components/offcanvas/Offcanvas';
 import injectPopover from './components/popover/injectPopover';
 import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
+import Toast from './components/toasts/Toast';
+import ToastContainer from './components/toasts/ToastContainer';
 import injectTooltip from './components/tooltip/injectTooltip';
 import Tooltip from './components/tooltip/Tooltip';
 import Blockquote from './components/type/Blockquote';
@@ -87,6 +89,8 @@ export {
   injectPopover,
   Popover,
   Progress,
+  Toast,
+  ToastContainer,
   injectTooltip,
   Tooltip,
   Blockquote,
