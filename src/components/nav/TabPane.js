@@ -36,6 +36,7 @@ const TabPane = React.forwardRef((props, ref) => {
 
   const id = getElementId(tabbable.identifier, target);
 
+  // Accessiblity role tabpanel is only supported on web.
   const role = Platform.OS === 'web' ? 'tabpanel' : null;
 
   return (

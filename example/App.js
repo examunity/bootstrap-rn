@@ -14,6 +14,7 @@ import FormikForms from './components/FormikForms';
 import SampleAlerts from './components/SampleAlerts';
 import SampleBadges from './components/SampleBadges';
 import SampleButtons from './components/SampleButtons';
+import SampleButtonGroup from './components/SampleButtonGroup';
 import SampleCards from './components/SampleCards';
 import SampleGrid from './components/SampleGrid';
 import SampleListGroup from './components/SampleListGroup';
@@ -116,6 +117,7 @@ function App() {
             <Route path="alerts" element={<SampleAlerts />} />
             <Route path="badges" element={<SampleBadges />} />
             <Route path="buttons" element={<SampleButtons />} />
+            <Route path="button-group" element={<SampleButtonGroup />} />
             <Route path="cards" element={<SampleCards />} />
             <Route path="collapse" element={<SampleCollapse />} />
             <Route path="dropdown" element={<SampleDropdown />} />

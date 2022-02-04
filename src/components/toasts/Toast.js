@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 });
 
 const Toast = React.forwardRef((props, ref) => {
-  const { children, last, style, ...elementProps } = props;
+  const { children, last = false, style, ...elementProps } = props;
 
   const container = useContext(ToastContainerContext);
 

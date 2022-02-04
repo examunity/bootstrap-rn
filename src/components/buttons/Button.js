@@ -1,5 +1,4 @@
-// Bootstrap Button
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import invariant from 'tiny-invariant';
 import StyleSheet from '../../style/StyleSheet';
@@ -8,6 +7,7 @@ import Pressable from '../Pressable';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
+import ButtonGroupContext from '../button-group/ButtonGroupContext';
 import useToggleButton from './useToggleButton';
 
 const propTypes = {
@@ -15,6 +15,8 @@ const propTypes = {
   color: PropTypes.oneOf([...Object.keys(THEME_COLORS), 'link']),
   size: PropTypes.oneOf(['lg', 'sm']),
   outline: PropTypes.bool,
+  first: PropTypes.bool,
+  last: PropTypes.bool,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
@@ -234,6 +236,32 @@ const styles = StyleSheet.create({
     line-height: $btn-font-size-sm * $btn-line-height;
     font-size: $btn-font-size-sm;
   `,
+  '.btn-group > .btn': css`
+    position: relative;
+    flex: 1 1 auto;
+
+    &:hover {
+      z-index: 1;
+    }
+    &:focus {
+      z-index: 1;
+    }
+    &:active {
+      z-index: 1;
+    }
+  `,
+  '.btn-group > .btn-active': css`
+    z-index: 2; // 1;
+  `,
+  '.btn-group > .btn-not-first': css`
+    margin-left: -$btn-border-width;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  `,
+  '.btn-group > .btn-not-last': css`
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  `,
 });
 
 const getVariant = (color, outline) => {
@@ -248,12 +276,22 @@ const getVariant = (color, outline) => {
   return `.btn-${color}`;
 };
 
+const hasSize = (size, group, value) => {
+  if (size !== undefined || !group) {
+    return size === value;
+  }
+
+  return group.size === value;
+};
+
 const Button = React.forwardRef((props, ref) => {
   const {
     children,
     color = 'primary',
     size,
     outline = false,
+    first = false,
+    last = false,
     active = false,
     disabled = false,
     style,
@@ -268,13 +306,19 @@ const Button = React.forwardRef((props, ref) => {
     'Button link variant is only available as non outline style.',
   );
 
+  const group = useContext(ButtonGroupContext);
+
   const classes = getStyles(styles, [
     '.btn',
     getVariant(color, outline),
     disabled && '.btn-disabled',
     disabled && `${getVariant(color, outline)}-disabled`,
-    size === 'lg' && '.btn-lg',
-    size === 'sm' && '.btn-sm',
+    hasSize(size, group, 'lg') && '.btn-lg',
+    hasSize(size, group, 'sm') && '.btn-sm',
+    group && '.btn-group > .btn',
+    group && active && '.btn-group > .btn-active',
+    group && !first && '.btn-group > .btn-not-first',
+    group && !last && '.btn-group > .btn-not-last',
   ]);
 
   const activeClasses = getStyles(styles, [
@@ -287,8 +331,8 @@ const Button = React.forwardRef((props, ref) => {
     color === 'link' && '.btn-link-text',
     disabled && `${getVariant(color, outline)}-text-disabled`,
     disabled && color === 'link' && '.btn-link-text-disabled',
-    size === 'lg' && '.btn-lg-text',
-    size === 'sm' && '.btn-sm-text',
+    hasSize(size, group, 'lg') && '.btn-lg-text',
+    hasSize(size, group, 'sm') && '.btn-sm-text',
   ]);
 
   const activeTextClasses = getStyles(styles, [

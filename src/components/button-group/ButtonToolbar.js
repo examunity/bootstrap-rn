@@ -7,12 +7,14 @@ import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.btn-toolbar': css`
     display: flex;
+    flex-direction: row; // added for bootstyle
     flex-wrap: wrap;
     justify-content: flex-start;
   `,
@@ -24,7 +26,12 @@ const ButtonToolbar = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, ['.btn-toolbar']);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
+    <View
+      {...elementProps}
+      ref={ref}
+      accessibilityRole="toolbar"
+      style={[classes, style]}
+    >
       {children}
     </View>
   );

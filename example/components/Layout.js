@@ -43,6 +43,9 @@ function Layout() {
                 <ListGroup.ItemAction to="/buttons">
                   <Text>Buttons</Text>
                 </ListGroup.ItemAction>
+                <ListGroup.ItemAction to="/button-group">
+                  <Text>Button group</Text>
+                </ListGroup.ItemAction>
                 <ListGroup.ItemAction to="/cards">
                   <Text>Cards</Text>
                 </ListGroup.ItemAction>
