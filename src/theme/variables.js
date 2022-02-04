@@ -587,13 +587,15 @@ const variables = css`
   $font-family-sans-serif: ${() =>
     Platform.select({
       native: 'System',
-      default: 'system-ui', // "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'";
+      default:
+        "\"system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'\"",
     })};
   $font-family-monospace: ${() =>
     Platform.select({
       android: 'monospace',
       ios: 'Courier',
-      default: 'SFMono-Regular', // SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      default:
+        "\"SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace\"",
     })};
   $font-family-base: $font-family-sans-serif;
   $font-family-code: $font-family-monospace;
@@ -1383,7 +1385,18 @@ const variables = css`
   $offcanvas-backdrop-bg: $modal-backdrop-bg;
   $offcanvas-backdrop-opacity: $modal-backdrop-opacity;
 
-  // ...
+  // Code
+
+  $code-font-size: $small-font-size;
+  $code-color: $pink;
+
+  $kbd-padding-y: 0.2rem;
+  $kbd-padding-x: 0.4rem;
+  $kbd-font-size: $code-font-size;
+  $kbd-color: $white;
+  $kbd-bg: $gray-900;
+
+  $pre-color: null;
 `;
 
 export default variables;

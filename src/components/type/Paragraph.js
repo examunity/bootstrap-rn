@@ -1,10 +1,10 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import StyleSheet from '../style/StyleSheet';
-import css from '../style/css';
-import Text from './Text';
-import { getStyles } from '../utils';
+import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
+import Text from '../Text';
+import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,

@@ -11,6 +11,8 @@ import useStyle from '../hooks/useStyle';
 const propTypes = {
   small: PropTypes.bool,
   mark: PropTypes.bool,
+  bold: PropTypes.bool,
+  italic: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -26,11 +28,17 @@ const styles = StyleSheet.create({
     color: $body-color;
     text-align: $body-text-align;
   `,
-  '.small': css`
+  strong: css`
+    font-weight: $font-weight-bolder;
+  `,
+  italic: css`
+    font-style: italic;
+  `,
+  small: css`
     font-size: $small-font-size;
     line-height: $small-font-size * $line-height-base;
   `,
-  '.mark': css`
+  mark: css`
     padding: $mark-padding;
     background-color: $mark-bg;
   `,
@@ -38,6 +46,8 @@ const styles = StyleSheet.create({
 
 const Text = React.forwardRef((props, ref) => {
   const {
+    bold = false,
+    italic = false,
     mark = false,
     small = false,
     style,
@@ -48,7 +58,12 @@ const Text = React.forwardRef((props, ref) => {
   const media = useMedia();
   const context = useContext(TextStyleContext);
 
-  const classes = getStyles(styles, [small && '.small', mark && '.mark']);
+  const classes = getStyles(styles, [
+    bold && 'strong',
+    italic && 'italic',
+    small && 'small',
+    mark && 'mark',
+  ]);
 
   const resolveStyle = useStyle(
     [

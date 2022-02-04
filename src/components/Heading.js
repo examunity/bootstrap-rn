@@ -3,16 +3,8 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import Text from './Text';
+import { FONT_SIZES } from '../theme/proxies';
 import { getStyles, each } from '../utils';
-
-const FONT_SIZES = {
-  1: (t) => t['h1-font-size'],
-  2: (t) => t['h2-font-size'],
-  3: (t) => t['h3-font-size'],
-  4: (t) => t['h4-font-size'],
-  5: (t) => t['h5-font-size'],
-  6: (t) => t['h6-font-size'],
-};
 
 const propTypes = {
   children: PropTypes.node.isRequired,

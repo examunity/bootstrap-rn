@@ -35,11 +35,14 @@ import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
 import injectTooltip from './components/tooltip/injectTooltip';
 import Tooltip from './components/tooltip/Tooltip';
+import Blockquote from './components/type/Blockquote';
+import Code from './components/type/Code';
+import DisplayHeading from './components/type/DisplayHeading';
+import Paragraph from './components/type/Paragraph';
 import Heading from './components/Heading';
 import Image from './components/Image';
 import ImageBackground from './components/ImageBackground';
 import Link from './components/Link';
-import Paragraph from './components/Paragraph';
 import Pressable from './components/Pressable';
 import ScrollView from './components/ScrollView';
 import Text from './components/Text';
@@ -86,11 +89,14 @@ export {
   Progress,
   injectTooltip,
   Tooltip,
+  Blockquote,
+  Code,
+  DisplayHeading,
+  Paragraph,
   Heading,
   Image,
   ImageBackground,
   Link,
-  Paragraph,
   Pressable,
   ScrollView,
   Text,
