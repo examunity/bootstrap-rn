@@ -2,6 +2,6 @@ import React from 'react';
 
 const Context = React.createContext();
 
-Context.displayName = 'BootstrapNativeContext';
+Context.displayName = 'BootstrapRNContext';
 
 export default Context;

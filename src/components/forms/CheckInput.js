@@ -29,7 +29,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.form-check': css`
     // display: block;
-    flex-direction: row; // added for bootstrap-native
+    flex-direction: row; // added for bootstrap-rn
     min-height: $form-check-min-height;
     padding-left: $form-check-padding-start;
     margin-bottom: $form-check-margin-bottom;
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
     // float: left;
     margin-left: $form-check-padding-start * -1;
-    margin-right: $form-check-padding-start - $form-check-input-width; // added for bootstrap-native
+    margin-right: $form-check-padding-start - $form-check-input-width; // added for bootstrap-rn
 
     width: $form-check-input-width;
     height: $form-check-input-width;
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     border: $form-check-input-border;
     @include platform(web) {
       appearance: none;
-      user-select: none; // added for bootstrap-native
+      user-select: none; // added for bootstrap-rn
     }
     // color-adjust: exact; // Keep themed appearance for print
     // @include transition($form-check-transition);
@@ -94,15 +94,15 @@ const styles = StyleSheet.create({
   '.form-check-input-switch': css`
     width: $form-switch-width;
     margin-left: $form-switch-padding-start * -1;
-    margin-right: $form-switch-padding-start - $form-switch-width; // added for bootstrap-native
+    margin-right: $form-switch-padding-start - $form-switch-width; // added for bootstrap-rn
     border-radius: $form-switch-border-radius;
     // @include transition($form-switch-transition);
-    align-items: flex-start; // added for bootstrap-native
-    justify-content: center; // added for bootstrap-native
+    align-items: flex-start; // added for bootstrap-rn
+    justify-content: center; // added for bootstrap-rn
   `,
   '.form-check-input-switch-checked': css`
-    align-items: flex-end; // added for bootstrap-native
-    justify-content: center; // added for bootstrap-native
+    align-items: flex-end; // added for bootstrap-rn
+    justify-content: center; // added for bootstrap-rn
   `,
   ...each(FORM_VALIDATION_STATES, (state, data) => ({
     [`.form-check-input.is-${state}`]: css`

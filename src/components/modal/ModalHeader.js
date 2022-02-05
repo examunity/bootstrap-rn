@@ -14,7 +14,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.modal-header': css`
     display: flex;
-    flex-direction: row; // added for bootstrap-native
+    flex-direction: row; // added for bootstrap-rn
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Radio, Checkbox, Text, View } from 'bootstrap-native';
+import { Radio, Checkbox, Text, View } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';

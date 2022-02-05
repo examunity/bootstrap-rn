@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Heading, Text } from 'bootstrap-native';
+import { Alert, Heading, Text } from 'bootstrap-rn';
 
 function SampleAlerts() {
   return (

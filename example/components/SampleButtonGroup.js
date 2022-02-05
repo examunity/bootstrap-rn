@@ -5,7 +5,7 @@ import {
   Button,
   Heading,
   Text,
-} from 'bootstrap-native';
+} from 'bootstrap-rn';
 
 function SampleButtonGroup() {
   return (

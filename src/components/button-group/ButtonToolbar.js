@@ -14,7 +14,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.btn-toolbar': css`
     display: flex;
-    flex-direction: row; // added for bootstrap-native
+    flex-direction: row; // added for bootstrap-rn
     flex-wrap: wrap;
     justify-content: flex-start;
   `,

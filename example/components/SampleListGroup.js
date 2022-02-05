@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, Heading, Text } from 'bootstrap-native';
+import { ListGroup, Heading, Text } from 'bootstrap-rn';
 
 function SampleListGroup() {
   return (

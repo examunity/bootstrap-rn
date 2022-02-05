@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, Text, Heading, Button, View } from 'bootstrap-native';
+import { Dropdown, Text, Heading, Button, View } from 'bootstrap-rn';
 
 function SampleDropdowns() {
   return (

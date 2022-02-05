@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import { BOOTSTRAP_NATIVE_STYLE } from '../style/createStyle';
+import { BOOTSTRAP_RN_STYLE } from '../style/createStyle';
 import Context from '../Context';
 
 const normalize = (style) => {
@@ -38,7 +38,7 @@ export default function useStyle(style, styleName) {
     const interactionStyles = [];
 
     styles.forEach((value) => {
-      if (value && value.$$typeof === BOOTSTRAP_NATIVE_STYLE) {
+      if (value && value.$$typeof === BOOTSTRAP_RN_STYLE) {
         // Style is a bootstrap style that contains basic and interaction styles.
         const [resolvedBasicStyles, resolvedInteractionStyles] = value(state);
 

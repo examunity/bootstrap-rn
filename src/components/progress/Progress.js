@@ -20,7 +20,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.progress': css`
     display: flex;
-    flex-direction: row; // added for bootstrap-native
+    flex-direction: row; // added for bootstrap-rn
     height: $progress-height;
     overflow: hidden; // force rounded corners by cropping it
     background-color: $progress-bg;
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   `,
   '.progress-text': css`
     font-size: $progress-font-size;
-    line-height: $progress-font-size * $line-height-base; // added for bootstrap-native
+    line-height: $progress-font-size * $line-height-base; // added for bootstrap-rn
   `,
 });
 

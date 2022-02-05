@@ -5,7 +5,7 @@ import {
   // css,
   StyleSheet,
   Provider,
-} from 'bootstrap-native';
+} from 'bootstrap-rn';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
 import Content from './components/Content';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Badge, Heading, Text } from 'bootstrap-native';
+import { View, Badge, Heading, Text } from 'bootstrap-rn';
 
 function SampleBadges() {
   return (

@@ -1,7 +1,7 @@
 {
-  "name": "bootstrap-native",
+  "name": "bootstrap-rn",
   "version": "0.0.0",
-  "description": "Bootstrap Native is a design framework for React Native. The library is inspired by Bootstrap and tries to bring best practices from the Sass/Css world to JavaScript.",
+  "description": "Bootstrap RN is a design framework for React Native. The library is inspired by Bootstrap and tries to bring best practices from the Sass/Css world to JavaScript.",
   "author": "Markus Wetzel <markuswetzel@gmx.net>",
   "license": "MIT",
   "keywords": [
@@ -12,12 +12,12 @@
     "ui",
     "style"
   ],
-  "repository": "https://github.com/examunity/bootstrap-native.git",
+  "repository": "https://github.com/examunity/bootstrap-rn.git",
   "bugs": {
-    "url": "https://github.com/examunity/bootstrap-native/issues"
+    "url": "https://github.com/examunity/bootstrap-rn/issues"
   },
-  "main": "dist/bootstrap-native.cjs.js",
-  "module": "dist/bootstrap-native.esm.js",
+  "main": "dist/bootstrap-rn.cjs.js",
+  "module": "dist/bootstrap-rn.esm.js",
   "scripts": {
     "start": "cd example && yarn start",
     "build": "packsy build",

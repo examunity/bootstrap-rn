@@ -14,7 +14,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.modal-footer': css`
     display: flex;
-    flex-direction: row; // added for bootstrap-native
+    flex-direction: row; // added for bootstrap-rn
     flex-shrink: 0;
     flex-wrap: wrap;
     align-items: center; // vertically center

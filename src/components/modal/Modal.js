@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     margin: $modal-dialog-margin;
     // allow clicks to pass through for custom click handling to close modal
     // pointer-events: none;
-    align-self: center; // added for bootstrap-native
+    align-self: center; // added for bootstrap-rn
 
     @include media-breakpoint-up(sm) {
       max-width: $modal-md;

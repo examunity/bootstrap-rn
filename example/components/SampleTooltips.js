@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, injectTooltip, Button, Text } from 'bootstrap-native';
+import { Heading, injectTooltip, Button, Text } from 'bootstrap-rn';
 
 const TooltipButton = injectTooltip(Button);
 

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   `,
   '.lead': css`
     font-size: $lead-font-size;
-    line-height: $lead-font-size * $line-height-base; // added for bootstrap-native
+    line-height: $lead-font-size * $line-height-base; // added for bootstrap-rn
     font-weight: $lead-font-weight;
   `,
 });

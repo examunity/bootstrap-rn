@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-collapse`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
-        flex-direction: row; // added for bootstrap-native
+        flex-direction: row; // added for bootstrap-rn
         display: flex;
         flex-basis: auto;
       }

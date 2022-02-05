@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Picker, Text } from 'bootstrap-native';
+import { Picker, Text } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';

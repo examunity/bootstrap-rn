@@ -12,7 +12,7 @@ import {
   Label,
   FormText,
   Feedback,
-} from 'bootstrap-native';
+} from 'bootstrap-rn';
 
 function Forms() {
   const [error, setError] = useState(false);

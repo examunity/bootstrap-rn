@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Heading, Text, Button, CloseButton } from 'bootstrap-native';
+import { Modal, Heading, Text, Button, CloseButton } from 'bootstrap-rn';
 
 function SampleModal() {
   const [modalVisible, setModalVisible] = useState(false);

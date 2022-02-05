@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Heading, Text, Button, Card } from 'bootstrap-native';
+import { Collapse, Heading, Text, Button, Card } from 'bootstrap-rn';
 
 function SampleCollapse() {
   return (

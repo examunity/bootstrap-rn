@@ -6,7 +6,7 @@ import {
   Button,
   CloseButton,
   View,
-} from 'bootstrap-native';
+} from 'bootstrap-rn';
 
 function SampleOffcanvas() {
   const [offcanvasVisible, setOffcanvasVisible] = useState(false);

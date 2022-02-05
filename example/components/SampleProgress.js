@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress, View, Heading, StyleSheet, css } from 'bootstrap-native';
+import { Progress, View, Heading, StyleSheet, css } from 'bootstrap-rn';
 
 const styles = StyleSheet.create({
   progressContainer: css`

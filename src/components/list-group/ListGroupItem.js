@@ -64,10 +64,10 @@ export const styles = StyleSheet.create({
     border-top-width: $list-group-border-width;
   `,
   '.list-group-item-flush': css`
-    border-top-left-radius: 0; // added for bootstrap-native
-    border-top-right-radius: 0; // added for bootstrap-native
-    border-bottom-left-radius: 0; // added for bootstrap-native
-    border-bottom-right-radius: 0; // added for bootstrap-native
+    border-top-left-radius: 0; // added for bootstrap-rn
+    border-top-right-radius: 0; // added for bootstrap-rn
+    border-bottom-left-radius: 0; // added for bootstrap-rn
+    border-bottom-right-radius: 0; // added for bootstrap-rn
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: $list-group-border-width;
