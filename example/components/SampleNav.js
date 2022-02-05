@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, Tab, Text, Badge, Paragraph, Heading } from 'bootstyle';
+import { Nav, Tab, Text, Badge, Paragraph, Heading } from 'bootstrap-native';
 
 function SampleNav() {
   return (

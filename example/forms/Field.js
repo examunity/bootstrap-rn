@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Feedback, FormText, css, StyleSheet } from 'bootstyle';
+import { View, Feedback, FormText, css, StyleSheet } from 'bootstrap-native';
 
 const propTypes = {
   children: PropTypes.node.isRequired,

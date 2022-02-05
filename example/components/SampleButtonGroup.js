@@ -1,5 +1,11 @@
 import React from 'react';
-import { ButtonToolbar, ButtonGroup, Button, Heading, Text } from 'bootstyle';
+import {
+  ButtonToolbar,
+  ButtonGroup,
+  Button,
+  Heading,
+  Text,
+} from 'bootstrap-native';
 
 function SampleButtonGroup() {
   return (

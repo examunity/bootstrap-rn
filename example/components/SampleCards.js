@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Heading, Text } from 'bootstyle';
+import { Card, Heading, Text } from 'bootstrap-native';
 
 function SampleCards() {
   return (

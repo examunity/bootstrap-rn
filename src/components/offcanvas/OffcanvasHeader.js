@@ -17,7 +17,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.offcanvas-header': css`
     display: flex;
-    flex-direction: row; // added for bootstyle
+    flex-direction: row; // added for bootstrap-native
     align-items: center;
     justify-content: space-between;
     padding: $offcanvas-padding-y $offcanvas-padding-x;

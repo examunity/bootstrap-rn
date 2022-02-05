@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paragraph, Text, Card } from 'bootstyle';
+import { Paragraph, Text, Card } from 'bootstrap-native';
 import Form from '../forms/Form';
 
 function FormikForms() {

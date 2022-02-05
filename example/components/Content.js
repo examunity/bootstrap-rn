@@ -7,7 +7,7 @@ import {
   Code,
   Blockquote,
   Paragraph,
-} from 'bootstyle';
+} from 'bootstrap-native';
 
 function Content() {
   /* eslint-disable jsx-a11y/anchor-is-valid */

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   `,
   '.navbar-brand-text': css`
     font-size: $navbar-brand-font-size;
-    line-height: $navbar-brand-font-size * $line-height-base; // added for bootstyle
+    line-height: $navbar-brand-font-size * $line-height-base; // added for bootstrap-native
     text-decoration: none; // if($link-decoration == none, null, none);
     // white-space: nowrap;
 

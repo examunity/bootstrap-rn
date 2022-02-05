@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'bootstyle';
+import { Button } from 'bootstrap-native';
 import { useFormikContext } from 'formik';
 
 const propTypes = {

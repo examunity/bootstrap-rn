@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text } from 'bootstyle';
+import { Heading, Text } from 'bootstrap-native';
 
 function Utilities() {
   return (

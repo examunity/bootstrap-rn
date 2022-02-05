@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Offcanvas, Heading, Text, Button, CloseButton, View } from 'bootstyle';
+import {
+  Offcanvas,
+  Heading,
+  Text,
+  Button,
+  CloseButton,
+  View,
+} from 'bootstrap-native';
 
 function SampleOffcanvas() {
   const [offcanvasVisible, setOffcanvasVisible] = useState(false);

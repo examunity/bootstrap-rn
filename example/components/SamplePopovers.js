@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, injectPopover, Button, Text } from 'bootstyle';
+import { Heading, injectPopover, Button, Text } from 'bootstrap-native';
 
 const PopoverButton = injectPopover(Button);
 

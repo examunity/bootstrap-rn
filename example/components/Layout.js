@@ -9,7 +9,7 @@ import {
   Text,
   css,
   StyleSheet,
-} from 'bootstyle';
+} from 'bootstrap-native';
 import { Outlet } from '../libs/react-router';
 
 const styles = StyleSheet.create({

@@ -16,7 +16,7 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.btn-group': css`
-    flex-direction: row; // added for bootstyle
+    flex-direction: row; // added for bootstrap-native
     border-radius: $btn-border-radius;
   `,
 });

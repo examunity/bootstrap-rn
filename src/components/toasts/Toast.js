@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   `,
   '.toast-text': css`
     font-size: $toast-font-size;
-    line-height: $toast-font-size * $line-height-base; // added for bootstyle
+    line-height: $toast-font-size * $line-height-base; // added for bootstrap-native
     color: $toast-color;
   `,
   '.toast-container .toast': css`

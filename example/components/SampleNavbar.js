@@ -7,7 +7,7 @@ import {
   Text,
   Offcanvas,
   CloseButton,
-} from 'bootstyle';
+} from 'bootstrap-native';
 
 function SampleNavbar() {
   return (

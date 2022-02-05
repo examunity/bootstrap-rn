@@ -15,7 +15,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.row': css`
     display: flex;
-    flex-direction: row; // added for bootstyle
+    flex-direction: row; // added for bootstrap-native
     flex-wrap: wrap;
     margin-top: 0;
     margin-right: -0.5 * $grid-gutter-width;

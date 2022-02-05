@@ -22,7 +22,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.nav': css`
     display: flex;
-    flex-direction: row; // added for bootstyle
+    flex-direction: row; // added for bootstrap-native
     flex-wrap: wrap;
     padding-left: 0;
     margin-bottom: 0;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToastContainer, Toast, Heading, Text } from 'bootstyle';
+import { ToastContainer, Toast, Heading, Text } from 'bootstrap-native';
 
 function SampleToasts() {
   return (

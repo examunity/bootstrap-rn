@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bootstyle-demo",
-    "slug": "bootstyle-demo",
+    "name": "bootstrap-native-demo",
+    "slug": "bootstrap-native-demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

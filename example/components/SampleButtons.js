@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Heading, Text } from 'bootstyle';
+import { Button, Heading, Text } from 'bootstrap-native';
 
 function SampleButtons() {
   return (

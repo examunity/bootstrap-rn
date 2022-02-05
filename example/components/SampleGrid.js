@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Heading, Text } from 'bootstyle';
+import { Row, Col, Heading, Text } from 'bootstrap-native';
 
 function SampleGrid() {
   return (

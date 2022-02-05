@@ -28,8 +28,8 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.nav-link': css`
     // display: block;
-    flex-direction: row; // added for bootstyle
-    align-items: center; // added for bootstyle
+    flex-direction: row; // added for bootstrap-native
+    align-items: center; // added for bootstrap-native
     padding: $nav-link-padding-y $nav-link-padding-x;
     // @include transition($nav-link-transition);
   `,
@@ -90,22 +90,22 @@ const styles = StyleSheet.create({
     border-color: $nav-tabs-link-active-border-color;
 
     &:hover {
-      background-color: $nav-tabs-link-active-bg; // added for bootstyle
-      border-color: $nav-tabs-link-active-border-color; // added for bootstyle
+      background-color: $nav-tabs-link-active-bg; // added for bootstrap-native
+      border-color: $nav-tabs-link-active-border-color; // added for bootstrap-native
     }
     &:focus {
-      background-color: $nav-tabs-link-active-bg; // added for bootstyle
-      border-color: $nav-tabs-link-active-border-color; // added for bootstyle
+      background-color: $nav-tabs-link-active-bg; // added for bootstrap-native
+      border-color: $nav-tabs-link-active-border-color; // added for bootstrap-native
     }
   `,
   '.nav-tabs .nav-link-active-text': css`
     color: $nav-tabs-link-active-color;
 
     &:hover {
-      color: $nav-tabs-link-active-color; // added for bootstyle
+      color: $nav-tabs-link-active-color; // added for bootstrap-native
     }
     &:focus {
-      color: $nav-tabs-link-active-color; // added for bootstyle
+      color: $nav-tabs-link-active-color; // added for bootstrap-native
     }
   `,
   '.nav-pills .nav-link': css`
@@ -115,20 +115,20 @@ const styles = StyleSheet.create({
   `,
   '.nav-pills .nav-link-active': css`
     // @include gradient-bg($nav-pills-link-active-bg);
-    background-color: $nav-pills-link-active-bg; // added for bootstyle
+    background-color: $nav-pills-link-active-bg; // added for bootstrap-native
 
     &:hover {
-      background-color: $nav-pills-link-active-bg; // added for bootstyle
+      background-color: $nav-pills-link-active-bg; // added for bootstrap-native
     }
     &:focus {
-      background-color: $nav-pills-link-active-bg; // added for bootstyle
+      background-color: $nav-pills-link-active-bg; // added for bootstrap-native
     }
   `,
   '.nav-pills .nav-link-active-text': css`
     color: $nav-pills-link-active-color;
 
     &:hover {
-      color: $nav-pills-link-active-color; // added for bootstyle
+      color: $nav-pills-link-active-color; // added for bootstrap-native
     }
     &:focus {
       color: $nav-pills-link-active-color; // added for bootstyl
@@ -164,10 +164,10 @@ const styles = StyleSheet.create({
     color: $navbar-light-active-color;
 
     &:hover {
-      color: $navbar-light-active-color; // added for bootstyle
+      color: $navbar-light-active-color; // added for bootstrap-native
     }
     &:focus {
-      color: $navbar-light-active-color; // added for bootstyle
+      color: $navbar-light-active-color; // added for bootstrap-native
     }
   `,
   '.navbar-dark .navbar-nav .nav-link-text': css`
@@ -187,10 +187,10 @@ const styles = StyleSheet.create({
     color: $navbar-dark-active-color;
 
     &:hover {
-      color: $navbar-dark-active-color; // added for bootstyle
+      color: $navbar-dark-active-color; // added for bootstrap-native
     }
     &:focus {
-      color: $navbar-dark-active-color; // added for bootstyle
+      color: $navbar-dark-active-color; // added for bootstrap-native
     }
   `,
 });

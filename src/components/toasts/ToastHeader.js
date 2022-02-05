@@ -16,7 +16,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.toast-header': css`
     display: flex;
-    flex-direction: row; // added for bootstyle
+    flex-direction: row; // added for bootstrap-native
     align-items: center;
     padding: $toast-padding-y $toast-padding-x;
     background-color: $toast-header-background-color;

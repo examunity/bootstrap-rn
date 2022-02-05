@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   // Navbar styles
   '.navbar .container': css`
     display: flex;
-    flex-direction: row; // added for bootstyle
+    flex-direction: row; // added for bootstrap-native
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     font-weight: $input-font-weight;
     line-height: $input-font-size * $input-line-height;
     color: $input-color;
-    text-align-vertical: top; // added for bootstyle
+    text-align-vertical: top; // added for bootstrap-native
     background-color: $input-bg;
     // background-clip: padding-box;
     border: $input-border-width solid $input-border-color;

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     border: $dropdown-border-width solid $dropdown-border-color;
     border-radius: $dropdown-border-radius;
     // @include box-shadow($dropdown-box-shadow);
-    margin-top: $dropdown-spacer; // added for bootstyle
+    margin-top: $dropdown-spacer; // added for bootstrap-native
   `,
   '.dropdown-menu-text': css`
     font-size: $dropdown-font-size;

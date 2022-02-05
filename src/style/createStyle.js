@@ -5,7 +5,7 @@ import mediaBreakpointOnly from './mixins/mediaBreakpointOnly';
 import mediaBreakpointUp from './mixins/mediaBreakpointUp';
 import platform from './mixins/platform';
 
-export const BOOTSTYLE_STYLE = Symbol.for('bootstyle.style');
+export const BOOTSTRAP_NATIVE_STYLE = Symbol.for('bootstrap-native.style');
 
 const mixins = {
   'media-breakpoint-between': mediaBreakpointBetween,
@@ -80,7 +80,7 @@ function createStyle(definitions) {
     return [basicStyles, interactionStyles];
   };
 
-  resolve.$$typeof = BOOTSTYLE_STYLE;
+  resolve.$$typeof = BOOTSTRAP_NATIVE_STYLE;
 
   return resolve;
 }
