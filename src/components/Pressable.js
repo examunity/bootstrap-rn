@@ -22,6 +22,24 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
+// One of the following should be set for aria support:
+// 1) accessibilityRole
+// 2) accessibilityLabel + accessibilityHint
+// 3) accessibilityActions + onAccessibilityAction
+export const getRole = (props) => {
+  const { accessibilityRole, accessibilityLabel, accessibilityActions } = props;
+
+  if (accessibilityRole) {
+    return accessibilityRole;
+  }
+
+  if (accessibilityLabel || accessibilityActions) {
+    return null;
+  }
+
+  return 'button';
+};
+
 const Pressable = React.forwardRef((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
   const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
@@ -50,7 +68,7 @@ const Pressable = React.forwardRef((props, ref) => {
     <BasePressable
       {...elementProps}
       ref={actionRef}
-      accessibilityRole="button"
+      accessibilityRole={getRole(actionProps)}
       style={(interaction) => [
         resolveStyle({ media, interaction }),
         resolveActiveStyle({ media, interaction }),

@@ -8,6 +8,7 @@ import useModifier from '../hooks/useModifier';
 import useAction from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
+import { getRole } from './Pressable';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -58,13 +59,11 @@ const Link = React.forwardRef((props, ref) => {
 
   const resolveStyle = useStyle([classes, style]);
 
-  // const role = link ? 'link' : 'button';
-
   return (
     <Text
       {...elementProps}
       ref={actionRef}
-      accessibilityRole="button"
+      accessibilityRole={getRole(actionProps)}
       accessible
       onMouseEnter={() => {
         setHovered(true);
