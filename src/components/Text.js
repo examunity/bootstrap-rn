@@ -6,9 +6,11 @@ import css from '../style/css';
 import useMedia from '../hooks/useMedia';
 import TextStyleContext from '../style/TextStyleContext';
 import { getStyles } from '../utils';
+import { THEME_COLORS } from '../theme/proxies';
 import useStyle from '../hooks/useStyle';
 
 const propTypes = {
+  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   small: PropTypes.bool,
   mark: PropTypes.bool,
   bold: PropTypes.bool,
@@ -44,8 +46,17 @@ const styles = StyleSheet.create({
   `,
 });
 
+const getStyleName = (styleName, color) => {
+  if (!color) {
+    return styleName;
+  }
+
+  return styleName ? `text-${color} ${styleName}` : `text-${color}`;
+};
+
 const Text = React.forwardRef((props, ref) => {
   const {
+    color, // will be deprecated soon
     bold = false,
     italic = false,
     mark = false,
@@ -74,7 +85,7 @@ const Text = React.forwardRef((props, ref) => {
       classes,
       style,
     ],
-    styleName,
+    getStyleName(styleName, color),
   );
 
   const element = (

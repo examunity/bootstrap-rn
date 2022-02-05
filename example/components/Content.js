@@ -39,6 +39,7 @@ function Content() {
       <Text mark>Marked text</Text>
       <Text bold>Bold text</Text>
       <Text italic>Italic text</Text>
+      <Text color="danger">Deprecated color prop test</Text>
       <Code>Code text</Code>
       <Blockquote>
         <Text>Blockquote</Text>
