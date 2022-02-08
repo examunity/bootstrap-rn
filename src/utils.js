@@ -99,3 +99,13 @@ export function convertToREM(value) {
       `${unary || ''}${number / (PixelRatio.getFontScale() * 16)}rem`,
   );
 }
+
+export function convertToNumber(value) {
+  return parseFloat(
+    value.replace(
+      /([+-]+)?([\d.Ee]+)rem/g,
+      (_, unary, number) =>
+        `${unary || ''}${PixelRatio.getFontScale() * 16 * number}px`,
+    ),
+  );
+}

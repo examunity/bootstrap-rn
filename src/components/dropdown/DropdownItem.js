@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles, concatFns } from '../../utils';
+import useForcedContext from '../../hooks/useForcedContext';
 import css from '../../style/css';
 import Pressable from '../Pressable';
 import DropdownContext from './DropdownContext';
@@ -109,7 +110,7 @@ const DropdownItem = (props) => {
     ...elementProps
   } = props;
 
-  const context = useContext(DropdownContext);
+  const dropdown = useForcedContext(DropdownContext);
 
   const classes = getStyles(styles, [
     '.dropdown-item',
@@ -127,7 +128,7 @@ const DropdownItem = (props) => {
     <Pressable
       {...elementProps}
       onPress={concatFns(() => {
-        context.setVisible(false);
+        dropdown.setVisible(false);
       }, handlePress)}
       disabled={disabled}
       style={[classes, style]}

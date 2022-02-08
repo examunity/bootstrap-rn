@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { useFloating, shift } from '@floating-ui/react-native';
+import { useMemo, useRef } from 'react';
 import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
 
@@ -7,19 +6,11 @@ export default function useDropdown(
   defaultVisible,
   controlledVisible,
   onToggle,
-  placement,
+  direction,
 ) {
   const identifier = useIdentifier('dropdown');
 
-  const {
-    x = 0,
-    y = 0,
-    reference: triggerRef,
-    floating: menuRef,
-  } = useFloating({
-    placement,
-    middleware: [shift()],
-  });
+  const triggerRef = useRef();
 
   const [visible, setVisible] = useControlledState(
     defaultVisible,
@@ -33,9 +24,8 @@ export default function useDropdown(
       visible,
       setVisible,
       triggerRef,
-      menuRef,
-      menuPos: { x, y },
+      direction,
     }),
-    [visible, x, y],
+    [visible],
   );
 }

@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { OverlayContainer } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
+import Overlay from '../Overlay';
 import View from '../View';
+import useMedia from '../../hooks/useMedia';
 import TextStyleProvider from '../../style/TextStyleProvider';
-import { getStyles, concatRefs } from '../../utils';
+import { getStyles, concatRefs, convertToNumber } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
 
+const ALIGNMENT_BREAKPOINTS = [true, 'sm', 'md', 'lg', 'xl', 'xxl'];
+
 const propTypes = {
   children: PropTypes.node.isRequired,
+  start: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
+  end: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -28,7 +35,6 @@ const styles = StyleSheet.create({
     border: $dropdown-border-width solid $dropdown-border-color;
     border-radius: $dropdown-border-radius;
     // @include box-shadow($dropdown-box-shadow);
-    margin-top: $dropdown-spacer; // added for bootstrap-rn
   `,
   '.dropdown-menu-text': css`
     font-size: $dropdown-font-size;
@@ -37,30 +43,76 @@ const styles = StyleSheet.create({
   `,
 });
 
+const getAlignment = (media, start, end) => {
+  const alignStart = typeof start === 'boolean' ? start : media.up(start);
+  const alignEnd = typeof end === 'boolean' ? end : media.up(end);
+
+  if (!alignEnd) {
+    return 'start';
+  }
+
+  if (!alignStart) {
+    return 'end';
+  }
+
+  const startIndex = ALIGNMENT_BREAKPOINTS.indexOf(start);
+  const endIndex = ALIGNMENT_BREAKPOINTS.indexOf(end);
+
+  return startIndex > endIndex ? 'start' : 'end';
+};
+
+const getPlacement = (media, direction, start, end) => {
+  if (direction === 'start' || direction === 'end') {
+    return `${direction} top`;
+  }
+
+  return `${direction} ${getAlignment(media, start, end)}`;
+};
+
 const DropdownMenu = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const { children, start = true, end = false, style, ...elementProps } = props;
 
   const dropdown = useForcedContext(DropdownContext);
+  const media = useMedia();
 
-  const { identifier, visible, menuRef, menuPos } = dropdown;
+  const { identifier, direction, triggerRef, visible } = dropdown;
 
   if (!visible) {
     return null;
   }
 
   const classes = getStyles(styles, ['.dropdown-menu']);
-
   const textClasses = getStyles(styles, ['.dropdown-menu-text']);
 
   return (
-    <View
-      {...elementProps}
-      ref={concatRefs(menuRef, ref)}
-      accessibilityLabelledBy={identifier}
-      style={[classes, { top: menuPos.y, left: menuPos.x }, style]}
-    >
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
-    </View>
+    <OverlayContainer>
+      <Overlay
+        placement={getPlacement(media, direction, start, end)}
+        targetRef={triggerRef}
+        offset={convertToNumber(StyleSheet.value('dropdown-spacer'))}
+        visible={visible}
+      >
+        {({ overlayProps, rendered }, menuRef) => (
+          <View
+            {...elementProps}
+            ref={concatRefs(menuRef, ref)}
+            accessibilityLabelledBy={identifier}
+            style={[
+              classes,
+              style,
+              { opacity: rendered ? 1 : 0 },
+              overlayProps.style,
+            ]}
+          >
+            <DropdownContext.Provider value={dropdown}>
+              <TextStyleProvider style={textClasses}>
+                {children}
+              </TextStyleProvider>
+            </DropdownContext.Provider>
+          </View>
+        )}
+      </Overlay>
+    </OverlayContainer>
   );
 });
 

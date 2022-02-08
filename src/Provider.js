@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { OverlayProvider } from '@react-native-aria/overlays';
 import useViewport from './hooks/useViewport';
 import Context from './Context';
 
@@ -32,7 +33,11 @@ function Provider(props) {
     },
   };
 
-  return <Context.Provider value={context}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={context}>
+      <OverlayProvider>{children}</OverlayProvider>
+    </Context.Provider>
+  );
 }
 
 Provider.propTypes = propTypes;

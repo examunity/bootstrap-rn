@@ -5,8 +5,8 @@ function SampleDropdowns() {
   return (
     <>
       <Heading size={2}>Dropdown</Heading>
-      <Dropdown placement="bottom">
-        <Button toggle={Dropdown}>
+      <Dropdown direction="bottom">
+        <Button toggle={Dropdown} styleName="as-center">
           <Text>Show Dropdown</Text>
         </Button>
         <Dropdown.Menu>

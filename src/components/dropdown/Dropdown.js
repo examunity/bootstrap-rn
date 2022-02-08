@@ -13,14 +13,14 @@ import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
 import useToggleDropdown from './useToggleDropdown';
 
-const PLACEMENTS = ['top', 'bottom', 'left', 'right'];
+const DIRECTIONS = ['top', 'bottom', 'start', 'end'];
 
 const propTypes = {
   children: PropTypes.node,
   defaultVisible: PropTypes.bool,
   visible: PropTypes.bool,
   onToggle: PropTypes.func,
-  placement: PropTypes.oneOf(PLACEMENTS),
+  direction: PropTypes.oneOf(DIRECTIONS),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -37,12 +37,12 @@ const Dropdown = React.forwardRef((props, ref) => {
     defaultVisible = false,
     visible,
     onToggle,
-    placement = 'bottom',
+    direction = 'bottom',
     style,
     ...elementProps
   } = props;
 
-  const dropdown = useDropdown(defaultVisible, visible, onToggle, placement);
+  const dropdown = useDropdown(defaultVisible, visible, onToggle, direction);
 
   const classes = getStyles(styles, ['.dropdown']);
 

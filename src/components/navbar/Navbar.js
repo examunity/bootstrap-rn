@@ -21,7 +21,7 @@ const propTypes = {
   defaultExpanded: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
-  expand: PropTypes.oneOf([true, 'sm', 'md', 'lg', 'xl']),
+  expand: PropTypes.oneOf([true, 'sm', 'md', 'lg', 'xl', 'xxl']),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
