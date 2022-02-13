@@ -10,7 +10,12 @@ import { THEME_COLORS } from '../theme/proxies';
 import useStyle from '../hooks/useStyle';
 
 const propTypes = {
-  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
+  color: PropTypes.oneOf([
+    ...Object.keys(THEME_COLORS),
+    'muted',
+    'black-50',
+    'white-50',
+  ]),
   small: PropTypes.bool,
   mark: PropTypes.bool,
   bold: PropTypes.bool,
