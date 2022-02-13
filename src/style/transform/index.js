@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 import rem from './rem';
 import formula from './formula';
@@ -55,7 +56,22 @@ export default function transform(
 
       // Only add value if value is not null.
       if (child.type === 'declaration' && value !== 'null') {
-        if (child.name === 'border-color' && value.split(' ').length === 1) {
+        if (child.name === 'box-shadow') {
+          if (Platform.OS === 'web') {
+            Object.assign(definitions[0].declarations, {
+              boxShadow: value,
+            });
+          }
+        } else if (child.name === 'order') {
+          if (Platform.OS === 'web') {
+            Object.assign(definitions[0].declarations, {
+              order: value,
+            });
+          }
+        } else if (
+          child.name === 'border-color' &&
+          value.split(' ').length === 1
+        ) {
           // Workaround for react-native issue #19981
           // https://github.com/facebook/react-native/issues/19981
           Object.assign(definitions[0].declarations, {
