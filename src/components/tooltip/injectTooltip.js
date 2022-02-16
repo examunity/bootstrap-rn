@@ -1,6 +1,6 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
 import useOverlay, { OverlayPropTypes } from '../../hooks/useOverlay';
 
@@ -11,13 +11,15 @@ const propTypes = {
   }),
 };
 
+const defaultTrigger = Platform.OS === 'web' ? 'hover' : 'click';
+
 export default function injectTooltip(Component) {
   const OverlayTooltip = React.forwardRef((props, ref) => {
     /* eslint-disable react/prop-types */
     const {
       tooltip: {
         title,
-        trigger = 'click',
+        trigger = defaultTrigger,
         placement = 'top',
         defaultVisible,
         visible,
@@ -29,7 +31,12 @@ export default function injectTooltip(Component) {
 
     const target = <Component {...elementProps} ref={ref} />;
 
-    const template = <Tooltip>{title}</Tooltip>;
+    const template = (
+      <Tooltip>
+        <Tooltip.Arrow />
+        <Tooltip.Inner>{title}</Tooltip.Inner>
+      </Tooltip>
+    );
 
     return useOverlay(target, template, {
       trigger,
@@ -37,9 +44,6 @@ export default function injectTooltip(Component) {
       defaultVisible,
       visible,
       onToggle,
-      arrowStyle: {
-        backgroundColor: StyleSheet.value('tooltip-arrow-color'),
-      },
     });
   });
 

@@ -23,6 +23,14 @@ const Overlay = (props) => {
     isOpen: visible,
   });
 
+  // Remove undefined arrow styles
+  if (overlay.arrowProps.style.left === undefined) {
+    delete overlay.arrowProps.style.left;
+  }
+  if (overlay.arrowProps.style.top === undefined) {
+    delete overlay.arrowProps.style.top;
+  }
+
   return children(overlay, overlayRef);
 };
 

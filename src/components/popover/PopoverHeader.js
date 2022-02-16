@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     padding: $popover-header-padding-y $popover-header-padding-x;
     margin-bottom: 0; // Reset the default from Reboot
     font-size: $font-size-base;
+    line-height: $font-size-base * $headings-line-height; // added for bootstrap-rn
     color: $popover-header-color;
     background-color: $popover-header-bg;
     border-bottom-width: $popover-border-width;

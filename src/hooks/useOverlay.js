@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import Overlay from 'react-native-popover-view';
+import { OverlayContainer } from '@react-native-aria/overlays';
+import Overlay from '../components/Overlay';
 import useIdentifier from './useIdentifier';
-import { optional } from '../utils';
+import { optional, concatRefs } from '../utils';
 import useControlledState from './useControlledState';
 
 const PLACEMENTS = ['top', 'bottom', 'left', 'right'];
@@ -23,20 +24,20 @@ const TRIGGERS = [
 export const OverlayPropTypes = {
   trigger: PropTypes.oneOf(TRIGGERS),
   placement: PropTypes.oneOf(PLACEMENTS),
+  offset: PropTypes.number,
   defaultVisible: PropTypes.bool,
   visible: PropTypes.bool,
   onToggle: PropTypes.func,
-  arrowStyle: PropTypes.any,
 };
 
 export default function useOverlay(target, template, config) {
   const {
     trigger: rawTrigger,
-    placement,
+    placement: rawPlacement,
+    offset,
     defaultVisible = false,
     visible: controlledVisible,
     onToggle,
-    arrowStyle,
   } = config;
 
   const trigger = rawTrigger.split(' ');
@@ -50,8 +51,11 @@ export default function useOverlay(target, template, config) {
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
 
+  const targetRef = useRef();
+
   const targetElement = React.cloneElement(target, {
     key: 'target',
+    ref: concatRefs(targetRef, target.ref),
     ...optional(visible, { accessibilityDescribedBy: identifier }),
     onPress: (event) => {
       if (trigger.includes('click')) {
@@ -118,23 +122,33 @@ export default function useOverlay(target, template, config) {
     },
   });
 
-  const templateElement = React.cloneElement(template, {
-    nativeID: identifier,
-  });
-
   return (
-    <Overlay
-      from={targetElement}
-      isVisible={visible}
-      placement={placement}
-      popoverStyle={{ backgroundColor: 'transparent' }}
-      backgroundStyle={{ backgroundColor: 'transparent' }}
-      arrowStyle={arrowStyle}
-      onRequestClose={() => {
-        setVisible(false);
-      }}
-    >
-      {templateElement}
-    </Overlay>
+    <>
+      {targetElement}
+      {visible && (
+        <OverlayContainer>
+          <Overlay
+            placement={rawPlacement}
+            targetRef={targetRef}
+            offset={offset}
+            visible={visible}
+          >
+            {({ overlayProps, arrowProps, placement, rendered }, templateRef) =>
+              React.cloneElement(template, {
+                nativeID: identifier,
+                ref: concatRefs(templateRef, template.ref),
+                placement,
+                style: [
+                  template.style,
+                  { opacity: rendered ? 1 : 0 },
+                  overlayProps.style,
+                ],
+                arrowStyle: arrowProps.style,
+              })
+            }
+          </Overlay>
+        </OverlayContainer>
+      )}
+    </>
   );
 }

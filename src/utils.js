@@ -92,6 +92,18 @@ export function getElementId(identifier, name) {
   return `${identifier}${name ? `-${name}` : ''}`;
 }
 
+export function transformPlacement(placement) {
+  if (placement === 'left') {
+    return 'start';
+  }
+
+  if (placement === 'right') {
+    return 'end';
+  }
+
+  return placement;
+}
+
 export function convertToREM(value) {
   return value.replace(
     /([+-]+)?([\d.Ee]+)px/,

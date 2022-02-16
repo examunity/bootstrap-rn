@@ -2,22 +2,27 @@ import React from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
-import { getStyles } from '../../utils';
+import { getStyles, transformPlacement } from '../../utils';
 import css from '../../style/css';
 import View from '../View';
 import TextStyleProvider from '../../style/TextStyleProvider';
+import PopoverArrow from './PopoverArrow';
 import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
+import PopoverContext from './PopoverContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  placement: PropTypes.string,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  arrowStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.popover': css`
-    // position: absolute;
+    position: absolute;
     // top: 0;
     // left: 0 #{"/* rtl:ignore */"};
     z-index: $zindex-popover;
@@ -40,10 +45,17 @@ const styles = StyleSheet.create({
 });
 
 const Popover = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const {
+    children,
+    placement = 'right',
+    style,
+    arrowStyle,
+    ...elementProps
+  } = props;
+
+  const popover = { placement: transformPlacement(placement), arrowStyle };
 
   const classes = getStyles(styles, ['.popover']);
-
   const textClasses = getStyles(styles, ['.popover-text']);
 
   // Accessiblity role tooltip is only supported on web.
@@ -56,7 +68,9 @@ const Popover = React.forwardRef((props, ref) => {
       accessibilityRole={role}
       style={[classes, style]}
     >
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      <PopoverContext.Provider value={popover}>
+        <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      </PopoverContext.Provider>
     </View>
   );
 });
@@ -64,6 +78,7 @@ const Popover = React.forwardRef((props, ref) => {
 Popover.displayName = 'Popover';
 Popover.propTypes = propTypes;
 
+Popover.Arrow = PopoverArrow;
 Popover.Header = PopoverHeader;
 Popover.Body = PopoverBody;
 

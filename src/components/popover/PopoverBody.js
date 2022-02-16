@@ -29,7 +29,7 @@ const PopoverBody = React.forwardRef((props, ref) => {
   const textClasses = getStyles(styles, ['.popover-body-text']);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
     </View>
   );

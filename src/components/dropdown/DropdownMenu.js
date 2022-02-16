@@ -61,7 +61,7 @@ const getAlignment = (media, start, end) => {
   return startIndex > endIndex ? 'start' : 'end';
 };
 
-const getPlacement = (media, direction, start, end) => {
+const transformPlacement = (media, direction, start, end) => {
   if (direction === 'start' || direction === 'end') {
     return `${direction} top`;
   }
@@ -87,7 +87,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
   return (
     <OverlayContainer>
       <Overlay
-        placement={getPlacement(media, direction, start, end)}
+        placement={transformPlacement(media, direction, start, end)}
         targetRef={triggerRef}
         offset={convertToNumber(StyleSheet.value('dropdown-spacer'))}
         visible={visible}

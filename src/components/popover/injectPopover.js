@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import Popover from './Popover';
+import { convertToNumber } from '../../utils';
 import useOverlay, { OverlayPropTypes } from '../../hooks/useOverlay';
 
 const propTypes = {
@@ -33,6 +34,7 @@ export default function injectPopover(Component) {
 
     const template = (
       <Popover>
+        <Popover.Arrow />
         {title && <Popover.Header>{title}</Popover.Header>}
         <Popover.Body>{content}</Popover.Body>
       </Popover>
@@ -41,12 +43,10 @@ export default function injectPopover(Component) {
     return useOverlay(target, template, {
       trigger,
       placement,
+      offset: convertToNumber(StyleSheet.value('popover-arrow-height')),
       defaultVisible,
       visible,
       onToggle,
-      arrowStyle: {
-        backgroundColor: StyleSheet.value('popover-arrow-outer-color'),
-      },
     });
   });
 
