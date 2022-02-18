@@ -92,16 +92,16 @@ const DropdownMenu = React.forwardRef((props, ref) => {
         offset={convertToNumber(StyleSheet.value('dropdown-spacer'))}
         visible={visible}
       >
-        {({ overlayProps, rendered }, menuRef) => (
+        {(overlay, overlayRef) => (
           <View
             {...elementProps}
-            ref={concatRefs(menuRef, ref)}
+            ref={concatRefs(overlayRef, ref)}
             accessibilityLabelledBy={identifier}
             style={[
               classes,
               style,
-              { opacity: rendered ? 1 : 0 },
-              overlayProps.style,
+              { opacity: overlay.rendered ? 1 : 0 },
+              overlay.overlayProps.style,
             ]}
           >
             <DropdownContext.Provider value={dropdown}>

@@ -1,19 +1,23 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
+import { OverlayContainer } from '@react-native-aria/overlays';
+import Overlay from '../Overlay';
+import useTrigger, { TriggerPropTypes } from '../../hooks/useTrigger';
+import { convertToNumber } from '../../utils';
+import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
-import useOverlay, { OverlayPropTypes } from '../../hooks/useOverlay';
 
 const propTypes = {
   tooltip: PropTypes.shape({
     title: PropTypes.node.isRequired,
-    ...OverlayPropTypes,
+    ...TriggerPropTypes,
   }),
 };
 
 const defaultTrigger = Platform.OS === 'web' ? 'hover' : 'click';
 
-export default function injectTooltip(Component) {
+export default function injectTooltip(Target) {
   const OverlayTooltip = React.forwardRef((props, ref) => {
     /* eslint-disable react/prop-types */
     const {
@@ -21,30 +25,53 @@ export default function injectTooltip(Component) {
         title,
         trigger = defaultTrigger,
         placement = 'top',
-        defaultVisible,
-        visible,
-        onToggle,
+        ...tooltipProps
       },
       ...elementProps
     } = props;
     /* eslint-enable */
 
-    const target = <Component {...elementProps} ref={ref} />;
-
-    const template = (
-      <Tooltip>
-        <Tooltip.Arrow />
-        <Tooltip.Inner>{title}</Tooltip.Inner>
-      </Tooltip>
+    const { visible, targetProps, targetRef, templateProps } = useTrigger(
+      trigger,
+      tooltipProps,
+      elementProps,
+      ref,
     );
 
-    return useOverlay(target, template, {
-      trigger,
-      placement,
-      defaultVisible,
-      visible,
-      onToggle,
-    });
+    const offset = convertToNumber(StyleSheet.value('tooltip-arrow-height'));
+
+    return (
+      <>
+        <Target {...elementProps} {...targetProps} />
+        {visible && (
+          <OverlayContainer>
+            <Overlay
+              placement={placement}
+              targetRef={targetRef}
+              arrowOffset={offset}
+              visible={visible}
+            >
+              {(overlay, overlayRef) => (
+                <Tooltip
+                  {...templateProps}
+                  ref={overlayRef}
+                  placement={overlay.placement}
+                  popper={overlay.rendered}
+                  style={[
+                    { opacity: overlay.rendered ? 1 : 0 },
+                    overlay.overlayProps.style,
+                  ]}
+                  arrowStyle={overlay.arrowProps.style}
+                >
+                  <Tooltip.Arrow />
+                  <Tooltip.Inner>{title}</Tooltip.Inner>
+                </Tooltip>
+              )}
+            </Overlay>
+          </OverlayContainer>
+        )}
+      </>
+    );
   });
 
   OverlayTooltip.displayName = 'Overlay(Tooltip)';

@@ -11,7 +11,7 @@ function SamplePopovers() {
         popover={{
           title: 'Title',
           content: <Text>This is the content of Popover</Text>,
-          placement: 'right',
+          placement: 'top',
         }}
       >
         <Text>Open this Popover</Text>

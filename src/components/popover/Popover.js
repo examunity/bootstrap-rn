@@ -14,6 +14,7 @@ import PopoverContext from './PopoverContext';
 const propTypes = {
   children: PropTypes.node.isRequired,
   placement: PropTypes.string,
+  popper: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -48,12 +49,17 @@ const Popover = React.forwardRef((props, ref) => {
   const {
     children,
     placement = 'right',
+    popper,
     style,
     arrowStyle,
     ...elementProps
   } = props;
 
-  const popover = { placement: transformPlacement(placement), arrowStyle };
+  const popover = {
+    placement: transformPlacement(placement),
+    arrowStyle,
+    popper,
+  };
 
   const classes = getStyles(styles, ['.popover']);
   const textClasses = getStyles(styles, ['.popover-text']);

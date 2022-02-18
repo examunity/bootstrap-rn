@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { OverlayContainer } from '@react-native-aria/overlays';
+import Overlay from '../Overlay';
+import useTrigger, { TriggerPropTypes } from '../../hooks/useTrigger';
+import { convertToNumber } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
 import Popover from './Popover';
-import { convertToNumber } from '../../utils';
-import useOverlay, { OverlayPropTypes } from '../../hooks/useOverlay';
 
 const propTypes = {
   popover: PropTypes.shape({
     title: PropTypes.node,
     content: PropTypes.node.isRequired,
-    ...OverlayPropTypes,
+    ...TriggerPropTypes,
   }),
 };
 
-export default function injectPopover(Component) {
+export default function injectPopover(Target) {
   const OverlayPopover = React.forwardRef((props, ref) => {
     /* eslint-disable react/prop-types */
     const {
@@ -22,32 +24,55 @@ export default function injectPopover(Component) {
         content,
         trigger = 'click',
         placement = 'right',
-        defaultVisible,
-        visible,
-        onToggle,
+        ...tooltipProps
       },
       ...elementProps
     } = props;
     /* eslint-enable */
 
-    const target = <Component {...elementProps} ref={ref} />;
-
-    const template = (
-      <Popover>
-        <Popover.Arrow />
-        {title && <Popover.Header>{title}</Popover.Header>}
-        <Popover.Body>{content}</Popover.Body>
-      </Popover>
+    const { visible, targetProps, targetRef, templateProps } = useTrigger(
+      trigger,
+      tooltipProps,
+      elementProps,
+      ref,
     );
 
-    return useOverlay(target, template, {
-      trigger,
-      placement,
-      offset: convertToNumber(StyleSheet.value('popover-arrow-height')),
-      defaultVisible,
-      visible,
-      onToggle,
-    });
+    const offset = convertToNumber(StyleSheet.value('popover-arrow-height'));
+
+    return (
+      <>
+        <Target {...elementProps} {...targetProps} />
+        {visible && (
+          <OverlayContainer>
+            <Overlay
+              placement={placement}
+              offset={offset}
+              arrowOffset={offset}
+              targetRef={targetRef}
+              visible={visible}
+            >
+              {(overlay, overlayRef) => (
+                <Popover
+                  {...templateProps}
+                  ref={overlayRef}
+                  placement={overlay.placement}
+                  popper={overlay.rendered}
+                  style={[
+                    { opacity: overlay.rendered ? 1 : 0 },
+                    overlay.overlayProps.style,
+                  ]}
+                  arrowStyle={overlay.arrowProps.style}
+                >
+                  <Popover.Arrow />
+                  {title && <Popover.Header>{title}</Popover.Header>}
+                  <Popover.Body>{content}</Popover.Body>
+                </Popover>
+              )}
+            </Overlay>
+          </OverlayContainer>
+        )}
+      </>
+    );
   });
 
   OverlayPopover.displayName = 'Overlay(Popover)';

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     width: $popover-arrow-width;
     height: $popover-arrow-height;
   `,
-  '.popover-arrow-before': css`
+  '.popover-arrow::before': css`
     position: absolute;
     // display: block;
     // content: "";
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     border-bottom-color: transparent;
     border-style: solid;
   `,
-  '.popover-arrow-after': css`
+  '.popover-arrow::after': css`
     position: absolute;
     // display: block;
     // content: "";
@@ -40,11 +40,11 @@ const styles = StyleSheet.create({
     border-bottom-color: transparent;
     border-style: solid;
   `,
-  '.popover-arrow-top': css`
+  '.bs-popover-top .popover-arrow': css`
     bottom: ${(t) =>
       subtract(`-${t['popover-arrow-height']}`, t['popover-border-width'])};
   `,
-  '.popover-arrow-top-before': css`
+  '.bs-popover-top .popover-arrow::before': css`
     bottom: 0;
     border-top-width: $popover-arrow-height;
     border-right-width: $popover-arrow-width * 0.5;
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     border-bottom-width: 0;
     border-top-color: $popover-arrow-outer-color;
   `,
-  '.popover-arrow-top-after': css`
+  '.bs-popover-top .popover-arrow::after': css`
     bottom: $popover-border-width;
     border-top-width: $popover-arrow-height;
     border-right-width: $popover-arrow-width * 0.5;
@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
     border-bottom-width: 0;
     border-top-color: $popover-arrow-color;
   `,
-  '.popover-arrow-end': css`
+  '.bs-popover-end .popover-arrow': css`
     left: ${(t) =>
       subtract(`-${t['popover-arrow-height']}`, t['popover-border-width'])};
     width: $popover-arrow-height;
     height: $popover-arrow-width;
   `,
-  '.popover-arrow-end-before': css`
+  '.bs-popover-end .popover-arrow::before': css`
     left: 0;
     border-top-width: $popover-arrow-width * 0.5;
     border-right-width: $popover-arrow-height;
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     border-bottom-width: $popover-arrow-width * 0.5;
     border-right-color: $popover-arrow-outer-color;
   `,
-  '.popover-arrow-end-after': css`
+  '.bs-popover-end .popover-arrow::after': css`
     left: $popover-border-width;
     border-top-width: $popover-arrow-width * 0.5;
     border-right-width: $popover-arrow-height;
@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
     border-bottom-width: $popover-arrow-width * 0.5;
     border-right-color: $popover-arrow-color;
   `,
-  '.popover-arrow-bottom': css`
+  '.bs-popover-bottom .popover-arrow': css`
     top: ${(t) =>
       subtract(`-${t['popover-arrow-height']}`, t['popover-border-width'])};
   `,
-  '.popover-arrow-bottom-before': css`
+  '.bs-popover-bottom .popover-arrow::before': css`
     top: 0;
     border-top-width: 0;
     border-right-width: $popover-arrow-width * 0.5;
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     border-bottom-width: $popover-arrow-height;
     border-bottom-color: $popover-arrow-outer-color;
   `,
-  '.popover-arrow-bottom-after': css`
+  '.bs-popover-bottom .popover-arrow::after': css`
     top: $popover-border-width;
     border-top-width: 0;
     border-right-width: $popover-arrow-width * 0.5;
@@ -102,13 +102,13 @@ const styles = StyleSheet.create({
     border-bottom-width: $popover-arrow-height;
     border-bottom-color: $popover-arrow-color;
   `,
-  '.popover-arrow-start': css`
+  '.bs-popover-start .popover-arrow': css`
     right: ${(t) =>
       subtract(`-${t['popover-arrow-height']}`, t['popover-border-width'])};
     width: $popover-arrow-height;
     height: $popover-arrow-width;
   `,
-  '.popover-arrow-start-before': css`
+  '.bs-popover-start .popover-arrow::before': css`
     right: 0;
     border-top-width: $popover-arrow-width * 0.5;
     border-right-width: 0;
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     border-bottom-width: $popover-arrow-width * 0.5;
     border-left-color: $popover-arrow-outer-color;
   `,
-  '.popover-arrow-start-after': css`
+  '.bs-popover-start .popover-arrow::after': css`
     right: $popover-border-width;
     border-top-width: $popover-arrow-width * 0.5;
     border-right-width: 0;
@@ -129,19 +129,19 @@ const styles = StyleSheet.create({
 const PopoverArrow = React.forwardRef((props, ref) => {
   const { style, ...elementProps } = props;
 
-  const { placement, arrowStyle } = useForcedContext(PopoverContext);
+  const { placement, arrowStyle, popper } = useForcedContext(PopoverContext);
 
   const classes = getStyles(styles, [
     '.popover-arrow',
-    `.popover-arrow-${placement}`,
+    popper && `.popover-arrow-${placement}`,
   ]);
   const beforeClasses = getStyles(styles, [
-    '.popover-arrow-before',
-    `.popover-arrow-${placement}-before`,
+    '.popover-arrow::before',
+    popper && `.bs-popover-${placement} .popover-arrow::before`,
   ]);
   const afterClasses = getStyles(styles, [
-    '.popover-arrow-after',
-    `.popover-arrow-${placement}-after`,
+    '.popover-arrow::after',
+    popper && `.bs-popover-${placement} .popover-arrow::after`,
   ]);
 
   return (

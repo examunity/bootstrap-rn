@@ -13,6 +13,7 @@ import TooltipContext from './TooltipContext';
 const propTypes = {
   children: PropTypes.node.isRequired,
   placement: PropTypes.string,
+  popper: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -35,16 +36,16 @@ const styles = StyleSheet.create({
     // Allow breaking very long words so they don't overflow the tooltip's bounds
     // word-wrap: break-word;
   `,
-  '.tooltip-top': css`
+  '.bs-tooltip-top': css`
     padding: $tooltip-arrow-height 0;
   `,
-  '.tooltip-end': css`
+  '.bs-tooltip-end': css`
     padding: 0 $tooltip-arrow-height;
   `,
-  '.tooltip-bottom': css`
+  '.bs-tooltip-bottom': css`
     padding: $tooltip-arrow-height 0;
   `,
-  '.tooltip-start': css`
+  '.bs-tooltip-start': css`
     padding: 0 $tooltip-arrow-height;
   `,
 });
@@ -53,16 +54,22 @@ const Tooltip = React.forwardRef((props, ref) => {
   const {
     children,
     placement = 'top',
+    popper,
     style,
     arrowStyle,
     ...elementProps
   } = props;
 
-  const tooltip = { placement: transformPlacement(placement), arrowStyle };
+  const tooltip = {
+    placement: transformPlacement(placement),
+    arrowStyle,
+    popper,
+  };
 
   const classes = getStyles(styles, [
     '.tooltip',
-    `.tooltip-${tooltip.placement}`,
+    // Wait for rendering (of Overlay) before setting the offset.
+    popper && `.bs-tooltip-${tooltip.placement}`,
   ]);
   const textClasses = getStyles(styles, ['.tooltip-text']);
 

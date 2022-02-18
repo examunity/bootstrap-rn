@@ -1,5 +1,5 @@
 import React from 'react';
-import { PixelRatio } from 'react-native';
+import { PixelRatio, I18nManager } from 'react-native';
 
 export function each(source, apply) {
   return Object.entries(source)
@@ -94,11 +94,11 @@ export function getElementId(identifier, name) {
 
 export function transformPlacement(placement) {
   if (placement === 'left') {
-    return 'start';
+    return I18nManager.isRTL ? 'end' : 'start';
   }
 
   if (placement === 'right') {
-    return 'end';
+    return I18nManager.isRTL ? 'start' : 'end';
   }
 
   return placement;

@@ -7,11 +7,19 @@ const propTypes = {
   placement: PropTypes.string.isRequired,
   targetRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   offset: PropTypes.number,
+  arrowOffset: PropTypes.number,
   visible: PropTypes.bool.isRequired,
 };
 
 const Overlay = (props) => {
-  const { children, targetRef, placement, offset, visible } = props;
+  const {
+    children,
+    targetRef,
+    placement,
+    offset,
+    arrowOffset = 0,
+    visible,
+  } = props;
 
   const overlayRef = useRef();
 
@@ -23,12 +31,18 @@ const Overlay = (props) => {
     isOpen: visible,
   });
 
-  // Remove undefined arrow styles
+  // Remove undefined arrow styles and adjust arrow offset.
   if (overlay.arrowProps.style.left === undefined) {
     delete overlay.arrowProps.style.left;
+    if (overlay.arrowProps.style.top) {
+      overlay.arrowProps.style.top -= arrowOffset;
+    }
   }
   if (overlay.arrowProps.style.top === undefined) {
     delete overlay.arrowProps.style.top;
+    if (overlay.arrowProps.style.left) {
+      overlay.arrowProps.style.left -= arrowOffset;
+    }
   }
 
   return children(overlay, overlayRef);

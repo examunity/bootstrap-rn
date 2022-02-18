@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     width: $tooltip-arrow-width;
     height: $tooltip-arrow-height;
   `,
-  '.tooltip-arrow-before': css`
+  '.tooltip-arrow::before': css`
     position: absolute;
     // content: "";
     border-top-color: transparent;
@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     border-bottom-color: transparent;
     border-style: solid;
   `,
-  '.tooltip-arrow-top': css`
+  '.bs-tooltip-top .tooltip-arrow': css`
     bottom: 0;
   `,
-  '.tooltip-arrow-top-before': css`
+  '.bs-tooltip-top .tooltip-arrow::before': css`
     top: -1px;
     border-top-width: $tooltip-arrow-height;
     border-right-width: $tooltip-arrow-width * 0.5;
@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
     border-bottom-width: 0;
     border-top-color: $tooltip-arrow-color;
   `,
-  '.tooltip-arrow-end': css`
+  '.bs-tooltip-end .tooltip-arrow': css`
     left: 0;
     width: $tooltip-arrow-height;
     height: $tooltip-arrow-width;
   `,
-  '.tooltip-arrow-end-before': css`
+  '.bs-tooltip-end .tooltip-arrow::before': css`
     right: -1px;
     border-top-width: $tooltip-arrow-width * 0.5;
     border-right-width: $tooltip-arrow-height;
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
     border-bottom-width: $tooltip-arrow-width * 0.5;
     border-right-color: $tooltip-arrow-color;
   `,
-  '.tooltip-arrow-bottom': css`
+  '.bs-tooltip-bottom .tooltip-arrow': css`
     top: 0;
   `,
-  '.tooltip-arrow-bottom-before': css`
+  '.bs-tooltip-bottom .tooltip-arrow::before': css`
     bottom: -1px;
     border-top-width: 0;
     border-right-width: $tooltip-arrow-width * 0.5;
@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
     border-bottom-width: $tooltip-arrow-height;
     border-bottom-color: $tooltip-arrow-color;
   `,
-  '.tooltip-arrow-start': css`
+  '.bs-tooltip-start .tooltip-arrow': css`
     right: 0;
     width: $tooltip-arrow-height;
     height: $tooltip-arrow-width;
   `,
-  '.tooltip-arrow-start-before': css`
+  '.bs-tooltip-start .tooltip-arrow::before': css`
     left: -1px;
     border-top-width: $tooltip-arrow-width * 0.5;
     border-right-width: 0;
@@ -81,15 +81,15 @@ const styles = StyleSheet.create({
 const TooltipArrow = React.forwardRef((props, ref) => {
   const { style, ...elementProps } = props;
 
-  const { placement, arrowStyle } = useForcedContext(TooltipContext);
+  const { placement, arrowStyle, popper } = useForcedContext(TooltipContext);
 
   const classes = getStyles(styles, [
     '.tooltip-arrow',
-    `.tooltip-arrow-${placement}`,
+    popper && `.bs-tooltip-${placement} .tooltip-arrow`,
   ]);
   const beforeClasses = getStyles(styles, [
-    '.tooltip-arrow-before',
-    `.tooltip-arrow-${placement}-before`,
+    '.tooltip-arrow::before',
+    popper && `.bs-tooltip-${placement} .tooltip-arrow::before`,
   ]);
 
   return (
