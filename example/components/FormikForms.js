@@ -1,6 +1,17 @@
 import React from 'react';
-import { Paragraph, Text, Card } from 'bootstrap-rn';
+import {
+  Heading,
+  Paragraph,
+  Text,
+  Card,
+  Container,
+  Row,
+  Col,
+  Code,
+} from 'bootstrap-rn';
 import Form from '../forms/Form';
+
+const exampleCode = '<>\n  </>';
 
 function FormikForms() {
   const options = [
@@ -122,6 +133,14 @@ function FormikForms() {
           </Form>
         </Card.Body>
       </Card>
+
+      <Container styleName="bg-dark mt-3">
+        <Row>
+          <Col size={12}>
+            <Code styleName="text-warning">{exampleCode}</Code>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

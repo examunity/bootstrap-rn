@@ -1,5 +1,56 @@
 import React from 'react';
-import { ListGroup, Heading, Text } from 'bootstrap-rn';
+import {
+  ListGroup,
+  Heading,
+  Text,
+  Container,
+  Row,
+  Col,
+  Code,
+  View,
+} from 'bootstrap-rn';
+
+const exampleCode =
+  '<>\n' +
+  '<ListGroup>\n' +
+  '  <ListGroup.Item active>\n' +
+  '    <Text>I am active</Text>\n' +
+  '  </ListGroup.Item>\n' +
+  '  <ListGroup.Item>\n' +
+  '    <Text>Default</Text>\n' +
+  '  </ListGroup.Item>\n' +
+  '    <ListGroup.Item>\n' +
+  '      <Text>Default</Text>\n' +
+  '    </ListGroup.Item>\n' +
+  '    <ListGroup.Item disabled>\n' +
+  '      <Text>disabled ?</Text>\n' +
+  '    </ListGroup.Item>\n' +
+  '  <ListGroup.Item color="dark">\n' +
+  '    <Text>dark</Text>\n' +
+  ' </ListGroup.Item>\n' +
+  '</ListGroup>\n' +
+  '</>';
+
+const exampleCodeAction =
+  '<>\n' +
+  '<ListGroup flush>\n' +
+  '<ListGroup.ItemAction>\n' +
+  '  <Text>Action</Text>\n' +
+  '</ListGroup.ItemAction>\n' +
+  '<ListGroup.ItemAction disabled>\n' +
+  '  <Text>disabled ?</Text>\n' +
+  '</ListGroup.ItemAction>\n' +
+  '<ListGroup.ItemAction color="danger">\n' +
+  '  <Text>Action</Text>\n' +
+  '</ListGroup.ItemAction>\n' +
+  '<ListGroup.ItemAction color="warning">\n' +
+  '  <Text>Action</Text>\n' +
+  '</ListGroup.ItemAction>\n' +
+  '<ListGroup.ItemAction color="dark">\n' +
+  '  <Text>Action</Text>\n' +
+  '</ListGroup.ItemAction>\n' +
+  '</ListGroup>\n' +
+  '</>';
 
 function SampleListGroup() {
   return (
@@ -29,6 +80,10 @@ function SampleListGroup() {
         </>
       </ListGroup>
 
+      <View styleName="flex-row ai-center bg-dark my-3">
+        <Code styleName="text-warning">{exampleCode}</Code>
+      </View>
+
       <Heading size={6} styleName="mt-3">
         ListGroupItemAction sample
       </Heading>
@@ -49,6 +104,24 @@ function SampleListGroup() {
           <Text>Action</Text>
         </ListGroup.ItemAction>
       </ListGroup>
+
+      <View styleName="flex-row ai-center bg-dark my-3">
+        <Code styleName="text-warning">{exampleCodeAction}</Code>
+      </View>
+
+      <Container styleName="my-3">
+        <Row>
+          <Col size={12}>
+            <Heading size={4}>API ListGroup</Heading>
+            <Code>
+              <Text color="dark">import </Text>
+              <Text color="primary">ListGroup </Text>
+              <Text color="dark">from </Text>
+              <Text color="primary">'bootstrap-rn'</Text>
+            </Code>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

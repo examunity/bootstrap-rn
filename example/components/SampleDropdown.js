@@ -1,5 +1,46 @@
 import React from 'react';
-import { Dropdown, Text, Heading, Button, View } from 'bootstrap-rn';
+import {
+  Dropdown,
+  Text,
+  Heading,
+  Button,
+  View,
+  Container,
+  Row,
+  Col,
+  Code,
+} from 'bootstrap-rn';
+
+const exampleCode =
+  '<>\n ' +
+  ' <Dropdown direction="bottom">\n ' +
+  '   <Button toggle={Dropdown} styleName="as-center">\n ' +
+  '     <Text>Show Dropdown</Text>\n ' +
+  '   </Button>\n ' +
+  '   <Dropdown.Menu>\n ' +
+  '     <Dropdown.Header>\n ' +
+  '       <Text>Dropdown header</Text>\n ' +
+  '     </Dropdown.Header>\n ' +
+  '     <Dropdown.Divider />\n ' +
+  '     <Dropdown.Item active disabled>\n ' +
+  '       <View>\n ' +
+  '         <Text>Dropdown Item 101</Text>\n ' +
+  '       </View>\n ' +
+  '     </Dropdown.Item>\n ' +
+  '     <Dropdown.Item active>\n ' +
+  '       <View>\n ' +
+  '         <Text>Dropdown Item 102</Text>\n ' +
+  '       </View>\n ' +
+  '     </Dropdown.Item>\n ' +
+  '       <Dropdown.ItemText>Dropdown Item Text 101</Dropdown.ItemText>\n ' +
+  '     <Dropdown.Item>\n ' +
+  '       <View>\n ' +
+  '         <Text>Dropdown Item 201</Text>\n ' +
+  '       </View>\n ' +
+  '     </Dropdown.Item>\n ' +
+  '   </Dropdown.Menu>\n ' +
+  ' </Dropdown>\n ' +
+  '</>';
 
 function SampleDropdowns() {
   return (
@@ -32,6 +73,24 @@ function SampleDropdowns() {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
+
+      <View styleName="flex-row ai-center bg-dark my-3">
+        <Code styleName="text-warning">{exampleCode}</Code>
+      </View>
+
+      <Container styleName="my-3">
+        <Row>
+          <Col size={12}>
+            <Heading size={4}>API Dropdown</Heading>
+            <Code>
+              <Text color="dark">import </Text>
+              <Text color="primary">Dropdown </Text>
+              <Text color="dark">from </Text>
+              <Text color="primary">'bootstrap-rn'</Text>
+            </Code>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

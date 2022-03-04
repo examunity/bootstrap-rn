@@ -6,7 +6,48 @@ import {
   Button,
   CloseButton,
   View,
+  Container,
+  Row,
+  Col,
+  Code,
 } from 'bootstrap-rn';
+
+const exampleCode =
+  '<>\n' +
+  '<Button\n' +
+  'onPress={() => {\n' +
+  '  setOffcanvasVisible(true);\n' +
+  '  setOffcanvasPlacement("top");\n' +
+  '}}\n' +
+  '>\n' +
+  '<Text>Show Offcanvas Top</Text>\n' +
+  '</Button>\n' +
+  '//setOffcanvasPlacement("bottom"); \n' +
+  '//setOffcanvasPlacement("start"); \n' +
+  '//setOffcanvasPlacement("end"); \n' +
+  '\n' +
+  '<Offcanvas\n' +
+  'visible={offcanvasVisible}\n' +
+  'placement={offcanvasPlacement}\n' +
+  'onToggle={() => setOffcanvasVisible((value) => !value)}\n' +
+  '>\n' +
+  '<Offcanvas.Header>\n' +
+  '  <Offcanvas.Title>Offcanvas Title Text</Offcanvas.Title>\n' +
+  '  <CloseButton onPress={() => setOffcanvasVisible((value) => !value)} />\n' +
+  '</Offcanvas.Header>\n' +
+  '<Offcanvas.Body>\n' +
+  '  <Text>\n' +
+  '    Lorem Ipsum is simply dummy text of the printing and typesetting\n' +
+  '   industry. Lorem Ipsum has ...\n' +
+  '  </Text>\n' +
+  '  <View>\n' +
+  '    <Button onPress={() => setOffcanvasVisible((value) => !value)}>\n' +
+  '      <Text>Close</Text>\n' +
+  '    </Button>\n' +
+  '  </View>\n' +
+  '</Offcanvas.Body>\n' +
+  '</Offcanvas>\n' +
+  '</>';
 
 function SampleOffcanvas() {
   const [offcanvasVisible, setOffcanvasVisible] = useState(false);
@@ -23,6 +64,7 @@ function SampleOffcanvas() {
       >
         <Text>Show Offcanvas Top</Text>
       </Button>
+
       <Button
         onPress={() => {
           setOffcanvasVisible(true);
@@ -40,6 +82,7 @@ function SampleOffcanvas() {
       >
         <Text>Show Offcanvas Left</Text>
       </Button>
+
       <Button
         onPress={() => {
           setOffcanvasVisible(true);
@@ -48,6 +91,10 @@ function SampleOffcanvas() {
       >
         <Text>Show Offcanvas Right</Text>
       </Button>
+
+      <View styleName="flex-row ai-center bg-dark my-3 p-2">
+        <Code styleName="text-warning">{exampleCode}</Code>
+      </View>
 
       <Offcanvas
         visible={offcanvasVisible}
@@ -77,6 +124,20 @@ function SampleOffcanvas() {
           </View>
         </Offcanvas.Body>
       </Offcanvas>
+
+      <Container styleName="my-3">
+        <Row>
+          <Col size={12}>
+            <Heading size={4}>API Offcanvas</Heading>
+            <Code>
+              <Text color="dark">import </Text>
+              <Text color="primary">Offcanvas </Text>
+              <Text color="dark">from </Text>
+              <Text color="primary">'bootstrap-rn'</Text>
+            </Code>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

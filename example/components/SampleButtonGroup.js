@@ -5,7 +5,27 @@ import {
   Button,
   Heading,
   Text,
+  Container,
+  Row,
+  Col,
+  Code,
+  View,
 } from 'bootstrap-rn';
+
+const exampleCode =
+  '<>\n' +
+  ' <ButtonGroup>\n' +
+  '   <Button>\n' +
+  '     <Text>Ron</Text>\n' +
+  '   </Button>\n' +
+  '   <Button active>\n' +
+  '      <Text>Anton</Text>\n' +
+  '   </Button>\n' +
+  '   <Button color="secondary" outline>\n' +
+  '     <Text>Markus</Text>\n' +
+  '   </Button>\n' +
+  ' </ButtonGroup>\n' +
+  '</>';
 
 function SampleButtonGroup() {
   return (
@@ -22,6 +42,11 @@ function SampleButtonGroup() {
           <Text>Markus</Text>
         </Button>
       </ButtonGroup>
+
+      <View styleName="flex-row ai-center bg-dark my-3">
+        <Code styleName="text-warning">{exampleCode}</Code>
+      </View>
+
       <ButtonToolbar>
         <ButtonGroup styleName="mr-2">
           <Button>
@@ -34,6 +59,7 @@ function SampleButtonGroup() {
             <Text>3</Text>
           </Button>
         </ButtonGroup>
+
         <ButtonGroup>
           <Button color="danger">
             <Text>1</Text>
@@ -46,6 +72,20 @@ function SampleButtonGroup() {
           </Button>
         </ButtonGroup>
       </ButtonToolbar>
+
+      <Container styleName="my-3">
+        <Row>
+          <Col size={12}>
+            <Heading size={4}>API ButtonGroup</Heading>
+            <Code>
+              <Text color="dark">import </Text>
+              <Text color="primary">ButtonGroup </Text>
+              <Text color="dark">from </Text>
+              <Text color="primary">'bootstrap-rn'</Text>
+            </Code>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
