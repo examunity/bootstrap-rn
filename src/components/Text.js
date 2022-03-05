@@ -32,8 +32,6 @@ const styles = StyleSheet.create({
     font-size: $font-size-base;
     font-weight: $font-weight-base;
     line-height: $font-size-base * $line-height-base;
-    color: $body-color;
-    text-align: $body-text-align;
   `,
   strong: css`
     font-weight: $font-weight-bolder;

@@ -5,6 +5,7 @@ import {
   // css,
   StyleSheet,
   Provider,
+  Body,
 } from 'bootstrap-rn';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
@@ -110,31 +111,33 @@ function App() {
   return (
     <Router>
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Content />} />
-            <Route path="forms" element={<Forms />} />
-            <Route path="alerts" element={<SampleAlerts />} />
-            <Route path="badges" element={<SampleBadges />} />
-            <Route path="buttons" element={<SampleButtons />} />
-            <Route path="button-group" element={<SampleButtonGroup />} />
-            <Route path="cards" element={<SampleCards />} />
-            <Route path="collapse" element={<SampleCollapse />} />
-            <Route path="dropdown" element={<SampleDropdown />} />
-            <Route path="grid" element={<SampleGrid />} />
-            <Route path="list-group" element={<SampleListGroup />} />
-            <Route path="modal" element={<SampleModal />} />
-            <Route path="nav" element={<SampleNav />} />
-            <Route path="navbar" element={<SampleNavbar />} />
-            <Route path="offcanvas" element={<SampleOffcanvas />} />
-            <Route path="popovers" element={<SamplePopovers />} />
-            <Route path="progress" element={<SampleProgress />} />
-            <Route path="toasts" element={<SampleToasts />} />
-            <Route path="tooltips" element={<SampleTooltips />} />
-            <Route path="utilities" element={<Utilities />} />
-            <Route path="formik" element={<FormikForms />} />
-          </Route>
-        </Routes>
+        <Body>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Content />} />
+              <Route path="forms" element={<Forms />} />
+              <Route path="alerts" element={<SampleAlerts />} />
+              <Route path="badges" element={<SampleBadges />} />
+              <Route path="buttons" element={<SampleButtons />} />
+              <Route path="button-group" element={<SampleButtonGroup />} />
+              <Route path="cards" element={<SampleCards />} />
+              <Route path="collapse" element={<SampleCollapse />} />
+              <Route path="dropdown" element={<SampleDropdown />} />
+              <Route path="grid" element={<SampleGrid />} />
+              <Route path="list-group" element={<SampleListGroup />} />
+              <Route path="modal" element={<SampleModal />} />
+              <Route path="nav" element={<SampleNav />} />
+              <Route path="navbar" element={<SampleNavbar />} />
+              <Route path="offcanvas" element={<SampleOffcanvas />} />
+              <Route path="popovers" element={<SamplePopovers />} />
+              <Route path="progress" element={<SampleProgress />} />
+              <Route path="toasts" element={<SampleToasts />} />
+              <Route path="tooltips" element={<SampleTooltips />} />
+              <Route path="utilities" element={<Utilities />} />
+              <Route path="formik" element={<FormikForms />} />
+            </Route>
+          </Routes>
+        </Body>
       </Provider>
     </Router>
   );

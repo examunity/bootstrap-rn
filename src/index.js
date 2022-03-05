@@ -1,3 +1,4 @@
+import { PortalProvider } from '@react-native-aria/overlays';
 import css from './style/css';
 import makeUtilities from './style/makeUtilities';
 import makeTheme from './style/makeTheme';
@@ -41,6 +42,7 @@ import Blockquote from './components/type/Blockquote';
 import Code from './components/type/Code';
 import DisplayHeading from './components/type/DisplayHeading';
 import Paragraph from './components/type/Paragraph';
+import Body from './components/Body';
 import Heading from './components/Heading';
 import Image from './components/Image';
 import ImageBackground from './components/ImageBackground';
@@ -54,6 +56,7 @@ import useMedia from './hooks/useMedia';
 import useStyle from './hooks/useStyle';
 
 export {
+  PortalProvider,
   css,
   makeUtilities,
   makeTheme,
@@ -97,6 +100,7 @@ export {
   Code,
   DisplayHeading,
   Paragraph,
+  Body,
   Heading,
   Image,
   ImageBackground,
