@@ -21,6 +21,10 @@ export default function useAction(props, ref) {
     return [props, ref];
   }
 
+  if (typeof useActionHook !== 'function') {
+    throw new Error('Action hook must be of type function.');
+  }
+
   const { ref: actionRef, ...actionProps } = useActionHook(restProps);
 
   return [actionProps, concatRefs(actionRef, ref)];

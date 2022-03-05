@@ -11,6 +11,7 @@ import DropdownItemText from './DropdownItemText';
 import DropdownHeader from './DropdownHeader';
 import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
+import useDismissDropdown from './useDismissDropdown';
 import useToggleDropdown from './useToggleDropdown';
 
 const DIRECTIONS = ['top', 'bottom', 'start', 'end'];
@@ -64,6 +65,7 @@ Dropdown.Header = DropdownHeader;
 Dropdown.Menu = DropdownMenu;
 Dropdown.Item = DropdownItem;
 Dropdown.Divider = DropdownDivider;
+Dropdown.useDismiss = useDismissDropdown;
 Dropdown.useToggle = useToggleDropdown;
 
 export default Dropdown;

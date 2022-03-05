@@ -99,9 +99,9 @@ const DropdownMenu = React.forwardRef((props, ref) => {
             accessibilityLabelledBy={identifier}
             style={[
               classes,
-              style,
               { opacity: overlay.rendered ? 1 : 0 },
               overlay.overlayProps.style,
+              style,
             ]}
           >
             <DropdownContext.Provider value={dropdown}>
