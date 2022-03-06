@@ -8,6 +8,7 @@ import useMedia from '../../hooks/useMedia';
 import { getStyles, each } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import useStyle from '../../hooks/useStyle';
+import useModifier from '../../hooks/useModifier';
 import Offcanvas from '../offcanvas/Offcanvas';
 import PickerContext from './PickerContext';
 import PickerItem from './PickerItem';
@@ -112,6 +113,8 @@ const styles = StyleSheet.create({
 });
 
 const Picker = React.forwardRef((props, ref) => {
+  const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
+
   const {
     children,
     value,
@@ -127,7 +130,7 @@ const Picker = React.forwardRef((props, ref) => {
     style,
     styleName,
     ...elementProps
-  } = props;
+  } = modifierProps;
 
   const [focused, setFocused] = useState(false);
   const [open, setOpen] = useState(false);
@@ -168,7 +171,7 @@ const Picker = React.forwardRef((props, ref) => {
       <BasePicker
         {...elementProps}
         {...commonProps}
-        ref={ref}
+        ref={modifierRef}
         selectedValue={value}
         onValueChange={onChange}
       >
@@ -206,7 +209,7 @@ const Picker = React.forwardRef((props, ref) => {
       <Text
         {...elementProps}
         {...commonProps}
-        ref={ref}
+        ref={modifierRef}
         // role "listbox" is not supported in react-native :(
         accessibilityRole="button"
         accessibilityDisabled={disabled}

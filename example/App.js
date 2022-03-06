@@ -7,6 +7,7 @@ import {
   Provider,
   Body,
 } from 'bootstrap-rn';
+import { useFormikContext } from 'formik';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
 import Content from './components/Content';
@@ -97,6 +98,26 @@ const utilities = StyleSheet.create(
 }; */
 
 const modifiers = {
+  useFormField(props, ref) {
+    const { submitForm } = useFormikContext();
+
+    return {
+      ...props,
+      ref,
+      onKeyPress(event) {
+        if (props.onKeyPress) props.onKeyPress(event);
+
+        // Submit form on enter
+        if (event.keyCode === 13) {
+          event.preventDefault();
+
+          event.target.blur();
+
+          submitForm();
+        }
+      },
+    };
+  },
   useTabbable(props, ref) {
     const active = useActive(props);
     return { ...props, active, ref };

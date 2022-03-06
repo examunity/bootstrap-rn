@@ -81,7 +81,6 @@ const FormInput = React.forwardRef((props, ref) => {
         onBlur={() => {
           field.setTouched();
         }}
-        onKeyDown={field.handleSubmitOnEnter}
         placeholder={placeholder}
         size={size}
         multiline={multiline}

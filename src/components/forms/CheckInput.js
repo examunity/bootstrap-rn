@@ -6,6 +6,7 @@ import Pressable from '../Pressable';
 import View from '../View';
 import Text from '../Text';
 import { getStyles, each, concatFns } from '../../utils';
+import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 
 const propTypes = {
@@ -140,6 +141,8 @@ const getSvg = (type, value) => {
 };
 
 const CheckInput = React.forwardRef((props, ref) => {
+  const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
+
   const {
     children,
     type,
@@ -154,7 +157,7 @@ const CheckInput = React.forwardRef((props, ref) => {
     inputStyle,
     labelStyle,
     ...elementProps
-  } = props;
+  } = modifierProps;
 
   if (!children && !label) {
     // eslint-disable-next-line no-console
@@ -193,7 +196,7 @@ const CheckInput = React.forwardRef((props, ref) => {
   return (
     <Pressable
       {...elementProps}
-      ref={ref}
+      ref={modifierRef}
       accessibilityRole={type}
       accessibilityChecked={value}
       accessibilityLabel={label}

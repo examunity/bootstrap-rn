@@ -23,15 +23,5 @@ export default function useFormField(name) {
 
       form.setFieldValue(name, value);
     },
-    handleSubmitOnEnter(event) {
-      // Submit form on enter
-      if (event.keyCode === 13) {
-        event.preventDefault();
-
-        event.target.blur();
-
-        form.submitForm();
-      }
-    },
   };
 }

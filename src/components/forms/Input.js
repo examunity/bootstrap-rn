@@ -4,6 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import TextInput from '../TextInput';
 import { getStyles, each } from '../../utils';
+import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 
 const propTypes = {
@@ -97,6 +98,8 @@ const styles = StyleSheet.create({
 });
 
 const Input = React.forwardRef((props, ref) => {
+  const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
+
   const {
     size,
     placeholderTextColor,
@@ -106,7 +109,7 @@ const Input = React.forwardRef((props, ref) => {
     invalid = false,
     style,
     ...elementProps
-  } = props;
+  } = modifierProps;
 
   const classes = getStyles(styles, [
     '.form-control',
@@ -123,7 +126,7 @@ const Input = React.forwardRef((props, ref) => {
   return (
     <TextInput
       {...elementProps}
-      ref={ref}
+      ref={modifierRef}
       placeholderTextColor={
         placeholderTextColor || StyleSheet.value('input-placeholder-color')
       }

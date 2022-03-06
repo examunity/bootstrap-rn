@@ -46,7 +46,6 @@ const FormCheckbox = React.forwardRef((props, ref) => {
         onBlur={() => {
           field.setTouched();
         }}
-        onKeyDown={field.handleSubmitOnEnter}
         invalid={field.touched && field.error}
         disabled={disabled}
       >
