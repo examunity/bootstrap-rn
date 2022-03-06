@@ -7,7 +7,7 @@ import { getStyles } from '../../utils';
 import DropdownContext from './DropdownContext';
 import DropdownMenu from './DropdownMenu';
 import DropdownItem from './DropdownItem';
-import DropdownItemText from './DropdownItemText';
+import DropdownTextItem from './DropdownTextItem';
 import DropdownHeader from './DropdownHeader';
 import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
@@ -60,7 +60,7 @@ Dropdown.displayName = 'Dropdown';
 Dropdown.propTypes = propTypes;
 
 Dropdown.Context = DropdownContext;
-Dropdown.ItemText = DropdownItemText;
+Dropdown.TextItem = DropdownTextItem;
 Dropdown.Header = DropdownHeader;
 Dropdown.Menu = DropdownMenu;
 Dropdown.Item = DropdownItem;

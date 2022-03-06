@@ -32,7 +32,7 @@ const exampleCode =
   '         <Text>Dropdown Item 102</Text>\n ' +
   '       </View>\n ' +
   '     </Dropdown.Item>\n ' +
-  '       <Dropdown.ItemText>Dropdown Item Text 101</Dropdown.ItemText>\n ' +
+  '       <Dropdown.TextItem>Dropdown Item Text 101</Dropdown.TextItem>\n ' +
   '     <Dropdown.Item>\n ' +
   '       <View>\n ' +
   '         <Text>Dropdown Item 201</Text>\n ' +
@@ -65,7 +65,7 @@ function SampleDropdowns() {
               <Text>Dropdown Item 102</Text>
             </View>
           </Dropdown.Item>
-          <Dropdown.ItemText>Dropdown Item Text 101</Dropdown.ItemText>
+          <Dropdown.TextItem>Dropdown Item Text 101</Dropdown.TextItem>
           <Dropdown.Item>
             <View>
               <Text>Dropdown Item 201</Text>
