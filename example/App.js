@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   makeTheme,
   makeUtilities,
@@ -7,7 +7,7 @@ import {
   Provider,
   Body,
 } from 'bootstrap-rn';
-import { useFormikContext } from 'formik';
+import { FormikContext } from 'formik';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
 import Content from './components/Content';
@@ -99,7 +99,7 @@ const utilities = StyleSheet.create(
 
 const modifiers = {
   useFormField(props, ref) {
-    const { submitForm } = useFormikContext();
+    const formik = useContext(FormikContext);
 
     return {
       ...props,
@@ -108,12 +108,12 @@ const modifiers = {
         if (props.onKeyPress) props.onKeyPress(event);
 
         // Submit form on enter
-        if (event.keyCode === 13) {
+        if (formik && event.keyCode === 13) {
           event.preventDefault();
 
           event.target.blur();
 
-          submitForm();
+          formik.submitForm();
         }
       },
     };
