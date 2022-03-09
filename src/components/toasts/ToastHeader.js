@@ -24,10 +24,14 @@ const styles = StyleSheet.create({
     border-bottom-width: $toast-border-width;
     border-style: solid;
     border-color: $toast-header-border-color;
-    border-top-left-radius: ${(t) =>
-      subtract(t['toast-border-radius'], t['toast-border-width'])};
-    border-top-right-radius: ${(t) =>
-      subtract(t['toast-border-radius'], t['toast-border-width'])};
+    border-top-left-radius: ${subtract(
+      (t) => t['toast-border-radius'],
+      (t) => t['toast-border-width'],
+    )};
+    border-top-right-radius: ${subtract(
+      (t) => t['toast-border-radius'],
+      (t) => t['toast-border-width'],
+    )};
   `,
   '.toast-header-text': css`
     color: $toast-header-color;

@@ -55,6 +55,8 @@ import View from './components/View';
 import useMedia from './hooks/useMedia';
 import useStyle from './hooks/useStyle';
 
+export * from './theme/functions';
+
 export {
   PortalProvider,
   css,

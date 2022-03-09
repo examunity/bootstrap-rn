@@ -2,8 +2,8 @@ import React from 'react';
 import { Svg, Path, Circle } from 'react-native-svg';
 import { Platform } from 'react-native';
 import css from '../style/css';
-import { convertToREM } from '../utils';
 import { shadeColor, tintColor, shiftColor, add, subtract } from './functions';
+import { calculate } from '../math';
 
 // Define svgs first, so that we do not break syntax highlighting :D
 // Also all elements have tabIndex={-1} until the following is merged:
@@ -485,8 +485,10 @@ const variables = css`
   $link-color: $primary;
   $link-decoration: underline;
   $link-shade-percentage: 0.2; // 20%;
-  $link-hover-color: ${(t) =>
-    shiftColor(t['link-shade-percentage'], t['link-color'])};
+  $link-hover-color: ${shiftColor(
+    (t) => t['link-shade-percentage'],
+    (t) => t['link-color'],
+  )};
   $link-hover-decoration: null;
 
   $stretched-link-pseudo-element: after;
@@ -816,7 +818,7 @@ const variables = css`
   $input-border-radius-lg: $border-radius-lg;
 
   $input-focus-bg: $input-bg;
-  $input-focus-border-color: ${(t) => tintColor(0.5, t['component-active-bg'])};
+  $input-focus-border-color: ${tintColor(0.5, (t) => t['component-active-bg'])};
   $input-focus-color: $input-color;
   $input-focus-width: $input-btn-focus-width;
   $input-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -826,46 +828,40 @@ const variables = css`
 
   $input-height-border: $input-border-width * 2;
 
-  $input-height-inner: ${(t) =>
-    add(
-      `${t['input-line-height'] * 1}rem`,
-      `${parseFloat(t['input-padding-y']) * 2}rem`,
-    )};
-  $input-height-inner-half: ${(t) =>
-    add(
-      `${t['input-line-height'] * 0.5}rem`,
-      `${parseFloat(t['input-padding-y']) * 1}rem`,
-    )};
-  $input-height-inner-quarter: ${(t) =>
-    add(
-      `${t['input-line-height'] * 0.25}rem`,
-      `${parseFloat(t['input-padding-y']) * 0.5}rem`,
-    )};
+  $input-height-inner: ${add(
+    (t) => calculate(t['input-line-height'], '*', 1),
+    (t) => calculate(t['input-padding-y'], '*', 2),
+  )};
+  $input-height-inner-half: ${add(
+    (t) => calculate(t['input-line-height'], '*', 0.5),
+    (t) => t['input-padding-y'],
+  )};
+  $input-height-inner-quarter: ${add(
+    (t) => calculate(t['input-line-height'], '*', 0.25),
+    (t) => calculate(t['input-padding-y'], '*', 0.5),
+  )};
 
-  $input-height: ${(t) =>
+  $input-height: ${add(
+    (t) => calculate(t['input-line-height'], '*', 1), // 1em
     add(
-      `${t['input-line-height'] * 1}rem`,
-      `${
-        parseFloat(convertToREM(t['input-padding-y'])) * 2 +
-        parseFloat(convertToREM(t['input-height-border']))
-      }rem`,
-    )};
-  $input-height-sm: ${(t) =>
+      (t) => calculate(t['input-padding-y'], '*', 2),
+      (t) => t['input-height-border'],
+    ),
+  )};
+  $input-height-sm: ${add(
+    (t) => calculate(t['input-line-height'], '*', 1), // 1em
     add(
-      `${t['input-line-height'] * 1}rem`,
-      `${
-        parseFloat(convertToREM(t['input-padding-y-sm'])) * 2 +
-        parseFloat(convertToREM(t['input-height-border']))
-      }rem`,
-    )};
-  $input-height-lg: ${(t) =>
+      (t) => calculate(t['input-padding-y-sm'], '*', 2),
+      (t) => t['input-height-border'],
+    ),
+  )};
+  $input-height-lg: ${add(
+    (t) => calculate(t['input-line-height'], '*', 1), // 1em
     add(
-      `${t['input-line-height'] * 1}rem`,
-      `${
-        parseFloat(convertToREM(t['input-padding-y-lg'])) * 2 +
-        parseFloat(convertToREM(t['input-height-border']))
-      }rem`,
-    )};
+      (t) => calculate(t['input-padding-y-lg'], '*', 2),
+      (t) => t['input-height-border'],
+    ),
+  )};
 
   $input-transition: border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
@@ -1004,7 +1000,7 @@ const variables = css`
   $form-file-button-bg: $input-group-addon-bg;
   $form-file-button-hover-bg: shade-color($form-file-button-bg, 5%);
 
-  $form-floating-height: ${(t) => add('3.5rem', t['input-height-border'])};
+  $form-floating-height: ${add('3.5rem', (t) => t['input-height-border'])};
   $form-floating-line-height: 1.25;
   $form-floating-padding-x: $input-padding-x;
   $form-floating-padding-y: 1rem;
@@ -1137,18 +1133,20 @@ const variables = css`
   $dropdown-border-color: rgba($black, 0.15);
   $dropdown-border-radius: $border-radius;
   $dropdown-border-width: $border-width;
-  $dropdown-inner-border-radius: subtract(
-    $dropdown-border-radius,
-    $dropdown-border-width
-  );
+  $dropdown-inner-border-radius: ${subtract(
+    (t) => t['dropdown-border-radius'],
+    (t) => t['dropdown-border-width'],
+  )};
   $dropdown-divider-bg: $dropdown-border-color;
   $dropdown-divider-margin-y: $spacer * 0.5;
   $dropdown-box-shadow: $box-shadow;
 
   $dropdown-link-color: $gray-900;
 
-  $dropdown-link-hover-color: ${(t) =>
-    shadeColor(0.1, t['dropdown-link-color'])};
+  $dropdown-link-hover-color: ${shadeColor(
+    0.1,
+    (t) => t['dropdown-link-color'],
+  )};
   $dropdown-link-hover-bg: $gray-200;
 
   $dropdown-link-active-color: $component-active-color;
@@ -1186,8 +1184,10 @@ const variables = css`
   $card-border-color: rgba($black, 0.125);
   $card-border-radius: $border-radius;
   $card-box-shadow: null;
-  $card-inner-border-radius: ${(t) =>
-    subtract(t['card-border-radius'], t['card-border-width'])};
+  $card-inner-border-radius: ${subtract(
+    (t) => t['card-border-radius'],
+    (t) => t['card-border-width'],
+  )};
   $card-cap-padding-y: $card-spacer-y * 0.5;
   $card-cap-padding-x: $card-spacer-x;
   $card-cap-bg: rgba($black, 0.03);
@@ -1224,11 +1224,13 @@ const variables = css`
   $popover-border-width: $border-width;
   $popover-border-color: rgba($black, 0.2);
   $popover-border-radius: $border-radius-lg;
-  $popover-inner-border-radius: ${(t) =>
-    subtract(t['popover-border-radius'], t['popover-border-width'])};
+  $popover-inner-border-radius: ${subtract(
+    (t) => t['popover-border-radius'],
+    (t) => t['popover-border-width'],
+  )};
   $popover-box-shadow: $box-shadow;
 
-  $popover-header-bg: ${(t) => shadeColor(0.06, t['popover-bg'])};
+  $popover-header-bg: ${shadeColor(0.06, (t) => t['popover-bg'])};
   $popover-header-color: $headings-color;
   $popover-header-padding-y: 0.5rem;
   $popover-header-padding-x: $spacer;
@@ -1286,11 +1288,10 @@ const variables = css`
   $modal-content-border-color: rgba($black, 0.65); // rgba($black, 0.2);
   $modal-content-border-width: $border-width;
   $modal-content-border-radius: $border-radius-lg;
-  $modal-content-inner-border-radius: ${(t) =>
-    subtract(
-      t['modal-content-border-radius'],
-      t['modal-content-border-width'],
-    )};
+  $modal-content-inner-border-radius: ${subtract(
+    (t) => t['modal-content-border-radius'],
+    (t) => t['modal-content-border-width'],
+  )};
   $modal-content-box-shadow-xs: $box-shadow-sm;
   $modal-content-box-shadow-sm-up: $box-shadow;
 

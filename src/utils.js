@@ -104,18 +104,10 @@ export function transformPlacement(placement) {
   return placement;
 }
 
-export function convertToREM(value) {
-  return value.replace(
-    /([+-]+)?([\d.Ee]+)px/,
-    (_, unary, number) =>
-      `${unary || ''}${number / (PixelRatio.getFontScale() * 16)}rem`,
-  );
-}
-
 export function convertToNumber(value) {
   return parseFloat(
     value.replace(
-      /([+-]+)?([\d.Ee]+)rem/g,
+      /([+-])?([\d.Ee]+)rem/g,
       (_, unary, number) =>
         `${unary || ''}${PixelRatio.getFontScale() * 16 * number}px`,
     ),
