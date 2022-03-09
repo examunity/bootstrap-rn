@@ -17,8 +17,8 @@ function formula(value) {
       rightNumber,
       rightUnit = null,
     ) => {
-      const leftValue = [`${leftUnary}${leftNumber}`, leftUnit];
-      const rightValue = [`${rightUnary}${rightNumber}`, rightUnit];
+      const leftValue = [parseFloat(`${leftUnary}${leftNumber}`), leftUnit];
+      const rightValue = [parseFloat(`${rightUnary}${rightNumber}`), rightUnit];
 
       return calculate(leftValue, operator, rightValue);
     },

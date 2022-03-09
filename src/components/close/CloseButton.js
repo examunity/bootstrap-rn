@@ -17,12 +17,12 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.btn-close': css`
     // Workaround for missing box-sizing in react native.
-    $additionalHeight: $btn-close-padding-y * 2;
-    $additionalWidth: $btn-close-padding-x * 2;
+    $additional-width: $btn-close-padding-x * 2;
+    $additional-height: $btn-close-padding-y * 2;
 
     // box-sizing: content-box;
-    width: $btn-close-width + $additionalHeight;
-    height: $btn-close-height + $additionalWidth;
+    width: $btn-close-width + $additional-width;
+    height: $btn-close-height + $additional-height;
     padding: $btn-close-padding-y $btn-close-padding-x;
     background: transparent;
     border-width: 0; // for button elements
