@@ -31,6 +31,8 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.btn': css`
+    flex-direction: row; // added for bootstrap-rn
+    justify-content: center; // added for bootstrap-rn
     // display: inline-block;
     @include platform(web) {
       // cursor: if($enable-button-pointers, pointer, null);
