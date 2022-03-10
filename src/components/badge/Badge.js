@@ -3,19 +3,12 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Text from '../Text';
-import View from '../View';
-import { THEME_COLORS } from '../../theme/proxies';
 import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  styleName: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -36,38 +29,15 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getStyleName = (styleName, color) => {
-  if (!color) {
-    return styleName;
-  }
-
-  return styleName ? `bg-${color} ${styleName}` : `bg-${color}`;
-};
-
 const Badge = React.forwardRef((props, ref) => {
-  const {
-    children,
-    color, // will be deprecated soon
-    style,
-    textStyle,
-    styleName,
-    ...elementProps
-  } = props;
+  const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['.badge']);
-
-  const textClasses = getStyles(styles, ['.badge-text']);
+  const classes = getStyles(styles, ['.badge', '.badge-text']);
 
   return (
-    <View
-      {...elementProps}
-      ref={ref}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
-      styleName={getStyleName(styleName, color)}
-    >
-      <Text>{children}</Text>
-    </View>
+    <Text {...elementProps} ref={ref} style={[classes, style]}>
+      {children}
+    </Text>
   );
 });
 

@@ -13,49 +13,33 @@ import {
 
 const badgeExampleCode =
   '<>\n' +
-  ' <Badge color="primary">primary</Badge>\n' +
-  ' <Badge color="secondary">secondary</Badge>\n' +
-  ' <Badge color="success">success</Badge>\n' +
-  ' <Badge color="danger">danger</Badge>\n' +
-  ' <Badge color="warning">warning</Badge>\n' +
-  ' <Badge color="info">info</Badge>\n' +
-  ' <Badge color="light">light</Badge>\n' +
-  ' <Badge color="dark">dark</Badge>\n' +
+  ' <Badge styleName="bg-primary">primary</Badge>\n' +
+  ' <Badge styleName="bg-secondary">secondary</Badge>\n' +
+  ' <Badge styleName="bg-success">success</Badge>\n' +
+  ' <Badge styleName="bg-danger">danger</Badge>\n' +
+  ' <Badge styleName="bg-warning text-dark">warning</Badge>\n' +
+  ' <Badge styleName="bg-info text-dark">info</Badge>\n' +
+  ' <Badge styleName="bg-light text-dark">light</Badge>\n' +
+  ' <Badge styleName="bg-dark">dark</Badge>\n' +
   '</>';
 
 function SampleBadges() {
   return (
     <>
-      <Card styleName={'mb-3'}>
+      <Card styleName="mb-3">
         <Card.Header>
           <Heading size={5}>Badges</Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-row ai-center">
-            <Badge color="primary" styleName="mr-1">
-              primary
-            </Badge>
-            <Badge color="secondary" styleName="mr-1">
-              secondary
-            </Badge>
-            <Badge color="success" styleName="mr-1">
-              success
-            </Badge>
-            <Badge color="danger" styleName="mr-1">
-              danger
-            </Badge>
-            <Badge color="warning" styleName="mr-1">
-              warning
-            </Badge>
-            <Badge color="info" styleName="mr-1">
-              info
-            </Badge>
-            <Badge color="light" styleName="mr-1">
-              light
-            </Badge>
-            <Badge color="dark" styleName="mr-1">
-              dark
-            </Badge>
+            <Badge styleName="bg-primary mr-1">primary</Badge>
+            <Badge styleName="bg-secondary mr-1">secondary</Badge>
+            <Badge styleName="bg-success mr-1">success</Badge>
+            <Badge styleName="bg-danger mr-1">danger</Badge>
+            <Badge styleName="bg-warning text-dark mr-1">warning</Badge>
+            <Badge styleName="bg-info text-dark mr-1">info</Badge>
+            <Badge styleName="bg-light text-dark mr-1">light</Badge>
+            <Badge styleName="bg-dark mr-1">dark</Badge>
           </View>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
@@ -71,7 +55,7 @@ function SampleBadges() {
               <Text color="dark">import </Text>
               <Text color="primary">Badge </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
           </Col>
         </Row>
@@ -90,23 +74,6 @@ function SampleBadges() {
           </Col>
           <Col size={4}>
             <Text>Description</Text>
-          </Col>
-        </Row>
-        <Row>
-          <Col size={2}>
-            <Text>color</Text>
-          </Col>
-          <Col size={4}>
-            <Text small>
-              primary | secondary | success | danger | warning | info | light |
-              dark
-            </Text>
-          </Col>
-          <Col size={2}>
-            <Text>primary</Text>
-          </Col>
-          <Col size={4}>
-            <Text small>The visual style of the badge</Text>
           </Col>
         </Row>
       </Container>
