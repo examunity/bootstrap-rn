@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
@@ -19,6 +18,8 @@ const propTypes = {
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 export const styles = StyleSheet.create({
@@ -98,6 +99,7 @@ const ListGroupItem = React.forwardRef((props, ref) => {
     last = false,
     disabled = false,
     style,
+    textStyle,
     ...elementProps
   } = props;
 
@@ -124,8 +126,13 @@ const ListGroupItem = React.forwardRef((props, ref) => {
   ]);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+    <View
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {children}
     </View>
   );
 });

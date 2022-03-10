@@ -56,9 +56,10 @@ const Pressable = React.forwardRef((props, ref) => {
   } = actionProps;
 
   const media = useMedia();
+  const context = useContext(TextStyleContext);
+
   const resolveStyle = useStyle(style, styleName);
   const resolveActiveStyle = useStyle(active && activeStyle);
-  const context = useContext(TextStyleContext);
   const resolveTextStyle = useStyle([context && context.style, textStyle]);
   const resolveActiveTextStyle = useStyle(active && activeTextStyle);
 

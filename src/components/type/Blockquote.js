@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
 });
 
 const Blockquote = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['blockquote']);
 
@@ -38,8 +39,9 @@ const Blockquote = React.forwardRef((props, ref) => {
       ref={ref}
       accessibilityRole={role}
       style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
     >
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      {children}
     </View>
   );
 });

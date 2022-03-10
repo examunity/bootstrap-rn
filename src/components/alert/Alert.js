@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
@@ -14,6 +13,8 @@ const propTypes = {
   dismissible: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -45,6 +46,7 @@ const Alert = React.forwardRef((props, ref) => {
     color = 'primary',
     dismissible = false,
     style,
+    textStyle,
     ...elementProps
   } = props;
 
@@ -62,8 +64,9 @@ const Alert = React.forwardRef((props, ref) => {
       ref={ref}
       accessibilityRole="alert"
       style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
     >
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      {children}
     </View>
   );
 });

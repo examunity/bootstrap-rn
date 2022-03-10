@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import css from '../../style/css';
 import Text from '../Text';
 import View from '../View';
@@ -14,6 +13,8 @@ const propTypes = {
   value: PropTypes.number.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -40,7 +41,7 @@ const getPercentage = (value, min, max) => {
 };
 
 const ProgressBar = React.forwardRef((props, ref) => {
-  const { children, value, style, ...elementProps } = props;
+  const { children, value, style, textStyle, ...elementProps } = props;
 
   const { min, max } = useForcedContext(ProgressContext);
 
@@ -52,15 +53,14 @@ const ProgressBar = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      style={[classes, style, { width: `${getPercentage(value, min, max)}%` }]}
       accessibilityRole="progressbar"
       accessibilityValueNow={value}
       accessibilityValueMin={min}
       accessibilityValueMax={max}
+      style={[classes, style, { width: `${getPercentage(value, min, max)}%` }]}
+      textStyle={[textClasses, textStyle]}
     >
-      <TextStyleProvider style={textClasses}>
-        <Text>{children || ' '}</Text>
-      </TextStyleProvider>
+      <Text>{children || ' '}</Text>
     </View>
   );
 });

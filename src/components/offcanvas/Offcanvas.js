@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Modal as BaseModal } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import ScrollView from '../ScrollView';
 import View from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
@@ -25,6 +24,8 @@ const propTypes = {
   onToggle: PropTypes.func,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -125,6 +126,7 @@ const Offcanvas = React.forwardRef((props, ref) => {
     backdrop = true,
     onToggle: handleToggle,
     style,
+    textStyle,
     ...elementProps
   } = props;
 
@@ -150,8 +152,13 @@ const Offcanvas = React.forwardRef((props, ref) => {
     (navbar.expand === true || media.up(navbar.expand))
   ) {
     return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      <View
+        {...elementProps}
+        ref={ref}
+        style={[classes, style]}
+        textStyle={[textClasses, textStyle]}
+      >
+        {children}
       </View>
     );
   }
@@ -163,8 +170,13 @@ const Offcanvas = React.forwardRef((props, ref) => {
       onRequestClose={handleToggle}
     >
       {backdrop && <View style={backdropClasses} />}
-      <ScrollView {...elementProps} ref={ref} style={[classes, style]}>
-        <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      <ScrollView
+        {...elementProps}
+        ref={ref}
+        style={[classes, style]}
+        textStyle={[textClasses, textStyle]}
+      >
+        {children}
       </ScrollView>
     </BaseModal>
   );

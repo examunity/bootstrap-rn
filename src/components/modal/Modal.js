@@ -4,7 +4,6 @@ import { Modal as BaseModal } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import ScrollView from '../ScrollView';
 import View from '../View';
 import ModalHeader from './ModalHeader';
@@ -24,6 +23,8 @@ const propTypes = {
   onToggle: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -119,6 +120,7 @@ const Modal = React.forwardRef((props, ref) => {
     backdrop = true,
     onToggle,
     style,
+    textStyle,
     ...elementProps
   } = props;
 
@@ -138,10 +140,13 @@ const Modal = React.forwardRef((props, ref) => {
       {backdrop && <View style={backdropClasses} />}
       <ScrollView style={classes}>
         <View style={dialogClasses}>
-          <View {...elementProps} ref={ref} style={[contentClasses, style]}>
-            <TextStyleProvider style={contentTextClasses}>
-              {children}
-            </TextStyleProvider>
+          <View
+            {...elementProps}
+            ref={ref}
+            style={[contentClasses, style]}
+            textStyle={[contentTextClasses, textStyle]}
+          >
+            {children}
           </View>
         </View>
       </ScrollView>

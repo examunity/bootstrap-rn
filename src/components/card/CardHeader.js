@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import { getStyles } from '../../utils';
 
@@ -10,6 +9,8 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -28,15 +29,20 @@ const styles = StyleSheet.create({
 });
 
 const CardHeader = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-header']);
 
   const textClasses = getStyles(styles, ['.card-header-text']);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+    <View
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {children}
     </View>
   );
 });

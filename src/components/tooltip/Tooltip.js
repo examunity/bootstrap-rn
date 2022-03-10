@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import View from '../View';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles, transformPlacement } from '../../utils';
 import css from '../../style/css';
@@ -16,6 +15,8 @@ const propTypes = {
   popper: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
   arrowStyle: PropTypes.any,
 };
@@ -56,6 +57,7 @@ const Tooltip = React.forwardRef((props, ref) => {
     placement = 'top',
     popper,
     style,
+    textStyle,
     arrowStyle,
     ...elementProps
   } = props;
@@ -82,9 +84,10 @@ const Tooltip = React.forwardRef((props, ref) => {
       ref={ref}
       accessibilityRole={role}
       style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
     >
       <TooltipContext.Provider value={tooltip}>
-        <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+        {children}
       </TooltipContext.Provider>
     </View>
   );

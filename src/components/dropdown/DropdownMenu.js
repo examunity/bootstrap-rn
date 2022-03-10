@@ -6,7 +6,6 @@ import css from '../../style/css';
 import Overlay from '../Overlay';
 import View from '../View';
 import useMedia from '../../hooks/useMedia';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import { getStyles, concatRefs, convertToNumber } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
@@ -19,6 +18,8 @@ const propTypes = {
   end: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -70,7 +71,14 @@ const transformPlacement = (media, direction, start, end) => {
 };
 
 const DropdownMenu = React.forwardRef((props, ref) => {
-  const { children, start = true, end = false, style, ...elementProps } = props;
+  const {
+    children,
+    start = true,
+    end = false,
+    style,
+    textStyle,
+    ...elementProps
+  } = props;
 
   const dropdown = useForcedContext(DropdownContext);
   const media = useMedia();
@@ -103,11 +111,10 @@ const DropdownMenu = React.forwardRef((props, ref) => {
               overlay.overlayProps.style,
               style,
             ]}
+            textStyle={[textClasses, textStyle]}
           >
             <DropdownContext.Provider value={dropdown}>
-              <TextStyleProvider style={textClasses}>
-                {children}
-              </TextStyleProvider>
+              {children}
             </DropdownContext.Provider>
           </View>
         )}

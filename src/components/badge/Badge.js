@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import css from '../../style/css';
 import Text from '../Text';
 import View from '../View';
@@ -13,6 +12,8 @@ const propTypes = {
   color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
   styleName: PropTypes.any,
 };
@@ -48,6 +49,7 @@ const Badge = React.forwardRef((props, ref) => {
     children,
     color, // will be deprecated soon
     style,
+    textStyle,
     styleName,
     ...elementProps
   } = props;
@@ -61,11 +63,10 @@ const Badge = React.forwardRef((props, ref) => {
       {...elementProps}
       ref={ref}
       style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
       styleName={getStyleName(styleName, color)}
     >
-      <TextStyleProvider style={textClasses}>
-        <Text>{children}</Text>
-      </TextStyleProvider>
+      <Text>{children}</Text>
     </View>
   );
 });

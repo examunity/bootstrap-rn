@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import { getStyles } from '../../utils';
 import ProgressBar from './ProgressBar';
@@ -15,6 +14,8 @@ const propTypes = {
   max: PropTypes.number,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -34,7 +35,14 @@ const styles = StyleSheet.create({
 });
 
 const Progress = React.forwardRef((props, ref) => {
-  const { children, min = 0, max = 100, style, ...elementProps } = props;
+  const {
+    children,
+    min = 0,
+    max = 100,
+    style,
+    textStyle,
+    ...elementProps
+  } = props;
 
   const progress = useProgress(min, max);
 
@@ -43,9 +51,14 @@ const Progress = React.forwardRef((props, ref) => {
   const textClasses = getStyles(styles, ['.progress-text']);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
+    <View
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
       <ProgressContext.Provider value={progress}>
-        <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+        {children}
       </ProgressContext.Provider>
     </View>
   );

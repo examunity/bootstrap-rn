@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextStyleProvider from '../../style/TextStyleProvider';
 import View from '../View';
 import { getStyles } from '../../utils';
 import ToastHeader from './ToastHeader';
@@ -14,6 +13,8 @@ const propTypes = {
   last: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
 });
 
 const Toast = React.forwardRef((props, ref) => {
-  const { children, last = false, style, ...elementProps } = props;
+  const { children, last = false, style, textStyle, ...elementProps } = props;
 
   const container = useContext(ToastContainerContext);
 
@@ -57,8 +58,9 @@ const Toast = React.forwardRef((props, ref) => {
       accessibilityLive="assertive"
       accessibilityAtomic
       style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
     >
-      <TextStyleProvider style={textClasses}>{children}</TextStyleProvider>
+      {children}
     </View>
   );
 });
