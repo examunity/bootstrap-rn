@@ -43,7 +43,7 @@ const exampleCodeActiveDisabled =
   '</>';
 
 const exampleCodeTogglebutton =
-  '<>\n' + ' <Button toggle={Button}>Toggle button</Button> \n' + '</>';
+  '<>\n <Button toggle={Button}>Toggle button</Button> \n</>';
 
 function SampleButtons() {
   return (
@@ -231,7 +231,7 @@ function SampleButtons() {
               <Text color="dark">import </Text>
               <Text color="primary">Button </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
           </Col>
         </Row>

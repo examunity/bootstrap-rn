@@ -71,7 +71,7 @@ function SampleProgress() {
               <Text color="dark">import </Text>
               <Text color="primary">Progress </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
           </Col>
         </Row>

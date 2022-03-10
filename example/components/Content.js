@@ -28,37 +28,37 @@ function Content() {
               <Text color="dark">import </Text>
               <Text color="primary">Heading </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
             <Code>
               <Text color="dark">import </Text>
               <Text color="primary">DisplayHeading </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
             <Code>
               <Text color="dark">import </Text>
               <Text color="primary">Paragraph </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
             <Code>
               <Text color="dark">import </Text>
               <Text color="primary">Text </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
             <Code>
               <Text color="dark">import </Text>
               <Text color="primary">Code </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
             <Code>
               <Text color="dark">import </Text>
               <Text color="primary">Blockquote </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
           </Col>
         </Row>

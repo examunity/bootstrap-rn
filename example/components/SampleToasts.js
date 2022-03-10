@@ -84,13 +84,13 @@ function SampleToasts() {
               <Text color="dark">import </Text>
               <Text color="primary">Toast </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
             <Code>
               <Text color="dark">import </Text>
               <Text color="primary">ToastContainer </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
           </Col>
         </Row>

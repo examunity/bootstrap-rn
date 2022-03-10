@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Heading,
-  View,
   Button,
   Text,
   Checkbox,
@@ -39,13 +38,13 @@ function Forms() {
               <Text color="dark">import </Text>
               <Text color="primary">FormText </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
             <Code>
               <Text color="dark">import </Text>
               <Text color="primary">Checkbox </Text>
               <Text color="dark">from </Text>
-              <Text color="primary">'bootstrap-rn'</Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
             </Code>
           </Col>
         </Row>
