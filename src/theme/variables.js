@@ -1377,8 +1377,8 @@ const variables = css`
 
   $spinner-width: 2rem;
   $spinner-height: $spinner-width;
-  $spinner-vertical-align: -0.125em;
-  $spinner-border-width: 0.25em;
+  $spinner-vertical-align: $font-size-base * -0.125; // -.125em;
+  $spinner-border-width: $font-size-base * 0.25; // .25em;
   $spinner-animation-speed: 0.75s;
 
   $spinner-width-sm: 1rem;

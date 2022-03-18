@@ -23,14 +23,18 @@ const styles = StyleSheet.create({
     // vertical-align: $spinner-vertical-align;
     border-width: $spinner-border-width;
     border-style: solid;
-    border-color: $body-color;
+    border-top-color: $body-color;
+    border-bottom-color: $body-color;
+    border-left-color: $body-color;
     border-right-color: transparent;
     border-radius: $spinner-width * 0.5; // 50%;
     // animation: $spinner-animation-speed linear infinite spinner-border;
   `,
   ...each(THEME_COLORS, (color, value) => ({
     [`.spinner-border-${color}`]: css`
-      border-color: ${value};
+      border-top-color: ${value};
+      border-bottom-color: ${value};
+      border-left-color: ${value};
     `,
   })),
   '.spinner-border-sm': css`
