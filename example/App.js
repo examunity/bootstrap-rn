@@ -25,6 +25,7 @@ import SampleNav from './components/SampleNav';
 import SampleNavbar from './components/SampleNavbar';
 import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
+import SampleSpinners from './components/SampleSpinners';
 import SampleToasts from './components/SampleToasts';
 import SampleTooltips from './components/SampleTooltips';
 import SampleOffcanvas from './components/SampleOffcanvas';
@@ -152,6 +153,7 @@ function App() {
               <Route path="offcanvas" element={<SampleOffcanvas />} />
               <Route path="popovers" element={<SamplePopovers />} />
               <Route path="progress" element={<SampleProgress />} />
+              <Route path="spinners" element={<SampleSpinners />} />
               <Route path="toasts" element={<SampleToasts />} />
               <Route path="tooltips" element={<SampleTooltips />} />
               <Route path="utilities" element={<Utilities />} />

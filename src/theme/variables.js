@@ -1371,6 +1371,20 @@ const variables = css`
   $list-group-action-active-color: $body-color;
   $list-group-action-active-bg: $gray-200;
 
+  // ...
+
+  // Spinners
+
+  $spinner-width: 2rem;
+  $spinner-height: $spinner-width;
+  $spinner-vertical-align: -0.125em;
+  $spinner-border-width: 0.25em;
+  $spinner-animation-speed: 0.75s;
+
+  $spinner-width-sm: 1rem;
+  $spinner-height-sm: $spinner-width-sm;
+  $spinner-border-width-sm: $font-size-base * 0.2; // .2em;
+
   // Close
 
   $btn-close-width: $font-size-base * 1; // 1em;

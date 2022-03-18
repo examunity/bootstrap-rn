@@ -34,6 +34,7 @@ import Offcanvas from './components/offcanvas/Offcanvas';
 import injectPopover from './components/popover/injectPopover';
 import Popover from './components/popover/Popover';
 import Progress from './components/progress/Progress';
+import Spinner from './components/spinners/Spinner';
 import Toast from './components/toasts/Toast';
 import ToastContainer from './components/toasts/ToastContainer';
 import injectTooltip from './components/tooltip/injectTooltip';
@@ -94,6 +95,7 @@ export {
   injectPopover,
   Popover,
   Progress,
+  Spinner,
   Toast,
   ToastContainer,
   injectTooltip,
