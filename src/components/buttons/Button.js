@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 
     &:hover {
       color: $body-color;
-      text-decoration-line: $link-hover-decoration;
+      text-decoration: none; // if($link-decoration == none, null, none);
     }
   `,
   '.btn-disabled': css`
