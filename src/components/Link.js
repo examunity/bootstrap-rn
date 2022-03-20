@@ -25,10 +25,12 @@ const propTypes = {
 const styles = StyleSheet.create({
   link: css`
     color: $link-color;
+    text-decoration-color: $link-color; // added for bootstrap-rn
     text-decoration-line: $link-decoration;
 
     &:hover {
       color: $link-hover-color;
+      text-decoration-color: $link-hover-color; // added for bootstrap-rn
       text-decoration-line: $link-hover-decoration;
     }
   `,

@@ -220,10 +220,12 @@ const styles = StyleSheet.create({
   '.btn-link-text': css`
     font-weight: $font-weight-normal;
     color: $btn-link-color;
+    text-decoration-color: $btn-link-color; // added for bootstrap-rn
     text-decoration-line: $link-decoration;
 
     &:hover {
       color: $btn-link-hover-color;
+      text-decoration-color: $btn-link-hover-color; // added for bootstrap-rn
       text-decoration-line: $link-hover-decoration;
     }
 
