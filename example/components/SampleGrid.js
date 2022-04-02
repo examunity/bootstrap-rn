@@ -1,10 +1,18 @@
 import React from 'react';
-import { Container, Row, Col, Heading, Text, Code, View } from 'bootstrap-rn';
+import {
+  Container,
+  Row,
+  Col,
+  Heading,
+  Text,
+  Code,
+  View,
+  Card,
+} from 'bootstrap-rn';
 
 const exampleCode =
   '<>\n' +
-  ' <Dropdown direction="bottom">\n' +
-  '   <Container>\n' +
+  ' <Container>\n' +
   '     <Row>\n' +
   '       <Col size={9} styleName="bg-primary">\n' +
   '         <Text>Test1 Test2</Text>\n' +
@@ -31,34 +39,6 @@ const exampleCode =
 function SampleGrid() {
   return (
     <>
-      <Heading size={2}>Grid</Heading>
-      <Container>
-        <Row>
-          <Col size={9} styleName="bg-primary">
-            <Text>Container Row Col</Text>
-          </Col>
-          <Col size={3} styleName="bg-danger">
-            <Text>Test3</Text>
-          </Col>
-        </Row>
-      </Container>
-
-      <Row>
-        <Col size={4} styleName="bg-warning">
-          <Text>Test1 Test2</Text>
-        </Col>
-        <Col size={4} styleName="bg-warning">
-          <Text>Test3</Text>
-        </Col>
-        <Col size={4} styleName="bg-warning">
-          <Text>Test3</Text>
-        </Col>
-      </Row>
-
-      <View styleName="flex-row ai-center bg-dark my-3">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -84,6 +64,130 @@ function SampleGrid() {
           </Col>
         </Row>
       </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Col Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>size</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>1 bis 12</Text>
+          </Col>
+        </Row>
+
+        <Row styleName="bg-secondary mt-3">
+          <Col size={6}>
+            <Text>Row Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>rows</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.number</Text>
+          </Col>
+        </Row>
+
+        <Row styleName="bg-secondary mt-3">
+          <Col size={6}>
+            <Text>Container Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>size</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+          </Col>
+        </Row>
+        <Row styleName="bg-info">
+          <Col size={6}>
+            <Text>sizeSm</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+          </Col>
+        </Row>
+        <Row>
+          <Col size={6}>
+            <Text>sizeMd</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+          </Col>
+        </Row>
+        <Row styleName="bg-info">
+          <Col size={6}>
+            <Text>sizeLg</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+          </Col>
+        </Row>
+        <Row>
+          <Col size={6}>
+            <Text>sizeXl</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Grid</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Container>
+              <Row>
+                <Col size={9} styleName="bg-primary">
+                  <Text>Container Row Col</Text>
+                </Col>
+                <Col size={3} styleName="bg-danger">
+                  <Text>Test3</Text>
+                </Col>
+              </Row>
+            </Container>
+
+            <Row>
+              <Col size={4} styleName="bg-warning">
+                <Text>Test1 Test2</Text>
+              </Col>
+              <Col size={4} styleName="bg-warning">
+                <Text>Test3</Text>
+              </Col>
+              <Col size={4} styleName="bg-warning">
+                <Text>Test3</Text>
+              </Col>
+            </Row>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

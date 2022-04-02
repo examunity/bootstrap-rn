@@ -11,9 +11,7 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   dismissible: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
   textStyle: PropTypes.any,
 };
 

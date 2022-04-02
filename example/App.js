@@ -17,14 +17,17 @@ import SampleAlerts from './components/SampleAlerts';
 import SampleBadges from './components/SampleBadges';
 import SampleButtons from './components/SampleButtons';
 import SampleButtonGroup from './components/SampleButtonGroup';
+import SampleBreadcrumb from './components/SampleBreadcrumb';
 import SampleCards from './components/SampleCards';
 import SampleGrid from './components/SampleGrid';
 import SampleListGroup from './components/SampleListGroup';
 import SampleModal from './components/SampleModal';
 import SampleNav from './components/SampleNav';
 import SampleNavbar from './components/SampleNavbar';
+import SamplePagination from './components/SamplePagination';
 import SamplePopovers from './components/SamplePopovers';
 import SampleProgress from './components/SampleProgress';
+import SamplePlaceholders from './components/SamplePlaceholders';
 import SampleSpinners from './components/SampleSpinners';
 import SampleToasts from './components/SampleToasts';
 import SampleTooltips from './components/SampleTooltips';
@@ -140,6 +143,7 @@ function App() {
               <Route path="forms" element={<Forms />} />
               <Route path="alerts" element={<SampleAlerts />} />
               <Route path="badges" element={<SampleBadges />} />
+              <Route path="breadcrumb" element={<SampleBreadcrumb />} />
               <Route path="buttons" element={<SampleButtons />} />
               <Route path="button-group" element={<SampleButtonGroup />} />
               <Route path="cards" element={<SampleCards />} />
@@ -151,6 +155,8 @@ function App() {
               <Route path="nav" element={<SampleNav />} />
               <Route path="navbar" element={<SampleNavbar />} />
               <Route path="offcanvas" element={<SampleOffcanvas />} />
+              <Route path="pagination" element={<SamplePagination />} />
+              <Route path="placeholders" element={<SamplePlaceholders />} />
               <Route path="popovers" element={<SamplePopovers />} />
               <Route path="progress" element={<SampleProgress />} />
               <Route path="spinners" element={<SampleSpinners />} />

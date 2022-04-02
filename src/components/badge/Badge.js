@@ -7,7 +7,6 @@ import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 
@@ -31,7 +30,6 @@ const styles = StyleSheet.create({
 
 const Badge = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
-
   const classes = getStyles(styles, ['.badge', '.badge-text']);
 
   return (

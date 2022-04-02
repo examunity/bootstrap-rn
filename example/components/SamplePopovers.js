@@ -9,6 +9,7 @@ import {
   Col,
   Code,
   View,
+  Card,
 } from 'bootstrap-rn';
 
 const PopoverButton = injectPopover(Button);
@@ -29,21 +30,6 @@ const exampleCode =
 function SamplePopovers() {
   return (
     <>
-      <Heading size={2}>Popovers</Heading>
-      <PopoverButton
-        popover={{
-          title: 'Title',
-          content: <Text>This is the content of Popover</Text>,
-          placement: 'top',
-        }}
-      >
-        <Text>Open this Popover</Text>
-      </PopoverButton>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -57,6 +43,49 @@ function SamplePopovers() {
           </Col>
         </Row>
       </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text></Text>
+          </Col>
+          <Col size={6}>
+            <Text small></Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Popovers</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <PopoverButton
+              popover={{
+                title: 'Title',
+                content: <Text>This is the content of Popover</Text>,
+                placement: 'top',
+              }}
+            >
+              <Text>Open this Popover</Text>
+            </PopoverButton>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

@@ -11,6 +11,7 @@ import {
   Col,
   Code,
   View,
+  Card,
 } from 'bootstrap-rn';
 
 const navVariantTabs =
@@ -96,90 +97,6 @@ const tab =
 function SampleNav() {
   return (
     <>
-      <Heading size={2}>Nav</Heading>
-      <Nav variant="tabs" styleName="mb-3">
-        <Nav.Link>
-          <Text>Ron</Text>
-        </Nav.Link>
-        <Nav.Link>
-          <Text>Patrik</Text>
-        </Nav.Link>
-        <Nav.Link>
-          <Text>Anton</Text>
-        </Nav.Link>
-        <Nav.Link>
-          <Text>Markus</Text>
-        </Nav.Link>
-        <Nav.Link active>
-          <Text>active</Text>
-        </Nav.Link>
-        <Nav.Link disabled>
-          <Text>disabled</Text>
-        </Nav.Link>
-      </Nav>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{navVariantTabs}</Code>
-      </View>
-
-      <Nav variant="pills" styleName="mb-3">
-        <Nav.Link>
-          <Text>Ron</Text>
-        </Nav.Link>
-        <Nav.Link>
-          <Text>Patrik</Text>
-        </Nav.Link>
-        <Nav.Link>
-          <Text>Anton</Text>
-        </Nav.Link>
-        <Nav.Link>
-          <Text>Markus</Text>
-        </Nav.Link>
-        <Nav.Link active>
-          <Text>active</Text>
-        </Nav.Link>
-        <Nav.Link disabled>
-          <Text>disabled</Text>
-        </Nav.Link>
-      </Nav>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{navVariantPills}</Code>
-      </View>
-
-      <Tab.Provider defaultActiveTarget="pane-1">
-        <Nav variant="tabs">
-          <Nav.Link toggle={Tab} target="pane-1">
-            <Text>Page 1</Text>
-          </Nav.Link>
-          <Nav.Link toggle={Tab} target="pane-2">
-            <Text>Page 2</Text>
-            <Badge styleName="bg-secondary ml-2">
-              <Text>8</Text>
-            </Badge>
-          </Nav.Link>
-          <Nav.Link toggle={Tab} target="pane-3">
-            <Text>Page 3</Text>
-          </Nav.Link>
-        </Nav>
-
-        <Tab.Content styleName="p-3">
-          <Tab.Pane id="pane-1">
-            <Paragraph>Page Content 1</Paragraph>
-          </Tab.Pane>
-          <Tab.Pane id="pane-2">
-            <Paragraph>Page Content 2</Paragraph>
-          </Tab.Pane>
-          <Tab.Pane id="pane-3">
-            <Paragraph>Page Content 3</Paragraph>
-          </Tab.Pane>
-        </Tab.Content>
-      </Tab.Provider>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{tab}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -199,6 +116,134 @@ function SampleNav() {
           </Col>
         </Row>
       </Container>
+
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>variant</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>tabs | pills</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Nav Tabs</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Nav variant="tabs" styleName="mb-3">
+              <Nav.Link>
+                <Text>Ron</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Patrik</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Anton</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Markus</Text>
+              </Nav.Link>
+              <Nav.Link active>
+                <Text>active</Text>
+              </Nav.Link>
+              <Nav.Link disabled>
+                <Text>disabled</Text>
+              </Nav.Link>
+            </Nav>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{navVariantTabs}</Code>
+        </Card.Footer>
+      </Card>
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Nav pills</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Nav variant="pills" styleName="mb-3">
+              <Nav.Link>
+                <Text>Ron</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Patrik</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Anton</Text>
+              </Nav.Link>
+              <Nav.Link>
+                <Text>Markus</Text>
+              </Nav.Link>
+              <Nav.Link active>
+                <Text>active</Text>
+              </Nav.Link>
+              <Nav.Link disabled>
+                <Text>disabled</Text>
+              </Nav.Link>
+            </Nav>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{navVariantPills}</Code>
+        </Card.Footer>
+      </Card>
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Nav tab content</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Tab.Provider defaultActiveTarget="pane-1">
+              <Nav variant="tabs">
+                <Nav.Link toggle={Tab} target="pane-1">
+                  <Text>Page 1</Text>
+                </Nav.Link>
+                <Nav.Link toggle={Tab} target="pane-2">
+                  <Text>Page 2</Text>
+                  <Badge styleName="bg-secondary ml-2">
+                    <Text>8</Text>
+                  </Badge>
+                </Nav.Link>
+                <Nav.Link toggle={Tab} target="pane-3">
+                  <Text>Page 3</Text>
+                </Nav.Link>
+              </Nav>
+
+              <Tab.Content styleName="p-3">
+                <Tab.Pane id="pane-1">
+                  <Paragraph>Page Content 1</Paragraph>
+                </Tab.Pane>
+                <Tab.Pane id="pane-2">
+                  <Paragraph>Page Content 2</Paragraph>
+                </Tab.Pane>
+                <Tab.Pane id="pane-3">
+                  <Paragraph>Page Content 3</Paragraph>
+                </Tab.Pane>
+              </Tab.Content>
+            </Tab.Provider>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{tab}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }
