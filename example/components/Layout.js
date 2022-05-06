@@ -40,6 +40,9 @@ function Layout() {
                 <ListGroup.ItemAction to="/badges">
                   <Text>Badges</Text>
                 </ListGroup.ItemAction>
+                <ListGroup.ItemAction to="/breadcrumb">
+                  <Text>Breadcrumb</Text>
+                </ListGroup.ItemAction>
                 <ListGroup.ItemAction to="/buttons">
                   <Text>Buttons</Text>
                 </ListGroup.ItemAction>
@@ -72,6 +75,12 @@ function Layout() {
                 </ListGroup.ItemAction>
                 <ListGroup.ItemAction to="/offcanvas">
                   <Text>Offcanvas</Text>
+                </ListGroup.ItemAction>
+                <ListGroup.ItemAction to="/pagination">
+                  <Text>Pagination</Text>
+                </ListGroup.ItemAction>
+                <ListGroup.ItemAction to="/placeholders">
+                  <Text>Placeholders</Text>
                 </ListGroup.ItemAction>
                 <ListGroup.ItemAction to="/popovers">
                   <Text>Popovers</Text>

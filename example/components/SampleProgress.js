@@ -10,6 +10,7 @@ import {
   Row,
   Col,
   Code,
+  Card,
 } from 'bootstrap-rn';
 
 const styles = StyleSheet.create({
@@ -43,26 +44,6 @@ const exampleCode =
 function SampleProgress() {
   return (
     <>
-      <Heading size={2}>Progress</Heading>
-      <View style={styles.progressContainer}>
-        <Progress min={10} max={50} style={styles.progress}>
-          <Progress.Bar value={30} styleName="bg-danger" />
-        </Progress>
-        <Progress style={styles.progress}>
-          <Progress.Bar value={30} styleName="bg-primary" />
-          <Progress.Bar value={50} styleName="bg-info" />
-        </Progress>
-        <Progress>
-          <Progress.Bar value={100} styleName="bg-success">
-            100%
-          </Progress.Bar>
-        </Progress>
-      </View>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -76,6 +57,69 @@ function SampleProgress() {
           </Col>
         </Row>
       </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>min</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.number</Text>
+          </Col>
+        </Row>
+        <Row>
+          <Col size={6}>
+            <Text>max</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.number</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>value</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.number.isRequired</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Progress</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View style={styles.progressContainer}>
+            <Progress min={10} max={50} style={styles.progress}>
+              <Progress.Bar value={30} styleName="bg-danger" />
+            </Progress>
+            <Progress style={styles.progress}>
+              <Progress.Bar value={30} styleName="bg-primary" />
+              <Progress.Bar value={50} styleName="bg-info" />
+            </Progress>
+            <Progress>
+              <Progress.Bar value={100} styleName="bg-success">
+                100%
+              </Progress.Bar>
+            </Progress>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

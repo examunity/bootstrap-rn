@@ -28,23 +28,6 @@ const exampleCode =
 function SampleCards() {
   return (
     <>
-      <Heading size={2}>Cards</Heading>
-      <Card>
-        <Card.Header>
-          <Text>Card Header Text</Text>
-        </Card.Header>
-        <Card.Body>
-          <Text>Body Text</Text>
-        </Card.Body>
-        <Card.Footer>
-          <Text>Card Footer Text</Text>
-        </Card.Footer>
-      </Card>
-
-      <View styleName="flex-row ai-center bg-dark my-3">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -58,6 +41,52 @@ function SampleCards() {
           </Col>
         </Row>
       </Container>
+
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text></Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text></Text>
+          </Col>
+          <Col size={6}>
+            <Text small></Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Cards</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column ai-center">
+            <Card>
+              <Card.Header>
+                <Text>Card Header Text</Text>
+              </Card.Header>
+              <Card.Body>
+                <Text>Body Text</Text>
+              </Card.Body>
+              <Card.Footer>
+                <Text>Card Footer Text</Text>
+              </Card.Footer>
+            </Card>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

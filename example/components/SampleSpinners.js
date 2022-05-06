@@ -29,6 +29,46 @@ function SampleSpinners() {
         </Row>
       </Container>
 
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+        <Row>
+          <Col size={6}>
+            <Text>color</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>
+              primary | secondary | success | danger | warning | info | light |
+              dark
+            </Text>
+          </Col>
+        </Row>
+        <Row styleName="bg-info">
+          <Col size={6}>
+            <Text>size</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>sm</Text>
+          </Col>
+        </Row>
+        <Row>
+          <Col size={6}>
+            <Text>variant</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>border | grow</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
       <Card styleName={cardmargin}>
         <Card.Header>
           <Heading size={5}>Border spinner</Heading>

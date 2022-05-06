@@ -9,6 +9,7 @@ import {
   Col,
   Code,
   View,
+  Card,
 } from 'bootstrap-rn';
 
 const exampleCode =
@@ -44,38 +45,6 @@ const exampleCode =
 function SampleToasts() {
   return (
     <>
-      <Heading size={2}>Toasts</Heading>
-      <Toast styleName="mb-3">
-        <Toast.Header>
-          <Text bold>Heading</Text>
-        </Toast.Header>
-        <Toast.Body>
-          <Text>Body</Text>
-        </Toast.Body>
-      </Toast>
-      <ToastContainer>
-        <Toast>
-          <Toast.Header>
-            <Text bold>Heading</Text>
-          </Toast.Header>
-          <Toast.Body>
-            <Text>Body</Text>
-          </Toast.Body>
-        </Toast>
-        <Toast>
-          <Toast.Header>
-            <Text bold>Heading</Text>
-          </Toast.Header>
-          <Toast.Body>
-            <Text>Body</Text>
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -95,6 +64,66 @@ function SampleToasts() {
           </Col>
         </Row>
       </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text></Text>
+          </Col>
+          <Col size={6}>
+            <Text small></Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Toasts</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Toast styleName="mb-3">
+              <Toast.Header>
+                <Text bold>Heading</Text>
+              </Toast.Header>
+              <Toast.Body>
+                <Text>Body</Text>
+              </Toast.Body>
+            </Toast>
+            <ToastContainer>
+              <Toast>
+                <Toast.Header>
+                  <Text bold>Heading</Text>
+                </Toast.Header>
+                <Toast.Body>
+                  <Text>Body</Text>
+                </Toast.Body>
+              </Toast>
+              <Toast>
+                <Toast.Header>
+                  <Text bold>Heading</Text>
+                </Toast.Header>
+                <Toast.Body>
+                  <Text>Body</Text>
+                </Toast.Body>
+              </Toast>
+            </ToastContainer>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

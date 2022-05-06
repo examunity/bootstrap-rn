@@ -470,6 +470,11 @@ const variables = css`
     100: '100%',
   })};
 
+  // Placeholder
+
+  $placeholder-opacity-max: 0.5;
+  $placeholder-opacity-min: 0.2;
+
   // Body
   //
   // Settings for the "<body>" element.
@@ -774,6 +779,20 @@ const variables = css`
   $btn-active-bg-tint-amount: 0.2; // 20%;
   $btn-active-border-shade-amount: 0.25; // 25%;
   $btn-active-border-tint-amount: 0.1; // 10%;
+
+  // Breadcrumb
+
+  $breadcrumb-font-size: null;
+  $breadcrumb-padding-y: 0;
+  $breadcrumb-padding-x: 0;
+  $breadcrumb-item-padding-x: 0.5rem;
+  $breadcrumb-margin-bottom: 1rem;
+  $breadcrumb-bg: null;
+  $breadcrumb-divider-color: $gray-600;
+  $breadcrumb-active-color: $gray-600;
+  //$breadcrumb-divider: quote('/');
+  //$breadcrumb-divider-flipped: $breadcrumb-divider;
+  $breadcrumb-border-radius: null;
 
   // Forms
 
@@ -1331,6 +1350,46 @@ const variables = css`
   $alert-border-scale: -0.7; // 70%;
   $alert-color-scale: 0.4; // 40%;
   $alert-dismissible-padding-r: $alert-padding-x * 3; // 3x covers width of x plus default padding on either side
+
+  // Pagination
+
+  $pagination-padding-y: 0.375rem;
+  $pagination-padding-x: 0.75rem;
+  $pagination-padding-y-sm: 0.25rem;
+  $pagination-padding-x-sm: 0.5rem;
+  $pagination-padding-y-lg: 0.75rem;
+  $pagination-padding-x-lg: 1.5rem;
+
+  $pagination-color: $link-color;
+  $pagination-bg: $white;
+  $pagination-border-width: $border-width;
+  $pagination-border-radius: $border-radius;
+  $pagination-margin-start: -$pagination-border-width;
+  $pagination-border-color: $gray-300;
+
+  $pagination-focus-color: $link-hover-color;
+  $pagination-focus-bg: $gray-200;
+  $pagination-focus-box-shadow: $input-btn-focus-box-shadow;
+  $pagination-focus-outline: 0;
+
+  $pagination-hover-color: $link-hover-color;
+  $pagination-hover-bg: $gray-200;
+  $pagination-hover-border-color: $gray-300;
+
+  $pagination-active-color: $component-active-color;
+  $pagination-active-bg: $component-active-bg;
+  $pagination-active-border-color: $pagination-active-bg;
+
+  $pagination-disabled-color: $gray-600;
+  $pagination-disabled-bg: $white;
+  $pagination-disabled-border-color: $gray-300;
+
+  $pagination-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  $pagination-border-radius-sm: $border-radius-sm;
+  $pagination-border-radius-lg: $border-radius-lg;
 
   // Progress bars
 

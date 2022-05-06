@@ -10,6 +10,7 @@ import {
   Col,
   Code,
   View,
+  Card,
 } from 'bootstrap-rn';
 
 const exampleCode =
@@ -44,47 +45,6 @@ function SampleModal() {
 
   return (
     <>
-      <Heading size={2}>Modal</Heading>
-      <Button onPress={() => setModalVisible(true)}>
-        <Text>Show Modal</Text>
-      </Button>
-
-      <Modal
-        visible={modalVisible}
-        onToggle={() => setModalVisible((value) => !value)}
-        size="xl"
-      >
-        <Modal.Header>
-          <Modal.Title>Modal Title Text</Modal.Title>
-          <CloseButton onPress={() => setModalVisible((value) => !value)} />
-        </Modal.Header>
-        <Modal.Body>
-          <Text>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum
-          </Text>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onPress={() => setModalVisible((value) => !value)}>
-            <Text>Submit</Text>
-          </Button>
-          <Button onPress={() => setModalVisible(!modalVisible)}>
-            <Text>Close</Text>
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -98,6 +58,98 @@ function SampleModal() {
           </Col>
         </Row>
       </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>size</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.oneOf(MODAL_SIZES)</Text>
+          </Col>
+        </Row>
+
+        <Row styleName="bg-info">
+          <Col size={6}>
+            <Text>backdrop</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>
+              PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])
+            </Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>onToggle</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.func.isRequired</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Modal</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Button onPress={() => setModalVisible(true)}>
+              <Text>Show Modal</Text>
+            </Button>
+
+            <Modal
+              visible={modalVisible}
+              onToggle={() => setModalVisible((value) => !value)}
+              size="xl"
+            >
+              <Modal.Header>
+                <Modal.Title>Modal Title Text</Modal.Title>
+                <CloseButton
+                  onPress={() => setModalVisible((value) => !value)}
+                />
+              </Modal.Header>
+              <Modal.Body>
+                <Text>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industrys
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum
+                </Text>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onPress={() => setModalVisible((value) => !value)}>
+                  <Text>Submit</Text>
+                </Button>
+                <Button onPress={() => setModalVisible(!modalVisible)}>
+                  <Text>Close</Text>
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

@@ -11,6 +11,7 @@ import {
   Offcanvas,
   CloseButton,
   View,
+  Card,
 } from 'bootstrap-rn';
 
 const exampleCode =
@@ -109,103 +110,6 @@ const nav3 =
 function SampleNavbar() {
   return (
     <>
-      <Heading size={2}>Navbar</Heading>
-      <Navbar expand="lg" styleName="bg-light">
-        <Container fluid>
-          <Navbar.Brand>
-            <Text>Navbar</Text>
-          </Navbar.Brand>
-          <Navbar.Toggler />
-          <Navbar.Collapse>
-            <Nav>
-              <Nav.Link active>
-                <Text>Home</Text>
-              </Nav.Link>
-              <Nav.Link>
-                <Text>Features</Text>
-              </Nav.Link>
-              <Nav.Link>
-                <Text>Pricing</Text>
-              </Nav.Link>
-              <Nav.Link disabled>
-                <Text>Disabled</Text>
-              </Nav.Link>
-            </Nav>
-            <Navbar.Text>Test</Navbar.Text>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
-      <Navbar variant="dark" styleName="bg-primary">
-        <Container fluid>
-          <Navbar.Brand>
-            <Text>Navbar</Text>
-          </Navbar.Brand>
-          <Navbar.Toggler />
-          <Navbar.Collapse>
-            <Nav>
-              <Nav.Link active>
-                <Text>Home</Text>
-              </Nav.Link>
-              <Nav.Link>
-                <Text>Features</Text>
-              </Nav.Link>
-              <Nav.Link>
-                <Text>Pricing</Text>
-              </Nav.Link>
-              <Nav.Link disabled>
-                <Text>Disabled</Text>
-              </Nav.Link>
-            </Nav>
-            <Navbar.Text>Test</Navbar.Text>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{nav2}</Code>
-      </View>
-
-      <Navbar styleName="bg-light">
-        <Container fluid>
-          <Navbar.Brand>
-            <Text>Navbar</Text>
-          </Navbar.Brand>
-          <Navbar.Toggler />
-          <Offcanvas placement="end">
-            <Offcanvas.Header>
-              <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-              <CloseButton dismiss={Navbar} />
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav>
-                <Nav.Link active>
-                  <Text>Home</Text>
-                </Nav.Link>
-                <Nav.Link>
-                  <Text>Features</Text>
-                </Nav.Link>
-                <Nav.Link>
-                  <Text>Pricing</Text>
-                </Nav.Link>
-                <Nav.Link disabled>
-                  <Text>Disabled</Text>
-                </Nav.Link>
-              </Nav>
-              <Navbar.Text>Test</Navbar.Text>
-            </Offcanvas.Body>
-          </Offcanvas>
-        </Container>
-      </Navbar>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{nav3}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -219,6 +123,174 @@ function SampleNavbar() {
           </Col>
         </Row>
       </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>defaultExpanded</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.bool</Text>
+          </Col>
+        </Row>
+
+        <Row styleName="bg-info">
+          <Col size={6}>
+            <Text>expanded</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.bool</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>onToggle</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.func</Text>
+          </Col>
+        </Row>
+
+        <Row styleName="bg-info">
+          <Col size={6}>
+            <Text>expand</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>sm | md | lg | xl | xxl</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Navbar</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Navbar expand="lg" styleName="bg-light">
+              <Container fluid>
+                <Navbar.Brand>
+                  <Text>Navbar</Text>
+                </Navbar.Brand>
+                <Navbar.Toggler />
+                <Navbar.Collapse>
+                  <Nav>
+                    <Nav.Link active>
+                      <Text>Home</Text>
+                    </Nav.Link>
+                    <Nav.Link>
+                      <Text>Features</Text>
+                    </Nav.Link>
+                    <Nav.Link>
+                      <Text>Pricing</Text>
+                    </Nav.Link>
+                    <Nav.Link disabled>
+                      <Text>Disabled</Text>
+                    </Nav.Link>
+                  </Nav>
+                  <Navbar.Text>Test</Navbar.Text>
+                </Navbar.Collapse>
+              </Container>
+            </Navbar>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Navbar collapsed</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Navbar variant="dark" styleName="bg-primary">
+              <Container fluid>
+                <Navbar.Brand>
+                  <Text>Navbar</Text>
+                </Navbar.Brand>
+                <Navbar.Toggler />
+                <Navbar.Collapse>
+                  <Nav>
+                    <Nav.Link active>
+                      <Text>Home</Text>
+                    </Nav.Link>
+                    <Nav.Link>
+                      <Text>Features</Text>
+                    </Nav.Link>
+                    <Nav.Link>
+                      <Text>Pricing</Text>
+                    </Nav.Link>
+                    <Nav.Link disabled>
+                      <Text>Disabled</Text>
+                    </Nav.Link>
+                  </Nav>
+                  <Navbar.Text>Test</Navbar.Text>
+                </Navbar.Collapse>
+              </Container>
+            </Navbar>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{nav2}</Code>
+        </Card.Footer>
+      </Card>
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Navbar canvas</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Navbar styleName="bg-light">
+              <Container fluid>
+                <Navbar.Brand>
+                  <Text>Navbar</Text>
+                </Navbar.Brand>
+                <Navbar.Toggler />
+                <Offcanvas placement="end">
+                  <Offcanvas.Header>
+                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                    <CloseButton dismiss={Navbar} />
+                  </Offcanvas.Header>
+                  <Offcanvas.Body>
+                    <Nav>
+                      <Nav.Link active>
+                        <Text>Home</Text>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Text>Features</Text>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Text>Pricing</Text>
+                      </Nav.Link>
+                      <Nav.Link disabled>
+                        <Text>Disabled</Text>
+                      </Nav.Link>
+                    </Nav>
+                    <Navbar.Text>Test</Navbar.Text>
+                  </Offcanvas.Body>
+                </Offcanvas>
+              </Container>
+            </Navbar>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{nav3}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

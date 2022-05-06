@@ -11,7 +11,7 @@ import {
   Card,
 } from 'bootstrap-rn';
 
-const badgeExampleCode =
+const exampleCode =
   '<>\n' +
   ' <Badge styleName="bg-primary">primary</Badge>\n' +
   ' <Badge styleName="bg-secondary">secondary</Badge>\n' +
@@ -26,9 +26,47 @@ const badgeExampleCode =
 function SampleBadges() {
   return (
     <>
+      <Container styleName="my-3">
+        <Row>
+          <Col size={12}>
+            <Heading size={4}>API Badge</Heading>
+            <Code>
+              <Text color="dark">import </Text>
+              <Text color="primary">Badge </Text>
+              <Text color="dark">from </Text>
+              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
+            </Code>
+          </Col>
+        </Row>
+      </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>color</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>
+              primary | secondary | success | danger | warning | info | light |
+              dark
+            </Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Badges</Heading>
+          <Heading size={5}>Badges </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-row ai-center">
@@ -43,42 +81,29 @@ function SampleBadges() {
           </View>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
-          <Code styleName="text-warning">{badgeExampleCode}</Code>
+          <Code styleName="text-warning">{exampleCode}</Code>
         </Card.Footer>
       </Card>
-
-      <Container styleName="my-3">
-        <Row>
-          <Col size={12}>
-            <Heading size={4}>API Badge</Heading>
-            <Code>
-              <Text color="dark">import </Text>
-              <Text color="primary">Badge </Text>
-              <Text color="dark">from </Text>
-              <Text color="primary">&apos;bootstrap-rn&apos;</Text>
-            </Code>
-          </Col>
-        </Row>
-      </Container>
-
-      <Container>
-        <Row styleName="bg-secondary">
-          <Col size={2}>
-            <Text>Name</Text>
-          </Col>
-          <Col size={4}>
-            <Text>Type</Text>
-          </Col>
-          <Col size={2}>
-            <Text>Default</Text>
-          </Col>
-          <Col size={4}>
-            <Text>Description</Text>
-          </Col>
-        </Row>
-      </Container>
     </>
   );
 }
 
 export default SampleBadges;
+
+/*
+TODO: Colors hinzufügen 
+
+
+<Card styleName="mb-3">
+  <Card.Header>
+    <Heading size={5}>HEADER</Heading>
+  </Card.Header>
+  <Card.Body>
+    <View styleName="flex-column"></View>
+  </Card.Body>
+  <Card.Footer styleName="bg-dark">
+    <Code styleName="text-warning">{exampleCode}</Code>
+  </Card.Footer>
+</Card>
+
+*/

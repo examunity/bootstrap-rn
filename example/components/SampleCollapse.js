@@ -31,24 +31,6 @@ const exampleCode =
 function SampleCollapse() {
   return (
     <>
-      <Heading size={2}>Collapse</Heading>
-      <Collapse.Provider>
-        <Button toggle={Collapse}>
-          <Text>Collapse</Text>
-        </Button>
-        <Collapse>
-          <Card>
-            <Card.Body>
-              <Text>Hello, I am collapsible</Text>
-            </Card.Body>
-          </Card>
-        </Collapse>
-      </Collapse.Provider>
-
-      <View styleName="flex-row ai-center bg-dark my-3">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -62,6 +44,53 @@ function SampleCollapse() {
           </Col>
         </Row>
       </Container>
+
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text></Text>
+          </Col>
+          <Col size={6}>
+            <Text small></Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Collapse</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Collapse.Provider>
+              <Button toggle={Collapse}>
+                <Text>Collapse</Text>
+              </Button>
+              <Collapse>
+                <Card>
+                  <Card.Body>
+                    <Text>Hello, I am collapsible</Text>
+                  </Card.Body>
+                </Card>
+              </Collapse>
+            </Collapse.Provider>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

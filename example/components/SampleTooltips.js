@@ -9,14 +9,13 @@ import {
   Col,
   Code,
   View,
+  Card,
 } from 'bootstrap-rn';
 
 const TooltipButton = injectTooltip(Button);
 
 const exampleCode =
   '<>\n' +
-  ' <Badge color="primary">primary</Badge>\n' +
-  ' <Badge color="secondary">secondary</Badge>\n' +
   '<TooltipButton\n' +
   'tooltip={{\n' +
   '  title: "This is the content of Tooltip",\n' +
@@ -30,20 +29,6 @@ const exampleCode =
 function SampleTooltips() {
   return (
     <>
-      <Heading size={2}>Tooltips</Heading>
-      <TooltipButton
-        tooltip={{
-          title: 'This is the content of Tooltip',
-          placement: 'top',
-        }}
-      >
-        <Text>Open Tooltip</Text>
-      </TooltipButton>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -57,6 +42,56 @@ function SampleTooltips() {
           </Col>
         </Row>
       </Container>
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>placement</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.string</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>popper</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.bool</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Tooltips</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <TooltipButton
+              tooltip={{
+                title: 'This is the content of Tooltip',
+                placement: 'top',
+              }}
+            >
+              <Text>Open Tooltip</Text>
+            </TooltipButton>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

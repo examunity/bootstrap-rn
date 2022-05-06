@@ -10,6 +10,7 @@ import {
   Row,
   Col,
   Code,
+  Card,
 } from 'bootstrap-rn';
 
 const exampleCode =
@@ -55,76 +56,6 @@ function SampleOffcanvas() {
 
   return (
     <>
-      <Heading size={2}>Offcanvas</Heading>
-      <Button
-        onPress={() => {
-          setOffcanvasVisible(true);
-          setOffcanvasPlacement('top');
-        }}
-      >
-        <Text>Show Offcanvas Top</Text>
-      </Button>
-
-      <Button
-        onPress={() => {
-          setOffcanvasVisible(true);
-          setOffcanvasPlacement('bottom');
-        }}
-      >
-        <Text>Show Offcanvas Bottom</Text>
-      </Button>
-
-      <Button
-        onPress={() => {
-          setOffcanvasVisible(true);
-          setOffcanvasPlacement('start');
-        }}
-      >
-        <Text>Show Offcanvas Left</Text>
-      </Button>
-
-      <Button
-        onPress={() => {
-          setOffcanvasVisible(true);
-          setOffcanvasPlacement('end');
-        }}
-      >
-        <Text>Show Offcanvas Right</Text>
-      </Button>
-
-      <View styleName="flex-row ai-center bg-dark my-3 p-2">
-        <Code styleName="text-warning">{exampleCode}</Code>
-      </View>
-
-      <Offcanvas
-        visible={offcanvasVisible}
-        placement={offcanvasPlacement}
-        onToggle={() => setOffcanvasVisible((value) => !value)}
-      >
-        <Offcanvas.Header>
-          <Offcanvas.Title>Offcanvas Title Text</Offcanvas.Title>
-          <CloseButton onPress={() => setOffcanvasVisible((value) => !value)} />
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <Text>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum
-          </Text>
-          <View>
-            <Button onPress={() => setOffcanvasVisible((value) => !value)}>
-              <Text>Close</Text>
-            </Button>
-          </View>
-        </Offcanvas.Body>
-      </Offcanvas>
-
       <Container styleName="my-3">
         <Row>
           <Col size={12}>
@@ -138,6 +69,129 @@ function SampleOffcanvas() {
           </Col>
         </Row>
       </Container>
+
+      {/* PROPS -----------------------------------------------------  */}
+      <Container styleName="mb-5">
+        <Row styleName="bg-secondary">
+          <Col size={6}>
+            <Text>Propname</Text>
+          </Col>
+          <Col size={6}>
+            <Text>Value</Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>placement</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.oneOf(PLACEMENTS)</Text>
+          </Col>
+        </Row>
+
+        <Row styleName="bg-info">
+          <Col size={6}>
+            <Text>backdrop</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>
+              PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])])
+            </Text>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col size={6}>
+            <Text>onToggle</Text>
+          </Col>
+          <Col size={6}>
+            <Text small>PropTypes.func</Text>
+          </Col>
+        </Row>
+      </Container>
+      {/* END PROPS -----------------------------------------------------  */}
+      <Card styleName="mb-3">
+        <Card.Header>
+          <Heading size={5}>Offcanvas</Heading>
+        </Card.Header>
+        <Card.Body>
+          <View styleName="flex-column">
+            <Button
+              onPress={() => {
+                setOffcanvasVisible(true);
+                setOffcanvasPlacement('top');
+              }}
+            >
+              <Text>Show Offcanvas Top</Text>
+            </Button>
+
+            <Button
+              onPress={() => {
+                setOffcanvasVisible(true);
+                setOffcanvasPlacement('bottom');
+              }}
+            >
+              <Text>Show Offcanvas Bottom</Text>
+            </Button>
+
+            <Button
+              onPress={() => {
+                setOffcanvasVisible(true);
+                setOffcanvasPlacement('start');
+              }}
+            >
+              <Text>Show Offcanvas Left</Text>
+            </Button>
+
+            <Button
+              onPress={() => {
+                setOffcanvasVisible(true);
+                setOffcanvasPlacement('end');
+              }}
+            >
+              <Text>Show Offcanvas Right</Text>
+            </Button>
+
+            <Offcanvas
+              visible={offcanvasVisible}
+              placement={offcanvasPlacement}
+              onToggle={() => setOffcanvasVisible((value) => !value)}
+            >
+              <Offcanvas.Header>
+                <Offcanvas.Title>Offcanvas Title Text</Offcanvas.Title>
+                <CloseButton
+                  onPress={() => setOffcanvasVisible((value) => !value)}
+                />
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <Text>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industrys
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum
+                </Text>
+                <View>
+                  <Button
+                    onPress={() => setOffcanvasVisible((value) => !value)}
+                  >
+                    <Text>Close</Text>
+                  </Button>
+                </View>
+              </Offcanvas.Body>
+            </Offcanvas>
+          </View>
+        </Card.Body>
+        <Card.Footer styleName="bg-dark">
+          <Code styleName="text-warning">{exampleCode}</Code>
+        </Card.Footer>
+      </Card>
     </>
   );
 }
