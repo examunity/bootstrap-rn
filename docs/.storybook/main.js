@@ -1,7 +1,9 @@
+const webpackConfig = require('../config/webpackConfig');
+
 module.exports = {
   stories: [
-    '../components/**/*.stories.mdx',
-    '../components/**/*.stories.@(js|jsx|ts|tsx)',
+    '../stories/**/*.stories.mdx',
+    '../stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',
@@ -9,4 +11,13 @@ module.exports = {
     '@storybook/addon-react-native-web',
   ],
   framework: '@storybook/react',
+  webpackFinal: async (config) => {
+    config.module.rules = [...config.module.rules, ...webpackConfig.rules];
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      ...webpackConfig.resolve.alias,
+    };
+
+    return config;
+  },
 };

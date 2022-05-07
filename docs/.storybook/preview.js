@@ -1,3 +1,7 @@
+import withBootstrapRNProvider from '../config/withBootstrapRNProvider';
+
+export const decorators = [withBootstrapRNProvider];
+
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {

@@ -1,6 +1,7 @@
 import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds';
+import withBootstrapRNProvider from '../config/withBootstrapRNProvider';
 
-export const decorators = [withBackgrounds];
+export const decorators = [withBackgrounds, withBootstrapRNProvider];
 
 export const parameters = {
   backgrounds: [

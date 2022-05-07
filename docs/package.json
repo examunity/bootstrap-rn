@@ -27,6 +27,7 @@
     "@storybook/react-native": "next",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
+    "metro-config": "~0.64.0",
     "react": "17.0.1",
     "react-dom": "^17.0.2",
     "react-native": "0.64.3",
@@ -34,6 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@expo/webpack-config": "~0.16.2",
     "@storybook/addon-essentials": "~6.3",
     "@storybook/addon-links": "~6.3",
     "@storybook/addon-react-native-web": "^0.0.18",

@@ -30,7 +30,10 @@ try {
 } catch {}
 
 const getStories = () => {
-  return [require('../components/Button/Button.stories.tsx')];
+  return [
+    require('../stories/badge/Badge.stories.js'),
+    require('../stories/buttons/Button.stories.js'),
+  ];
 };
 
 configure(getStories, module, false);
