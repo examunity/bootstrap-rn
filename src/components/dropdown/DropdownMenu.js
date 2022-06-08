@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { OverlayContainer } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Overlay from '../Overlay';
+import Overlay from '../helpers/Overlay';
+import BackdropHandler from '../helpers/BackdropHandler';
 import View from '../View';
 import useMedia from '../../hooks/useMedia';
 import { getStyles, concatRefs, convertToNumber } from '../../utils';
@@ -41,6 +42,14 @@ const styles = StyleSheet.create({
     font-size: $dropdown-font-size;
     color: $dropdown-color;
     text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  `,
+  backdrop: css`
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    flex-grow: 1;
   `,
 });
 
@@ -83,7 +92,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
   const dropdown = useForcedContext(DropdownContext);
   const media = useMedia();
 
-  const { identifier, direction, triggerRef, visible } = dropdown;
+  const { identifier, direction, triggerRef, visible, setVisible } = dropdown;
 
   if (!visible) {
     return null;
@@ -101,22 +110,30 @@ const DropdownMenu = React.forwardRef((props, ref) => {
         visible={visible}
       >
         {(overlay, overlayRef) => (
-          <View
-            {...elementProps}
-            ref={concatRefs(overlayRef, ref)}
-            accessibilityLabelledBy={identifier}
-            style={[
-              classes,
-              { opacity: overlay.rendered ? 1 : 0 },
-              overlay.overlayProps.style,
-              style,
-            ]}
-            textStyle={[textClasses, textStyle]}
-          >
-            <DropdownContext.Provider value={dropdown}>
-              {children}
-            </DropdownContext.Provider>
-          </View>
+          <>
+            <BackdropHandler
+              dialogRef={overlayRef}
+              onClose={() => {
+                setVisible(false);
+              }}
+            />
+            <View
+              {...elementProps}
+              ref={concatRefs(overlayRef, ref)}
+              accessibilityLabelledBy={identifier}
+              style={[
+                classes,
+                { opacity: overlay.rendered ? 1 : 0 },
+                overlay.overlayProps.style,
+                style,
+              ]}
+              textStyle={[textClasses, textStyle]}
+            >
+              <DropdownContext.Provider value={dropdown}>
+                {children}
+              </DropdownContext.Provider>
+            </View>
+          </>
         )}
       </Overlay>
     </OverlayContainer>

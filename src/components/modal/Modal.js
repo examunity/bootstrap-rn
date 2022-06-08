@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from 'react';
 import { Modal as BaseModal } from 'react-native';
+import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
 import ScrollView from '../ScrollView';
 import View from '../View';
+import BackdropHandler from '../helpers/BackdropHandler';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 import ModalBody from './ModalBody';
@@ -118,11 +119,13 @@ const Modal = React.forwardRef((props, ref) => {
     visible,
     size,
     backdrop = true,
-    onToggle,
+    onToggle: handleToggle,
     style,
     textStyle,
     ...elementProps
   } = props;
+
+  const dialogRef = useRef();
 
   const backdropClasses = getStyles(styles, ['.modal-backdrop']);
   const classes = getStyles(styles, ['.modal']);
@@ -136,10 +139,15 @@ const Modal = React.forwardRef((props, ref) => {
   const contentTextClasses = getStyles(styles, ['.modal-content-text']);
 
   return (
-    <BaseModal transparent visible={visible} onRequestClose={onToggle}>
+    <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
       {backdrop && <View style={backdropClasses} />}
-      <ScrollView style={classes}>
-        <View style={dialogClasses}>
+      <ScrollView style={classes} contentContainerStyle={{ flexGrow: 1 }}>
+        <BackdropHandler
+          dialogRef={dialogRef}
+          onClose={handleToggle}
+          backdrop={backdrop}
+        />
+        <View ref={dialogRef} style={dialogClasses}>
           <View
             {...elementProps}
             ref={ref}

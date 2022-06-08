@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { OverlayContainer } from '@react-native-aria/overlays';
-import Overlay from '../Overlay';
+import Overlay from '../helpers/Overlay';
 import useTrigger, { TriggerPropTypes } from '../../hooks/useTrigger';
 import { convertToNumber } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';

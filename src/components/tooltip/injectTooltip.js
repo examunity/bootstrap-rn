@@ -1,8 +1,7 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import { OverlayContainer } from '@react-native-aria/overlays';
-import Overlay from '../Overlay';
+import Overlay from '../helpers/Overlay';
 import useTrigger, { TriggerPropTypes } from '../../hooks/useTrigger';
 import { convertToNumber } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
@@ -15,15 +14,13 @@ const propTypes = {
   }),
 };
 
-const defaultTrigger = Platform.OS === 'web' ? 'hover' : 'click';
-
 export default function injectTooltip(Target) {
   const OverlayTooltip = React.forwardRef((props, ref) => {
     /* eslint-disable react/prop-types */
     const {
       tooltip: {
         title,
-        trigger = defaultTrigger,
+        trigger = 'hover focus',
         placement = 'top',
         ...tooltipProps
       },

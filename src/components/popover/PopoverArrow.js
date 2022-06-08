@@ -141,7 +141,7 @@ const PopoverArrow = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.popover-arrow',
-    popper && `.popover-arrow-${placement}`,
+    popper && `.bs-popover-${placement} .popover-arrow`,
   ]);
   const beforeClasses = getStyles(styles, [
     '.popover-arrow::before',

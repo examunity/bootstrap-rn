@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Modal as BaseModal } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import ScrollView from '../ScrollView';
+import BackdropHandler from '../helpers/BackdropHandler';
 import View from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
-import { getStyles, each } from '../../utils';
+import { getStyles, each, concatRefs } from '../../utils';
 import useMedia from '../../hooks/useMedia';
 import NavbarContext from '../navbar/NavbarContext';
 import OffcanvasHeader from './OffcanvasHeader';
@@ -132,6 +133,7 @@ const Offcanvas = React.forwardRef((props, ref) => {
 
   const media = useMedia();
   const navbar = useContext(NavbarContext);
+  const offcanvasRef = useRef();
 
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
   const classes = getStyles(styles, [
@@ -169,10 +171,18 @@ const Offcanvas = React.forwardRef((props, ref) => {
       visible={navbar ? navbar.expanded : visible}
       onRequestClose={handleToggle}
     >
-      {backdrop && <View style={backdropClasses} />}
+      {backdrop && (
+        <View style={backdropClasses}>
+          <BackdropHandler
+            dialogRef={offcanvasRef}
+            onClose={handleToggle}
+            backdrop={backdrop}
+          />
+        </View>
+      )}
       <ScrollView
         {...elementProps}
-        ref={ref}
+        ref={concatRefs(offcanvasRef, ref)}
         style={[classes, style]}
         textStyle={[textClasses, textStyle]}
       >
