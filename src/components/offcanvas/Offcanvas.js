@@ -10,6 +10,7 @@ import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
 import useMedia from '../../hooks/useMedia';
+import useScrollbarEffects from '../../hooks/useScrollbarEffects';
 import NavbarContext from '../navbar/NavbarContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
@@ -22,6 +23,8 @@ const propTypes = {
   visible: PropTypes.bool,
   placement: PropTypes.oneOf(PLACEMENTS),
   backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
+  // Currently only supported on web.
+  scroll: PropTypes.bool,
   onToggle: PropTypes.func,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -125,6 +128,7 @@ const Offcanvas = React.forwardRef((props, ref) => {
     visible,
     placement = 'top',
     backdrop = true,
+    scroll = false,
     onToggle: handleToggle,
     style,
     textStyle,
@@ -134,6 +138,13 @@ const Offcanvas = React.forwardRef((props, ref) => {
   const media = useMedia();
   const navbar = useContext(NavbarContext);
   const offcanvasRef = useRef();
+
+  useScrollbarEffects({
+    ref: offcanvasRef,
+    keepBodyScroll: scroll,
+    centered: false,
+    visible,
+  });
 
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
   const classes = getStyles(styles, [

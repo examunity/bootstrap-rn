@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
+import useForcedContext from '../../hooks/useForcedContext';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
+import ScrollView from '../ScrollView';
+import ModalContext from './ModalContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -16,7 +19,9 @@ const styles = StyleSheet.create({
     position: relative;
     // Enable "flex-grow: 1" so that the body take up as much space as possible
     // when there should be a fixed height on ".modal-dialog".
-    flex: 1 1 auto;
+    // Note from bootstrap-rn: Centered modals do not work with this style, but
+    // everything just works fine without this style.
+    // flex: 1 1 auto;
     padding: $modal-inner-padding;
   `,
 });
@@ -24,12 +29,21 @@ const styles = StyleSheet.create({
 const ModalBody = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
+  const { scrollable } = useForcedContext(ModalContext);
+
   const classes = getStyles(styles, ['.modal-body']);
 
+  const FlexView = scrollable ? ScrollView : View;
+
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
+    <FlexView
+      {...elementProps}
+      ref={ref}
+      style={scrollable ? undefined : [classes, style]}
+      contentContainerStyle={scrollable ? [classes, style] : undefined}
+    >
       {children}
-    </View>
+    </FlexView>
   );
 });
 

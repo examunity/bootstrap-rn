@@ -7,6 +7,9 @@ import css from '../../style/css';
 import ScrollView from '../ScrollView';
 import View from '../View';
 import BackdropHandler from '../helpers/BackdropHandler';
+import useScrollbarEffects from '../../hooks/useScrollbarEffects';
+import useModal from './useModal';
+import ModalContext from './ModalContext';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 import ModalBody from './ModalBody';
@@ -19,8 +22,8 @@ const propTypes = {
   visible: PropTypes.bool.isRequired,
   size: PropTypes.oneOf(MODAL_SIZES),
   backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
-  // scrollable: PropTypes.bool,
-  // centered: PropTypes.bool,
+  scrollable: PropTypes.bool,
+  centered: PropTypes.bool,
   onToggle: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -60,6 +63,21 @@ const styles = StyleSheet.create({
       max-width: $modal-md;
       margin: $modal-dialog-margin-y-sm-up;
     }
+  `,
+  '.modal-dialog-scrollable': css`
+    flex-shrink: 1; // added for bootstrap-rn
+    // height: calc(100% - var(--#{$prefix}modal-margin) * 2);
+  `,
+  '.modal-dialog-scrollable .modal-content': css`
+    max-height: 100%;
+    overflow: hidden;
+  `,
+  '.modal-dialog-centered': css`
+    display: flex;
+    flex-direction: row; // added for bootstrap-rn
+    flex-grow: 1; // added for bootstrap-rn
+    align-items: center;
+    // min-height: calc(100% - var(--#{$prefix}modal-margin) * 2);
   `,
   '.modal-content': css`
     position: relative;
@@ -119,13 +137,25 @@ const Modal = React.forwardRef((props, ref) => {
     visible,
     size,
     backdrop = true,
+    scrollable = false,
+    centered = false,
     onToggle: handleToggle,
     style,
     textStyle,
     ...elementProps
   } = props;
 
+  const modalRef = useRef();
   const dialogRef = useRef();
+
+  const modal = useModal(scrollable);
+
+  useScrollbarEffects({
+    ref: modalRef,
+    keepBodyScroll: false,
+    centered: true,
+    visible,
+  });
 
   const backdropClasses = getStyles(styles, ['.modal-backdrop']);
   const classes = getStyles(styles, ['.modal']);
@@ -134,14 +164,26 @@ const Modal = React.forwardRef((props, ref) => {
     size === 'sm' && '.modal-sm',
     size === 'lg' && '.modal-lg',
     size === 'xl' && '.modal-xl',
+    scrollable && '.modal-dialog-scrollable',
+    centered && '.modal-dialog-centered',
   ]);
-  const contentClasses = getStyles(styles, ['.modal-content']);
+  const contentClasses = getStyles(styles, [
+    '.modal-content',
+    scrollable && '.modal-dialog-scrollable .modal-content',
+  ]);
   const contentTextClasses = getStyles(styles, ['.modal-content-text']);
+
+  // If scrollable we use a ScrollView in ModalBody, so we can use a View here.
+  const FlexView = scrollable ? View : ScrollView;
 
   return (
     <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
       {backdrop && <View style={backdropClasses} />}
-      <ScrollView style={classes} contentContainerStyle={{ flexGrow: 1 }}>
+      <FlexView
+        ref={modalRef}
+        style={classes}
+        contentContainerStyle={scrollable ? undefined : { flexGrow: 1 }}
+      >
         <BackdropHandler
           dialogRef={dialogRef}
           onClose={handleToggle}
@@ -154,10 +196,12 @@ const Modal = React.forwardRef((props, ref) => {
             style={[contentClasses, style]}
             textStyle={[contentTextClasses, textStyle]}
           >
-            {children}
+            <ModalContext.Provider value={modal}>
+              {children}
+            </ModalContext.Provider>
           </View>
         </View>
-      </ScrollView>
+      </FlexView>
     </BaseModal>
   );
 });
@@ -165,6 +209,7 @@ const Modal = React.forwardRef((props, ref) => {
 Modal.displayName = 'Modal';
 Modal.propTypes = propTypes;
 
+Modal.Context = ModalContext;
 Modal.Header = ModalHeader;
 Modal.Title = ModalTitle;
 Modal.Body = ModalBody;
