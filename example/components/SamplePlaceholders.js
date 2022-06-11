@@ -2,8 +2,6 @@ import React from 'react';
 import {
   Heading,
   Text,
-  View,
-  Card,
   Code,
   Container,
   Row,
@@ -41,10 +39,10 @@ function SamplePlaceholders() {
 
         <Row>
           <Col size={6}>
-            <Text></Text>
+            <Text />
           </Col>
           <Col size={6}>
-            <Text small></Text>
+            <Text small />
           </Col>
         </Row>
       </Container>

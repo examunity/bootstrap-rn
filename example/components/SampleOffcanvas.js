@@ -96,7 +96,8 @@ function SampleOffcanvas() {
           </Col>
           <Col size={6}>
             <Text small>
-              PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])])
+              PropTypes.oneOfType([PropTypes.bool,
+              PropTypes.oneOf([&apos;static&apos;])])
             </Text>
           </Col>
         </Row>

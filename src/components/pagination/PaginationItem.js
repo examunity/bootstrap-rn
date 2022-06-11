@@ -7,12 +7,14 @@ import View from '../View';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.any,
-  textStyle: PropTypes.any,
   active: PropTypes.bool,
   first: PropTypes.bool,
   last: PropTypes.bool,
   disabled: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -61,12 +63,12 @@ const styles = StyleSheet.create({
 const PaginationItem = React.forwardRef((props, ref) => {
   const {
     children,
-    style,
-    textStyle,
     first = false,
     last = false,
     active = false,
     disabled = false,
+    style,
+    textStyle,
     ...elementProps
   } = props;
 

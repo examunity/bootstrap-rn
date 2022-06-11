@@ -46,7 +46,7 @@ const exampleCodeState =
   '</>';
 
 const exampleCodeSize =
-  '<>\n' + '<Pagination size="lg">\n' + '<Pagination size="sm">\n' + '</>';
+  '<>\n<Pagination size="lg">\n<Pagination size="sm">\n</>';
 
 function SamplePagination() {
   return (

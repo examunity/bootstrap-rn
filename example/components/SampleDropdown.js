@@ -93,7 +93,10 @@ function SampleDropdowns() {
             <Text>direction</Text>
           </Col>
           <Col size={6}>
-            <Text small>['top', 'bottom', 'start', 'end']</Text>
+            <Text small>
+              [&apos;top&apos;, &apos;bottom&apos;, &apos;start&apos;,
+              &apos;end&apos;]
+            </Text>
           </Col>
         </Row>
       </Container>

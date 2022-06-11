@@ -116,7 +116,7 @@ function SampleGrid() {
             <Text>size</Text>
           </Col>
           <Col size={6}>
-            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+            <Text small>PropTypes.oneOf([&apos;auto&apos;, ...sizes])</Text>
           </Col>
         </Row>
         <Row styleName="bg-info">
@@ -124,7 +124,7 @@ function SampleGrid() {
             <Text>sizeSm</Text>
           </Col>
           <Col size={6}>
-            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+            <Text small>PropTypes.oneOf([&apos;auto&apos;, ...sizes])</Text>
           </Col>
         </Row>
         <Row>
@@ -132,7 +132,7 @@ function SampleGrid() {
             <Text>sizeMd</Text>
           </Col>
           <Col size={6}>
-            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+            <Text small>PropTypes.oneOf([&apos;auto&apos;, ...sizes])</Text>
           </Col>
         </Row>
         <Row styleName="bg-info">
@@ -140,7 +140,7 @@ function SampleGrid() {
             <Text>sizeLg</Text>
           </Col>
           <Col size={6}>
-            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+            <Text small>PropTypes.oneOf([&apos;auto&apos;, ...sizes])</Text>
           </Col>
         </Row>
         <Row>
@@ -148,7 +148,7 @@ function SampleGrid() {
             <Text>sizeXl</Text>
           </Col>
           <Col size={6}>
-            <Text small>PropTypes.oneOf(['auto', ...sizes])</Text>
+            <Text small>PropTypes.oneOf([&apos;auto&apos;, ...sizes])</Text>
           </Col>
         </Row>
       </Container>

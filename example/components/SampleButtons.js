@@ -163,7 +163,7 @@ function SampleButtons() {
             </Row>
           </Container>
 
-          <View styleName="flex-row"></View>
+          <View styleName="flex-row" />
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">{exampleCode}</Code>
@@ -214,7 +214,7 @@ function SampleButtons() {
             </Row>
           </Container>
 
-          <View styleName="flex-row"></View>
+          <View styleName="flex-row" />
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">{exampleCodeOutline}</Code>
@@ -254,7 +254,7 @@ function SampleButtons() {
             </Row>
           </Container>
 
-          <View styleName="flex-row"></View>
+          <View styleName="flex-row" />
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">{exampleCodeSize}</Code>
@@ -292,7 +292,7 @@ function SampleButtons() {
             </Row>
           </Container>
 
-          <View styleName="flex-row"></View>
+          <View styleName="flex-row" />
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">{exampleCodeActiveDisabled}</Code>
@@ -312,7 +312,7 @@ function SampleButtons() {
             </Row>
           </Container>
 
-          <View styleName="flex-row"></View>
+          <View styleName="flex-row" />
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">{exampleCodeTogglebutton}</Code>

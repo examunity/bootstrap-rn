@@ -7,9 +7,11 @@ import View from '../View';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  style: PropTypes.any,
-  textStyle: PropTypes.any,
   active: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
 });
 
 const BreadcrumbItem = React.forwardRef((props, ref) => {
-  const { children, style, textStyle, active = false, ...elementProps } = props;
+  const { children, active = false, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, [
     '.breadcrumb-item',

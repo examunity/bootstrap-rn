@@ -8,6 +8,7 @@ import BreadcrumbItem from './BreadcrumbItem';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
 

@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Heading,
-  Paragraph,
-  Text,
-  Card,
-  Container,
-  Row,
-  Col,
-  Code,
-} from 'bootstrap-rn';
+import { Paragraph, Text, Card, Container, Row, Col, Code } from 'bootstrap-rn';
 import Form from '../forms/Form';
 
 const exampleCode = '<>\n  </>';

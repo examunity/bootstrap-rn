@@ -58,10 +58,10 @@ function SampleCollapse() {
 
         <Row>
           <Col size={6}>
-            <Text></Text>
+            <Text />
           </Col>
           <Col size={6}>
-            <Text small></Text>
+            <Text small />
           </Col>
         </Row>
       </Container>
