@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Platform, findNodeHandle } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
@@ -26,22 +26,47 @@ const BackdropHandler = (props) => {
   const { dialogRef, onClose: handleClose, backdrop = true } = props;
 
   if (Platform.OS === 'web') {
-    useEffect(() => {
-      const onDocumentMouseDown = ({ target }) => {
-        const element = findNodeHandle(dialogRef.current);
-        const isInsidePress = target === element || element.contains(target);
+    const waitingForMouseUp = useRef(false);
+    const ignoreBackdropClick = useRef(false);
 
-        if (!isInsidePress) {
-          handleClose();
-        }
+    useEffect(() => {
+      const dialog = findNodeHandle(dialogRef.current);
+
+      const handleDialogMouseDown = () => {
+        waitingForMouseUp.current = true;
       };
 
-      document.addEventListener('mousedown', onDocumentMouseDown);
+      const handleDocumentClick = () => {
+        if (backdrop === 'static') {
+          return;
+        }
+
+        if (ignoreBackdropClick.current) {
+          ignoreBackdropClick.current = false;
+          return;
+        }
+
+        handleClose();
+      };
+
+      const handleDocumentMouseUp = () => {
+        if (waitingForMouseUp.current) {
+          ignoreBackdropClick.current = true;
+        }
+
+        waitingForMouseUp.current = false;
+      };
+
+      dialog.addEventListener('mousedown', handleDialogMouseDown);
+      document.addEventListener('click', handleDocumentClick);
+      document.addEventListener('mouseup', handleDocumentMouseUp);
 
       return () => {
-        document.removeEventListener('mousedown', onDocumentMouseDown);
+        dialog.addEventListener('mousedown', handleDialogMouseDown);
+        document.removeEventListener('click', handleDocumentClick);
+        document.removeEventListener('mouseup', handleDocumentMouseUp);
       };
-    }, []);
+    }, [backdrop]);
 
     return null;
   }
@@ -62,7 +87,7 @@ const BackdropHandler = (props) => {
   );
 };
 
-BackdropHandler.displayName = 'Backdrop';
+BackdropHandler.displayName = 'BackdropHandler';
 BackdropHandler.propTypes = propTypes;
 
 export default BackdropHandler;
