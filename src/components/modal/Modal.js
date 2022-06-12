@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Modal as BaseModal } from 'react-native';
 import PropTypes from 'prop-types';
+import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
@@ -189,18 +190,20 @@ const Modal = React.forwardRef((props, ref) => {
           onClose={handleToggle}
           backdrop={backdrop}
         />
-        <View ref={dialogRef} style={dialogClasses}>
-          <View
-            {...elementProps}
-            ref={ref}
-            style={[contentClasses, style]}
-            textStyle={[contentTextClasses, textStyle]}
-          >
-            <ModalContext.Provider value={modal}>
-              {children}
-            </ModalContext.Provider>
+        <OverlayProvider>
+          <View ref={dialogRef} style={dialogClasses}>
+            <View
+              {...elementProps}
+              ref={ref}
+              style={[contentClasses, style]}
+              textStyle={[contentTextClasses, textStyle]}
+            >
+              <ModalContext.Provider value={modal}>
+                {children}
+              </ModalContext.Provider>
+            </View>
           </View>
-        </View>
+        </OverlayProvider>
       </FlexView>
     </BaseModal>
   );

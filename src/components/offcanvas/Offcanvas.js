@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Modal as BaseModal } from 'react-native';
+import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import ScrollView from '../ScrollView';
@@ -197,7 +198,7 @@ const Offcanvas = React.forwardRef((props, ref) => {
         style={[classes, style]}
         textStyle={[textClasses, textStyle]}
       >
-        {children}
+        <OverlayProvider>{children}</OverlayProvider>
       </ScrollView>
     </BaseModal>
   );
