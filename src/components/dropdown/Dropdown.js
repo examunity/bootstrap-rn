@@ -5,10 +5,11 @@ import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
 import DropdownContext from './DropdownContext';
+import DropdownToggle from './DropdownToggle';
 import DropdownMenu from './DropdownMenu';
+import DropdownHeader from './DropdownHeader';
 import DropdownItem from './DropdownItem';
 import DropdownTextItem from './DropdownTextItem';
-import DropdownHeader from './DropdownHeader';
 import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
 import useDismissDropdown from './useDismissDropdown';
@@ -22,6 +23,10 @@ const propTypes = {
   visible: PropTypes.bool,
   onToggle: PropTypes.func,
   direction: PropTypes.oneOf(DIRECTIONS),
+  autoClose: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(['inside', 'outside']),
+  ]),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -39,11 +44,18 @@ const Dropdown = React.forwardRef((props, ref) => {
     visible,
     onToggle,
     direction = 'bottom',
+    autoClose = 'outside',
     style,
     ...elementProps
   } = props;
 
-  const dropdown = useDropdown(defaultVisible, visible, onToggle, direction);
+  const dropdown = useDropdown(
+    defaultVisible,
+    visible,
+    onToggle,
+    direction,
+    autoClose,
+  );
 
   const classes = getStyles(styles, ['.dropdown']);
 
@@ -60,10 +72,11 @@ Dropdown.displayName = 'Dropdown';
 Dropdown.propTypes = propTypes;
 
 Dropdown.Context = DropdownContext;
-Dropdown.TextItem = DropdownTextItem;
-Dropdown.Header = DropdownHeader;
+Dropdown.Toggle = DropdownToggle;
 Dropdown.Menu = DropdownMenu;
+Dropdown.Header = DropdownHeader;
 Dropdown.Item = DropdownItem;
+Dropdown.TextItem = DropdownTextItem;
 Dropdown.Divider = DropdownDivider;
 Dropdown.useDismiss = useDismissDropdown;
 Dropdown.useToggle = useToggleDropdown;

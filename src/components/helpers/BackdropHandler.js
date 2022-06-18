@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Platform, findNodeHandle } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
@@ -6,8 +6,13 @@ import css from '../../style/css';
 import Pressable from '../Pressable';
 
 const propTypes = {
+  toggleRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   dialogRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   onClose: PropTypes.func,
+  autoClose: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(['inside', 'outside']),
+  ]),
   backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
 };
 
@@ -22,27 +27,52 @@ const styles = StyleSheet.create({
   `,
 });
 
+const initialState = {
+  waitingForMouseUp: false,
+  isDialogClick: false,
+};
+
 const BackdropHandler = (props) => {
-  const { dialogRef, onClose: handleClose, backdrop = true } = props;
+  const {
+    toggleRef,
+    dialogRef,
+    onClose: handleClose,
+    backdrop = true,
+    autoClose = 'outside',
+  } = props;
 
   if (Platform.OS === 'web') {
-    const waitingForMouseUp = useRef(false);
-    const ignoreBackdropClick = useRef(false);
+    const state = useMemo(() => initialState, []);
 
     useEffect(() => {
+      const toggle = toggleRef ? findNodeHandle(toggleRef.current) : undefined;
       const dialog = findNodeHandle(dialogRef.current);
 
       const handleDialogMouseDown = () => {
-        waitingForMouseUp.current = true;
+        state.waitingForMouseUp = true;
       };
 
-      const handleDocumentClick = () => {
-        if (backdrop === 'static') {
+      const handleDocumentClick = ({ target }) => {
+        if (backdrop === 'static' || autoClose === false) {
           return;
         }
 
-        if (ignoreBackdropClick.current) {
-          ignoreBackdropClick.current = false;
+        // Click outside -> return if autoClose is inside.
+        if (!state.isDialogClick && autoClose === 'inside') {
+          return;
+        }
+
+        // Click inside / on dialog -> return if autoClose is outside.
+        if (state.isDialogClick) {
+          state.isDialogClick = false;
+
+          if (autoClose === 'outside') {
+            return;
+          }
+        }
+
+        // Click on toggle -> return always.
+        if (toggle && (target === toggle || toggle.contains(target))) {
           return;
         }
 
@@ -50,23 +80,24 @@ const BackdropHandler = (props) => {
       };
 
       const handleDocumentMouseUp = () => {
-        if (waitingForMouseUp.current) {
-          ignoreBackdropClick.current = true;
+        if (state.waitingForMouseUp) {
+          state.isDialogClick = true;
         }
 
-        waitingForMouseUp.current = false;
+        state.waitingForMouseUp = false;
       };
 
       dialog.addEventListener('mousedown', handleDialogMouseDown);
-      document.addEventListener('click', handleDocumentClick);
-      document.addEventListener('mouseup', handleDocumentMouseUp);
+      // See https://github.com/necolas/react-native-web/issues/2115
+      document.addEventListener('click', handleDocumentClick, true);
+      document.addEventListener('mouseup', handleDocumentMouseUp, true);
 
       return () => {
         dialog.addEventListener('mousedown', handleDialogMouseDown);
-        document.removeEventListener('click', handleDocumentClick);
-        document.removeEventListener('mouseup', handleDocumentMouseUp);
+        document.removeEventListener('click', handleDocumentClick, true);
+        document.removeEventListener('mouseup', handleDocumentMouseUp, true);
       };
-    }, [backdrop]);
+    }, [backdrop, autoClose]);
 
     return null;
   }

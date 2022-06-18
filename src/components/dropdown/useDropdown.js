@@ -7,10 +7,11 @@ export default function useDropdown(
   controlledVisible,
   onToggle,
   direction,
+  autoClose,
 ) {
   const identifier = useIdentifier('dropdown');
 
-  const triggerRef = useRef();
+  const toggleRef = useRef();
 
   const [visible, setVisible] = useControlledState(
     defaultVisible,
@@ -23,8 +24,9 @@ export default function useDropdown(
       identifier,
       visible,
       setVisible,
-      triggerRef,
+      toggleRef,
       direction,
+      autoClose,
     }),
     [visible],
   );

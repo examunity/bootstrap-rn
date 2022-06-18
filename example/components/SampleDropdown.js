@@ -107,7 +107,38 @@ function SampleDropdowns() {
           <Heading size={5}>Dropdown </Heading>
         </Card.Header>
         <Card.Body>
-          <View styleName="flex-row">
+          <View>
+            <Dropdown direction="bottom" styleName="mb-3">
+              <Dropdown.Toggle>
+                {(toggleProps) => (
+                  <Button {...toggleProps} styleName="as-center">
+                    <Text>Show Dropdown</Text>
+                  </Button>
+                )}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Header>
+                  <Text>Dropdown header</Text>
+                </Dropdown.Header>
+                <Dropdown.Divider />
+                <Dropdown.Item active disabled>
+                  <View>
+                    <Text>Dropdown Item 101</Text>
+                  </View>
+                </Dropdown.Item>
+                <Dropdown.Item active>
+                  <View>
+                    <Text>Dropdown Item 102</Text>
+                  </View>
+                </Dropdown.Item>
+                <Dropdown.TextItem>Dropdown Item Text 101</Dropdown.TextItem>
+                <Dropdown.Item>
+                  <View>
+                    <Text>Dropdown Item 201</Text>
+                  </View>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             <Dropdown direction="bottom">
               <Button toggle={Dropdown} styleName="as-center">
                 <Text>Show Dropdown</Text>

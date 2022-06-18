@@ -92,7 +92,14 @@ const DropdownMenu = React.forwardRef((props, ref) => {
   const dropdown = useForcedContext(DropdownContext);
   const media = useMedia();
 
-  const { identifier, direction, triggerRef, visible, setVisible } = dropdown;
+  const {
+    identifier,
+    toggleRef,
+    visible,
+    setVisible,
+    direction,
+    autoClose,
+  } = dropdown;
 
   if (!visible) {
     return null;
@@ -105,17 +112,19 @@ const DropdownMenu = React.forwardRef((props, ref) => {
     <OverlayContainer>
       <Overlay
         placement={transformPlacement(media, direction, start, end)}
-        targetRef={triggerRef}
+        targetRef={toggleRef}
         offset={convertToNumber(StyleSheet.value('dropdown-spacer'))}
         visible={visible}
       >
         {(overlay, overlayRef) => (
           <>
             <BackdropHandler
+              toggleRef={toggleRef}
               dialogRef={overlayRef}
               onClose={() => {
                 setVisible(false);
               }}
+              autoClose={autoClose}
             />
             <View
               {...elementProps}

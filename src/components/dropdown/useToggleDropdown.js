@@ -9,7 +9,7 @@ export default function useToggleDropdown(props) {
   return {
     ...restProps,
     nativeID: context.identifier,
-    ref: context.triggerRef,
+    ref: context.toggleRef,
     onPress: (event) => {
       if (handlePress) handlePress(event);
       context.setVisible((value) => !value);
