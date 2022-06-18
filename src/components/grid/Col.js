@@ -33,7 +33,9 @@ const styles = StyleSheet.create({
     // later on to override this initial width.
     flex-shrink: 0;
     width: 100%;
-    max-width: 100%; // Prevent ".col-auto", ".col" (& responsive variants) from breaking out the grid
+    @include platform(web) {
+      max-width: 100%; // Prevent ".col-auto", ".col" (& responsive variants) from breaking out the grid
+    }
     padding-right: $grid-gutter-width * 0.5;
     padding-left: $grid-gutter-width * 0.5;
     margin-top: 0;
