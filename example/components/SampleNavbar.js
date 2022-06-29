@@ -12,6 +12,7 @@ import {
   CloseButton,
   View,
   Card,
+  Dropdown,
 } from 'bootstrap-rn';
 
 const exampleCode =
@@ -195,6 +196,35 @@ function SampleNavbar() {
                     <Nav.Link>
                       <Text>Pricing</Text>
                     </Nav.Link>
+                    <Dropdown>
+                      <Nav.Link toggle={Dropdown}>
+                        <Text>Dropdown</Text>
+                      </Nav.Link>
+                      <Dropdown.Menu end>
+                        <Dropdown.Header>
+                          <Text>Dropdown header</Text>
+                        </Dropdown.Header>
+                        <Dropdown.Divider />
+                        <Dropdown.Item active disabled>
+                          <View>
+                            <Text>Dropdown Item 101</Text>
+                          </View>
+                        </Dropdown.Item>
+                        <Dropdown.Item active>
+                          <View>
+                            <Text>Dropdown Item 102</Text>
+                          </View>
+                        </Dropdown.Item>
+                        <Dropdown.TextItem>
+                          Dropdown Item Text 101
+                        </Dropdown.TextItem>
+                        <Dropdown.Item>
+                          <View>
+                            <Text>Dropdown Item 201</Text>
+                          </View>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                     <Nav.Link disabled>
                       <Text>Disabled</Text>
                     </Nav.Link>

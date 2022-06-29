@@ -55,8 +55,8 @@ export default function injectTooltip(Target) {
                   placement={overlay.placement}
                   popper={overlay.rendered}
                   style={[
-                    { opacity: overlay.rendered ? 1 : 0 },
                     overlay.overlayProps.style,
+                    { maxHeight: 'auto', opacity: overlay.rendered ? 1 : 0 },
                   ]}
                   arrowStyle={overlay.arrowProps.style}
                 >

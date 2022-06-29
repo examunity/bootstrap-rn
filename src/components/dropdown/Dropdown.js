@@ -23,6 +23,7 @@ const propTypes = {
   visible: PropTypes.bool,
   onToggle: PropTypes.func,
   direction: PropTypes.oneOf(DIRECTIONS),
+  display: PropTypes.oneOf(['dynamic', 'static']),
   autoClose: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.oneOf(['inside', 'outside']),
@@ -44,6 +45,7 @@ const Dropdown = React.forwardRef((props, ref) => {
     visible,
     onToggle,
     direction = 'bottom',
+    display = 'dynamic',
     autoClose = 'outside',
     style,
     ...elementProps
@@ -54,6 +56,7 @@ const Dropdown = React.forwardRef((props, ref) => {
     visible,
     onToggle,
     direction,
+    display,
     autoClose,
   );
 

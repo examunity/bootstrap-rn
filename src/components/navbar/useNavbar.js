@@ -25,6 +25,6 @@ export default function useNavbar(
       setExpanded,
       expand,
     }),
-    [variant, expanded],
+    [variant, expanded, expand],
   );
 }
