@@ -1,17 +1,19 @@
-import React from 'react';
-import { View, injectPopover, Text } from 'bootstrap-rn';
+import React, { useMemo } from 'react';
+import { Popover, View, injectPopover, Text, Button } from 'bootstrap-rn';
 
-const injectPopoverMeta = {
-  title: 'injectPopover',
-  component: injectPopover,
+const PopoverMeta = {
+  title: 'Popover',
+  component: Popover,
   argTypes: {
     //
   },
 };
 
-export default injectPopoverMeta;
+export default PopoverMeta;
 
-export function Basic(args) {
+export function Basic() {
+  const PopoverButton = useMemo(() => injectPopover(Button), []);
+
   return (
     <View styleName="align-items-center">
       <PopoverButton
