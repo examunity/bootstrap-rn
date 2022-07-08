@@ -36,10 +36,10 @@ export default function useViewport(initialViewport) {
   }, []);
 
   useEffect(() => {
-    Dimensions.addEventListener('change', handleChange);
+    const subscription = Dimensions.addEventListener('change', handleChange);
 
     return () => {
-      Dimensions.removeEventListener('change', handleChange);
+      subscription.remove();
     };
   }, [viewport]);
 
