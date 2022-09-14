@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     font-weight: $input-font-weight;
     line-height: $input-font-size * $input-line-height;
     color: $input-color;
-    text-align-vertical: top; // added for bootstrap-rn
     background-color: $input-bg;
     // background-clip: padding-box;
     border: $input-border-width solid $input-border-color;
@@ -77,13 +76,28 @@ const styles = StyleSheet.create({
     border-radius: $input-border-radius-lg;
   `,
   '.form-control-multiline': css`
+    text-align-vertical: top; // added for bootstrap-rn
     min-height: $input-height;
+
+    @include platform(ios) {
+      min-height: $input-height-sm + 8rem; // added for bootstrap-rn
+    }
   `,
   '.form-control-multiline-sm': css`
     min-height: $input-height-sm;
+
+    @include platform(ios) {
+      // TODO: Adjust ios height to sm size
+      min-height: $input-height-sm + 8rem; // added for bootstrap-rn
+    }
   `,
   '.form-control-multiline-lg': css`
     min-height: $input-height-lg;
+
+    @include platform(ios) {
+      // TODO: Adjust ios height to lg size
+      min-height: $input-height-sm + 8rem; // added for bootstrap-rn
+    }
   `,
   ...each(FORM_VALIDATION_STATES, (state, data) => ({
     [`.form-control.is-${state}`]: css`
@@ -132,6 +146,8 @@ const Input = React.forwardRef((props, ref) => {
       }
       multiline={multiline}
       disabled={disabled}
+      editable={!disabled}
+      selectTextOnFocus={!disabled}
       style={[classes, style]}
     />
   );
