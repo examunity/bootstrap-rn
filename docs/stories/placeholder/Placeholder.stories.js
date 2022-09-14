@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Placeholders, Text } from 'bootstrap-rn';
 
-const PlaceholdesrMeta = {
+const PlaceholdersMeta = {
   title: 'Placeholders',
   component: Placeholders,
   argTypes: {
@@ -9,9 +9,9 @@ const PlaceholdesrMeta = {
   },
 };
 
-export default PlaceholdesrMeta;
+export default PlaceholdersMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Placeholders>

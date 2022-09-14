@@ -11,7 +11,7 @@ const ModalMeta = {
 
 export default ModalMeta;
 
-export function Basic(args) {
+export function Basic() {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (

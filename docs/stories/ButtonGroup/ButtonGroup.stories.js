@@ -11,7 +11,7 @@ const ButtonGroupMeta = {
 
 export default ButtonGroupMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <View styleName="flex-row">

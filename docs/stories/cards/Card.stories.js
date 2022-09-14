@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Card, Heading, Text } from 'bootstrap-rn';
+import { View, Card, Text } from 'bootstrap-rn';
 
 const CardnMeta = {
   title: 'Card',
@@ -24,7 +24,7 @@ const CardnMeta = {
 
 export default CardnMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Card>

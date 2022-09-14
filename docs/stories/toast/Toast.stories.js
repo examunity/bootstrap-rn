@@ -11,7 +11,7 @@ const ToastMeta = {
 
 export default ToastMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <ToastContainer>

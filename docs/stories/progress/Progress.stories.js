@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Progress, Text, StyleSheet, css } from 'bootstrap-rn';
+import { View, Progress, StyleSheet, css } from 'bootstrap-rn';
 
 const ProgressMeta = {
   title: 'Progress',
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Progress min={10} max={50} style={styles.progress}>

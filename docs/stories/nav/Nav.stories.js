@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Nav, Tab, Text } from 'bootstrap-rn';
+import { View, Nav, Text } from 'bootstrap-rn';
 
 const NavMeta = {
   title: 'Nav',
@@ -11,7 +11,7 @@ const NavMeta = {
 
 export default NavMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Nav variant="tabs" styleName="mb-3">

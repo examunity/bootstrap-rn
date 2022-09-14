@@ -11,7 +11,7 @@ const CollapseMeta = {
 
 export default CollapseMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <View styleName="flex-column">

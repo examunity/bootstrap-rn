@@ -33,20 +33,18 @@ const getStories = () => {
   return [
     require('../stories/alert/Alert.stories.js'),
     require('../stories/badge/Badge.stories.js'),
-    require('../stories/breadcrumb/Breadcrum.stories.js'),
+    require('../stories/breadcrumb/Breadcrumb.stories.js'),
     require('../stories/ButtonGroup/ButtonGroup.stories.js'),
     require('../stories/buttons/Button.stories.js'),
     require('../stories/cards/Card.stories.js'),
     require('../stories/collapse/Collapse.stories.js'),
-    require('../stories/content/Content.stories.js'),
     require('../stories/dropdown/Dropdown.stories.js'),
-    require('../stories/form/Form.stories.js'),
     require('../stories/grid/Grid.stories.js'),
     require('../stories/ListGroup/ListGroup.stories.js'),
     require('../stories/Modal/Modal.stories.js'),
     require('../stories/nav/Nav.stories.js'),
     require('../stories/navbar/Navbar.stories.js'),
-    require('../stories/offcamvas/Offcamvas.stories.js'),
+    require('../stories/offcanvas/Offcanvas.stories.js'),
     require('../stories/pagination/Pagination.stories.js'),
     require('../stories/placeholder/Placeholder.stories.js'),
     require('../stories/popovers/Popovers.stories.js'),
@@ -54,7 +52,6 @@ const getStories = () => {
     require('../stories/spinner/Spinner.stories.js'),
     require('../stories/toast/Toast.stories.js'),
     require('../stories/tooltip/Tooltip.stories.js'),
-    require('../stories/utilities/Utilities.stories.js'),
   ];
 };
 

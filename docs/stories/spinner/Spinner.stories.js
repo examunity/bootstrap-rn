@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Spinner, Text } from 'bootstrap-rn';
+import { View, Spinner } from 'bootstrap-rn';
 
 const SpinnerMeta = {
   title: 'Spinner',
@@ -11,7 +11,7 @@ const SpinnerMeta = {
 
 export default SpinnerMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Spinner />

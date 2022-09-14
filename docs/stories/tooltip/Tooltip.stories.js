@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, injectTooltip, Button, Text } from 'bootstrap-rn';
+import React, { useMemo } from 'react';
+import { View, injectTooltip, Tooltip, Button, Text } from 'bootstrap-rn';
 
 const TooltipMeta = {
   title: 'Tooltip',
@@ -8,11 +8,12 @@ const TooltipMeta = {
     //
   },
 };
-const TooltipButton = injectTooltip(Button);
 
 export default TooltipMeta;
 
-export function Basic(args) {
+export function Basic() {
+  const TooltipButton = useMemo(() => injectTooltip(Button), []);
+
   return (
     <View styleName="align-items-center">
       <TooltipButton

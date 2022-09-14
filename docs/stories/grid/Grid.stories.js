@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Container, Row, Col, Text } from 'bootstrap-rn';
+import { View, Container, Row, Col, Text, Grid } from 'bootstrap-rn';
 
 const GridMeta = {
   title: 'Grid',
@@ -11,7 +11,7 @@ const GridMeta = {
 
 export default GridMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Container>

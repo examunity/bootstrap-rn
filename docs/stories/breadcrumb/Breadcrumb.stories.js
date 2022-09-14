@@ -11,7 +11,7 @@ const BreadcrumbMeta = {
 
 export default BreadcrumbMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Breadcrumb>

@@ -11,7 +11,7 @@ const OffcanvasMeta = {
 
 export default OffcanvasMeta;
 
-export function Basic(args) {
+export function Basic() {
   const [offcanvasVisible, setOffcanvasVisible] = useState(false);
   const [offcanvasPlacement, setOffcanvasPlacement] = useState('top');
 
