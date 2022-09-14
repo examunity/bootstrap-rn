@@ -68,6 +68,13 @@ export default function transform(
               order: value,
             });
           }
+        } else if (child.name === 'margin-horizontal' && value === 'auto') {
+          // Workaround for react-native issue #350
+          // https://github.com/facebook/react-native/issues/350#issuecomment-375238958
+          Object.assign(definitions[0].declarations, {
+            marginLeft: value,
+            marginRight: value,
+          });
         } else if (
           child.name === 'border-color' &&
           value.split(' ').length === 1
