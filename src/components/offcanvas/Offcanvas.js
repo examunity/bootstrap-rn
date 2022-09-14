@@ -1,10 +1,9 @@
 import React, { useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Modal as BaseModal } from 'react-native';
+import { Modal as BaseModal, SafeAreaView } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import ScrollView from '../ScrollView';
 import BackdropHandler from '../helpers/BackdropHandler';
 import View from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
@@ -13,6 +12,8 @@ import { getStyles, each, concatRefs } from '../../utils';
 import useMedia from '../../hooks/useMedia';
 import useScrollbarEffects from '../../hooks/useScrollbarEffects';
 import NavbarContext from '../navbar/NavbarContext';
+import useOffcanvas from './useOffcanvas';
+import OffcanvasContext from './OffcanvasContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
 import OffcanvasBody from './OffcanvasBody';
@@ -36,7 +37,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.offcanvas': css`
     position: absolute; // fixed;
-    bottom: 0;
+    // bottom: 0;
     z-index: $zindex-offcanvas;
     display: flex;
     flex-direction: column;
@@ -65,8 +66,9 @@ const styles = StyleSheet.create({
   `,
   '.offcanvas-start': css`
     top: 0;
+    bottom: 0; // added for bootstrap-rn
     left: 0;
-    width: $offcanvas-horizontal-width;
+    // width: $offcanvas-horizontal-width;
     border-right-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
@@ -74,8 +76,9 @@ const styles = StyleSheet.create({
   `,
   '.offcanvas-end': css`
     top: 0;
+    bottom: 0; // added for bootstrap-rn
     right: 0;
-    width: $offcanvas-horizontal-width;
+    // width: $offcanvas-horizontal-width;
     border-left-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
     top: 0;
     right: 0;
     left: 0;
-    height: $offcanvas-vertical-height;
+    // height: $offcanvas-vertical-height;
     max-height: 100%;
     border-bottom-width: $offcanvas-border-width;
     border-style: solid;
@@ -93,15 +96,35 @@ const styles = StyleSheet.create({
     // transform: translateY(-100%);
   `,
   '.offcanvas-bottom': css`
+    bottom: 0; // added for bootstrap-rn
     right: 0;
     left: 0;
-    height: $offcanvas-vertical-height;
+    // height: $offcanvas-vertical-height;
     max-height: 100%;
     width: 100%;
     border-top-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
     // transform: translateY(100%);
+  `,
+  // The following .offcanvas-dialog classes are added for bootstrap-rn,
+  // because otherwise the text would exceed a width of 100% on native
+  // and also additional width by SafeAreaView would not be applied.
+  '.offcanvas-dialog': css`
+    max-width: 100%;
+    max-height: 100%;
+  `,
+  '.offcanvas-dialog-start': css`
+    width: $offcanvas-horizontal-width;
+  `,
+  '.offcanvas-dialog-end': css`
+    width: $offcanvas-horizontal-width;
+  `,
+  '.offcanvas-dialog-top': css`
+    height: $offcanvas-vertical-height;
+  `,
+  '.offcanvas-dialog-bottom': css`
+    height: $offcanvas-vertical-height;
   `,
   // Navbar styles
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
@@ -140,10 +163,10 @@ const Offcanvas = React.forwardRef((props, ref) => {
   const navbar = useContext(NavbarContext);
   const offcanvasRef = useRef();
 
+  const offcanvas = useOffcanvas();
+
   useScrollbarEffects({
-    ref: offcanvasRef,
     keepBodyScroll: scroll,
-    centered: false,
     visible,
   });
 
@@ -156,6 +179,10 @@ const Offcanvas = React.forwardRef((props, ref) => {
       `.navbar-expand${
         navbar.expand === true ? '' : `-${navbar.expand}`
       } .offcanvas`,
+  ]);
+  const dialogClasses = getStyles(styles, [
+    '.offcanvas-dialog',
+    `.offcanvas-dialog-${placement}`,
   ]);
   const textClasses = getStyles(styles, ['.offcanvas-content-text']);
 
@@ -192,14 +219,20 @@ const Offcanvas = React.forwardRef((props, ref) => {
           />
         </View>
       )}
-      <ScrollView
+      <View
         {...elementProps}
         ref={concatRefs(offcanvasRef, ref)}
         style={[classes, style]}
         textStyle={[textClasses, textStyle]}
       >
-        <OverlayProvider>{children}</OverlayProvider>
-      </ScrollView>
+        <SafeAreaView style={{ flexShrink: 1 }}>
+          <View style={dialogClasses}>
+            <OffcanvasContext.Provider value={offcanvas}>
+              <OverlayProvider>{children}</OverlayProvider>
+            </OffcanvasContext.Provider>
+          </View>
+        </SafeAreaView>
+      </View>
     </BaseModal>
   );
 });
@@ -207,6 +240,7 @@ const Offcanvas = React.forwardRef((props, ref) => {
 Offcanvas.displayName = 'Offcanvas';
 Offcanvas.propTypes = propTypes;
 
+Offcanvas.Context = OffcanvasContext;
 Offcanvas.Header = OffcanvasHeader;
 Offcanvas.Title = OffcanvasTitle;
 Offcanvas.Body = OffcanvasBody;

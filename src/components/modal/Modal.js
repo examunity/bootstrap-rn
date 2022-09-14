@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Modal as BaseModal } from 'react-native';
+import { Modal as BaseModal, SafeAreaView } from 'react-native';
 import PropTypes from 'prop-types';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
@@ -58,11 +58,12 @@ const styles = StyleSheet.create({
     margin: $modal-dialog-margin;
     // allow clicks to pass through for custom click handling to close modal
     // pointer-events: none;
-    align-self: center; // added for bootstrap-rn
 
     @include media-breakpoint-up(sm) {
+      width: 100%; // added for bootstrap-rn
       max-width: $modal-md;
-      margin: $modal-dialog-margin-y-sm-up;
+      margin-right: auto;
+      margin-left: auto;
     }
   `,
   '.modal-dialog-scrollable': css`
@@ -121,11 +122,11 @@ const styles = StyleSheet.create({
     @include media-breakpoint-up(lg) {
       max-width: $modal-lg;
     }
+    @include media-breakpoint-up(xl) {
+      max-width: $modal-xl;
+    }
   `,
   '.modal-xl': css`
-    @include media-breakpoint-up(lg) {
-      max-width: $modal-lg;
-    }
     @include media-breakpoint-up(xl) {
       max-width: $modal-xl;
     }
@@ -146,15 +147,12 @@ const Modal = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
-  const modalRef = useRef();
   const dialogRef = useRef();
 
   const modal = useModal(scrollable);
 
   useScrollbarEffects({
-    ref: modalRef,
     keepBodyScroll: false,
-    centered: true,
     visible,
   });
 
@@ -181,7 +179,6 @@ const Modal = React.forwardRef((props, ref) => {
     <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
       {backdrop && <View style={backdropClasses} />}
       <FlexView
-        ref={modalRef}
         style={classes}
         contentContainerStyle={scrollable ? undefined : { flexGrow: 1 }}
       >
@@ -190,7 +187,7 @@ const Modal = React.forwardRef((props, ref) => {
           onClose={handleToggle}
           backdrop={backdrop}
         />
-        <OverlayProvider>
+        <SafeAreaView style={{ flexShrink: 1 }}>
           <View ref={dialogRef} style={dialogClasses}>
             <View
               {...elementProps}
@@ -199,11 +196,11 @@ const Modal = React.forwardRef((props, ref) => {
               textStyle={[contentTextClasses, textStyle]}
             >
               <ModalContext.Provider value={modal}>
-                {children}
+                <OverlayProvider>{children}</OverlayProvider>
               </ModalContext.Provider>
             </View>
           </View>
-        </OverlayProvider>
+        </SafeAreaView>
       </FlexView>
     </BaseModal>
   );

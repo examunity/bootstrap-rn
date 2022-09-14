@@ -1,17 +1,12 @@
 import { useRef, useEffect } from 'react';
-import { Platform, findNodeHandle } from 'react-native';
+import { Platform } from 'react-native';
 
 const computeScrollbarWidth = () => {
   const documentWidth = document.documentElement.clientWidth;
   return Math.abs(window.innerWidth - documentWidth);
 };
 
-export default function useScrollbarEffects({
-  ref,
-  keepBodyScroll,
-  centered,
-  visible,
-}) {
+export default function useScrollbarEffects({ keepBodyScroll, visible }) {
   if (Platform.OS !== 'web' || keepBodyScroll) {
     return;
   }
@@ -27,7 +22,7 @@ export default function useScrollbarEffects({
       scrollbarWidth.current = computeScrollbarWidth();
     }
 
-    const element = findNodeHandle(ref.current);
+    // const element = findNodeHandle(ref.current);
 
     const rect = document.body.getBoundingClientRect();
     const isBodyOverflowing = rect.left + rect.right < window.innerWidth;
@@ -47,22 +42,6 @@ export default function useScrollbarEffects({
         // eslint-disable-next-line no-param-reassign
         el.style.width = `calc(100% - ${scrollbarWidth.current}px)`;
       });
-    }
-
-    const isModalOverflowing =
-      element.scrollHeight > document.documentElement.clientHeight;
-
-    if (centered) {
-      // Set dialog padding adjustments.
-      if (!isBodyOverflowing && isModalOverflowing) {
-        // eslint-disable-next-line no-param-reassign
-        element.style.paddingLeft = `${scrollbarWidth.current}px`;
-      }
-
-      if (isBodyOverflowing && !isModalOverflowing) {
-        // eslint-disable-next-line no-param-reassign
-        element.style.paddingRight = `${scrollbarWidth.current}px`;
-      }
     }
 
     // Add "overflow: hidden" to body element.

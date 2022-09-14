@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import css from '../../style/css';
 import StyleSheet from '../../style/StyleSheet';
-import View from '../View';
+import ScrollView from '../ScrollView';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
@@ -12,11 +12,13 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  contentContainerStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.offcanvas-body': css`
-    flex-grow: 1;
+    // flex-grow: 1;
     padding: $offcanvas-padding-y $offcanvas-padding-x;
     // overflow-y: auto;
   `,
@@ -34,11 +36,11 @@ const styles = StyleSheet.create({
 });
 
 const OffcanvasBody = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const { children, style, contentContainerStyle, ...elementProps } = props;
 
   const navbar = useContext(NavbarContext);
 
-  const classes = getStyles(styles, [
+  const contentContainerClasses = getStyles(styles, [
     '.offcanvas-body',
     navbar &&
       navbar.expand &&
@@ -48,9 +50,14 @@ const OffcanvasBody = React.forwardRef((props, ref) => {
   ]);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
+    <ScrollView
+      {...elementProps}
+      ref={ref}
+      style={style}
+      contentContainerStyle={[contentContainerClasses, contentContainerStyle]}
+    >
       {children}
-    </View>
+    </ScrollView>
   );
 });
 
