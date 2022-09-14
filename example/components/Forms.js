@@ -63,7 +63,7 @@ function Forms() {
             }}
             invalid={error}
           >
-            Checkbox label
+            <Text>Checkbox label</Text>
           </Checkbox>
           <Checkbox
             value={value}
@@ -73,7 +73,7 @@ function Forms() {
             invalid={error}
             disabled
           >
-            Checkbox label
+            <Text>Checkbox label</Text>
           </Checkbox>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
@@ -85,7 +85,7 @@ function Forms() {
               '  onChange={() => {setValue((prev) => !prev);}}\n' +
               '  invalid={error}\n' +
               '>\n' +
-              '  Checkbox label\n' +
+              '  <Text>Checkbox label</Text>\n' +
               '</Checkbox>\n' +
               '<Checkbox\n' +
               '  value={value}\n' +
@@ -93,7 +93,7 @@ function Forms() {
               '  invalid={error}\n' +
               '  disabled\n' +
               '>\n' +
-              '  Checkbox label\n' +
+              '  <Text>Checkbox label</Text>\n' +
               '</Checkbox>'}
           </Code>
         </Card.Footer>
@@ -111,7 +111,7 @@ function Forms() {
             }}
             invalid={error}
           >
-            Switch label
+            <Text>Switch label</Text>
           </Switch>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
@@ -125,7 +125,7 @@ function Forms() {
               ' }}\n' +
               ' invalid={error}\n' +
               '>\n' +
-              '  Switch label\n' +
+              '  <Text>Switch label</Text>\n' +
               '</Switch>'}
           </Code>
         </Card.Footer>
@@ -143,13 +143,13 @@ function Forms() {
             }}
           >
             <Radio value={1} invalid={error}>
-              Test 1
+              <Text>Test 1</Text>
             </Radio>
             <Radio value={2} invalid={error}>
-              Test 2
+              <Text>Test 2</Text>
             </Radio>
             <Radio value={3} invalid={error}>
-              Test 3
+              <Text>Test 3</Text>
             </Radio>
           </Radio.Group>
         </Card.Body>
@@ -209,7 +209,6 @@ function Forms() {
             multiline
             numberOfLines={5}
             invalid={error}
-            disabled
           />
           <Button
             onPress={() => {

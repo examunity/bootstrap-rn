@@ -64,7 +64,7 @@ const FormChoice = React.forwardRef((props, ref) => {
                 disabled={disabled}
                 key={option.value}
               >
-                {option.label}
+                <Text>{option.label}</Text>
               </Radio>
             ))}
           </Radio.Group>
@@ -94,7 +94,7 @@ const FormChoice = React.forwardRef((props, ref) => {
                 disabled={disabled}
                 key={option.value}
               >
-                {option.label}
+                <Text>{option.label}</Text>
               </Checkbox>
             ))}
           </View>

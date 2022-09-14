@@ -4,7 +4,6 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
 import View from '../View';
-import Text from '../Text';
 import { getStyles, each, concatFns } from '../../utils';
 import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
@@ -25,6 +24,8 @@ const propTypes = {
   inputStyle: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
   labelStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  labelTextStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -156,6 +157,7 @@ const CheckInput = React.forwardRef((props, ref) => {
     style,
     inputStyle,
     labelStyle,
+    labelTextStyle,
     ...elementProps
   } = modifierProps;
 
@@ -185,7 +187,7 @@ const CheckInput = React.forwardRef((props, ref) => {
     invalid && value && '.form-check-input-checked.is-invalid',
   ]);
 
-  const labelClasses = getStyles(styles, [
+  const labelTextClasses = getStyles(styles, [
     '.form-check-label',
     valid && '.form-check-label.is-valid',
     invalid && '.form-check-label.is-invalid',
@@ -207,7 +209,11 @@ const CheckInput = React.forwardRef((props, ref) => {
       style={[classes, style]}
     >
       <View style={[inputClasses, inputStyle]}>{getSvg(type, value)}</View>
-      {children && <Text style={[labelClasses, labelStyle]}>{children}</Text>}
+      {children && (
+        <View style={labelStyle} textStyle={[labelTextClasses, labelTextStyle]}>
+          {children}
+        </View>
+      )}
     </Pressable>
   );
 });

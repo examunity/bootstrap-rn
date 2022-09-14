@@ -49,7 +49,7 @@ const FormCheckbox = React.forwardRef((props, ref) => {
         invalid={field.touched && field.error}
         disabled={disabled}
       >
-        {label}
+        <Text>{label}</Text>
       </Checkbox>
     </Field>
   );
