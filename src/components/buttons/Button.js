@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   `,
   '.btn-group > .btn': css`
     position: relative;
-    flex: 1 1 auto;
+    // flex: 1 1 auto;
 
     &:hover {
       z-index: 1;
