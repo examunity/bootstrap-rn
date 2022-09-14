@@ -119,7 +119,7 @@ function SamplePagination() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Pagination states (disabled, active) </Heading>
+          <Heading size={5}>Pagination states (disabled, active)</Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -174,7 +174,6 @@ function SamplePagination() {
                 </Pagination>
               </Col>
               <Col size={6}>
-                {' '}
                 <Pagination size="lg">
                   <Pagination.Item>
                     <Text>0</Text>

@@ -19,7 +19,6 @@
   "main": "dist/bootstrap-rn.cjs.js",
   "module": "dist/bootstrap-rn.esm.js",
   "scripts": {
-    "start": "cd example && yarn start",
     "build": "packsy build",
     "dev": "packsy dev",
     "prepublishOnly": "packsy validate && packsy build"
@@ -30,17 +29,16 @@
   "dependencies": {
     "@react-native-aria/overlays": "^0.3.2",
     "css-to-react-native": "^3.0.0",
-    "polished": "^4.1.3",
+    "polished": "^4.2.2",
     "prop-types": "^15.7.2",
     "react-native-svg": "^12.1.1",
     "tiny-invariant": "^1.2.0"
   },
   "devDependencies": {
-    "@storybook/cli": "^6.5.9",
     "packsy": "^0.2.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-native": "0.64.3"
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.5"
   },
   "peerDependencies": {
     "react": ">=16.13.1",
