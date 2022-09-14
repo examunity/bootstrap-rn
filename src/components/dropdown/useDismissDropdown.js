@@ -10,7 +10,7 @@ export default function useDismissDropdown(props) {
     ...restProps,
     onPress: (event) => {
       if (handlePress) handlePress(event);
-      context.setExpanded(false);
+      context.setVisible(false);
     },
   };
 }
