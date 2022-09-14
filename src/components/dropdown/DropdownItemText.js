@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownTextItem = React.forwardRef((props, ref) => {
+const DropdownItemText = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
   const classes = getStyles(styles, ['.dropdown-item-text']);
 
@@ -30,7 +30,7 @@ const DropdownTextItem = React.forwardRef((props, ref) => {
   );
 });
 
-DropdownTextItem.displayName = 'DropdownTextItem';
-DropdownTextItem.propTypes = propTypes;
+DropdownItemText.displayName = 'DropdownItemText';
+DropdownItemText.propTypes = propTypes;
 
-export default DropdownTextItem;
+export default DropdownItemText;

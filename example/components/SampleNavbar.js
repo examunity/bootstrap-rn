@@ -215,9 +215,9 @@ function SampleNavbar() {
                             <Text>Dropdown Item 102</Text>
                           </View>
                         </Dropdown.Item>
-                        <Dropdown.TextItem>
+                        <Dropdown.ItemText>
                           Dropdown Item Text 101
-                        </Dropdown.TextItem>
+                        </Dropdown.ItemText>
                         <Dropdown.Item>
                           <View>
                             <Text>Dropdown Item 201</Text>

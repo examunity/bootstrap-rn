@@ -11,7 +11,7 @@ const DropdownMeta = {
 
 export default DropdownMeta;
 
-export function Basic(args) {
+export function Basic() {
   return (
     <View styleName="align-items-center">
       <Dropdown direction="bottom" styleName="mb-3">
@@ -37,7 +37,7 @@ export function Basic(args) {
               <Text>Dropdown Item 102</Text>
             </View>
           </Dropdown.Item>
-          <Dropdown.TextItem>Dropdown Item Text 101</Dropdown.TextItem>
+          <Dropdown.ItemText>Dropdown Item Text 101</Dropdown.ItemText>
           <Dropdown.Item>
             <View>
               <Text>Dropdown Item 201</Text>
@@ -64,7 +64,7 @@ export function Basic(args) {
               <Text>Dropdown Item 102</Text>
             </View>
           </Dropdown.Item>
-          <Dropdown.TextItem>Dropdown Item Text 101</Dropdown.TextItem>
+          <Dropdown.ItemText>Dropdown Item Text 101</Dropdown.ItemText>
           <Dropdown.Item>
             <View>
               <Text>Dropdown Item 201</Text>
