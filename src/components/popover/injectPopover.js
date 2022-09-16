@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { OverlayContainer } from '@react-native-aria/overlays';
 import Overlay from '../helpers/Overlay';
+import BackdropHandler from '../helpers/BackdropHandler';
 import useTrigger, { TriggerPropTypes } from '../../hooks/useTrigger';
 import { convertToNumber } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
@@ -11,6 +12,10 @@ const propTypes = {
   popover: PropTypes.shape({
     title: PropTypes.node,
     content: PropTypes.node.isRequired,
+    autoClose: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.oneOf(['inside', 'outside']),
+    ]),
     ...TriggerPropTypes,
   }),
 };
@@ -22,7 +27,8 @@ export default function injectPopover(Target) {
       popover: {
         title,
         content,
-        trigger = 'click',
+        autoClose = 'outside',
+        trigger = 'press',
         placement = 'right',
         ...tooltipProps
       },
@@ -30,12 +36,13 @@ export default function injectPopover(Target) {
     } = props;
     /* eslint-enable */
 
-    const { visible, targetProps, targetRef, templateProps } = useTrigger(
-      trigger,
-      tooltipProps,
-      elementProps,
-      ref,
-    );
+    const {
+      visible,
+      setVisible,
+      targetProps,
+      targetRef,
+      templateProps,
+    } = useTrigger(trigger, tooltipProps, elementProps, ref);
 
     const offset = convertToNumber(StyleSheet.value('popover-arrow-height'));
 
@@ -52,21 +59,34 @@ export default function injectPopover(Target) {
               visible={visible}
             >
               {(overlay, overlayRef) => (
-                <Popover
-                  {...templateProps}
-                  ref={overlayRef}
-                  placement={overlay.placement}
-                  popper={overlay.rendered}
-                  style={[
-                    overlay.overlayProps.style,
-                    { maxHeight: 'auto', opacity: overlay.rendered ? 1 : 0 },
-                  ]}
-                  arrowStyle={overlay.arrowProps.style}
-                >
-                  <Popover.Arrow />
-                  {title && <Popover.Header>{title}</Popover.Header>}
-                  <Popover.Body>{content}</Popover.Body>
-                </Popover>
+                <>
+                  <BackdropHandler
+                    toggleRef={targetRef}
+                    dialogRef={overlayRef}
+                    onClose={() => {
+                      setVisible(false);
+                    }}
+                    autoClose={autoClose}
+                  />
+                  <Popover
+                    {...templateProps}
+                    ref={overlayRef}
+                    placement={overlay.placement}
+                    popper={overlay.rendered}
+                    style={[
+                      overlay.overlayProps.style,
+                      {
+                        maxHeight: 'auto',
+                        opacity: overlay.rendered ? 1 : 0,
+                      },
+                    ]}
+                    arrowStyle={overlay.arrowProps.style}
+                  >
+                    <Popover.Arrow />
+                    {title && <Popover.Header>{title}</Popover.Header>}
+                    <Popover.Body>{content}</Popover.Body>
+                  </Popover>
+                </>
               )}
             </Overlay>
           </OverlayContainer>

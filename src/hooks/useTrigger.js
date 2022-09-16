@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import useIdentifier from './useIdentifier';
 import { optional, concatRefs } from '../utils';
@@ -7,16 +8,16 @@ import useControlledState from './useControlledState';
 const PLACEMENTS = ['top', 'bottom', 'left', 'right'];
 
 const TRIGGERS = [
-  'click',
+  'press',
   'hover',
   'focus',
   'manual',
-  'click hover',
-  'hover click',
+  'press hover',
+  'hover press',
   'hover focus',
   'focus hover',
-  'click focus',
-  'focus click',
+  'press focus',
+  'focus press',
 ];
 
 export const TriggerPropTypes = {
@@ -57,7 +58,11 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
       ref: concatRefs(targetRef, ref),
       ...optional(visible, { accessibilityDescribedBy: identifier }),
       onPress: (event) => {
-        if (trigger.includes('click')) {
+        const handleHoverAsPress =
+          (Platform.OS === 'android' || Platform.OS === 'ios') &&
+          trigger.includes('hover');
+
+        if (trigger.includes('press') || handleHoverAsPress) {
           setVisible((value) => !value);
         }
 
