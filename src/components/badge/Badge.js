@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Text from '../Text';
+import View from '../View';
 import { getStyles } from '../../utils';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -30,13 +32,20 @@ const styles = StyleSheet.create({
 });
 
 const Badge = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
-  const classes = getStyles(styles, ['.badge', '.badge-text']);
+  const { children, style, textStyle, ...elementProps } = props;
+
+  const classes = getStyles(styles, ['.badge']);
+  const textClasses = getStyles(styles, ['.badge-text']);
 
   return (
-    <Text {...elementProps} ref={ref} style={[classes, style]}>
+    <View
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
       {children}
-    </Text>
+    </View>
   );
 });
 

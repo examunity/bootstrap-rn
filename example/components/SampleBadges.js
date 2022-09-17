@@ -13,14 +13,14 @@ import {
 
 const exampleCode =
   '<>\n' +
-  ' <Badge styleName="bg-primary">primary</Badge>\n' +
-  ' <Badge styleName="bg-secondary">secondary</Badge>\n' +
-  ' <Badge styleName="bg-success">success</Badge>\n' +
-  ' <Badge styleName="bg-danger">danger</Badge>\n' +
-  ' <Badge styleName="bg-warning text-dark">warning</Badge>\n' +
-  ' <Badge styleName="bg-info text-dark">info</Badge>\n' +
-  ' <Badge styleName="bg-light text-dark">light</Badge>\n' +
-  ' <Badge styleName="bg-dark">dark</Badge>\n' +
+  ' <Badge styleName="bg-primary"><Text>primary</Text></Badge>\n' +
+  ' <Badge styleName="bg-secondary"><Text>secondary</Text></Badge>\n' +
+  ' <Badge styleName="bg-success"><Text>success</Text></Badge>\n' +
+  ' <Badge styleName="bg-danger"><Text>danger</Text></Badge>\n' +
+  ' <Badge styleName="bg-warning text-dark"><Text>warning</Text></Badge>\n' +
+  ' <Badge styleName="bg-info text-dark"><Text>info</Text></Badge>\n' +
+  ' <Badge styleName="bg-light text-dark"><Text>light</Text></Badge>\n' +
+  ' <Badge styleName="bg-dark"><Text>dark</Text></Badge>\n' +
   '</>';
 
 function SampleBadges() {
@@ -66,18 +66,34 @@ function SampleBadges() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Badges </Heading>
+          <Heading size={5}>Badges</Heading>
         </Card.Header>
         <Card.Body>
-          <View styleName="flex-row ai-center">
-            <Badge styleName="bg-primary mr-1">primary</Badge>
-            <Badge styleName="bg-secondary mr-1">secondary</Badge>
-            <Badge styleName="bg-success mr-1">success</Badge>
-            <Badge styleName="bg-danger mr-1">danger</Badge>
-            <Badge styleName="bg-warning text-dark mr-1">warning</Badge>
-            <Badge styleName="bg-info text-dark mr-1">info</Badge>
-            <Badge styleName="bg-light text-dark mr-1">light</Badge>
-            <Badge styleName="bg-dark mr-1">dark</Badge>
+          <View styleName="ai-center">
+            <Badge styleName="bg-primary mb-2">
+              <Text>primary</Text>
+            </Badge>
+            <Badge styleName="bg-secondary mb-2">
+              <Text>secondary</Text>
+            </Badge>
+            <Badge styleName="bg-success mb-2">
+              <Text>success</Text>
+            </Badge>
+            <Badge styleName="bg-danger mb-2">
+              <Text>danger</Text>
+            </Badge>
+            <Badge styleName="bg-warning mb-2">
+              <Text styleName="text-dark">warning</Text>
+            </Badge>
+            <Badge styleName="bg-info mb-2">
+              <Text styleName="text-dark">info</Text>
+            </Badge>
+            <Badge styleName="bg-light mb-2">
+              <Text styleName="text-dark">light</Text>
+            </Badge>
+            <Badge styleName="bg-dark">
+              <Text>dark</Text>
+            </Badge>
           </View>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
