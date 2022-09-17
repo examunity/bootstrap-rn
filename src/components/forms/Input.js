@@ -67,12 +67,14 @@ const styles = StyleSheet.create({
     min-height: $input-height-sm;
     padding: $input-padding-y-sm $input-padding-x-sm;
     font-size: $input-font-size-sm;
+    line-height: $input-font-size-sm * $line-height-base; // added for bootstrap-rn
     border-radius: $input-border-radius-sm;
   `,
   '.form-control-lg': css`
     min-height: $input-height-lg;
     padding: $input-padding-y-lg $input-padding-x-lg;
     font-size: $input-font-size-lg;
+    line-height: $input-font-size-lg * $line-height-base; // added for bootstrap-rn
     border-radius: $input-border-radius-lg;
   `,
   '.form-control-multiline': css`
