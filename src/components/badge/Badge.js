@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
+import Text from '../Text';
 import { getStyles } from '../../utils';
 
 const propTypes = {
@@ -37,14 +38,10 @@ const Badge = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, ['.badge']);
   const textClasses = getStyles(styles, ['.badge-text']);
 
+  // composite component
   return (
-    <View
-      {...elementProps}
-      ref={ref}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
-    >
-      {children}
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <Text style={[textClasses, textStyle]}>{children}</Text>
     </View>
   );
 });
