@@ -49,6 +49,7 @@ const ProgressBar = React.forwardRef((props, ref) => {
 
   const textClasses = getStyles(styles, ['.progress-bar-text']);
 
+  // composite component
   return (
     <View
       {...elementProps}
@@ -58,9 +59,8 @@ const ProgressBar = React.forwardRef((props, ref) => {
       accessibilityValueMin={min}
       accessibilityValueMax={max}
       style={[classes, style, { width: `${getPercentage(value, min, max)}%` }]}
-      textStyle={[textClasses, textStyle]}
     >
-      <Text>{children || ' '}</Text>
+      {children && <Text style={[textClasses, textStyle]}>{children}</Text>}
     </View>
   );
 });
