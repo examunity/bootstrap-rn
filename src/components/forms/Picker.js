@@ -232,7 +232,9 @@ const Picker = React.forwardRef((props, ref) => {
         }}
         style={offcanvasClasses}
       >
-        <Offcanvas.Body style={offcanvasBodyClasses}>{children}</Offcanvas.Body>
+        <Offcanvas.Body contentContainerStyle={offcanvasBodyClasses}>
+          {children}
+        </Offcanvas.Body>
       </Offcanvas>
     </PickerContext.Provider>
   );
