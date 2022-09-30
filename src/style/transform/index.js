@@ -68,12 +68,27 @@ export default function transform(
               order: value,
             });
           }
-        } else if (child.name === 'margin-horizontal' && value === 'auto') {
-          // Workaround for react-native issue #350
+        } else if (child.name === 'margin-vertical') {
+          Object.assign(definitions[0].declarations, {
+            marginTop: value,
+            marginBottom: value,
+          });
+        } else if (child.name === 'margin-horizontal') {
+          // Among other things workaround for react-native issue #350
           // https://github.com/facebook/react-native/issues/350#issuecomment-375238958
           Object.assign(definitions[0].declarations, {
             marginLeft: value,
             marginRight: value,
+          });
+        } else if (child.name === 'padding-vertical') {
+          Object.assign(definitions[0].declarations, {
+            paddingTop: value,
+            paddingBottom: value,
+          });
+        } else if (child.name === 'padding-horizontal') {
+          Object.assign(definitions[0].declarations, {
+            paddingLeft: value,
+            paddingRight: value,
           });
         } else if (
           child.name === 'border-color' &&
