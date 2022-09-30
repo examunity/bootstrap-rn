@@ -11,7 +11,6 @@ import {
   Code,
   View,
   Card,
-  Picker,
 } from 'bootstrap-rn';
 
 const exampleCode =
@@ -123,11 +122,7 @@ function SampleModal() {
                 />
               </Modal.Header>
               <Modal.Body>
-                <Picker value="football" onChange={() => {}} placeholder="Test">
-                  <Picker.Item label="Football" value="football" />
-                  <Picker.Item label="Baseball" value="baseball" />
-                  <Picker.Item label="Hockey" value="hockey" />
-                </Picker>
+                <Text>Woo-hoo, you&apos;re reading this text in a modal!</Text>
               </Modal.Body>
               <Modal.Footer>
                 <Button onPress={() => setModalVisible((value) => !value)}>

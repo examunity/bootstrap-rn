@@ -52,6 +52,12 @@ const BackdropHandler = (props) => {
         state.waitingForMouseUp = true;
       };
 
+      // Workaround for chrome, because chrome does not fire onMouseDown event
+      // for dialog when clicking on the <select> menu.
+      const handleDialogMouseUp = () => {
+        state.isDialogClick = true;
+      };
+
       const handleDocumentClick = ({ target }) => {
         if (backdrop === 'static' || autoClose === false) {
           return;
@@ -88,12 +94,14 @@ const BackdropHandler = (props) => {
       };
 
       dialog.addEventListener('mousedown', handleDialogMouseDown);
+      dialog.addEventListener('mouseup', handleDialogMouseUp);
       // See https://github.com/necolas/react-native-web/issues/2115
       document.addEventListener('click', handleDocumentClick, true);
       document.addEventListener('mouseup', handleDocumentMouseUp, true);
 
       return () => {
         dialog.addEventListener('mousedown', handleDialogMouseDown);
+        dialog.addEventListener('mouseup', handleDialogMouseUp);
         document.removeEventListener('click', handleDocumentClick, true);
         document.removeEventListener('mouseup', handleDocumentMouseUp, true);
       };
