@@ -70,25 +70,25 @@ export default function transform(
           }
         } else if (child.name === 'margin-vertical') {
           Object.assign(definitions[0].declarations, {
-            marginTop: value,
-            marginBottom: value,
+            ...getStylesForProperty('marginTop', value),
+            ...getStylesForProperty('marginBottom', value),
           });
         } else if (child.name === 'margin-horizontal') {
           // Among other things workaround for react-native issue #350
           // https://github.com/facebook/react-native/issues/350#issuecomment-375238958
           Object.assign(definitions[0].declarations, {
-            marginLeft: value,
-            marginRight: value,
+            ...getStylesForProperty('marginLeft', value),
+            ...getStylesForProperty('marginRight', value),
           });
         } else if (child.name === 'padding-vertical') {
           Object.assign(definitions[0].declarations, {
-            paddingTop: value,
-            paddingBottom: value,
+            ...getStylesForProperty('paddingTop', value),
+            ...getStylesForProperty('paddingBottom', value),
           });
         } else if (child.name === 'padding-horizontal') {
           Object.assign(definitions[0].declarations, {
-            paddingLeft: value,
-            paddingRight: value,
+            ...getStylesForProperty('paddingLeft', value),
+            ...getStylesForProperty('paddingRight', value),
           });
         } else if (
           child.name === 'border-color' &&
