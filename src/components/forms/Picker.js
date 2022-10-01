@@ -3,6 +3,8 @@ import { Platform, Picker as BasePicker } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
+import Pressable from '../Pressable';
+import View from '../View';
 import Text from '../Text';
 import useMedia from '../../hooks/useMedia';
 import { getStyles, each } from '../../utils';
@@ -34,6 +36,20 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   styleName: PropTypes.any,
 };
+
+const escapedCharacters = {
+  '<': '%3c',
+  '>': '%3e',
+  '#': '%23',
+  '(': '%28',
+  ')': '%29',
+};
+
+const escapeSvg = (string) =>
+  Object.entries(escapedCharacters).reduce(
+    (result, [char, encoded]) => result.replaceAll(char, encoded),
+    string,
+  );
 
 const styles = StyleSheet.create({
   '.form-select': css`
@@ -106,8 +122,17 @@ const styles = StyleSheet.create({
       }
     `,
   })),
-  '.form-select-offcanvas': css``,
-  '.form-select-offcanvas-body': css`
+  nativeSelect: css`
+    flex-direction: row;
+    justify-content: space-between;
+  `,
+  nativeSelectIndicator: css`
+    align-self: center;
+    margin-right: $form-select-padding-x - $form-select-indicator-padding;
+    width: ${(t) => t['form-select-bg-size'].split(' ')[0]};
+    height: ${(t) => t['form-select-bg-size'].split(' ')[1]};
+  `,
+  nativeSelectMenu: css`
     align-items: center;
   `,
 });
@@ -163,10 +188,23 @@ const Picker = React.forwardRef((props, ref) => {
       onBlur();
     },
     disabled,
-    style: resolveStyle({ media, interaction: { focused } }),
   };
 
   if (provideWebComponent) {
+    // We do not use StyleSheet.create for this style definition, because
+    // backgroundImage and backgroundPosition do not work with it.
+    // TODO: Find a way to use $form-select-indicator here.
+    const indicatorStyle = {
+      backgroundImage: `url("data:image/svg+xml,${escapeSvg(
+        `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='${StyleSheet.value(
+          'form-select-indicator-color',
+        )}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>`,
+      )}")`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: StyleSheet.value('form-select-bg-position'),
+      backgroundSize: StyleSheet.value('form-select-bg-size'),
+    };
+
     return (
       <BasePicker
         {...elementProps}
@@ -174,6 +212,10 @@ const Picker = React.forwardRef((props, ref) => {
         ref={modifierRef}
         selectedValue={value}
         onValueChange={onChange}
+        style={[
+          indicatorStyle,
+          resolveStyle({ media, interaction: { focused } }),
+        ]}
       >
         <option value="" disabled hidden>
           {placeholder}
@@ -182,11 +224,6 @@ const Picker = React.forwardRef((props, ref) => {
       </BasePicker>
     );
   }
-
-  const offcanvasClasses = getStyles(styles, ['.form-select-offcanvas']);
-  const offcanvasBodyClasses = getStyles(styles, [
-    '.form-select-offcanvas-body',
-  ]);
 
   const items = React.Children.map(children, (child) => ({
     label: child.props.label,
@@ -206,7 +243,7 @@ const Picker = React.forwardRef((props, ref) => {
         useNativeComponent: true,
       }}
     >
-      <Text
+      <Pressable
         {...elementProps}
         {...commonProps}
         ref={modifierRef}
@@ -221,18 +258,25 @@ const Picker = React.forwardRef((props, ref) => {
 
           setOpen(true);
         }}
+        style={resolveStyle({ media, interaction: { focused } })}
       >
-        {selectedItem ? selectedItem.label : placeholder}
-      </Text>
+        <View style={styles.nativeSelect}>
+          <Text numberOfLines={1}>
+            {selectedItem ? selectedItem.label : placeholder}
+          </Text>
+          <View style={styles.nativeSelectIndicator}>
+            {StyleSheet.value('form-select-indicator')}
+          </View>
+        </View>
+      </Pressable>
       <Offcanvas
         placement="bottom"
         visible={open}
         onToggle={() => {
           setOpen(false);
         }}
-        style={offcanvasClasses}
       >
-        <Offcanvas.Body contentContainerStyle={offcanvasBodyClasses}>
+        <Offcanvas.Body contentContainerStyle={styles.nativeSelectMenu}>
           {children}
         </Offcanvas.Body>
       </Offcanvas>
