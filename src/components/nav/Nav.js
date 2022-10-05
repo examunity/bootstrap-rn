@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   '.nav': css`
     display: flex;
     flex-direction: row; // added for bootstrap-rn
-    flex-wrap: wrap;
+    // flex-wrap: wrap; // bootstrap-rn: width will shrink on native with "flex-direction: column;"
     padding-left: 0;
     margin-bottom: 0;
     // list-style: none;
