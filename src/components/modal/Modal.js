@@ -62,8 +62,7 @@ const styles = StyleSheet.create({
     @include media-breakpoint-up(sm) {
       width: 100%; // added for bootstrap-rn
       max-width: $modal-md;
-      margin-right: auto;
-      margin-left: auto;
+      margin: $modal-dialog-margin-y-sm-up auto;
     }
   `,
   '.modal-dialog-scrollable': css`
