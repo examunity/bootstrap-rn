@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { StatusBar } from 'react-native';
 import {
   makeTheme,
   makeUtilities,
@@ -137,6 +138,7 @@ function App() {
     <Router>
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
         <Body>
+          <StatusBar />
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Content />} />

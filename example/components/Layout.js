@@ -1,5 +1,4 @@
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
 import {
   ScrollView,
   Container,
@@ -21,8 +20,7 @@ const styles = StyleSheet.create({
 
 function Layout() {
   return (
-    <SafeAreaView>
-      <StatusBar />
+    <>
       <ScrollView>
         <Container style={styles.container}>
           <Row>
@@ -111,7 +109,7 @@ function Layout() {
           </Row>
         </Container>
       </ScrollView>
-    </SafeAreaView>
+    </>
   );
 }
 
