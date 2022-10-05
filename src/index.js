@@ -56,6 +56,7 @@ import ToastContainer from './components/toasts/ToastContainer';
 import Tooltip from './components/tooltip/Tooltip';
 import Text from './components/Text';
 import TextInput from './components/TextInput';
+import useFixedElement from './hooks/useFixedElement';
 import useMedia from './hooks/useMedia';
 import useStyle from './hooks/useStyle';
 import View from './components/View';
@@ -120,6 +121,7 @@ export {
   Tooltip,
   Text,
   TextInput,
+  useFixedElement,
   useMedia,
   useStyle,
   View,

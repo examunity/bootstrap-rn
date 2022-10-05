@@ -1,5 +1,6 @@
-import { useRef, useEffect } from 'react';
-import { Platform } from 'react-native';
+import { useRef, useEffect, useContext } from 'react';
+import { Platform, findNodeHandle } from 'react-native';
+import Context from '../Context';
 
 const computeScrollbarWidth = () => {
   const documentWidth = document.documentElement.clientWidth;
@@ -10,6 +11,8 @@ export default function useScrollbarEffects({ keepBodyScroll, visible }) {
   if (Platform.OS !== 'web' || keepBodyScroll) {
     return;
   }
+
+  const context = useContext(Context);
 
   const scrollbarWidth = useRef();
 
@@ -22,16 +25,14 @@ export default function useScrollbarEffects({ keepBodyScroll, visible }) {
       scrollbarWidth.current = computeScrollbarWidth();
     }
 
-    // const element = findNodeHandle(ref.current);
-
     const rect = document.body.getBoundingClientRect();
     const isBodyOverflowing = rect.left + rect.right < window.innerWidth;
 
     // Set body and fixed elements padding adjustments.
-    const elements = [
-      document.body,
-      ...document.querySelectorAll('[data-fixed="true"]'),
-    ];
+    const fixedElements = context.fixed
+      .filter((ref) => ref.current)
+      .map((ref) => findNodeHandle(ref.current));
+    const elements = [document.body, ...fixedElements];
 
     const originalWidths = elements.map((el) => el.style.width || '');
 

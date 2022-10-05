@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import useViewport from './hooks/useViewport';
@@ -18,13 +18,27 @@ function Provider(props) {
 
   const viewport = useViewport(ssrViewport);
 
+  const fixed = useMemo(() => [], []);
+
   const counter = useRef(0);
 
   const context = {
     utilities,
     modifiers,
+    fixed,
     getViewport() {
       return viewport;
+    },
+    addFixedElement(ref) {
+      fixed.push(ref);
+
+      return {
+        remove() {
+          const index = fixed.findIndex((item) => item === ref);
+
+          fixed.splice(index, 1);
+        },
+      };
     },
     generateKey(prefix) {
       counter.current += 1;
