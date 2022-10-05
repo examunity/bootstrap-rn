@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
   '.list-group-item': css`
     position: relative;
     // display: block;
+    flex-direction: row; // added for bootstrap-rn
     padding: $list-group-item-padding-y $list-group-item-padding-x;
     background-color: $list-group-bg;
     border: $list-group-border-width solid $list-group-border-color;
