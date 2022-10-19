@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  Platform,
+  unstable_createElement as createElement,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
 import View from '../View';
 import { getStyles, each, concatFns } from '../../utils';
+import useMedia from '../../hooks/useMedia';
+import useStyle from '../../hooks/useStyle';
+import useBackground from '../../hooks/useBackground';
 import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
+import { escapeSvg } from '../../theme/functions';
 
 const propTypes = {
   children: PropTypes.node,
@@ -14,10 +22,13 @@ const propTypes = {
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func,
   onPress: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
   label: PropTypes.string,
   disabled: PropTypes.bool,
   valid: PropTypes.bool,
   invalid: PropTypes.bool,
+  useNativeComponent: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -53,9 +64,9 @@ const styles = StyleSheet.create({
     margin-top: $rawMarginTop * 0.5; // line-height minus check height
     // vertical-align: top;
     background-color: $form-check-input-bg;
-    // background-repeat: no-repeat;
-    // background-position: center;
-    // background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
     border: $form-check-input-border;
     @include platform(web) {
       appearance: none;
@@ -70,8 +81,10 @@ const styles = StyleSheet.create({
 
     &:focus {
       border-color: $form-check-input-focus-border;
-      // outline: 0;
-      // box-shadow: $form-check-input-focus-box-shadow;
+      @include platform(web) {
+        outline-width: 0; // outline: 0;
+        box-shadow: $form-check-input-focus-box-shadow;
+      }
     }
   `,
   '.form-check-input-checkbox': css`
@@ -84,27 +97,27 @@ const styles = StyleSheet.create({
     background-color: $form-check-input-checked-bg-color;
     border-color: $form-check-input-checked-border-color;
   `,
+  '.form-check-input-checkbox-checked': css`
+    // @if $enable-gradients {
+    //   background-image: escape-svg($form-check-input-checked-bg-image), var(--#{$variable-prefix}gradient);
+    // } @else {
+    background-image: ${(t) =>
+      escapeSvg(t['form-check-input-checked-bg-image'])};
+    // }
+  `,
+  '.form-check-input-radio-checked': css`
+    // @if $enable-gradients {
+    //   background-image: escape-svg($form-check-radio-checked-bg-image), var(--#{$variable-prefix}gradient);
+    // } @else {
+    background-image: ${(t) =>
+      escapeSvg(t['form-check-radio-checked-bg-image'])};
+    // }
+  `,
   '.form-check-label': css`
     color: $form-check-label-color;
     @include platform(web) {
       cursor: $form-check-label-cursor;
     }
-  `,
-  '.form-switch': css`
-    padding-left: $form-switch-padding-start;
-  `,
-  '.form-check-input-switch': css`
-    width: $form-switch-width;
-    margin-left: $form-switch-padding-start * -1;
-    margin-right: $form-switch-padding-start - $form-switch-width; // added for bootstrap-rn
-    border-radius: $form-switch-border-radius;
-    // @include transition($form-switch-transition);
-    align-items: flex-start; // added for bootstrap-rn
-    justify-content: center; // added for bootstrap-rn
-  `,
-  '.form-check-input-switch-checked': css`
-    align-items: flex-end; // added for bootstrap-rn
-    justify-content: center; // added for bootstrap-rn
   `,
   ...each(FORM_VALIDATION_STATES, (state, data) => ({
     [`.form-check-input.is-${state}`]: css`
@@ -121,25 +134,38 @@ const styles = StyleSheet.create({
       color: ${(t) => data(t).color};
     `,
   })),
+  '.form-switch': css`
+    padding-left: $form-switch-padding-start;
+  `,
+  '.form-switch .form-check-input': css`
+    width: $form-switch-width;
+    margin-left: $form-switch-padding-start * -1;
+    background-image: ${(t) => escapeSvg(t['form-switch-bg-image'])};
+    background-position: left center;
+    border-radius: $form-switch-border-radius;
+    // @include transition($form-switch-transition);
+
+    &:focus {
+      background-image: ${(t) => escapeSvg(t['form-switch-focus-bg-image'])};
+    }
+  `,
+  '.form-switch .form-check-input-checked': css`
+    background-position: $form-switch-checked-bg-position;
+
+    // @if $enable-gradients {
+    //   background-image: escape-svg($form-switch-checked-bg-image), var(--#{$prefix}gradient);
+    // } @else {
+    background-image: ${(t) => escapeSvg(t['form-switch-checked-bg-image'])};
+    // }
+
+    &:focus {
+      background-image: ${(t) =>
+        escapeSvg(t['form-switch-checked-bg-image'])}; // added for bootstrap-rn
+    }
+  `,
 });
 
-const getSvg = (type, value) => {
-  if (type === 'checkbox' && value) {
-    return StyleSheet.value('form-check-input-checked-bg-image');
-  }
-
-  if (type === 'radio' && value) {
-    return StyleSheet.value('form-check-radio-checked-bg-image');
-  }
-
-  if (type === 'switch') {
-    return StyleSheet.value(
-      value ? 'form-switch-checked-bg-image' : 'form-switch-bg-image',
-    );
-  }
-
-  return null;
-};
+const WebInput = (props) => createElement('input', props);
 
 const CheckInput = React.forwardRef((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
@@ -150,16 +176,22 @@ const CheckInput = React.forwardRef((props, ref) => {
     value,
     onChange: handleChange,
     onPress: handlePress,
+    onFocus = () => {},
+    onBlur = () => {},
     label,
     disabled = false,
     valid = false,
     invalid = false,
+    useNativeComponent = false,
     style,
     inputStyle,
     labelStyle,
     labelTextStyle,
     ...elementProps
   } = modifierProps;
+
+  const media = useMedia();
+  const [focused, setFocused] = useState(false);
 
   if (!children && !label) {
     // eslint-disable-next-line no-console
@@ -170,17 +202,19 @@ const CheckInput = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.form-check',
-    type === 'switch' && '.form-switch',
     disabled && '.form-check-disabled',
+    type === 'switch' && '.form-switch',
   ]);
 
   const inputClasses = getStyles(styles, [
     '.form-check-input',
     type === 'checkbox' && '.form-check-input-checkbox',
     type === 'radio' && '.form-check-input-radio',
-    type === 'switch' && '.form-check-input-switch',
+    type === 'switch' && '.form-switch .form-check-input',
     value && '.form-check-input-checked',
-    type === 'switch' && value && '.form-check-input-switch-checked',
+    type === 'checkbox' && value && '.form-check-input-checkbox-checked',
+    type === 'radio' && value && '.form-check-input-radio-checked',
+    type === 'switch' && value && '.form-switch .form-check-input-checked',
     valid && '.form-check-input.is-valid',
     valid && value && '.form-check-input-checked.is-valid',
     invalid && '.form-check-input.is-invalid',
@@ -193,7 +227,51 @@ const CheckInput = React.forwardRef((props, ref) => {
     invalid && '.form-check-label.is-invalid',
   ]);
 
+  const resolveInputStyle = useStyle([inputClasses, inputStyle]);
+  const background = useBackground(
+    resolveInputStyle({ media, interaction: { focused } }),
+  );
+
+  const handleFocus = () => {
+    if (disabled) return;
+
+    setFocused(true);
+    onFocus();
+  };
+  const handleBlur = () => {
+    setFocused(false);
+    onBlur();
+  };
+
   // TODO &:focus, &:active
+
+  const provideWebComponent = Platform.OS === 'web' && !useNativeComponent;
+
+  if (provideWebComponent) {
+    return (
+      <View accessibilityRole="label" style={[classes, style]}>
+        <WebInput
+          type={type === 'switch' ? 'checkbox' : type}
+          checked={value}
+          onChange={concatFns(() => {
+            handleChange(!value);
+          }, handlePress)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          disabled={disabled}
+          style={background.style}
+        />
+        {children && (
+          <View
+            style={labelStyle}
+            textStyle={[labelTextClasses, labelTextStyle]}
+          >
+            {children}
+          </View>
+        )}
+      </View>
+    );
+  }
 
   return (
     <Pressable
@@ -205,10 +283,12 @@ const CheckInput = React.forwardRef((props, ref) => {
       onPress={concatFns(() => {
         handleChange(!value);
       }, handlePress)}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       disabled={disabled}
       style={[classes, style]}
     >
-      <View style={[inputClasses, inputStyle]}>{getSvg(type, value)}</View>
+      <View style={background.style}>{background.element}</View>
       {children && (
         <View style={labelStyle} textStyle={[labelTextClasses, labelTextStyle]}>
           {children}

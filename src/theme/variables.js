@@ -1,134 +1,10 @@
-import React from 'react';
-import { Svg, Path, Circle } from 'react-native-svg';
 import { Platform } from 'react-native';
 import css from '../style/css';
 import { shadeColor, tintColor, shiftColor, add, subtract } from './functions';
 import { calculate } from '../math';
 
-// Define svgs first, so that we do not break syntax highlighting :D
-// Also all elements have tabIndex={-1} until the following is merged:
-// https://github.com/react-native-svg/react-native-svg/pull/1585
-const svgs = {
-  'form-check-input-checked-bg-image': (t) => (
-    <Svg viewBox="0 0 20 20" tabIndex={-1}>
-      <Path
-        fill="none"
-        stroke={t['form-check-input-checked-color']}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={3}
-        d="m6 10 3 3 6-6"
-        tabIndex={-1}
-      />
-    </Svg>
-  ),
-  'form-check-radio-checked-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
-      <Circle r={2} fill={t['form-check-input-checked-color']} tabIndex={-1} />
-    </Svg>
-  ),
-  'form-check-input-indeterminate-bg-image': (t) => (
-    <Svg viewBox="0 0 20 20" tabIndex={-1}>
-      <Path
-        fill="none"
-        stroke={t['form-check-input-indeterminate-color']}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={3}
-        d="M6 10h8"
-        tabIndex={-1}
-      />
-    </Svg>
-  ),
-  'form-switch-bg-image': (t) => (
-    <Svg height={14} width={14} viewBox="-4 -4 8 8" tabIndex={-1}>
-      <Circle r={3} fill={t['form-switch-color']} tabIndex={-1} />
-    </Svg>
-  ),
-  'form-switch-focus-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
-      <Circle r={3} fill={t['form-switch-focus-color']} tabIndex={-1} />
-    </Svg>
-  ),
-  'form-switch-checked-bg-image': (t) => (
-    <Svg viewBox="-4 -4 8 8" tabIndex={-1}>
-      <Circle r={3} fill={t['form-switch-checked-color']} tabIndex={-1} />
-    </Svg>
-  ),
-  'form-select-indicator': (t) => (
-    <Svg viewBox="0 0 16 16" tabIndex={-1}>
-      <Path
-        fill="none"
-        stroke={t['form-select-indicator-color']}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="m2 5 6 6 6-6"
-        tabIndex={-1}
-      />
-    </Svg>
-  ),
-  'form-feedback-icon-valid': (t) => (
-    <Svg viewBox="0 0 8 8" tabIndex={-1}>
-      <Path
-        fill={t['form-feedback-icon-valid-color']}
-        d="M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z"
-        tabIndex={-1}
-      />
-    </Svg>
-  ),
-  'form-feedback-icon-invalid': (t) => (
-    <Svg
-      viewBox="0 0 12 12"
-      width={12}
-      height={12}
-      fill="none"
-      stroke={t['form-feedback-icon-invalid-color']}
-      tabIndex={-1}
-    >
-      <Circle cx={6} cy={6} r={4.5} tabIndex={-1} />
-      <Path strokeLinejoin="round" d="M5.8 3.6h.4L6 6.5z" tabIndex={-1} />
-      <Circle
-        cx={6}
-        cy={8.2}
-        r={0.6}
-        fill={t['form-feedback-icon-invalid-color']}
-        stroke="none"
-        tabIndex={-1}
-      />
-    </Svg>
-  ),
-  'navbar-dark-toggler-icon-bg': (t) => (
-    <Svg viewBox="0 0 30 30">
-      <Path
-        stroke={t['navbar-dark-color']}
-        strokeLinecap="round"
-        strokeMiterlimit="10"
-        strokeWidth="2"
-        d="M4 7h22M4 15h22M4 23h22"
-      />
-    </Svg>
-  ),
-  'navbar-light-toggler-icon-bg': (t) => (
-    <Svg viewBox="0 0 30 30">
-      <Path
-        stroke={t['navbar-light-color']}
-        strokeLinecap="round"
-        strokeMiterlimit="10"
-        strokeWidth="2"
-        d="M4 7h22M4 15h22M4 23h22"
-      />
-    </Svg>
-  ),
-  'btn-close-bg': (t) => (
-    <Svg viewBox="0 0 16 16" fill={t['btn-close-color']} tabIndex={-1}>
-      <Path
-        d="M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z"
-        tabIndex={-1}
-      />
-    </Svg>
-  ),
-};
+const url = (val) => (t) =>
+  `url("${val.replace(/#{\$(.*?)}/g, (_, key) => t[key])}")`;
 
 const variables = css`
   // Color system
@@ -907,19 +783,19 @@ const variables = css`
   $form-check-input-checked-color: $component-active-color;
   $form-check-input-checked-bg-color: $component-active-bg;
   $form-check-input-checked-border-color: $form-check-input-checked-bg-color;
-  $form-check-input-checked-bg-image: ${svgs[
-    'form-check-input-checked-bg-image'
-  ]};
-  $form-check-radio-checked-bg-image: ${svgs[
-    'form-check-radio-checked-bg-image'
-  ]};
+  $form-check-input-checked-bg-image: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>",
+  )};
+  $form-check-radio-checked-bg-image: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{$form-check-input-checked-color}'/></svg>",
+  )};
 
   $form-check-input-indeterminate-color: $component-active-color;
   $form-check-input-indeterminate-bg-color: $component-active-bg;
   $form-check-input-indeterminate-border-color: $form-check-input-indeterminate-bg-color;
-  $form-check-input-indeterminate-bg-image: ${svgs[
-    'form-check-input-indeterminate-bg-image'
-  ]};
+  $form-check-input-indeterminate-bg-image: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-indeterminate-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/></svg>",
+  )};
 
   $form-check-input-disabled-opacity: 0.5;
   $form-check-label-disabled-opacity: $form-check-input-disabled-opacity;
@@ -930,15 +806,21 @@ const variables = css`
   $form-switch-color: rgba($black, 0.25);
   $form-switch-width: 2rem;
   $form-switch-padding-start: $form-switch-width + 0.5rem;
-  $form-switch-bg-image: ${svgs['form-switch-bg-image']};
+  $form-switch-bg-image: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>",
+  )};
   $form-switch-border-radius: $form-switch-width;
   $form-switch-transition: background-position 0.15s ease-in-out;
 
   $form-switch-focus-color: $input-focus-border-color;
-  $form-switch-focus-bg-image: ${svgs['form-switch-focus-bg-image']};
+  $form-switch-focus-bg-image: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-focus-color}'/></svg>",
+  )};
 
   $form-switch-checked-color: $component-active-color;
-  $form-switch-checked-bg-image: ${svgs['form-switch-checked-bg-image']};
+  $form-switch-checked-bg-image: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-checked-color}'/></svg>",
+  )};
   $form-switch-checked-bg-position: right center;
 
   $input-group-addon-padding-y: $input-padding-y;
@@ -963,7 +845,9 @@ const variables = css`
   $form-select-bg-position: right $form-select-padding-x center;
   $form-select-bg-size: 16px 12px; // In pixels because image dimensions
   $form-select-indicator-color: $gray-800;
-  $form-select-indicator: ${svgs['form-select-indicator']};
+  $form-select-indicator: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>",
+  )};
 
   $form-select-feedback-icon-padding-end: $form-select-padding-x * 2.5 +
     $form-select-indicator-padding;
@@ -1040,9 +924,13 @@ const variables = css`
   $form-feedback-invalid-color: $danger;
 
   $form-feedback-icon-valid-color: $form-feedback-valid-color;
-  $form-feedback-icon-valid: ${svgs['form-feedback-icon-valid']};
+  $form-feedback-icon-valid: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='#{$form-feedback-icon-valid-color}' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>",
+  )};
   $form-feedback-icon-invalid-color: $form-feedback-invalid-color;
-  $form-feedback-icon-invalid: ${svgs['form-feedback-icon-invalid']};
+  $form-feedback-icon-invalid: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$form-feedback-icon-invalid-color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$form-feedback-icon-invalid-color}' stroke='none'/></svg>",
+  )};
 
   $form-validation-states: ${(t) => ({
     valid: {
@@ -1123,14 +1011,18 @@ const variables = css`
   $navbar-dark-hover-color: rgba($white, 0.75);
   $navbar-dark-active-color: $white;
   $navbar-dark-disabled-color: rgba($white, 0.25);
-  $navbar-dark-toggler-icon-bg: ${svgs['navbar-dark-toggler-icon-bg']};
+  $navbar-dark-toggler-icon-bg: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>",
+  )};
   $navbar-dark-toggler-border-color: rgba($white, 0.1);
 
   $navbar-light-color: rgba($black, 0.55);
   $navbar-light-hover-color: rgba($black, 0.7);
   $navbar-light-active-color: rgba($black, 0.9);
   $navbar-light-disabled-color: rgba($black, 0.3);
-  $navbar-light-toggler-icon-bg: ${svgs['navbar-light-toggler-icon-bg']};
+  $navbar-light-toggler-icon-bg: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>",
+  )};
   $navbar-light-toggler-border-color: rgba($black, 0.1);
 
   $navbar-light-brand-color: $navbar-light-active-color;
@@ -1451,7 +1343,9 @@ const variables = css`
   $btn-close-padding-x: $font-size-base * 0.25; // .25em;
   $btn-close-padding-y: $btn-close-padding-x;
   $btn-close-color: $black;
-  $btn-close-bg: ${svgs['btn-close-bg']};
+  $btn-close-bg: ${url(
+    "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>",
+  )};
   $btn-close-focus-shadow: $input-btn-focus-box-shadow;
   $btn-close-opacity: 0.5;
   $btn-close-hover-opacity: 0.75;

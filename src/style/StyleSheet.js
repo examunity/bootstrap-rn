@@ -52,6 +52,8 @@ const createSheet = (sheet) => {
   );
 };
 
+const { absoluteFill, absoluteFillObject, hairlineWidth } = BaseStyleSheet;
+
 const StyleSheet = {
   create(source) {
     // Create sheet object.
@@ -110,6 +112,10 @@ const StyleSheet = {
 
     return theme[key];
   },
+  // Add default styles from StyleSheet
+  absoluteFill,
+  absoluteFillObject,
+  hairlineWidth,
 };
 
 export default StyleSheet;

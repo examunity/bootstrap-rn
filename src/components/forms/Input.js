@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
       border-color: $input-focus-border-color;
       @include platform(web) {
         outline-width: 0; // outline: 0;
-      }
-      /* @if $enable-shadows {
-        @include box-shadow($input-box-shadow, $input-focus-box-shadow);
-      } @else {
-        // Avoid using mixin so we can pass custom focus shadow properly
+        // @if $enable-shadows {
+        //   @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+        // } @else {
+        //   // Avoid using mixin so we can pass custom focus shadow properly
         box-shadow: $input-focus-box-shadow;
-      } */
+        // }
+      }
     }
   `,
   '.form-control-disabled': css`

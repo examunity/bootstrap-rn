@@ -13,6 +13,27 @@ export const fn = (handle) => (...args) => (t) => {
 
 /* eslint-disable arrow-body-style */
 
+const escapedCharacters = {
+  '<': '%3c',
+  '>': '%3e',
+  '#': '%23',
+  '(': '%28',
+  ')': '%29',
+};
+
+export const escapeSvg = (string) => {
+  const strReplace = (val) =>
+    Object.entries(escapedCharacters).reduce(
+      (result, [char, encoded]) =>
+        result.replace(new RegExp(`\\${char}`, 'g'), encoded),
+      val,
+    );
+
+  return string.startsWith('url(')
+    ? `url("${strReplace(string.slice(5, -2))}")`
+    : strReplace(string);
+};
+
 // Color contrast
 
 // A list of pre-calculated numbers of pow(divide((divide($value, 255) + .055), 1.055), 2.4). (from 0 to 255)

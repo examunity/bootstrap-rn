@@ -52,10 +52,10 @@ const Link = React.forwardRef((props, ref) => {
     ...elementProps
   } = actionProps;
 
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const [pressed, setPressed] = useState(false);
   const media = useMedia();
+  const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [pressed, setPressed] = useState(false);
 
   const classes = getStyles(styles, ['link', hovered]);
 
@@ -67,33 +67,33 @@ const Link = React.forwardRef((props, ref) => {
       ref={actionRef}
       accessibilityRole={getRole(actionProps)}
       accessible
-      onMouseEnter={() => {
-        setHovered(true);
-        onMouseEnter();
-      }}
-      onMouseLeave={() => {
-        setHovered(false);
-        onMouseLeave();
-      }}
-      onFocus={() => {
+      onFocus={(e) => {
         setFocused(true);
-        onFocus();
+        onFocus(e);
       }}
-      onBlur={() => {
+      onBlur={(e) => {
         setFocused(false);
-        onBlur();
+        onBlur(e);
       }}
-      onPressIn={() => {
+      onMouseEnter={(e) => {
+        setHovered(true);
+        onMouseEnter(e);
+      }}
+      onMouseLeave={(e) => {
+        setHovered(false);
+        onMouseLeave(e);
+      }}
+      onPressIn={(e) => {
         setPressed(true);
-        onPressIn();
+        onPressIn(e);
       }}
-      onPressOut={() => {
+      onPressOut={(e) => {
         setPressed(false);
-        onPressOut();
+        onPressOut(e);
       }}
       style={resolveStyle({
         media,
-        interaction: { hovered, focused, pressed },
+        interaction: { focused, hovered, pressed },
       })}
     >
       {children}

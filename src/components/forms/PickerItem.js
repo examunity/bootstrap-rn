@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Platform, Picker as BasePicker } from 'react-native';
+import { Platform, Picker as WebPicker } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -37,13 +37,14 @@ const PickerItem = React.forwardRef((props, ref) => {
   const provideWebComponent =
     Platform.OS === 'web' && (!context || !context.useNativeComponent);
 
-  const commonProps = {
-    disabled,
-  };
-
   if (provideWebComponent) {
     return (
-      <BasePicker.Item {...commonProps} ref={ref} label={label} value={value} />
+      <WebPicker.Item
+        ref={ref}
+        label={label}
+        value={value}
+        disabled={disabled}
+      />
     );
   }
 
@@ -58,12 +59,12 @@ const PickerItem = React.forwardRef((props, ref) => {
 
   return (
     <Pressable
-      {...commonProps}
       ref={ref}
       onPress={() => {
         context.onChange(value);
       }}
       accessibilitySelected={selected}
+      disabled={disabled}
       style={resolveStyle({ media })}
     >
       <Text styleName={selected && 'text-primary'}>{label}</Text>

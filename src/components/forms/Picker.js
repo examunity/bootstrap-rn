@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Platform, Picker as BasePicker } from 'react-native';
+import { Platform, Picker as WebPicker } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
-import View from '../View';
 import Text from '../Text';
 import useMedia from '../../hooks/useMedia';
 import { getStyles, each } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
+import { escapeSvg } from '../../theme/functions';
 import useStyle from '../../hooks/useStyle';
+import useBackground from '../../hooks/useBackground';
 import useModifier from '../../hooks/useModifier';
 import Offcanvas from '../offcanvas/Offcanvas';
 import PickerContext from './PickerContext';
@@ -37,20 +38,6 @@ const propTypes = {
   styleName: PropTypes.any,
 };
 
-const escapedCharacters = {
-  '<': '%3c',
-  '>': '%3e',
-  '#': '%23',
-  '(': '%28',
-  ')': '%29',
-};
-
-const escapeSvg = (string) =>
-  Object.entries(escapedCharacters).reduce(
-    (result, [char, encoded]) => result.replaceAll(char, encoded),
-    string,
-  );
-
 const styles = StyleSheet.create({
   '.form-select': css`
     // display: block;
@@ -59,16 +46,11 @@ const styles = StyleSheet.create({
       $form-select-padding-y $form-select-padding-x;
     // See https://github.com/twbs/bootstrap/issues/32636
     // -moz-padding-start: subtract($form-select-padding-x, 3px);
-    font-family: $form-select-font-family;
-    font-size: $form-select-font-size;
-    font-weight: $form-select-font-weight;
-    line-height: $form-select-font-size * $form-select-line-height;
-    color: $form-select-color;
     background-color: $form-select-bg;
-    // background-image: escape-svg($form-select-indicator);
-    // background-repeat: no-repeat;
-    // background-position: $form-select-bg-position;
-    // background-size: $form-select-bg-size;
+    background-image: ${(t) => escapeSvg(t['form-select-indicator'])};
+    background-repeat: no-repeat;
+    background-position: $form-select-bg-position;
+    background-size: $form-select-bg-size;
     border: $form-select-border-width solid $form-select-border-color;
     border-radius: $form-select-border-radius;
     // @include box-shadow($form-select-box-shadow);
@@ -81,17 +63,24 @@ const styles = StyleSheet.create({
       border-color: $form-select-focus-border-color;
       @include platform(web) {
         outline-width: 0; // outline: 0;
-      }
-      /* @if $enable-shadows {
-        @include box-shadow(
-          $form-select-box-shadow,
-          $form-select-focus-box-shadow
-        );
-      } @else {
-        // Avoid using mixin so we can pass custom focus shadow properly
+        // @if $enable-shadows {
+        //   @include box-shadow(
+        //     $form-select-box-shadow,
+        //     $form-select-focus-box-shadow
+        //   );
+        // } @else {
+        //   // Avoid using mixin so we can pass custom focus shadow properly
         box-shadow: $form-select-focus-box-shadow;
-      } */
+        // }
+      }
     }
+  `,
+  '.form-select-text': css`
+    font-family: $form-select-font-family;
+    font-size: $form-select-font-size;
+    font-weight: $form-select-font-weight;
+    line-height: $form-select-font-size * $form-select-line-height;
+    color: $form-select-color;
   `,
   '.form-select-disabled': css`
     color: $form-select-disabled-color;
@@ -157,9 +146,9 @@ const Picker = React.forwardRef((props, ref) => {
     ...elementProps
   } = modifierProps;
 
+  const media = useMedia();
   const [focused, setFocused] = useState(false);
   const [open, setOpen] = useState(false);
-  const media = useMedia();
 
   const classes = getStyles(styles, [
     '.form-select',
@@ -171,57 +160,40 @@ const Picker = React.forwardRef((props, ref) => {
   ]);
 
   const resolveStyle = useStyle([classes, style], styleName);
+  const background = useBackground(
+    resolveStyle({ media, interaction: { focused } }),
+  );
+
+  const handleFocus = () => {
+    if (disabled) return;
+
+    setFocused(true);
+    onFocus();
+  };
+  const handleBlur = () => {
+    setFocused(false);
+    onBlur();
+  };
 
   const provideWebComponent = Platform.OS === 'web' && !useNativeComponent;
 
-  const commonProps = {
-    onFocus: () => {
-      if (disabled) return;
-
-      setFocused(true);
-      onFocus();
-    },
-    onBlur: () => {
-      if (disabled) return;
-
-      setFocused(false);
-      onBlur();
-    },
-    disabled,
-  };
-
   if (provideWebComponent) {
-    // We do not use StyleSheet.create for this style definition, because
-    // backgroundImage and backgroundPosition do not work with it.
-    // TODO: Find a way to use $form-select-indicator here.
-    const indicatorStyle = {
-      backgroundImage: `url("data:image/svg+xml,${escapeSvg(
-        `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='${StyleSheet.value(
-          'form-select-indicator-color',
-        )}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>`,
-      )}")`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: StyleSheet.value('form-select-bg-position'),
-      backgroundSize: StyleSheet.value('form-select-bg-size'),
-    };
-
     return (
-      <BasePicker
+      <WebPicker
         {...elementProps}
-        {...commonProps}
         ref={modifierRef}
         selectedValue={value}
         onValueChange={onChange}
-        style={[
-          indicatorStyle,
-          resolveStyle({ media, interaction: { focused } }),
-        ]}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        disabled={disabled}
+        style={background.style}
       >
         <option value="" disabled hidden>
           {placeholder}
         </option>
         {children}
-      </BasePicker>
+      </WebPicker>
     );
   }
 
@@ -245,7 +217,6 @@ const Picker = React.forwardRef((props, ref) => {
     >
       <Pressable
         {...elementProps}
-        {...commonProps}
         ref={modifierRef}
         // role "listbox" is not supported in react-native :(
         accessibilityRole="button"
@@ -258,16 +229,15 @@ const Picker = React.forwardRef((props, ref) => {
 
           setOpen(true);
         }}
-        style={resolveStyle({ media, interaction: { focused } })}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        disabled={disabled}
+        style={background.style}
       >
-        <View style={styles.nativeSelect}>
-          <Text numberOfLines={1}>
-            {selectedItem ? selectedItem.label : placeholder}
-          </Text>
-          <View style={styles.nativeSelectIndicator}>
-            {StyleSheet.value('form-select-indicator')}
-          </View>
-        </View>
+        {background.element}
+        <Text numberOfLines={1}>
+          {selectedItem ? selectedItem.label : placeholder}
+        </Text>
       </Pressable>
       <Offcanvas
         placement="bottom"

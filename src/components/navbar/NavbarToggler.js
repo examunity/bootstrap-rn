@@ -9,7 +9,11 @@ import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext from './NavbarContext';
+import useMedia from '../../hooks/useMedia';
 import useToggleNavbar from './useToggleNavbar';
+import useStyle from '../../hooks/useStyle';
+import useBackground from '../../hooks/useBackground';
+import { escapeSvg } from '../../theme/functions';
 
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
@@ -52,9 +56,9 @@ const styles = StyleSheet.create({
     width: $navbar-toggler-font-size * 1.5; // 1.5em;
     height: $navbar-toggler-font-size * 1.5; // 1.5em;
     // vertical-align: middle;
-    // background-repeat: no-repeat;
-    // background-position: center;
-    // background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
   `,
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-toggler`]: css`
@@ -69,17 +73,24 @@ const styles = StyleSheet.create({
   '.navbar-light .navbar-toggler-text': css`
     color: $navbar-light-color;
   `,
+  '.navbar-light .navbar-toggler-icon': css`
+    background-image: ${(t) => escapeSvg(t['navbar-light-toggler-icon-bg'])};
+  `,
   '.navbar-dark .navbar-toggler': css`
     border-color: $navbar-dark-toggler-border-color;
   `,
   '.navbar-dark .navbar-toggler-text': css`
     color: $navbar-dark-color;
   `,
+  '.navbar-dark .navbar-toggler-icon': css`
+    background-image: ${(t) => escapeSvg(t['navbar-dark-toggler-icon-bg'])};
+  `,
 });
 
 const NavbarToggler = React.forwardRef((props, ref) => {
   const { style, textStyle, iconStyle, ...elementProps } = props;
 
+  const media = useMedia();
   const { variant, expand } = useForcedContext(NavbarContext);
 
   const classes = getStyles(styles, [
@@ -94,7 +105,15 @@ const NavbarToggler = React.forwardRef((props, ref) => {
     `.navbar-${variant} .navbar-toggler-text`,
   ]);
 
-  const iconClasses = getStyles(styles, ['.navbar-toggler-icon']);
+  const iconClasses = getStyles(styles, [
+    '.navbar-toggler-icon',
+    `.navbar-${variant} .navbar-toggler-icon`,
+  ]);
+
+  const resolveIconStyle = useStyle([iconClasses, iconStyle]);
+  const background = useBackground(resolveIconStyle({ media }));
+
+  console.log(background);
 
   return (
     <Pressable
@@ -104,9 +123,7 @@ const NavbarToggler = React.forwardRef((props, ref) => {
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >
-      <View style={[iconClasses, iconStyle]}>
-        {StyleSheet.value(`navbar-${variant}-toggler-icon-bg`)}
-      </View>
+      <View style={background.style}>{background.element}</View>
     </Pressable>
   );
 });

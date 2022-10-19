@@ -3,11 +3,24 @@ import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 import rem from './rem';
 import formula from './formula';
 import rgba from './rgba';
+import backgroundSize from './properties/backgroundSize';
+import backgroundPosition from './properties/backgroundPosition';
+import backgroundPositionX from './properties/backgroundPositionX';
+import backgroundPositionY from './properties/backgroundPositionY';
+
+const urlRE = /^url\(.*?\)$/g;
 
 const applyVariables = (variables, key, value) =>
   typeof value === 'function' ? value(variables, key) : value;
 
-const applyTransforms = (result) => rgba(formula(rem(result)));
+const applyTransforms = (result) => {
+  // Do not transform values that belong to an url().
+  if (result.match(urlRE)) {
+    return result;
+  }
+
+  return rgba(formula(rem(result)));
+};
 
 const resolveValue = (value, definition, theme, options) => {
   const variables = options.preferTheme
@@ -62,12 +75,6 @@ export default function transform(
               boxShadow: value,
             });
           }
-        } else if (child.name === 'order') {
-          if (Platform.OS === 'web') {
-            Object.assign(definitions[0].declarations, {
-              order: value,
-            });
-          }
         } else if (child.name === 'margin-vertical') {
           Object.assign(definitions[0].declarations, {
             ...getStylesForProperty('marginTop', value),
@@ -90,6 +97,20 @@ export default function transform(
             ...getStylesForProperty('paddingLeft', value),
             ...getStylesForProperty('paddingRight', value),
           });
+        } else if (child.name === 'background-size') {
+          Object.assign(definitions[0].declarations, backgroundSize(value));
+        } else if (child.name === 'background-position') {
+          Object.assign(definitions[0].declarations, backgroundPosition(value));
+        } else if (child.name === 'background-position-x') {
+          Object.assign(
+            definitions[0].declarations,
+            backgroundPositionX(value),
+          );
+        } else if (child.name === 'background-position-y') {
+          Object.assign(
+            definitions[0].declarations,
+            backgroundPositionY(value),
+          );
         } else if (
           child.name === 'border-color' &&
           value.split(' ').length === 1

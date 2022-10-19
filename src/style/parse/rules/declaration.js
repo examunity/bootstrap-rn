@@ -6,6 +6,7 @@ const breaksDeclaration = (char) =>
   char !== '$' &&
   char !== ';' &&
   char !== '}' &&
+  // char !== '(' &&
   char !== '';
 
 const declaration = {
@@ -46,6 +47,11 @@ const declaration = {
       }
 
       const part = input.charsWhile(breaksDeclaration, true);
+
+      // TODO: Parse functions
+      /* if (input.peek() === '(') {
+
+      } */
 
       if (part.length > 0) {
         value.push(part);
