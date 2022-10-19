@@ -20,6 +20,7 @@ const ALIGNMENT_BREAKPOINTS = [true, 'sm', 'md', 'lg', 'xl', 'xxl'];
 const propTypes = {
   children: PropTypes.node.isRequired,
   start: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
+  right: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
   end: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -130,11 +131,17 @@ const DropdownMenu = React.forwardRef((props, ref) => {
   const {
     children,
     start = true,
+    right,
     end = false,
     style,
     textStyle,
     ...elementProps
   } = props;
+
+  if (right !== undefined) {
+    // eslint-disable-next-line no-console
+    console.warn('Prop "right" is deprecated, please use "end" instead.');
+  }
 
   const navbar = useContext(NavbarContext);
   const media = useMedia();
