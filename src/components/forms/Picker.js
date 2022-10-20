@@ -44,8 +44,15 @@ const styles = StyleSheet.create({
     width: 100%;
     padding: $form-select-padding-y $form-select-indicator-padding
       $form-select-padding-y $form-select-padding-x;
-    // See https://github.com/twbs/bootstrap/issues/32636
-    // -moz-padding-start: subtract($form-select-padding-x, 3px);
+    /* @include platform(web) {
+      // See https://github.com/twbs/bootstrap/issues/32636
+      -moz-padding-start: subtract($form-select-padding-x, 3px);
+    } */
+    font-family: $form-select-font-family;
+    font-size: $form-select-font-size;
+    font-weight: $form-select-font-weight;
+    line-height: $form-select-font-size * $form-select-line-height;
+    color: $form-select-color;
     background-color: $form-select-bg;
     background-image: ${(t) => escapeSvg(t['form-select-indicator'])};
     background-repeat: no-repeat;
@@ -74,13 +81,6 @@ const styles = StyleSheet.create({
         // }
       }
     }
-  `,
-  '.form-select-text': css`
-    font-family: $form-select-font-family;
-    font-size: $form-select-font-size;
-    font-weight: $form-select-font-weight;
-    line-height: $form-select-font-size * $form-select-line-height;
-    color: $form-select-color;
   `,
   '.form-select-disabled': css`
     color: $form-select-disabled-color;
@@ -111,20 +111,48 @@ const styles = StyleSheet.create({
       }
     `,
   })),
-  nativeSelect: css`
-    flex-direction: row;
-    justify-content: space-between;
-  `,
-  nativeSelectIndicator: css`
-    align-self: center;
-    margin-right: $form-select-padding-x - $form-select-indicator-padding;
-    width: ${(t) => t['form-select-bg-size'].split(' ')[0]};
-    height: ${(t) => t['form-select-bg-size'].split(' ')[1]};
-  `,
-  nativeSelectMenu: css`
+});
+
+const menuStyles = StyleSheet.create({
+  body: css`
     align-items: center;
   `,
 });
+
+// Ref: https://reactnative.dev/docs/text-style-props
+const textStyleKeys = [
+  'color',
+  'fontFamily',
+  'fontSize',
+  'fontStyle',
+  'fontWeight',
+  'includeFontPaddingAndroid',
+  'fontVariant',
+  'letterSpacing',
+  'lineHeight',
+  'textAlign',
+  'textAlignVerticalAndroid',
+  'textDecorationColoriOS',
+  'textDecorationLine',
+  'textDecorationStyleiOS',
+  'textShadowColor',
+  'textShadowOffset',
+  'textShadowRadius',
+  'textTransform',
+  'writingDirection',
+];
+
+const extractTextStyles = (style) => {
+  const textStyles = {};
+
+  Object.entries(style).forEach(([key, value]) => {
+    if (textStyleKeys.includes(key)) {
+      textStyles[key] = value;
+    }
+  });
+
+  return textStyles;
+};
 
 const Picker = React.forwardRef((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
@@ -203,6 +231,7 @@ const Picker = React.forwardRef((props, ref) => {
   }));
 
   const selectedItem = items.find((item) => item.value === value);
+  const textStyle = extractTextStyles(background.style);
 
   return (
     <PickerContext.Provider
@@ -218,8 +247,7 @@ const Picker = React.forwardRef((props, ref) => {
       <Pressable
         {...elementProps}
         ref={modifierRef}
-        // role "listbox" is not supported in react-native :(
-        accessibilityRole="button"
+        accessibilityRole="combobox"
         accessibilityDisabled={disabled}
         accessible
         focusable={!disabled}
@@ -235,7 +263,7 @@ const Picker = React.forwardRef((props, ref) => {
         style={background.style}
       >
         {background.element}
-        <Text numberOfLines={1}>
+        <Text numberOfLines={1} style={textStyle}>
           {selectedItem ? selectedItem.label : placeholder}
         </Text>
       </Pressable>
@@ -246,7 +274,7 @@ const Picker = React.forwardRef((props, ref) => {
           setOpen(false);
         }}
       >
-        <Offcanvas.Body contentContainerStyle={styles.nativeSelectMenu}>
+        <Offcanvas.Body contentContainerStyle={menuStyles.body}>
           {children}
         </Offcanvas.Body>
       </Offcanvas>
