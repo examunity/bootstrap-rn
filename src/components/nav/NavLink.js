@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     padding: $nav-link-padding-y $nav-link-padding-x;
     // @include transition($nav-link-transition);
   `,
-  '.nav-link-text': css`
+  '.nav-link --text': css`
     font-size: $nav-link-font-size;
     font-weight: $nav-link-font-weight;
     color: $nav-link-color;
@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
       text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
   `,
-  '.nav-link-disabled': css`
+  '.nav-link.disabled': css`
     @include platform(web) {
       pointer-events: none;
       cursor: default;
     }
   `,
-  '.nav-link-disabled-text': css`
+  '.nav-link.disabled --text': css`
     color: $nav-link-disabled-color;
   `,
   '.nav-tabs .nav-link': css`
@@ -78,14 +78,14 @@ const styles = StyleSheet.create({
       border-color: $nav-tabs-link-hover-border-color;
     }
   `,
-  '.nav-tabs .nav-link-disabled': css`
+  '.nav-tabs .nav-link.disabled': css`
     background-color: transparent;
     border-color: transparent;
   `,
-  '.nav-tabs .nav-link-disabled-text': css`
+  '.nav-tabs .nav-link.disabled --text': css`
     color: $nav-link-disabled-color;
   `,
-  '.nav-tabs .nav-link-active': css`
+  '.nav-tabs .nav-link.active': css`
     background-color: $nav-tabs-link-active-bg;
     border-color: $nav-tabs-link-active-border-color;
 
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
       border-color: $nav-tabs-link-active-border-color; // added for bootstrap-rn
     }
   `,
-  '.nav-tabs .nav-link-active-text': css`
+  '.nav-tabs .nav-link.active --text': css`
     color: $nav-tabs-link-active-color;
 
     &:hover {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     border: 0;
     border-radius: $nav-pills-border-radius;
   `,
-  '.nav-pills .nav-link-active': css`
+  '.nav-pills .nav-link.active': css`
     // @include gradient-bg($nav-pills-link-active-bg);
     background-color: $nav-pills-link-active-bg; // added for bootstrap-rn
 
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
       background-color: $nav-pills-link-active-bg; // added for bootstrap-rn
     }
   `,
-  '.nav-pills .nav-link-active-text': css`
+  '.nav-pills .nav-link.active --text': css`
     color: $nav-pills-link-active-color;
 
     &:hover {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
       }
     `,
   })),
-  '.navbar-light .navbar-nav .nav-link-text': css`
+  '.navbar-light .navbar-nav .nav-link --text': css`
     color: $navbar-light-color;
 
     &:hover {
@@ -157,10 +157,10 @@ const styles = StyleSheet.create({
       color: $navbar-light-hover-color;
     }
   `,
-  '.navbar-light .navbar-nav .nav-link-disabled-text': css`
+  '.navbar-light .navbar-nav .nav-link.disabled --text': css`
     color: $navbar-light-disabled-color;
   `,
-  '.navbar-light .navbar-nav .nav-link-active-text': css`
+  '.navbar-light .navbar-nav .nav-link.active --text': css`
     color: $navbar-light-active-color;
 
     &:hover {
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
       color: $navbar-light-active-color; // added for bootstrap-rn
     }
   `,
-  '.navbar-dark .navbar-nav .nav-link-text': css`
+  '.navbar-dark .navbar-nav .nav-link --text': css`
     color: $navbar-dark-color;
 
     &:hover {
@@ -180,10 +180,10 @@ const styles = StyleSheet.create({
       color: $navbar-dark-hover-color;
     }
   `,
-  '.navbar-dark .navbar-nav .nav-link-disabled-text': css`
+  '.navbar-dark .navbar-nav .nav-link.disabled --text': css`
     color: $navbar-dark-disabled-color;
   `,
-  '.navbar-dark .navbar-nav .nav-link-active-text': css`
+  '.navbar-dark .navbar-nav .nav-link.active --text': css`
     color: $navbar-dark-active-color;
 
     &:hover {
@@ -214,9 +214,9 @@ const NavLink = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.nav-link',
-    disabled && '.nav-link-disabled',
+    disabled && '.nav-link.disabled',
     variant && `.nav-${variant} .nav-link`,
-    variant === 'tabs' && disabled && '.nav-tabs .nav-link-disabled',
+    variant === 'tabs' && disabled && '.nav-tabs .nav-link.disabled',
     // Navbar styles
     navbar && '.navbar-nav .nav-link',
     navbar &&
@@ -227,35 +227,35 @@ const NavLink = React.forwardRef((props, ref) => {
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link`,
     navbar &&
       disabled &&
-      `.navbar-${navbar.variant} .navbar-nav .nav-link-disabled`,
+      `.navbar-${navbar.variant} .navbar-nav .nav-link.disabled`,
   ]);
 
   const activeClasses = getStyles(styles, [
-    variant && `.nav-${variant} .nav-link-active`,
+    variant && `.nav-${variant} .nav-link.active`,
     // Navbar styles
-    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link-active`,
+    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link.active`,
   ]);
 
   const textClasses = getStyles(styles, [
-    '.nav-link-text',
-    disabled && '.nav-link-disabled-text',
-    variant && `.nav-${variant} .nav-link-text`,
-    variant === 'tabs' && disabled && '.nav-tabs .nav-link-disabled-text',
+    '.nav-link --text',
+    disabled && '.nav-link.disabled --text',
+    variant && `.nav-${variant} .nav-link --text`,
+    variant === 'tabs' && disabled && '.nav-tabs .nav-link.disabled --text',
     // Navbar styles
-    navbar && '.navbar-nav .nav-link-text',
+    navbar && '.navbar-nav .nav-link --text',
     navbar &&
       navbar.expand &&
-      `.navbar-expand${infix(navbar.expand)} .navbar-nav .nav-link-text`,
-    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link-text`,
+      `.navbar-expand${infix(navbar.expand)} .navbar-nav .nav-link --text`,
+    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link --text`,
     navbar &&
       disabled &&
-      `.navbar-${navbar.variant} .navbar-nav .nav-link-disabled-text`,
+      `.navbar-${navbar.variant} .navbar-nav .nav-link.disabled --text`,
   ]);
 
   const activeTextClasses = getStyles(styles, [
-    variant && `.nav-${variant} .nav-link-active-text`,
+    variant && `.nav-${variant} .nav-link.active --text`,
     // Navbar styles
-    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link-active-text`,
+    navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link.active --text`,
   ]);
 
   return (

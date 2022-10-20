@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     background-color: $progress-bar-bg;
     // @include transition($progress-bar-transition);
   `,
-  '.progress-bar-text': css`
+  '.progress-bar --text': css`
     color: $progress-bar-color;
     text-align: center;
     // white-space: nowrap;
@@ -47,7 +47,7 @@ const ProgressBar = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.progress-bar']);
 
-  const textClasses = getStyles(styles, ['.progress-bar-text']);
+  const textClasses = getStyles(styles, ['.progress-bar --text']);
 
   // composite component
   return (

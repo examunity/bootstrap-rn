@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
       }
     }
   `,
-  '.btn-text': css`
+  '.btn --text': css`
     font-family: $btn-font-family;
     font-weight: $btn-font-weight;
     line-height: $btn-font-size * $btn-line-height;
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
       text-decoration: none; // if($link-decoration == none, null, none);
     }
   `,
-  '.btn-disabled': css`
+  '.btn.disabled': css`
     // pointer-events: none;
     opacity: $btn-disabled-opacity;
     // @include box-shadow(none);
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         )};
       }
     `,
-    [`.btn-${color}-text`]: css`
+    [`.btn-${color} --text`]: css`
       color: ${colorContrast(value)};
 
       &:hover {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         color: ${colorContrast(value)};
       }
     `,
-    [`.btn-${color}-active`]: css`
+    [`.btn-${color}.active`]: css`
       background-color: ${shadeColor(
         (t) => t['btn-active-bg-shade-amount'],
         value,
@@ -153,10 +153,10 @@ const styles = StyleSheet.create({
         value,
       )};
     `,
-    [`.btn-${color}-active-text`]: css`
+    [`.btn-${color}.active --text`]: css`
       color: ${colorContrast(value)};
     `,
-    [`.btn-${color}-disabled`]: css`
+    [`.btn-${color}.disabled`]: css`
       $disabled-background: ${value};
       $disabled-border: ${value};
 
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
       // background-image: if($enable-gradients, none, null);
       border-color: $disabled-border;
     `,
-    [`.btn-${color}-disabled-text`]: css`
+    [`.btn-${color}.disabled --text`]: css`
       $disabled-color: ${colorContrast(value)};
 
       color: $disabled-color;
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         } */
       }
     `,
-    [`.btn-outline-${color}-text`]: css`
+    [`.btn-outline-${color} --text`]: css`
       color: ${value};
 
       &:hover {
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
         color: ${colorContrast(value)};
       }
     `,
-    [`.btn-outline-${color}-disabled`]: css`
+    [`.btn-outline-${color}.disabled`]: css`
       background-color: transparent;
     `,
-    [`.btn-outline-${color}-disabled-text`]: css`
+    [`.btn-outline-${color}.disabled --text`]: css`
       color: ${value};
     `,
   })),
-  '.btn-link-text': css`
+  '.btn-link --text': css`
     font-weight: $font-weight-normal;
     color: $btn-link-color;
     text-decoration-color: $btn-link-color; // added for bootstrap-rn
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
 
     // No need for an active state here
   `,
-  '.btn-link-text-disabled': css`
+  '.btn-link.disabled --text': css`
     color: $btn-link-disabled-color;
   `,
   '.btn-lg': css`
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     // Manually declare to provide an override to the browser default
     border-radius: $btn-border-radius-lg;
   `,
-  '.btn-lg-text': css`
+  '.btn-lg --text': css`
     line-height: $btn-font-size-lg * $btn-line-height;
     font-size: $btn-font-size-lg;
   `,
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     // Manually declare to provide an override to the browser default
     border-radius: $btn-border-radius-sm;
   `,
-  '.btn-sm-text': css`
+  '.btn-sm --text': css`
     line-height: $btn-font-size-sm * $btn-line-height;
     font-size: $btn-font-size-sm;
   `,
@@ -270,15 +270,15 @@ const styles = StyleSheet.create({
       z-index: 1;
     }
   `,
-  '.btn-group > .btn-active': css`
+  '.btn-group > .btn.active': css`
     z-index: 2; // 1;
   `,
-  '.btn-group > .btn-not-first': css`
+  '.btn-group > .btn:not(:first-child)': css`
     margin-left: -$btn-border-width;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   `,
-  '.btn-group > .btn-not-last': css`
+  '.btn-group > .btn:not(:last-child)': css`
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   `,
@@ -331,32 +331,32 @@ const Button = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, [
     '.btn',
     getVariant(color, outline),
-    disabled && '.btn-disabled',
-    disabled && `${getVariant(color, outline)}-disabled`,
+    disabled && '.btn.disabled',
+    disabled && `${getVariant(color, outline)}.disabled`,
     hasSize(size, group, 'lg') && '.btn-lg',
     hasSize(size, group, 'sm') && '.btn-sm',
     group && '.btn-group > .btn',
-    group && active && '.btn-group > .btn-active',
-    group && !first && '.btn-group > .btn-not-first',
-    group && !last && '.btn-group > .btn-not-last',
+    group && active && '.btn-group > .btn.active',
+    group && !first && '.btn-group > .btn:not(:first-child)',
+    group && !last && '.btn-group > .btn:not(:last-child)',
   ]);
 
   const activeClasses = getStyles(styles, [
-    `${getVariant(color, outline)}-active`,
+    `${getVariant(color, outline)}.active`,
   ]);
 
   const textClasses = getStyles(styles, [
-    '.btn-text',
-    `${getVariant(color, outline)}-text`,
-    color === 'link' && '.btn-link-text',
-    disabled && `${getVariant(color, outline)}-text-disabled`,
-    disabled && color === 'link' && '.btn-link-text-disabled',
-    hasSize(size, group, 'lg') && '.btn-lg-text',
-    hasSize(size, group, 'sm') && '.btn-sm-text',
+    '.btn --text',
+    `${getVariant(color, outline)} --text`,
+    color === 'link' && '.btn-link --text',
+    disabled && `${getVariant(color, outline)}.disabled --text`,
+    disabled && color === 'link' && '.btn-link.disabled --text',
+    hasSize(size, group, 'lg') && '.btn-lg --text',
+    hasSize(size, group, 'sm') && '.btn-sm --text',
   ]);
 
   const activeTextClasses = getStyles(styles, [
-    `${getVariant(color, outline)}-active-text`,
+    `${getVariant(color, outline)}.active --text`,
   ]);
 
   return (

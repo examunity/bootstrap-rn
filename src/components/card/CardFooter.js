@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     border-color: $card-border-color;
     border-radius: 0 0 $card-inner-border-radius $card-inner-border-radius;
   `,
-  '.card-footer-text': css`
+  '.card-footer --text': css`
     color: $card-cap-color;
   `,
 });
@@ -32,7 +32,7 @@ const CardFooter = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.card-footer']);
 
-  const textClasses = getStyles(styles, ['.card-footer-text']);
+  const textClasses = getStyles(styles, ['.card-footer --text']);
 
   return (
     <View

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     background-color: $body-bg;
     flex-grow: 1; // added for bootstrap-rn
   `,
-  'body-text': css`
+  'body --text': css`
     color: $body-color;
     text-align: $body-text-align;
   `,
@@ -33,7 +33,7 @@ const Body = React.forwardRef((props, ref) => {
   const { children, style, textStyle, styleName, ...elementProps } = props;
 
   const classes = getStyles(styles, ['body']);
-  const textClasses = getStyles(styles, ['body-text']);
+  const textClasses = getStyles(styles, ['body --text']);
 
   const media = useMedia();
 

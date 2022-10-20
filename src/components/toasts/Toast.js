@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     // box-shadow: $toast-box-shadow;
     border-radius: $toast-border-radius;
   `,
-  '.toast-text': css`
+  '.toast --text': css`
     font-size: $toast-font-size;
     line-height: $toast-font-size * $line-height-base; // added for bootstrap-rn
     color: $toast-color;
@@ -48,7 +48,7 @@ const Toast = React.forwardRef((props, ref) => {
     container && !last && '.toast-container .toast',
   ]);
 
-  const textClasses = getStyles(styles, [`.toast-text`]);
+  const textClasses = getStyles(styles, ['.toast --text']);
 
   return (
     <View

@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
     padding-left: $breadcrumb-item-padding-x;
     padding-right: $breadcrumb-item-padding-x;
   `,
-  '.breadcrumb-text': css`
+  '.breadcrumb --text': css`
     color: $primary;
   `,
-  '.breadcrumb-item-active': css`
+  '.breadcrumb-item.active': css`
     color: $breadcrumb-active-color;
   `,
 });
@@ -32,12 +32,12 @@ const BreadcrumbItem = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.breadcrumb-item',
-    active && '.breadcrumb-item-active',
+    active && '.breadcrumb-item.active',
   ]);
 
   const textClasses = getStyles(styles, [
-    '.breadcrumb-text',
-    active && '.breadcrumb-item-active',
+    '.breadcrumb --text',
+    active && '.breadcrumb-item.active',
   ]);
 
   return (

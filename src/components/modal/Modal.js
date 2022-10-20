@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
       // @include box-shadow($modal-content-box-shadow-sm-up);
     }
   `,
-  '.modal-content-text': css`
+  '.modal-content --text': css`
     color: $modal-content-color;
   `,
   '.modal-backdrop': css`
@@ -169,7 +169,7 @@ const Modal = React.forwardRef((props, ref) => {
     '.modal-content',
     scrollable && '.modal-dialog-scrollable .modal-content',
   ]);
-  const contentTextClasses = getStyles(styles, ['.modal-content-text']);
+  const contentTextClasses = getStyles(styles, ['.modal-content --text']);
 
   // If scrollable we use a ScrollView in ModalBody, so we can use a View here.
   const FlexView = scrollable ? View : ScrollView;

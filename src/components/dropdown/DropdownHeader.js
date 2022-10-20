@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     // display: block;
     padding: $dropdown-header-padding;
   `,
-  '.dropdown-header-text': css`
+  '.dropdown-header --text': css`
     margin-bottom: 0; // for use with heading elements
     font-size: $font-size-sm;
     color: $dropdown-header-color;
@@ -31,7 +31,7 @@ const DropdownHeader = React.forwardRef((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.dropdown-header']);
-  const textClasses = getStyles(styles, ['.dropdown-header-text']);
+  const textClasses = getStyles(styles, ['.dropdown-header --text']);
 
   // composite component
   return (

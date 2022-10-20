@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   blockquote: css`
     margin-bottom: $blockquote-margin-y;
   `,
-  'blockquote-text': css`
+  'blockquote --text': css`
     font-size: $blockquote-font-size;
   `,
 });
@@ -28,7 +28,7 @@ const Blockquote = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['blockquote']);
 
-  const textClasses = getStyles(styles, ['blockquote-text']);
+  const textClasses = getStyles(styles, ['blockquote --text']);
 
   // Accessiblity role blockquote is only supported on web.
   const role = Platform.OS === 'web' ? 'blockquote' : null;

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     margin: 0.25rem 1rem;
     padding: 0.25rem;
   `,
-  '.form-select-item-disabled': css``,
+  '.form-select-item.disabled': css``,
 });
 
 const PickerItem = React.forwardRef((props, ref) => {
@@ -50,7 +50,7 @@ const PickerItem = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.form-select-item',
-    disabled && '.form-select-item-disabled',
+    disabled && '.form-select-item.disabled',
   ]);
 
   const resolveStyle = useStyle(classes);

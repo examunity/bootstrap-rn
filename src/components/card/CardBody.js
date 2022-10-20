@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     // flex: 1 1 auto;
     padding: $card-spacer-y $card-spacer-x;
   `,
-  '.card-body-text': css`
+  '.card-body --text': css`
     color: $card-color;
   `,
 });
@@ -28,7 +28,7 @@ const CardBody = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.card-body']);
 
-  const textClasses = getStyles(styles, [`.card-body-text`]);
+  const textClasses = getStyles(styles, [`.card-body --text`]);
 
   return (
     <View

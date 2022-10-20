@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     border-radius: $progress-border-radius;
     // @include box-shadow($progress-box-shadow);
   `,
-  '.progress-text': css`
+  '.progress --text': css`
     font-size: $progress-font-size;
     line-height: $progress-font-size * $line-height-base; // added for bootstrap-rn
   `,
@@ -48,7 +48,7 @@ const Progress = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.progress']);
 
-  const textClasses = getStyles(styles, ['.progress-text']);
+  const textClasses = getStyles(styles, ['.progress --text']);
 
   return (
     <View

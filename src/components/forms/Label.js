@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   '.form-label': css`
     margin-bottom: $form-label-margin-bottom;
   `,
-  '.form-label-text': css`
+  '.form-label --text': css`
     font-size: $form-label-font-size;
     font-style: $form-label-font-style;
     font-weight: $form-label-font-weight;
@@ -30,7 +30,7 @@ const Label = React.forwardRef((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.form-label']);
-  const textClasses = getStyles(styles, ['.form-label-text']);
+  const textClasses = getStyles(styles, ['.form-label --text']);
 
   // composite component
   return (

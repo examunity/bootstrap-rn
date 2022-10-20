@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     // display: block;
     padding: $dropdown-item-padding-y $dropdown-item-padding-x;
   `,
-  '.dropdown-item-text-text': css`
+  '.dropdown-item-text --text': css`
     color: $dropdown-link-color;
   `,
 });
@@ -28,7 +28,7 @@ const DropdownItemText = React.forwardRef((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.dropdown-item-text']);
-  const textClasses = getStyles(styles, ['.dropdown-item-text-text']);
+  const textClasses = getStyles(styles, ['.dropdown-item-text --text']);
 
   // composite component
   return (

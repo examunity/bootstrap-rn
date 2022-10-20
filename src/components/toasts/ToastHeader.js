@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
       (t) => t['toast-border-width'],
     )};
   `,
-  '.toast-header-text': css`
+  '.toast-header --text': css`
     color: $toast-header-color;
   `,
 });
@@ -44,7 +44,7 @@ const ToastHeader = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.toast-header']);
 
-  const textClasses = getStyles(styles, ['.toast-header-text']);
+  const textClasses = getStyles(styles, ['.toast-header --text']);
 
   return (
     <View

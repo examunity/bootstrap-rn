@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     border-radius: $popover-border-radius;
     // @include box-shadow($popover-box-shadow);
   `,
-  '.popover-text': css`
+  '.popover --text': css`
     // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
     // So reset our font and text properties to avoid inheriting weird values.
     // @include reset-text();
@@ -64,7 +64,7 @@ const Popover = React.forwardRef((props, ref) => {
   };
 
   const classes = getStyles(styles, ['.popover']);
-  const textClasses = getStyles(styles, ['.popover-text']);
+  const textClasses = getStyles(styles, ['.popover --text']);
 
   // Accessiblity role tooltip is only supported on web.
   const role = Platform.OS === 'web' ? 'tooltip' : null;

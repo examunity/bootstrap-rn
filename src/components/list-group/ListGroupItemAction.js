@@ -47,7 +47,7 @@ const actionStyles = StyleSheet.create({
       background-color: $list-group-action-active-bg;
     }
   `,
-  '.list-group-item-action-text': css`
+  '.list-group-item-action --text': css`
     color: $list-group-action-color;
     // text-align: inherit; // For "<button>"s (anchors inherit)
 
@@ -82,7 +82,7 @@ const actionStyles = StyleSheet.create({
         )};
       }
     `,
-    [`.list-group-item-${state}-action-text`]: css`
+    [`.list-group-item-${state}-action --text`]: css`
       &:hover {
         color: ${shiftColor((t) => t['list-group-item-color-scale'], value)};
       }
@@ -91,7 +91,7 @@ const actionStyles = StyleSheet.create({
         color: ${shiftColor((t) => t['list-group-item-color-scale'], value)};
       }
     `,
-    [`.list-group-item-${state}-action-active`]: css`
+    [`.list-group-item-${state}-action.active`]: css`
       background-color: ${shiftColor(
         (t) => t['list-group-item-color-scale'],
         value,
@@ -101,7 +101,7 @@ const actionStyles = StyleSheet.create({
         value,
       )};
     `,
-    [`.list-group-item-${state}-action-active-text`]: css`
+    [`.list-group-item-${state}-action.active --text`]: css`
       color: $white;
     `,
   })),
@@ -131,33 +131,33 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, [
     '.list-group-item',
     '.list-group-item-action',
-    first && '.list-group-item-first',
-    last && '.list-group-item-last',
-    disabled && '.list-group-item-disabled',
-    !first && '.list-group-item-not-first',
-    !first && active && '.list-group-item-not-first-active',
+    first && '.list-group-item:first-child',
+    last && '.list-group-item:last-child',
+    disabled && '.list-group-item.disabled',
+    !first && '.list-group-item + .list-group-item',
+    !first && active && '.list-group-item + .list-group-item.active',
     flush && '.list-group-item-flush',
-    flush && last && '.list-group-item-flush-last',
+    flush && last && '.list-group-item-flush:last-child',
     color && `.list-group-item-${color}`,
     color && `.list-group-item-${color}-action`,
   ]);
 
   const activeClasses = getStyles(styles, [
-    '.list-group-item-active',
-    color && `.list-group-item-${color}-action-active`,
+    '.list-group-item.active',
+    color && `.list-group-item-${color}-action.active`,
   ]);
 
   const textClasses = getStyles(styles, [
-    '.list-group-item-text',
-    '.list-group-item-action-text',
-    disabled && '.list-group-item-disabled-text',
-    color && `.list-group-item-${color}-text`,
-    color && `.list-group-item-${color}-action-text`,
+    '.list-group-item --text',
+    '.list-group-item-action --text',
+    disabled && '.list-group-item.disabled --text',
+    color && `.list-group-item-${color} --text`,
+    color && `.list-group-item-${color}-action --text`,
   ]);
 
   const activeTextClasses = getStyles(styles, [
-    '.list-group-item-active-text',
-    color && `.list-group-item-${color}-action-active-text`,
+    '.list-group-item.active --text',
+    color && `.list-group-item-${color}-action.active --text`,
   ]);
 
   return (

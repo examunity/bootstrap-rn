@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     padding-left: $form-check-padding-start;
     margin-bottom: $form-check-margin-bottom;
   `,
-  '.form-check-disabled': css`
+  '.form-check.disabled': css`
     opacity: $form-check-label-disabled-opacity;
   `,
   '.form-check-input': css`
@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
   '.form-check-input-radio': css`
     border-radius: $form-check-radio-border-radius;
   `,
-  '.form-check-input-checked': css`
+  '.form-check-input:checked': css`
     background-color: $form-check-input-checked-bg-color;
     border-color: $form-check-input-checked-border-color;
   `,
-  '.form-check-input-checkbox-checked': css`
+  '.form-check-input-checkbox:checked': css`
     // @if $enable-gradients {
     //   background-image: escape-svg($form-check-input-checked-bg-image), var(--#{$variable-prefix}gradient);
     // } @else {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
       escapeSvg(t['form-check-input-checked-bg-image'])};
     // }
   `,
-  '.form-check-input-radio-checked': css`
+  '.form-check-input-radio:checked': css`
     // @if $enable-gradients {
     //   background-image: escape-svg($form-check-radio-checked-bg-image), var(--#{$variable-prefix}gradient);
     // } @else {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
       background-image: ${(t) => escapeSvg(t['form-switch-focus-bg-image'])};
     }
   `,
-  '.form-switch .form-check-input-checked': css`
+  '.form-switch .form-check-input:checked': css`
     background-position: $form-switch-checked-bg-position;
 
     // @if $enable-gradients {
@@ -202,7 +202,7 @@ const CheckInput = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.form-check',
-    disabled && '.form-check-disabled',
+    disabled && '.form-check.disabled',
     type === 'switch' && '.form-switch',
   ]);
 
@@ -211,10 +211,10 @@ const CheckInput = React.forwardRef((props, ref) => {
     type === 'checkbox' && '.form-check-input-checkbox',
     type === 'radio' && '.form-check-input-radio',
     type === 'switch' && '.form-switch .form-check-input',
-    value && '.form-check-input-checked',
-    type === 'checkbox' && value && '.form-check-input-checkbox-checked',
-    type === 'radio' && value && '.form-check-input-radio-checked',
-    type === 'switch' && value && '.form-switch .form-check-input-checked',
+    value && '.form-check-input:checked',
+    type === 'checkbox' && value && '.form-check-input-checkbox:checked',
+    type === 'radio' && value && '.form-check-input-radio:checked',
+    type === 'switch' && value && '.form-switch .form-check-input:checked',
     valid && '.form-check-input.is-valid',
     valid && value && '.form-check-input-checked.is-valid',
     invalid && '.form-check-input.is-invalid',

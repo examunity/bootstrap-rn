@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     border-radius: $badge-border-radius;
     // @include gradient-bg();
   `,
-  '.badge-text': css`
+  '.badge --text': css`
     font-size: $badge-font-size;
     font-weight: $badge-font-weight;
     line-height: $badge-font-size * 1;
@@ -36,7 +36,7 @@ const Badge = React.forwardRef((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.badge']);
-  const textClasses = getStyles(styles, ['.badge-text']);
+  const textClasses = getStyles(styles, ['.badge --text']);
 
   // composite component
   return (

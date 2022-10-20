@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     border-top-left-radius: $popover-border-radius;
     border-top-right-radius: $popover-border-radius;
   `,
-  '.popover-header-text': css`
+  '.popover-header --text': css`
     margin-bottom: 0; // Reset the default from Reboot
     font-size: $font-size-base;
     line-height: $font-size-base * $headings-line-height; // added for bootstrap-rn
@@ -36,7 +36,7 @@ const PopoverHeader = React.forwardRef((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.popover-header']);
-  const textClasses = getStyles(styles, ['.popover-header-text']);
+  const textClasses = getStyles(styles, ['.popover-header --text']);
 
   // composite component
   return (

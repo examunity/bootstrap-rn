@@ -39,21 +39,21 @@ const styles = StyleSheet.create({
     }
   `,
 
-  '.pagination-item-first': css`
+  '.pagination-item:first-child': css`
     border-top-left-radius: $list-group-border-radius;
     border-bottom-left-radius: $list-group-border-radius;
   `,
-  '.pagination-item-last': css`
+  '.pagination-item:last-child': css`
     border-top-right-radius: $list-group-border-radius;
     border-bottom-right-radius: $list-group-border-radius;
   `,
 
-  '.pagination-item-active': css`
+  '.pagination-item.active': css`
     color: $pagination-active-color;
     background-color: $pagination-active-bg;
     border-color: $pagination-active-border-color;
   `,
-  '.pagination-item-disabled': css`
+  '.pagination-item.disabled': css`
     color: $pagination-disabled-color;
     background-color: $pagination-disabled-bg;
     border-color: $pagination-disabled-border-color;
@@ -74,15 +74,15 @@ const PaginationItem = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.pagination-item',
-    first && '.pagination-item-first',
-    last && '.pagination-item-last',
-    active && '.pagination-item-active',
-    disabled && '.pagination-item-disabled',
+    first && '.pagination-item:first-child',
+    last && '.pagination-item:last-child',
+    active && '.pagination-item.active',
+    disabled && '.pagination-item.disabled',
   ]);
 
   const textClasses = getStyles(styles, [
-    active && '.pagination-item-active',
-    disabled && '.pagination-item-disabled',
+    active && '.pagination-item.active',
+    disabled && '.pagination-item.disabled',
   ]);
 
   return (

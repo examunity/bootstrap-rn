@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     padding-bottom: $navbar-brand-padding-y;
     margin-right: $navbar-brand-margin-end;
   `,
-  '.navbar-brand-text': css`
+  '.navbar-brand --text': css`
     font-size: $navbar-brand-font-size;
     line-height: $navbar-brand-font-size * $line-height-base; // added for bootstrap-rn
     text-decoration: none; // if($link-decoration == none, null, none);
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
       text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
   `,
-  '.navbar-light .navbar-brand-text': css`
+  '.navbar-light .navbar-brand --text': css`
     color: $navbar-light-brand-color;
 
     &:hover {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
       color: $navbar-light-brand-hover-color;
     }
   `,
-  '.navbar-dark .navbar-brand-text': css`
+  '.navbar-dark .navbar-brand --text': css`
     color: $navbar-dark-brand-color;
 
     &:hover {
@@ -64,8 +64,8 @@ const NavbarBrand = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, ['.navbar-brand']);
 
   const textClasses = getStyles(styles, [
-    '.navbar-brand-text',
-    `.navbar-${variant} .navbar-brand-text`,
+    '.navbar-brand --text',
+    `.navbar-${variant} .navbar-brand --text`,
   ]);
 
   return (

@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     padding-top: $nav-link-padding-y;
     padding-bottom: $nav-link-padding-y;
   `,
-  '.navbar-light .navbar-text-text': css`
+  '.navbar-light .navbar-text --text': css`
     color: $navbar-light-color;
   `,
-  '.navbar-dark .navbar-text-text': css`
+  '.navbar-dark .navbar-text --text': css`
     color: $navbar-dark-color;
   `,
 });
@@ -36,7 +36,7 @@ const NavbarText = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.navbar-text']);
   const textClasses = getStyles(styles, [
-    `.navbar-${variant} .navbar-text-text`,
+    `.navbar-${variant} .navbar-text --text`,
   ]);
 
   // composite component

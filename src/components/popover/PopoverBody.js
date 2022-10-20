@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   '.popover-body': css`
     padding: $popover-body-padding-y $popover-body-padding-x;
   `,
-  '.popover-body-text': css`
+  '.popover-body --text': css`
     color: $popover-body-color;
   `,
 });
@@ -27,7 +27,7 @@ const PopoverBody = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.popover-body']);
 
-  const textClasses = getStyles(styles, ['.popover-body-text']);
+  const textClasses = getStyles(styles, ['.popover-body --text']);
 
   return (
     <View

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
       background-color: ${shiftColor((t) => t['alert-bg-scale'], value)};
       border-color: ${shiftColor((t) => t['alert-border-scale'], value)};
     `,
-    [`.alert-${state}-text`]: css`
+    [`.alert-${state} --text`]: css`
       color: ${shiftColor((t) => t['alert-color-scale'], value)};
     `,
   })),
@@ -56,7 +56,7 @@ const Alert = React.forwardRef((props, ref) => {
     dismissible && '.alert-dismissible',
   ]);
 
-  const textClasses = getStyles(styles, [`.alert-${color}-text`]);
+  const textClasses = getStyles(styles, [`.alert-${color} --text`]);
 
   return (
     <View

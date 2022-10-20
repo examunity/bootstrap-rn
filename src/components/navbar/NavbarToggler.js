@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
       // box-shadow: 0 0 0 $navbar-toggler-focus-width;
     }
   `,
-  '.navbar-toggler-text': css`
+  '.navbar-toggler --text': css`
     font-size: $navbar-toggler-font-size;
     line-height: $navbar-toggler-font-size * $line-height-base;
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   '.navbar-light .navbar-toggler': css`
     border-color: $navbar-light-toggler-border-color;
   `,
-  '.navbar-light .navbar-toggler-text': css`
+  '.navbar-light .navbar-toggler --text': css`
     color: $navbar-light-color;
   `,
   '.navbar-light .navbar-toggler-icon': css`
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   '.navbar-dark .navbar-toggler': css`
     border-color: $navbar-dark-toggler-border-color;
   `,
-  '.navbar-dark .navbar-toggler-text': css`
+  '.navbar-dark .navbar-toggler --text': css`
     color: $navbar-dark-color;
   `,
   '.navbar-dark .navbar-toggler-icon': css`
@@ -101,8 +101,8 @@ const NavbarToggler = React.forwardRef((props, ref) => {
   ]);
 
   const textClasses = getStyles(styles, [
-    '.navbar-toggler-text',
-    `.navbar-${variant} .navbar-toggler-text`,
+    '.navbar-toggler --text',
+    `.navbar-${variant} .navbar-toggler --text`,
   ]);
 
   const iconClasses = getStyles(styles, [
@@ -112,8 +112,6 @@ const NavbarToggler = React.forwardRef((props, ref) => {
 
   const resolveIconStyle = useStyle([iconClasses, iconStyle]);
   const background = useBackground(resolveIconStyle({ media }));
-
-  console.log(background);
 
   return (
     <Pressable

@@ -31,37 +31,37 @@ export const styles = StyleSheet.create({
     background-color: $list-group-bg;
     border: $list-group-border-width solid $list-group-border-color;
   `,
-  '.list-group-item-text': css`
+  '.list-group-item --text': css`
     color: $list-group-color;
     text-decoration: none; // if($link-decoration == none, null, none);
   `,
-  '.list-group-item-first': css`
+  '.list-group-item:first-child': css`
     border-top-left-radius: $list-group-border-radius;
     border-top-right-radius: $list-group-border-radius;
   `,
-  '.list-group-item-last': css`
+  '.list-group-item:last-child': css`
     border-bottom-left-radius: $list-group-border-radius;
     border-bottom-right-radius: $list-group-border-radius;
   `,
-  '.list-group-item-disabled': css`
+  '.list-group-item.disabled': css`
     // pointer-events: none;
     background-color: $list-group-disabled-bg;
   `,
-  '.list-group-item-disabled-text': css`
+  '.list-group-item.disabled --text': css`
     color: $list-group-disabled-color;
   `,
-  '.list-group-item-active': css`
+  '.list-group-item.active': css`
     z-index: 2; // Place active items above their siblings for proper border styling
     background-color: $list-group-active-bg;
     border-color: $list-group-active-border-color;
   `,
-  '.list-group-item-active-text': css`
+  '.list-group-item.active --text': css`
     color: $list-group-active-color;
   `,
-  '.list-group-item-not-first': css`
+  '.list-group-item + .list-group-item': css`
     border-top-width: 0;
   `,
-  '.list-group-item-not-first-active': css`
+  '.list-group-item + .list-group-item.active': css`
     margin-top: -$list-group-border-width;
     border-top-width: $list-group-border-width;
   `,
@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     border-bottom-width: $list-group-border-width;
     border-left-width: 0;
   `,
-  '.list-group-item-flush-last': css`
+  '.list-group-item-flush:last-child': css`
     border-bottom-width: 0;
   `,
   ...each(THEME_COLORS, (state, value) => ({
@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
         value,
       )};
     `,
-    [`.list-group-item-${state}-text`]: css`
+    [`.list-group-item-${state} --text`]: css`
       color: ${shiftColor((t) => t['list-group-item-color-scale'], value)};
     `,
   })),
@@ -108,22 +108,22 @@ const ListGroupItem = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.list-group-item',
-    first && '.list-group-item-first',
-    last && '.list-group-item-last',
-    active && '.list-group-item-active',
-    disabled && '.list-group-item-disabled',
-    !first && '.list-group-item-not-first',
-    !first && active && '.list-group-item-not-first-active',
+    first && '.list-group-item:first-child',
+    last && '.list-group-item:last-child',
+    active && '.list-group-item.active',
+    disabled && '.list-group-item.disabled',
+    !first && '.list-group-item + .list-group-item',
+    !first && active && '.list-group-item + .list-group-item.active',
     flush && '.list-group-item-flush',
-    flush && last && '.list-group-item-flush-last',
+    flush && last && '.list-group-item-flush:last-child',
     color && `.list-group-item-${color}`,
   ]);
 
   const textClasses = getStyles(styles, [
-    '.list-group-item-text',
-    active && '.list-group-item-active-text',
-    disabled && '.list-group-item-disabled-text',
-    color && `.list-group-item-${color}-text`,
+    '.list-group-item --text',
+    active && '.list-group-item.active --text',
+    disabled && '.list-group-item.disabled --text',
+    color && `.list-group-item-${color} --text`,
   ]);
 
   return (

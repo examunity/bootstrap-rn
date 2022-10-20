@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
       background-color: $dropdown-link-hover-bg;
     }
   `,
-  '.dropdown-item-text': css`
+  '.dropdown-item --text': css`
     font-weight: $font-weight-normal;
     color: $dropdown-link-color;
     // text-align: inherit;
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
       text-decoration: none; // if($link-hover-decoration == underline, none, null);
     }
   `,
-  '.dropdown-item-active': css`
+  '.dropdown-item.active': css`
     // @include gradient-bg($dropdown-link-active-bg);
     background-color: $dropdown-link-active-bg;
 
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
       background-color: $dropdown-link-active-bg;
     }
   `,
-  '.dropdown-item-active-text': css`
+  '.dropdown-item.active --text': css`
     color: $dropdown-link-active-color;
     text-decoration: none;
 
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     }
   `,
 
-  '.dropdown-item-disabled': css`
+  '.dropdown-item.disabled': css`
     // pointer-events: none;
     background-color: transparent;
     // Remove CSS gradients if they're enabled
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
       background-color: transparent;
     }
   `,
-  '.dropdown-item-disabled-text': css`
+  '.dropdown-item.disabled --text': css`
     color: $dropdown-link-disabled-color;
 
     &:hover {
@@ -114,14 +114,14 @@ const DropdownItem = (props) => {
 
   const classes = getStyles(styles, [
     '.dropdown-item',
-    active && '.dropdown-item-active',
-    disabled && '.dropdown-item-disabled',
+    active && '.dropdown-item.active',
+    disabled && '.dropdown-item.disabled',
   ]);
 
   const textClasses = getStyles(styles, [
-    '.dropdown-item-text',
-    active && '.dropdown-item-active-text',
-    disabled && '.dropdown-item-disabled-text',
+    '.dropdown-item --text',
+    active && '.dropdown-item.active --text',
+    disabled && '.dropdown-item.disabled --text',
   ]);
 
   return (

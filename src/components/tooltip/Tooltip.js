@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     margin: $tooltip-margin;
     // opacity: 0;
   `,
-  '.tooltip-text': css`
+  '.tooltip --text': css`
     // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
     // So reset our font and text properties to avoid inheriting weird values.
     // @include reset-text();
@@ -73,7 +73,7 @@ const Tooltip = React.forwardRef((props, ref) => {
     // Wait for rendering (of Overlay) before setting the offset.
     popper && `.bs-tooltip-${tooltip.placement}`,
   ]);
-  const textClasses = getStyles(styles, ['.tooltip-text']);
+  const textClasses = getStyles(styles, ['.tooltip --text']);
 
   // Accessiblity role tooltip is only supported on web.
   const role = Platform.OS === 'web' ? 'tooltip' : null;

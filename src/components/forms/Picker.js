@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
       }
     }
   `,
-  '.form-select-disabled': css`
+  '.form-select.disabled': css`
     color: $form-select-disabled-color;
     background-color: $form-select-disabled-bg;
     border-color: $form-select-disabled-border-color;
@@ -180,7 +180,7 @@ const Picker = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.form-select',
-    disabled && '.form-select-disabled',
+    disabled && '.form-select.disabled',
     size === 'sm' && '.form-select-sm',
     size === 'lg' && '.form-select-lg',
     valid && '.form-select.is-valid',

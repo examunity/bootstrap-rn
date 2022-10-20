@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     border-color: $card-border-color;
     border-radius: $card-inner-border-radius $card-inner-border-radius 0 0;
   `,
-  '.card-header-text': css`
+  '.card-header --text': css`
     color: $card-cap-color;
   `,
 });
@@ -33,7 +33,7 @@ const CardHeader = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.card-header']);
 
-  const textClasses = getStyles(styles, ['.card-header-text']);
+  const textClasses = getStyles(styles, ['.card-header --text']);
 
   return (
     <View

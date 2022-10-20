@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
       }
     `,
   })),
-  '.dropdown-menu-text': css`
+  '.dropdown-menu --text': css`
     font-size: $dropdown-font-size;
     color: $dropdown-color;
     text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
@@ -198,7 +198,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
         navbar.expand === true ? '' : `-${navbar.expand}`
       } .navbar-nav .dropdown-menu`,
   ]);
-  const textClasses = getStyles(styles, ['.dropdown-menu-text']);
+  const textClasses = getStyles(styles, ['.dropdown-menu --text']);
 
   if (isStatic || isCollapsedNavbar) {
     return (

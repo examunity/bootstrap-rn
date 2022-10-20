@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       }
     }
   `,
-  '.form-control-disabled': css`
+  '.form-control.disabled': css`
     background-color: $input-disabled-bg;
     border-color: $input-disabled-border-color;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
@@ -129,7 +129,7 @@ const Input = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.form-control',
-    disabled && '.form-control-disabled',
+    disabled && '.form-control.disabled',
     size === 'sm' && '.form-control-sm',
     size === 'lg' && '.form-control-lg',
     multiline && '.form-control-multiline',

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       opacity: $btn-close-focus-opacity;
     }
   `,
-  '.btn-close-text': css`
+  '.btn-close --text': css`
     color: $btn-close-color;
 
     // Override <a>'s hover style
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
       text-decoration: none;
     }
   `,
-  '.btn-close-disabled': css`
+  '.btn-close.disabled': css`
     // pointer-events: none;
     // user-select: none;
     opacity: $btn-close-disabled-opacity;
@@ -120,13 +120,13 @@ const CloseButton = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.btn-close',
-    disabled && '.btn-close-disabled',
+    disabled && '.btn-close.disabled',
     // Modal styles
     modal && '.modal-header .btn-close',
     // Offcanvas styles
     offcanvas && '.offcanvas-header .btn-close',
   ]);
-  const textClasses = getStyles(styles, ['.btn-close-text']);
+  const textClasses = getStyles(styles, ['.btn-close --text']);
 
   const resolveStyle = useStyle([classes, style], styleName);
   const background = useBackground(

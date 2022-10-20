@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     background-color: $tooltip-bg;
     border-radius: $tooltip-border-radius;
   `,
-  '.tooltip-inner-text': css`
+  '.tooltip-inner --text': css`
     color: $tooltip-color;
     text-align: center;
   `,
@@ -31,7 +31,7 @@ const TooltipInner = React.forwardRef((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.tooltip-inner']);
-  const textClasses = getStyles(styles, ['.tooltip-inner-text']);
+  const textClasses = getStyles(styles, ['.tooltip-inner --text']);
 
   // composite component
   return (

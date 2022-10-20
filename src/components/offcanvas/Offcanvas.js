@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     // @include box-shadow($offcanvas-box-shadow);
     // @include transition(transform $offcanvas-transition-duration ease-in-out);
   `,
-  '.offcanvas-text': css`
+  '.offcanvas --text': css`
     color: $offcanvas-color;
   `,
   '.offcanvas-backdrop': css`
@@ -184,7 +184,7 @@ const Offcanvas = React.forwardRef((props, ref) => {
     '.offcanvas-dialog',
     `.offcanvas-dialog-${placement}`,
   ]);
-  const textClasses = getStyles(styles, ['.offcanvas-content-text']);
+  const textClasses = getStyles(styles, ['.offcanvas-content --text']);
 
   // Render children without modal for navbar.
   if (
