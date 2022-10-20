@@ -24,7 +24,10 @@ export default function useStyle(style, styleName) {
 
     return names.map((name) => {
       if (!utilitiesStyles[name]) {
-        throw new Error(`Unknown utility style "${name}".`);
+        // eslint-disable-next-line no-console
+        console.warn(`Unknown utility style "${name}".`);
+
+        return null;
       }
 
       return utilitiesStyles[name];
