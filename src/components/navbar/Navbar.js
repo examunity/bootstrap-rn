@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   '.navbar': css`
     position: relative;
     display: flex;
+    flex-direction: row; // added for bootstrap-rn
     flex-wrap: wrap; // allow us to do the line break for collapsing content
     align-items: center;
     justify-content: space-between; // space out brand from logo

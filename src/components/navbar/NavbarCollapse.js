@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         flex-direction: row; // added for bootstrap-rn
         display: flex;
         flex-basis: auto;
+        align-items: center; // added for bootstrap-rn
       }
     `,
   })),
