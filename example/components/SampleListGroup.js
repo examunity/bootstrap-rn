@@ -126,7 +126,9 @@ function SampleListGroup() {
       {/* END PROPS -----------------------------------------------------  */}
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>ListGroup</Heading>
+          <Heading size={5} styleName="mb-0">
+            ListGroup
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -161,7 +163,9 @@ function SampleListGroup() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>ListGroup Action</Heading>
+          <Heading size={5} styleName="mb-0">
+            ListGroup Action
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

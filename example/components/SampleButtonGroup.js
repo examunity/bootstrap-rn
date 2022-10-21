@@ -84,7 +84,9 @@ function SampleButtonGroup() {
       {/* END PROPS -----------------------------------------------------  */}
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Button group</Heading>
+          <Heading size={5} styleName="mb-0">
+            Button group
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-row">
@@ -108,7 +110,9 @@ function SampleButtonGroup() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>ButtonToolbar</Heading>
+          <Heading size={5} styleName="mb-0">
+            ButtonToolbar
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-row">

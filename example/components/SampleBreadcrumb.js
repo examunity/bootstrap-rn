@@ -71,7 +71,9 @@ function SampleBreadcrumb() {
       {/* END PROPS -----------------------------------------------------  */}
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Breadcrumb (TODO: add colors) </Heading>
+          <Heading size={5} styleName="mb-0">
+            Breadcrumb (TODO: add colors){' '}
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

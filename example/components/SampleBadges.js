@@ -66,7 +66,9 @@ function SampleBadges() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Badges</Heading>
+          <Heading size={5} styleName="mb-0">
+            Badges
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="ai-center">
@@ -112,7 +114,7 @@ TODO: Colors hinzufügen
 
 <Card styleName="mb-3">
   <Card.Header>
-    <Heading size={5}>HEADER</Heading>
+    <Heading size={5} styleName="mb-0">HEADER</Heading>
   </Card.Header>
   <Card.Body>
     <View styleName="flex-column"></View>

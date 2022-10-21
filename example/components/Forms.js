@@ -53,7 +53,9 @@ function Forms() {
       <Heading size={2}>Forms</Heading>
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Checkbox</Heading>
+          <Heading size={5} styleName="mb-0">
+            Checkbox
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Checkbox
@@ -101,7 +103,9 @@ function Forms() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Switch</Heading>
+          <Heading size={5} styleName="mb-0">
+            Switch
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Switch
@@ -133,7 +137,9 @@ function Forms() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Radio Group</Heading>
+          <Heading size={5} styleName="mb-0">
+            Radio Group
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Radio.Group
@@ -160,7 +166,9 @@ function Forms() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Form Input</Heading>
+          <Heading size={5} styleName="mb-0">
+            Form Input
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Label>
@@ -226,7 +234,9 @@ function Forms() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Picker</Heading>
+          <Heading size={5} styleName="mb-0">
+            Picker
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Picker

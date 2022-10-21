@@ -62,7 +62,9 @@ function SampleAlerts() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Alerts</Heading>
+          <Heading size={5} styleName="mb-0">
+            Alerts
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Alert color="primary">

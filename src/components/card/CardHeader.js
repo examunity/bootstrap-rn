@@ -16,7 +16,6 @@ const propTypes = {
 const styles = StyleSheet.create({
   '.card-header': css`
     padding: $card-cap-padding-y $card-cap-padding-x;
-    margin-bottom: 0; // Removes the default margin-bottom of <hN>
     background-color: $card-cap-bg;
     border-bottom-width: $card-border-width;
     border-style: solid;
@@ -24,6 +23,7 @@ const styles = StyleSheet.create({
     border-radius: $card-inner-border-radius $card-inner-border-radius 0 0;
   `,
   '.card-header --text': css`
+    margin-bottom: 0; // Removes the default margin-bottom of <hN>
     color: $card-cap-color;
   `,
 });

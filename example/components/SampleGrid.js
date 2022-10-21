@@ -156,7 +156,9 @@ function SampleGrid() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Grid</Heading>
+          <Heading size={5} styleName="mb-0">
+            Grid
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

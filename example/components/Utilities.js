@@ -47,7 +47,9 @@ function Utilities() {
       {/* END PROPS -----------------------------------------------------  */}
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Utilities</Heading>
+          <Heading size={5} styleName="mb-0">
+            Utilities
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

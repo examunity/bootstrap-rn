@@ -66,7 +66,9 @@ function SampleCards() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Cards</Heading>
+          <Heading size={5} styleName="mb-0">
+            Cards
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column ai-center">

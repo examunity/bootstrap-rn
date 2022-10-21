@@ -74,7 +74,9 @@ function SampleTooltips() {
       {/* END PROPS -----------------------------------------------------  */}
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Tooltips</Heading>
+          <Heading size={5} styleName="mb-0">
+            Tooltips
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

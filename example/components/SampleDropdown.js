@@ -104,7 +104,9 @@ function SampleDropdowns() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Dropdown </Heading>
+          <Heading size={5} styleName="mb-0">
+            Dropdown{' '}
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View>

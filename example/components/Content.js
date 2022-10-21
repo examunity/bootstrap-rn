@@ -66,7 +66,9 @@ function Content() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Heading 1-6</Heading>
+          <Heading size={5} styleName="mb-0">
+            Heading 1-6
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Heading size={1}>Heading H1</Heading>
@@ -90,7 +92,9 @@ function Content() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>DisplayHeading 1-6</Heading>
+          <Heading size={5} styleName="mb-0">
+            DisplayHeading 1-6
+          </Heading>
         </Card.Header>
         <Card.Body>
           <DisplayHeading size={1}>DisplayH...g H1</DisplayHeading>
@@ -114,7 +118,9 @@ function Content() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Paragraph</Heading>
+          <Heading size={5} styleName="mb-0">
+            Paragraph
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Paragraph>
@@ -156,7 +162,9 @@ function Content() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Text</Heading>
+          <Heading size={5} styleName="mb-0">
+            Text
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Text small>Small text</Text>
@@ -178,7 +186,9 @@ function Content() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Code</Heading>
+          <Heading size={5} styleName="mb-0">
+            Code
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Code>Code text ...</Code>
@@ -190,7 +200,9 @@ function Content() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Blockquote</Heading>
+          <Heading size={5} styleName="mb-0">
+            Blockquote
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Blockquote>

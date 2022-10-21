@@ -175,7 +175,9 @@ function SampleNavbar() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Navbar</Heading>
+          <Heading size={5} styleName="mb-0">
+            Navbar
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -242,7 +244,9 @@ function SampleNavbar() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Navbar collapsed</Heading>
+          <Heading size={5} styleName="mb-0">
+            Navbar collapsed
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -280,7 +284,9 @@ function SampleNavbar() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Navbar canvas</Heading>
+          <Heading size={5} styleName="mb-0">
+            Navbar canvas
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

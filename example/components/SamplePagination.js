@@ -89,7 +89,9 @@ function SamplePagination() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Pagination</Heading>
+          <Heading size={5} styleName="mb-0">
+            Pagination
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -119,7 +121,9 @@ function SamplePagination() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Pagination states (disabled, active)</Heading>
+          <Heading size={5} styleName="mb-0">
+            Pagination states (disabled, active)
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -149,7 +153,9 @@ function SamplePagination() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Pagnation sizing</Heading>
+          <Heading size={5} styleName="mb-0">
+            Pagnation sizing
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Container>

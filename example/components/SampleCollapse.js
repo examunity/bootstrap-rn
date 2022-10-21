@@ -69,7 +69,9 @@ function SampleCollapse() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Collapse</Heading>
+          <Heading size={5} styleName="mb-0">
+            Collapse
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

@@ -98,7 +98,9 @@ function SampleProgress() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Progress</Heading>
+          <Heading size={5} styleName="mb-0">
+            Progress
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View style={styles.progressContainer}>

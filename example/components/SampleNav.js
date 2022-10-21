@@ -140,7 +140,9 @@ function SampleNav() {
       {/* END PROPS -----------------------------------------------------  */}
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Nav Tabs</Heading>
+          <Heading size={5} styleName="mb-0">
+            Nav Tabs
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -173,7 +175,9 @@ function SampleNav() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Nav pills</Heading>
+          <Heading size={5} styleName="mb-0">
+            Nav pills
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
@@ -206,7 +210,9 @@ function SampleNav() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Nav tab content</Heading>
+          <Heading size={5} styleName="mb-0">
+            Nav tab content
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

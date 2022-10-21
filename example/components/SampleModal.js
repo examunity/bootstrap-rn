@@ -103,7 +103,9 @@ function SampleModal() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Modal</Heading>
+          <Heading size={5} styleName="mb-0">
+            Modal
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

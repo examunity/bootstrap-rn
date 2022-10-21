@@ -67,7 +67,9 @@ function SamplePopovers() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Popovers</Heading>
+          <Heading size={5} styleName="mb-0">
+            Popovers
+          </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">

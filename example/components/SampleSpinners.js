@@ -71,7 +71,9 @@ function SampleSpinners() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Border spinner</Heading>
+          <Heading size={5} styleName="mb-0">
+            Border spinner
+          </Heading>
         </Card.Header>
         <Card.Body styleName="flex-row">
           <Spinner />
@@ -101,7 +103,9 @@ function SampleSpinners() {
 
       <Card styleName={cardmargin}>
         <Card.Header>
-          <Heading size={5}>Growing spinner</Heading>
+          <Heading size={5} styleName="mb-0">
+            Growing spinner
+          </Heading>
         </Card.Header>
         <Card.Body styleName="flex-row">
           <Spinner variant="grow" />

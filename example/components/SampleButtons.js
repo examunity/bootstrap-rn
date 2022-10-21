@@ -121,7 +121,9 @@ function SampleButtons() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Buttons </Heading>
+          <Heading size={5} styleName="mb-0">
+            Buttons{' '}
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Container styleName="mb-3">
@@ -172,7 +174,9 @@ function SampleButtons() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Outline Buttons </Heading>
+          <Heading size={5} styleName="mb-0">
+            Outline Buttons{' '}
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Container styleName="mb-3">
@@ -223,7 +227,9 @@ function SampleButtons() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Größen </Heading>
+          <Heading size={5} styleName="mb-0">
+            Größen{' '}
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Container styleName="mb-3">
@@ -263,7 +269,9 @@ function SampleButtons() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Buton states </Heading>
+          <Heading size={5} styleName="mb-0">
+            Buton states{' '}
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Container styleName="mb-3">
@@ -301,7 +309,9 @@ function SampleButtons() {
 
       <Card styleName="mb-3">
         <Card.Header>
-          <Heading size={5}>Toggle button </Heading>
+          <Heading size={5} styleName="mb-0">
+            Toggle button{' '}
+          </Heading>
         </Card.Header>
         <Card.Body>
           <Container styleName="mb-3">
