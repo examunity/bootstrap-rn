@@ -35,8 +35,10 @@ const DropdownHeader = React.forwardRef((props, ref) => {
 
   // composite component
   return (
-    <View {...elementProps} ref={ref} size={6} style={[classes, style]}>
-      <Heading style={[textClasses, textStyle]}>{children}</Heading>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <Heading size={6} style={[textClasses, textStyle]}>
+        {children}
+      </Heading>
     </View>
   );
 });
