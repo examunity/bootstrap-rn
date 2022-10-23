@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   '.breadcrumb --text': css`
     color: $primary;
   `,
-  '.breadcrumb-item.active': css`
+  '.breadcrumb-item.active --text': css`
     color: $breadcrumb-active-color;
   `,
 });
@@ -30,14 +30,11 @@ const styles = StyleSheet.create({
 const BreadcrumbItem = React.forwardRef((props, ref) => {
   const { children, active = false, style, textStyle, ...elementProps } = props;
 
-  const classes = getStyles(styles, [
-    '.breadcrumb-item',
-    active && '.breadcrumb-item.active',
-  ]);
+  const classes = getStyles(styles, ['.breadcrumb-item']);
 
   const textClasses = getStyles(styles, [
     '.breadcrumb --text',
-    active && '.breadcrumb-item.active',
+    active && '.breadcrumb-item.active --text',
   ]);
 
   return (
@@ -56,17 +53,3 @@ BreadcrumbItem.displayName = 'BreadcrumbItem';
 BreadcrumbItem.propTypes = propTypes;
 
 export default BreadcrumbItem;
-
-/*
-$breadcrumb-font-size:              null;
-$breadcrumb-padding-y:              0;
-$breadcrumb-padding-x:              0;
-$breadcrumb-item-padding-x:         .5rem;
-$breadcrumb-margin-bottom:          1rem;
-$breadcrumb-bg:                     null;
-$breadcrumb-divider-color:          $gray-600;
-$breadcrumb-active-color:           $gray-600;
-$breadcrumb-divider:                quote("/");
-$breadcrumb-divider-flipped:        $breadcrumb-divider;
-$breadcrumb-border-radius:          null;
-*/

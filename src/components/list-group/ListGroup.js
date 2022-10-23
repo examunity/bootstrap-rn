@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import { getStyles, makeListChildren } from '../../utils';
+import { getStyles } from '../../utils';
+import useList from '../../hooks/useList';
 import ListGroupContext from './ListGroupContext';
 import ListGroupItem from './ListGroupItem';
 import ListGroupItemAction from './ListGroupItemAction';
@@ -33,6 +34,8 @@ const styles = StyleSheet.create({
 const ListGroup = React.forwardRef((props, ref) => {
   const { children, flush, style, ...elementProps } = props;
 
+  const list = useList(children);
+
   const classes = getStyles(styles, [
     '.list-group',
     flush && '.list-group-flush',
@@ -49,7 +52,7 @@ const ListGroup = React.forwardRef((props, ref) => {
       style={[classes, style]}
     >
       <ListGroupContext.Provider value={{ flush }}>
-        {makeListChildren(children)}
+        {list}
       </ListGroupContext.Provider>
     </View>
   );

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import { getStyles, makeListChildren } from '../../utils';
+import { getStyles } from '../../utils';
 import ToastContainerContext from './ToastContainerContext';
+import useList from '../../hooks/useList';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -23,12 +24,14 @@ const styles = StyleSheet.create({
 const ToastContainer = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
+  const list = useList(children);
+
   const classes = getStyles(styles, ['.toast-container']);
 
   return (
     <View {...elementProps} ref={ref} style={[classes, style]}>
       <ToastContainerContext.Provider value>
-        {makeListChildren(children)}
+        {list}
       </ToastContainerContext.Provider>
     </View>
   );

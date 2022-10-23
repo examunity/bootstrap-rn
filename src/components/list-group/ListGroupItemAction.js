@@ -9,13 +9,12 @@ import { shiftColor, shadeColor } from '../../theme/functions';
 import useModifier from '../../hooks/useModifier';
 import useForcedContext from '../../hooks/useForcedContext';
 import { styles as baseStyles } from './ListGroupItem';
+import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
-  first: PropTypes.bool,
-  last: PropTypes.bool,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
@@ -113,8 +112,6 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
   const {
     children,
     color,
-    first = false,
-    last = false,
     active = false,
     disabled = false,
     style,
@@ -124,6 +121,7 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     ...elementProps
   } = modifierProps;
 
+  const { first, last } = useForcedContext(ListContext);
   const { flush } = useForcedContext(ListGroupContext);
 
   const styles = { ...baseStyles, ...actionStyles };

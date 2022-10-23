@@ -7,14 +7,13 @@ import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
 import useForcedContext from '../../hooks/useForcedContext';
+import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
   active: PropTypes.bool,
-  first: PropTypes.bool,
-  last: PropTypes.bool,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -96,14 +95,13 @@ const ListGroupItem = React.forwardRef((props, ref) => {
     children,
     color,
     active = false,
-    first = false,
-    last = false,
     disabled = false,
     style,
     textStyle,
     ...elementProps
   } = props;
 
+  const { first, last } = useForcedContext(ListContext);
   const { flush } = useForcedContext(ListGroupContext);
 
   const classes = getStyles(styles, [

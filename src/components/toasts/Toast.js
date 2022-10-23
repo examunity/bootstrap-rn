@@ -7,10 +7,10 @@ import { getStyles } from '../../utils';
 import ToastHeader from './ToastHeader';
 import ToastBody from './ToastBody';
 import ToastContainerContext from './ToastContainerContext';
+import ListContext from '../helpers/ListContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  last: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -33,19 +33,20 @@ const styles = StyleSheet.create({
     line-height: $toast-font-size * $line-height-base; // added for bootstrap-rn
     color: $toast-color;
   `,
-  '.toast-container .toast': css`
+  '.toast-container > :not(:last-child)': css`
     margin-bottom: $toast-spacing;
   `,
 });
 
 const Toast = React.forwardRef((props, ref) => {
-  const { children, last = false, style, textStyle, ...elementProps } = props;
+  const { children, style, textStyle, ...elementProps } = props;
 
+  const listItem = useContext(ListContext);
   const container = useContext(ToastContainerContext);
 
   const classes = getStyles(styles, [
     '.toast',
-    container && !last && '.toast-container .toast',
+    container && !listItem.last && '.toast-container > :not(:last-child)',
   ]);
 
   const textClasses = getStyles(styles, ['.toast --text']);

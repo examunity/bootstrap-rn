@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import { getStyles, makeListChildren } from '../../utils';
+import { getStyles } from '../../utils';
+import useList from '../../hooks/useList';
 import View from '../View';
 import PaginationItem from './PaginationItem';
 
@@ -22,11 +23,13 @@ const styles = StyleSheet.create({
 const Pagination = React.forwardRef((props, ref) => {
   const { children, style, ...elementProps } = props;
 
+  const list = useList(children);
+
   const classes = getStyles(styles, ['.pagination']);
 
   return (
     <View {...elementProps} ref={ref} style={[classes, style]}>
-      {makeListChildren(children)}
+      {list}
     </View>
   );
 });

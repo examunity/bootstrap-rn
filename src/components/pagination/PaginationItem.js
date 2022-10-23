@@ -4,12 +4,12 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import View from '../View';
+import useForcedContext from '../../hooks/useForcedContext';
+import ListContext from '../helpers/ListContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   active: PropTypes.bool,
-  first: PropTypes.bool,
-  last: PropTypes.bool,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
       //$pagination-focus-outline:
     }
   `,
-
   '.pagination-item:first-child': css`
     border-top-left-radius: $list-group-border-radius;
     border-bottom-left-radius: $list-group-border-radius;
@@ -47,7 +46,6 @@ const styles = StyleSheet.create({
     border-top-right-radius: $list-group-border-radius;
     border-bottom-right-radius: $list-group-border-radius;
   `,
-
   '.pagination-item.active': css`
     color: $pagination-active-color;
     background-color: $pagination-active-bg;
@@ -63,14 +61,14 @@ const styles = StyleSheet.create({
 const PaginationItem = React.forwardRef((props, ref) => {
   const {
     children,
-    first = false,
-    last = false,
     active = false,
     disabled = false,
     style,
     textStyle,
     ...elementProps
   } = props;
+
+  const { first, last } = useForcedContext(ListContext);
 
   const classes = getStyles(styles, [
     '.pagination-item',

@@ -666,8 +666,8 @@ const variables = css`
   $breadcrumb-bg: null;
   $breadcrumb-divider-color: $gray-600;
   $breadcrumb-active-color: $gray-600;
-  //$breadcrumb-divider: quote('/');
-  //$breadcrumb-divider-flipped: $breadcrumb-divider;
+  // $breadcrumb-divider: quote('/');
+  // $breadcrumb-divider-flipped: $breadcrumb-divider;
   $breadcrumb-border-radius: null;
 
   // Forms

@@ -9,14 +9,13 @@ import { THEME_COLORS } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
 import ButtonGroupContext from '../button-group/ButtonGroupContext';
 import useToggleButton from './useToggleButton';
+import ListContext from '../helpers/ListContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf([...Object.keys(THEME_COLORS), 'link']),
   size: PropTypes.oneOf(['lg', 'sm']),
   outline: PropTypes.bool,
-  first: PropTypes.bool,
-  last: PropTypes.bool,
   active: PropTypes.bool,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
@@ -310,8 +309,6 @@ const Button = React.forwardRef((props, ref) => {
     color = 'primary',
     size,
     outline = false,
-    first = false,
-    last = false,
     active = false,
     disabled = false,
     style,
@@ -326,6 +323,7 @@ const Button = React.forwardRef((props, ref) => {
     'Button link variant is only available as non outline style.',
   );
 
+  const listItem = useContext(ListContext);
   const group = useContext(ButtonGroupContext);
 
   const classes = getStyles(styles, [
@@ -337,8 +335,8 @@ const Button = React.forwardRef((props, ref) => {
     hasSize(size, group, 'sm') && '.btn-sm',
     group && '.btn-group > .btn',
     group && active && '.btn-group > .btn.active',
-    group && !first && '.btn-group > .btn:not(:first-child)',
-    group && !last && '.btn-group > .btn:not(:last-child)',
+    group && !listItem.first && '.btn-group > .btn:not(:first-child)',
+    group && !listItem.last && '.btn-group > .btn:not(:last-child)',
   ]);
 
   const activeClasses = getStyles(styles, [

@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import { getStyles, makeListChildren } from '../../utils';
+import { getStyles } from '../../utils';
 import ButtonGroupContext from './ButtonGroupContext';
+import useList from '../../hooks/useList';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
@@ -24,6 +25,8 @@ const styles = StyleSheet.create({
 const ButtonGroup = React.forwardRef((props, ref) => {
   const { children, size, style, ...elementProps } = props;
 
+  const list = useList(children);
+
   const classes = getStyles(styles, ['.btn-group']);
 
   // Accessiblity role tabpanel is only supported on web.
@@ -37,7 +40,7 @@ const ButtonGroup = React.forwardRef((props, ref) => {
       style={[classes, style]}
     >
       <ButtonGroupContext.Provider value={{ size }}>
-        {makeListChildren(children)}
+        {list}
       </ButtonGroupContext.Provider>
     </View>
   );
