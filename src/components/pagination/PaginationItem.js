@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -83,10 +84,13 @@ const PaginationItem = React.forwardRef((props, ref) => {
     disabled && '.pagination-item.disabled',
   ]);
 
+  const role = Platform.OS === 'web' ? 'listitem' : null;
+
   return (
     <View
       {...elementProps}
       ref={ref}
+      accessibilityRole={role}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >

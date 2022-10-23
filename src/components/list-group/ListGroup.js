@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -31,6 +32,18 @@ const styles = StyleSheet.create({
   `,
 });
 
+const getRole = (tabbable) => {
+  if (tabbable) {
+    return 'tablist';
+  }
+
+  if (Platform.OS === 'web') {
+    return 'list';
+  }
+
+  return null;
+};
+
 const ListGroup = React.forwardRef((props, ref) => {
   const { children, flush, style, ...elementProps } = props;
 
@@ -48,7 +61,7 @@ const ListGroup = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole={tabbable ? 'tablist' : null}
+      accessibilityRole={getRole(tabbable)}
       style={[classes, style]}
     >
       <ListGroupContext.Provider value={{ flush }}>

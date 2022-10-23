@@ -1,5 +1,5 @@
 import React from 'react';
-import { I18nManager } from 'react-native';
+import { Platform, I18nManager } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -57,11 +57,13 @@ const BreadcrumbItem = React.forwardRef((props, ref) => {
     '.breadcrumb-item + .breadcrumb-item::before',
   ]);
 
-  // composite component
+  const role = Platform.OS === 'web' ? 'listitem' : null;
+
   return (
     <View
       {...elementProps}
       ref={ref}
+      accessibilityRole={role}
       {...optional(active, { accessibilityCurrent: 'page' })}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}

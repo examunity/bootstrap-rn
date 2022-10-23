@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -27,8 +28,15 @@ const Pagination = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, ['.pagination']);
 
+  const role = Platform.OS === 'web' ? 'list' : null;
+
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
+    <View
+      {...elementProps}
+      ref={ref}
+      accessibilityRole={role}
+      style={[classes, style]}
+    >
       {list}
     </View>
   );

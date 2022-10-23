@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -158,10 +159,13 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     color && `.list-group-item-${color}-action.active --text`,
   ]);
 
+  const role = Platform.OS === 'web' ? 'listitem' : null;
+
   return (
     <Pressable
       {...elementProps}
       ref={modifierRef}
+      accessibilityRole={role}
       active={active}
       disabled={disabled}
       style={[...classes, style]}
