@@ -193,13 +193,6 @@ const CheckInput = React.forwardRef((props, ref) => {
   const media = useMedia();
   const [focused, setFocused] = useState(false);
 
-  if (!children && !label) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'You need to provide either children or a label for accessibility.',
-    );
-  }
-
   const classes = getStyles(styles, [
     '.form-check',
     disabled && '.form-check.disabled',
@@ -242,8 +235,6 @@ const CheckInput = React.forwardRef((props, ref) => {
     setFocused(false);
     onBlur();
   };
-
-  // TODO &:focus, &:active
 
   const provideWebComponent = Platform.OS === 'web' && !useNativeComponent;
 
