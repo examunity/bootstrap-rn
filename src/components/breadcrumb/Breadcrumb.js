@@ -4,28 +4,50 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import View from '../View';
+import useList from '../../hooks/useList';
 import BreadcrumbItem from './BreadcrumbItem';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  textStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
   '.breadcrumb': css`
-    flex-direction: row;
+    display: flex;
+    flex-direction: row; // added for bootstrap-rn
+    flex-wrap: wrap;
+    padding: $breadcrumb-padding-y $breadcrumb-padding-x;
+    margin-bottom: $breadcrumb-margin-bottom;
+    // list-style: none;
+    background-color: $breadcrumb-bg;
+    border-radius: $breadcrumb-border-radius;
+  `,
+  '.breadcrumb --text': css`
+    font-size: $breadcrumb-font-size;
+    line-height: $breadcrumb-font-size * $line-height-base; // added for bootstrap-rn
   `,
 });
 
 const Breadcrumb = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+  const { children, style, textStyle, ...elementProps } = props;
+
+  const list = useList(children);
 
   const classes = getStyles(styles, ['.breadcrumb']);
+  const textClasses = getStyles(styles, ['.breadcrumb --text']);
 
   return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
-      {children}
+    <View
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {list}
     </View>
   );
 });

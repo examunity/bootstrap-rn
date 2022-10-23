@@ -658,7 +658,7 @@ const variables = css`
 
   // Breadcrumb
 
-  $breadcrumb-font-size: null;
+  $breadcrumb-font-size: $font-size-base; // null;
   $breadcrumb-padding-y: 0;
   $breadcrumb-padding-x: 0;
   $breadcrumb-item-padding-x: 0.5rem;
@@ -666,8 +666,8 @@ const variables = css`
   $breadcrumb-bg: null;
   $breadcrumb-divider-color: $gray-600;
   $breadcrumb-active-color: $gray-600;
-  // $breadcrumb-divider: quote('/');
-  // $breadcrumb-divider-flipped: $breadcrumb-divider;
+  $breadcrumb-divider: ${() => '/'}; // quote('/');
+  $breadcrumb-divider-flipped: $breadcrumb-divider;
   $breadcrumb-border-radius: null;
 
   // Forms

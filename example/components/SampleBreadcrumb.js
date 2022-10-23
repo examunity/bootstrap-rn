@@ -9,22 +9,17 @@ import {
   Col,
   Code,
   Card,
+  Link,
 } from 'bootstrap-rn';
 
 const exampleCode =
   '<>\n' +
   '<Breadcrumb>\n' +
   ' <Breadcrumb.Item>\n' +
-  '   <Text>Home</Text>\n' +
+  '   <Link to="/">Home</Link>\n' +
   ' </Breadcrumb.Item>\n' +
   ' <Breadcrumb.Item>\n' +
-  '   <Text>/</Text>\n' +
-  ' </Breadcrumb.Item>\n' +
-  ' <Breadcrumb.Item>\n' +
-  '   <Text>Library</Text>\n' +
-  ' </Breadcrumb.Item>\n' +
-  ' <Breadcrumb.Item>\n' +
-  '  <Text>/</Text>\n' +
+  '   <Link to="/">Library</Link>\n' +
   ' </Breadcrumb.Item>\n' +
   ' <Breadcrumb.Item active>\n' +
   '   <Text>Data</Text>\n' +
@@ -72,41 +67,30 @@ function SampleBreadcrumb() {
       <Card styleName="mb-3">
         <Card.Header>
           <Heading size={5} styleName="mb-0">
-            Breadcrumb (TODO: add colors){' '}
+            Breadcrumb
           </Heading>
         </Card.Header>
         <Card.Body>
           <View styleName="flex-column">
             <Breadcrumb>
-              <Breadcrumb.Item>
+              <Breadcrumb.Item active>
                 <Text>Home</Text>
               </Breadcrumb.Item>
             </Breadcrumb>
-
             <Breadcrumb>
               <Breadcrumb.Item>
-                <Text>Home</Text>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Text>/</Text>
+                <Link to="/">Home</Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item active>
                 <Text>Library</Text>
               </Breadcrumb.Item>
             </Breadcrumb>
-
             <Breadcrumb>
               <Breadcrumb.Item>
-                <Text>Home</Text>
+                <Link to="/">Home</Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
-                <Text>/</Text>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Text>Library</Text>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Text>/</Text>
+                <Link to="/">Library</Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item active>
                 <Text>Data</Text>
