@@ -5,27 +5,27 @@ import RadioContext from './RadioContext';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  value: PropTypes.oneOfType([
+  selectedValue: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
     PropTypes.string,
   ]),
-  onChange: PropTypes.func,
+  onValueChange: PropTypes.func,
   disabled: PropTypes.bool,
 };
 
 const RadioGroup = React.forwardRef((props, ref) => {
   const {
     children,
-    value,
-    onChange = () => {},
+    selectedValue,
+    onValueChange = () => {},
     disabled = false,
     ...elementProps
   } = props;
 
   return (
     <View {...elementProps} ref={ref} accessibilityRole="radiogroup">
-      <RadioContext.Provider value={{ value, onChange, disabled }}>
+      <RadioContext.Provider value={{ selectedValue, onValueChange, disabled }}>
         {children}
       </RadioContext.Provider>
     </View>

@@ -8,7 +8,7 @@ import {
   Radio,
   Input,
   Picker,
-  Label,
+  FormLabel,
   FormText,
   Feedback,
   Container,
@@ -16,6 +16,7 @@ import {
   Col,
   Code,
   Card,
+  FormCheck,
 } from 'bootstrap-rn';
 
 function Forms() {
@@ -24,7 +25,7 @@ function Forms() {
   const [slider, setSlider] = useState(false);
   const [radioValue, setRadioValue] = useState(1);
   const [text, onChangeText] = useState('Form input text');
-  const [selectedValue, onValueChange] = useState('');
+  const [selectedValue, onValueChange] = useState();
 
   const cardmargin = 'mb-3';
 
@@ -58,25 +59,28 @@ function Forms() {
           </Heading>
         </Card.Header>
         <Card.Body>
-          <Checkbox
-            value={value}
-            onChange={() => {
-              setValue((prev) => !prev);
-            }}
-            invalid={error}
-          >
-            <Text>Checkbox label</Text>
-          </Checkbox>
-          <Checkbox
-            value={value}
-            onChange={() => {
-              setValue((prev) => !prev);
-            }}
-            invalid={error}
-            disabled
-          >
-            <Text>Checkbox label</Text>
-          </Checkbox>
+          <FormCheck invalid={error}>
+            <Checkbox
+              value={value}
+              onValueChange={() => {
+                setValue((prev) => !prev);
+              }}
+            />
+            <FormCheck.Label>
+              <Text>Checkbox label</Text>
+            </FormCheck.Label>
+          </FormCheck>
+          <FormCheck invalid={error} disabled>
+            <Checkbox
+              value={value}
+              onValueChange={() => {
+                setValue((prev) => !prev);
+              }}
+            />
+            <FormCheck.Label>
+              <Text>Checkbox label</Text>
+            </FormCheck.Label>
+          </FormCheck>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">
@@ -108,15 +112,17 @@ function Forms() {
           </Heading>
         </Card.Header>
         <Card.Body>
-          <Switch
-            value={slider}
-            onChange={() => {
-              setSlider((prev) => !prev);
-            }}
-            invalid={error}
-          >
-            <Text>Switch label</Text>
-          </Switch>
+          <FormCheck invalid={error}>
+            <Switch
+              value={slider}
+              onValueChange={() => {
+                setSlider((prev) => !prev);
+              }}
+            />
+            <FormCheck.Label>
+              <Text>Switch label</Text>
+            </FormCheck.Label>
+          </FormCheck>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">
@@ -143,20 +149,29 @@ function Forms() {
         </Card.Header>
         <Card.Body>
           <Radio.Group
-            value={radioValue}
-            onChange={(next) => {
+            selectedValue={radioValue}
+            onValueChange={(next) => {
               setRadioValue(next);
             }}
           >
-            <Radio value={1} invalid={error}>
-              <Text>Test 1</Text>
-            </Radio>
-            <Radio value={2} invalid={error}>
-              <Text>Test 2</Text>
-            </Radio>
-            <Radio value={3} invalid={error}>
-              <Text>Test 3</Text>
-            </Radio>
+            <FormCheck invalid={error}>
+              <Radio value={1} />
+              <FormCheck.Label>
+                <Text>Test 1</Text>
+              </FormCheck.Label>
+            </FormCheck>
+            <FormCheck invalid={error}>
+              <Radio value={2} />
+              <FormCheck.Label>
+                <Text>Test 2</Text>
+              </FormCheck.Label>
+            </FormCheck>
+            <FormCheck invalid={error}>
+              <Radio value={3} />
+              <FormCheck.Label>
+                <Text>Test 3</Text>
+              </FormCheck.Label>
+            </FormCheck>
           </Radio.Group>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
@@ -171,9 +186,11 @@ function Forms() {
           </Heading>
         </Card.Header>
         <Card.Body>
-          <Label>
-            Label Text<Text bold> (Input size Small sm)</Text>
-          </Label>
+          <FormLabel>
+            <Text>
+              Label Text <Text bold>(Input size small sm)</Text>
+            </Text>
+          </FormLabel>
           <Input
             size="sm"
             value={text}
@@ -181,9 +198,11 @@ function Forms() {
             invalid={error}
           />
 
-          <Label styleName="mt-3">
-            Label Text <Text bold>(Input size Normal default)</Text>
-          </Label>
+          <FormLabel styleName="mt-3">
+            <Text>
+              Label Text <Text bold>(Input size normal default)</Text>
+            </Text>
+          </FormLabel>
           <Input
             placeholder="Hello!"
             value={text}
@@ -191,9 +210,11 @@ function Forms() {
             invalid={error}
           />
 
-          <Label styleName="mt-3">
-            Label Text <Text bold>(Input size Large lg)</Text>
-          </Label>
+          <FormLabel styleName="mt-3">
+            <Text>
+              Label Text <Text bold>(Input size large lg)</Text>
+            </Text>
+          </FormLabel>
           <Input
             size="lg"
             value={text}
@@ -201,16 +222,18 @@ function Forms() {
             invalid={error}
           />
 
-          <FormText styleName="mt-3">FormText with error Feedback</FormText>
+          <FormText>FormText with error Feedback</FormText>
           {error && (
             <Feedback type="invalid" styleName="mb-3">
               Error!
             </Feedback>
           )}
 
-          <Label styleName="mt-3">
-            Label Text <Text bold>(Input as Textarea)</Text>
-          </Label>
+          <FormLabel styleName="mt-3">
+            <Text>
+              Label Text <Text bold>(Input as textarea)</Text>
+            </Text>
+          </FormLabel>
           <Input
             value={text}
             onChangeText={onChangeText}
@@ -240,8 +263,8 @@ function Forms() {
         </Card.Header>
         <Card.Body>
           <Picker
-            value={selectedValue}
-            onChange={onValueChange}
+            selectedValue={selectedValue}
+            onValueChange={onValueChange}
             placeholder="Test"
             invalid={error}
           >
@@ -251,8 +274,8 @@ function Forms() {
           </Picker>
           <Picker
             styleName="mt-3"
-            value={selectedValue}
-            onChange={onValueChange}
+            selectedValue={selectedValue}
+            onValueChange={onValueChange}
             placeholder="Test"
             useNativeComponent
             invalid={error}

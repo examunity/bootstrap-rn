@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useId } from 'react';
 import PropTypes from 'prop-types';
-import { Picker, Text } from 'bootstrap-rn';
+import { Picker, Text, FormLabel } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
@@ -31,6 +31,7 @@ const FormPicker = React.forwardRef((props, ref) => {
   } = props;
 
   const field = useFormField(name);
+  const id = useId();
 
   return (
     <Field
@@ -40,15 +41,17 @@ const FormPicker = React.forwardRef((props, ref) => {
       elementProps={elementProps}
     >
       {title && (
-        <Text small styleName="fw-bold">
-          {title}
-        </Text>
+        <FormLabel htmlFor={id}>
+          <Text small styleName="fw-bold">
+            {title}
+          </Text>
+        </FormLabel>
       )}
       <Picker
         ref={ref}
         name={name}
-        value={field.value || ''}
-        onChange={(nextValue) => {
+        selectedValue={field.value}
+        onValueChange={(nextValue) => {
           field.setValue(nextValue, onValueChange);
         }}
         onBlur={() => {
@@ -57,6 +60,7 @@ const FormPicker = React.forwardRef((props, ref) => {
         placeholder={placeholder}
         invalid={field.touched && field.error}
         disabled={disabled}
+        nativeID={id}
       >
         {options.map((option) => (
           <Picker.Item

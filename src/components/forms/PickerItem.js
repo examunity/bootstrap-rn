@@ -1,14 +1,10 @@
-import React, { useContext } from 'react';
-import { Platform, Picker as WebPicker } from 'react-native';
+import React from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import StyleSheet from '../../style/StyleSheet';
-import css from '../../style/css';
-import Pressable from '../Pressable';
-import Text from '../Text';
-import useMedia from '../../hooks/useMedia';
-import { getStyles } from '../../utils';
-import useStyle from '../../hooks/useStyle';
 import PickerContext from './PickerContext';
+import useForcedContext from '../../hooks/useForcedContext';
+import PickerWebItem from './internals/PickerWebItem';
+import PickerNativeItem from './internals/PickerNativeItem';
 
 const propTypes = {
   label: PropTypes.string.isRequired,
@@ -16,59 +12,23 @@ const propTypes = {
     PropTypes.bool,
     PropTypes.number,
     PropTypes.string,
+    PropTypes.object,
   ]),
   disabled: PropTypes.bool,
 };
 
-const styles = StyleSheet.create({
-  '.form-select-item': css`
-    margin: 0.25rem 1rem;
-    padding: 0.25rem;
-  `,
-  '.form-select-item.disabled': css``,
-});
-
 const PickerItem = React.forwardRef((props, ref) => {
   const { label, value, disabled = false } = props;
 
-  const context = useContext(PickerContext);
-  const media = useMedia();
+  const { useNativeComponent } = useForcedContext(PickerContext);
 
-  const provideWebComponent =
-    Platform.OS === 'web' && (!context || !context.useNativeComponent);
-
-  if (provideWebComponent) {
-    return (
-      <WebPicker.Item
-        ref={ref}
-        label={label}
-        value={value}
-        disabled={disabled}
-      />
-    );
-  }
-
-  const classes = getStyles(styles, [
-    '.form-select-item',
-    disabled && '.form-select-item.disabled',
-  ]);
-
-  const resolveStyle = useStyle(classes);
-
-  const selected = value === context.value;
+  const BasePickerItem =
+    Platform.OS === 'web' && !useNativeComponent
+      ? PickerWebItem
+      : PickerNativeItem;
 
   return (
-    <Pressable
-      ref={ref}
-      onPress={() => {
-        context.onChange(value);
-      }}
-      accessibilitySelected={selected}
-      disabled={disabled}
-      style={resolveStyle({ media })}
-    >
-      <Text styleName={selected && 'text-primary'}>{label}</Text>
-    </Pressable>
+    <BasePickerItem ref={ref} label={label} value={value} disabled={disabled} />
   );
 });
 

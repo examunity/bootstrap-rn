@@ -1,32 +1,25 @@
 import React, { useState } from 'react';
-import { Platform, Picker as WebPicker } from 'react-native';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable from '../Pressable';
-import Text from '../Text';
 import useMedia from '../../hooks/useMedia';
 import { getStyles, each } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import { escapeSvg } from '../../theme/functions';
 import useStyle from '../../hooks/useStyle';
-import useBackground from '../../hooks/useBackground';
 import useModifier from '../../hooks/useModifier';
-import Offcanvas from '../offcanvas/Offcanvas';
-import PickerContext from './PickerContext';
+import PickerWeb from './internals/PickerWeb';
+import PickerNative from './internals/PickerNative';
 import PickerItem from './PickerItem';
+import PickerContext from './PickerContext';
 
+/* eslint-disable react/no-unused-prop-types */
 const propTypes = {
   children: PropTypes.node.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  placeholder: PropTypes.string,
+  placeholderTextColor: PropTypes.string,
   size: PropTypes.oneOf(['sm', 'lg']),
   disabled: PropTypes.bool,
   valid: PropTypes.bool,
@@ -37,8 +30,12 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   styleName: PropTypes.any,
 };
+/* eslint-enable */
 
 const styles = StyleSheet.create({
+  select: css`
+    opacity: 1;
+  `,
   '.form-select': css`
     // display: block;
     width: 100%;
@@ -102,68 +99,28 @@ const styles = StyleSheet.create({
     border-radius: $form-select-border-radius-lg;
   `,
   ...each(FORM_VALIDATION_STATES, (state, data) => ({
-    [`.form-select.is-${state}`]: css`
+    [`.form-select:${state}`]: css`
       border-color: ${(t) => data(t).color};
 
       &:focus {
         border-color: ${(t) => data(t).color};
-        // box-shadow: $focus-box-shadow;
+        @include platform(web) {
+          box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
+            rgba(${(t) => data(t).color}, $input-btn-focus-color-opacity);
+        }
       }
     `,
   })),
 });
-
-const menuStyles = StyleSheet.create({
-  body: css`
-    align-items: center;
-  `,
-});
-
-// Ref: https://reactnative.dev/docs/text-style-props
-const textStyleKeys = [
-  'color',
-  'fontFamily',
-  'fontSize',
-  'fontStyle',
-  'fontWeight',
-  'includeFontPaddingAndroid',
-  'fontVariant',
-  'letterSpacing',
-  'lineHeight',
-  'textAlign',
-  'textAlignVerticalAndroid',
-  'textDecorationColoriOS',
-  'textDecorationLine',
-  'textDecorationStyleiOS',
-  'textShadowColor',
-  'textShadowOffset',
-  'textShadowRadius',
-  'textTransform',
-  'writingDirection',
-];
-
-const extractTextStyles = (style) => {
-  const textStyles = {};
-
-  Object.entries(style).forEach(([key, value]) => {
-    if (textStyleKeys.includes(key)) {
-      textStyles[key] = value;
-    }
-  });
-
-  return textStyles;
-};
 
 const Picker = React.forwardRef((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
 
   const {
     children,
-    value,
-    onChange = () => {},
     onFocus = () => {},
     onBlur = () => {},
-    placeholder,
+    placeholderTextColor = StyleSheet.value('input-placeholder-color'),
     size,
     disabled = false,
     valid = false,
@@ -176,25 +133,20 @@ const Picker = React.forwardRef((props, ref) => {
 
   const media = useMedia();
   const [focused, setFocused] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const classes = getStyles(styles, [
+    'select', // reboot
     '.form-select',
     disabled && '.form-select.disabled',
     size === 'sm' && '.form-select-sm',
     size === 'lg' && '.form-select-lg',
-    valid && '.form-select.is-valid',
-    invalid && '.form-select.is-invalid',
+    valid && '.form-select:valid',
+    invalid && '.form-select:invalid',
   ]);
 
   const resolveStyle = useStyle([classes, style], styleName);
-  const background = useBackground(
-    resolveStyle({ media, interaction: { focused } }),
-  );
 
   const handleFocus = () => {
-    if (disabled) return;
-
     setFocused(true);
     onFocus();
   };
@@ -203,81 +155,22 @@ const Picker = React.forwardRef((props, ref) => {
     onBlur();
   };
 
-  const provideWebComponent = Platform.OS === 'web' && !useNativeComponent;
-
-  if (provideWebComponent) {
-    return (
-      <WebPicker
-        {...elementProps}
-        ref={modifierRef}
-        selectedValue={value}
-        onValueChange={onChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        disabled={disabled}
-        style={background.style}
-      >
-        <option value="" disabled hidden>
-          {placeholder}
-        </option>
-        {children}
-      </WebPicker>
-    );
-  }
-
-  const items = React.Children.map(children, (child) => ({
-    label: child.props.label,
-    value: child.props.value,
-  }));
-
-  const selectedItem = items.find((item) => item.value === value);
-  const textStyle = extractTextStyles(background.style);
+  const BasePicker =
+    Platform.OS === 'web' && !useNativeComponent ? PickerWeb : PickerNative;
 
   return (
-    <PickerContext.Provider
-      value={{
-        value,
-        onChange: (nextValue) => {
-          onChange(nextValue);
-          setOpen(false);
-        },
-        useNativeComponent: true,
-      }}
-    >
-      <Pressable
+    <PickerContext.Provider value={{ useNativeComponent }}>
+      <BasePicker
         {...elementProps}
         ref={modifierRef}
-        accessibilityRole="combobox"
-        accessibilityDisabled={disabled}
-        accessible
-        focusable={!disabled}
-        selectable={false}
-        onPress={() => {
-          if (disabled) return;
-
-          setOpen(true);
-        }}
+        placeholderTextColor={placeholderTextColor}
         onFocus={handleFocus}
         onBlur={handleBlur}
         disabled={disabled}
-        style={background.style}
+        style={resolveStyle({ media, interaction: { focused } })}
       >
-        {background.element}
-        <Text numberOfLines={1} style={textStyle}>
-          {selectedItem ? selectedItem.label : placeholder}
-        </Text>
-      </Pressable>
-      <Offcanvas
-        placement="bottom"
-        visible={open}
-        onToggle={() => {
-          setOpen(false);
-        }}
-      >
-        <Offcanvas.Body contentContainerStyle={menuStyles.body}>
-          {children}
-        </Offcanvas.Body>
-      </Offcanvas>
+        {children}
+      </BasePicker>
     </PickerContext.Provider>
   );
 });

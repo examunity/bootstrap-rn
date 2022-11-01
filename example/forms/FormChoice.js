@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useId } from 'react';
 import PropTypes from 'prop-types';
-import { Radio, Checkbox, Text, View } from 'bootstrap-rn';
+import { Radio, Checkbox, FormCheck, Text, View } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
@@ -31,6 +31,7 @@ const FormChoice = React.forwardRef((props, ref) => {
   } = props;
 
   const field = useFormField(name);
+  const id = useId();
 
   return (
     <Field
@@ -40,62 +41,72 @@ const FormChoice = React.forwardRef((props, ref) => {
       elementProps={elementProps}
     >
       {title && (
-        <Text small styleName="fw-bold">
+        <Text small styleName="fw-bold mb-2">
           {title}
         </Text>
       )}
       <View>
         {!multiple && (
           <Radio.Group
-            value={field.value}
-            onChange={(nextValue) => {
+            selectedValue={field.value}
+            onValueChange={(nextValue) => {
               field.setValue(nextValue, onValueChange);
             }}
           >
-            {options.map((option) => (
-              <Radio
-                ref={ref}
-                name={name}
-                value={option.value || ''}
-                onBlur={() => {
-                  field.setTouched();
-                }}
+            {options.map((option, key) => (
+              <FormCheck
                 invalid={field.touched && field.error}
                 disabled={disabled}
                 key={option.value}
               >
-                <Text>{option.label}</Text>
-              </Radio>
+                <Radio
+                  ref={ref}
+                  name={name}
+                  value={option.value}
+                  onBlur={() => {
+                    field.setTouched();
+                  }}
+                  nativeID={`${id}-${key}`}
+                />
+                <FormCheck.Label htmlFor={`${id}-${key}`}>
+                  <Text>{option.label}</Text>
+                </FormCheck.Label>
+              </FormCheck>
             ))}
           </Radio.Group>
         )}
         {multiple && (
           <View>
             {options.map((option, key) => (
-              <Checkbox
-                ref={ref}
-                name={`${name}[${key}]`}
-                value={field.value.indexOf(option.value) !== -1}
-                onChange={(checked) => {
-                  const nextValue = [...field.value];
-
-                  if (checked) {
-                    nextValue.push(option.value);
-                  } else {
-                    nextValue.splice(nextValue.indexOf(option.value), 1);
-                  }
-
-                  field.setValue(nextValue, onValueChange);
-                }}
-                onBlur={() => {
-                  field.setTouched();
-                }}
+              <FormCheck
                 invalid={field.touched && field.error}
                 disabled={disabled}
                 key={option.value}
               >
-                <Text>{option.label}</Text>
-              </Checkbox>
+                <Checkbox
+                  ref={ref}
+                  name={`${name}[${key}]`}
+                  value={field.value.indexOf(option.value) !== -1}
+                  onValueChange={(checked) => {
+                    const nextValue = [...field.value];
+
+                    if (checked) {
+                      nextValue.push(option.value);
+                    } else {
+                      nextValue.splice(nextValue.indexOf(option.value), 1);
+                    }
+
+                    field.setValue(nextValue, onValueChange);
+                  }}
+                  onBlur={() => {
+                    field.setTouched();
+                  }}
+                  nativeID={`${id}-${key}`}
+                />
+                <FormCheck.Label htmlFor={`${id}-${key}`}>
+                  <Text>{option.label}</Text>
+                </FormCheck.Label>
+              </FormCheck>
             ))}
           </View>
         )}

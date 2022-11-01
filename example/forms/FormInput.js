@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useId } from 'react';
 import PropTypes from 'prop-types';
-import { Text, Input } from 'bootstrap-rn';
+import { Text, Input, FormLabel } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
@@ -48,6 +48,7 @@ const FormInput = React.forwardRef((props, ref) => {
   } = props;
 
   const field = useFormField(name);
+  const id = useId();
 
   const sanitizeValue = (rawValue) => {
     // Trim value if type is not password
@@ -66,9 +67,11 @@ const FormInput = React.forwardRef((props, ref) => {
       elementProps={elementProps}
     >
       {title && (
-        <Text small styleName="fw-bold">
-          {title}
-        </Text>
+        <FormLabel htmlFor={id}>
+          <Text small styleName="fw-bold">
+            {title}
+          </Text>
+        </FormLabel>
       )}
       <Input
         ref={ref}
@@ -89,6 +92,7 @@ const FormInput = React.forwardRef((props, ref) => {
         autoFocus={autoFocus}
         invalid={field.touched && field.error}
         disabled={disabled}
+        nativeID={id}
       />
     </Field>
   );

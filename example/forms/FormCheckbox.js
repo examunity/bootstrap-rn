@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useId } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox, Text } from 'bootstrap-rn';
+import { Checkbox, FormCheck, Text } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
@@ -23,6 +23,7 @@ const FormCheckbox = React.forwardRef((props, ref) => {
   } = props;
 
   const field = useFormField(name);
+  const id = useId();
 
   return (
     <Field
@@ -32,25 +33,29 @@ const FormCheckbox = React.forwardRef((props, ref) => {
       elementProps={elementProps}
     >
       {title && (
-        <Text small styleName="fw-bold">
+        <Text small styleName="fw-bold mb-2">
           {title}
         </Text>
       )}
-      <Checkbox
-        ref={ref}
-        name={name}
-        value={field.value}
-        onChange={(nextValue) => {
-          field.setValue(nextValue, onValueChange);
-        }}
-        onBlur={() => {
-          field.setTouched();
-        }}
-        invalid={field.touched && field.error}
-        disabled={disabled}
-      >
-        <Text>{label}</Text>
-      </Checkbox>
+      <FormCheck>
+        <Checkbox
+          ref={ref}
+          name={name}
+          value={field.value}
+          onValueChange={(nextValue) => {
+            field.setValue(nextValue, onValueChange);
+          }}
+          onBlur={() => {
+            field.setTouched();
+          }}
+          invalid={field.touched && field.error}
+          disabled={disabled}
+          nativeID={id}
+        />
+        <FormCheck.Label htmlFor={id}>
+          <Text>{label}</Text>
+        </FormCheck.Label>
+      </FormCheck>
     </Field>
   );
 });

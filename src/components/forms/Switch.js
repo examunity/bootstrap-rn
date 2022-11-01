@@ -1,10 +1,10 @@
 import React from 'react';
-import CheckInput from './CheckInput';
+import FormCheckInput from './FormCheckInput';
 
 const Switch = React.forwardRef((props, ref) => {
   const { ...elementProps } = props;
 
-  return <CheckInput {...elementProps} ref={ref} type="switch" />;
+  return <FormCheckInput {...elementProps} ref={ref} type="switch" />;
 });
 
 Switch.displayName = 'Switch';

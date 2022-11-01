@@ -1,10 +1,10 @@
 import React from 'react';
-import CheckInput from './CheckInput';
+import FormCheckInput from './FormCheckInput';
 
 const Checkbox = React.forwardRef((props, ref) => {
   const { ...elementProps } = props;
 
-  return <CheckInput {...elementProps} ref={ref} type="checkbox" />;
+  return <FormCheckInput {...elementProps} ref={ref} type="checkbox" />;
 });
 
 Checkbox.displayName = 'Checkbox';

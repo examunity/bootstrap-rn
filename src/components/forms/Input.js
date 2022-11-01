@@ -102,12 +102,15 @@ const styles = StyleSheet.create({
     }
   `,
   ...each(FORM_VALIDATION_STATES, (state, data) => ({
-    [`.form-control.is-${state}`]: css`
+    [`.form-control:${state}`]: css`
       border-color: ${(t) => data(t).color};
 
       &:focus {
         border-color: ${(t) => data(t).color};
-        // box-shadow: $focus-box-shadow;
+        @include platform(web) {
+          box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
+            rgba(${(t) => data(t).color}, $input-btn-focus-color-opacity);
+        }
       }
     `,
   })),
@@ -118,7 +121,7 @@ const Input = React.forwardRef((props, ref) => {
 
   const {
     size,
-    placeholderTextColor,
+    placeholderTextColor = StyleSheet.value('input-placeholder-color'),
     multiline = false,
     disabled = false,
     valid = false,
@@ -135,17 +138,15 @@ const Input = React.forwardRef((props, ref) => {
     multiline && '.form-control-multiline',
     multiline && size === 'sm' && '.form-control-multiline-sm',
     multiline && size === 'lg' && '.form-control-multiline-lg',
-    valid && '.form-control.is-valid',
-    invalid && '.form-control.is-invalid',
+    valid && '.form-control:valid',
+    invalid && '.form-control:invalid',
   ]);
 
   return (
     <TextInput
       {...elementProps}
       ref={modifierRef}
-      placeholderTextColor={
-        placeholderTextColor || StyleSheet.value('input-placeholder-color')
-      }
+      placeholderTextColor={placeholderTextColor}
       multiline={multiline}
       disabled={disabled}
       editable={!disabled}

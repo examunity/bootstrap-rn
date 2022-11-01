@@ -24,6 +24,8 @@ import Code from './components/type/Code';
 import Dropdown from './components/dropdown/Dropdown';
 import DisplayHeading from './components/type/DisplayHeading';
 import Feedback from './components/forms/Feedback';
+import FormCheck from './components/forms/FormCheck';
+import FormLabel from './components/forms/FormLabel';
 import FormText from './components/forms/FormText';
 import Heading from './components/Heading';
 import Input from './components/forms/Input';
@@ -31,7 +33,7 @@ import injectPopover from './components/popover/injectPopover';
 import injectTooltip from './components/tooltip/injectTooltip';
 import Image from './components/Image';
 import ImageBackground from './components/ImageBackground';
-import Label from './components/forms/Label';
+import Label from './components/Label';
 import ListGroup from './components/list-group/ListGroup';
 import Link from './components/Link';
 import Modal from './components/modal/Modal';
@@ -84,6 +86,8 @@ export {
   Dropdown,
   DisplayHeading,
   Feedback,
+  FormCheck,
+  FormLabel,
   FormText,
   Heading,
   Input,

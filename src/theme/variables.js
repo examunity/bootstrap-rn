@@ -679,7 +679,7 @@ const variables = css`
   $form-text-color: $text-muted;
 
   $form-label-margin-bottom: 0.5rem;
-  $form-label-font-size: null;
+  $form-label-font-size: $font-size-base; // null;
   $form-label-font-style: null;
   $form-label-font-weight: null;
   $form-label-color: null;
