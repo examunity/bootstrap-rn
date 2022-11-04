@@ -14,6 +14,8 @@ const propTypes = {
   disabled: PropTypes.bool,
   valid: PropTypes.bool,
   invalid: PropTypes.bool,
+  editable: PropTypes.bool,
+  selectTextOnFocus: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -126,6 +128,8 @@ const Input = React.forwardRef((props, ref) => {
     disabled = false,
     valid = false,
     invalid = false,
+    editable = true,
+    selectTextOnFocus = true,
     style,
     ...elementProps
   } = modifierProps;
@@ -149,8 +153,8 @@ const Input = React.forwardRef((props, ref) => {
       placeholderTextColor={placeholderTextColor}
       multiline={multiline}
       disabled={disabled}
-      editable={!disabled}
-      selectTextOnFocus={!disabled}
+      editable={disabled ? !disabled : editable}
+      selectTextOnFocus={disabled ? !disabled : selectTextOnFocus}
       style={[classes, style]}
     />
   );
