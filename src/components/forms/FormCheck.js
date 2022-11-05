@@ -45,6 +45,7 @@ const FormCheck = React.forwardRef((props, ref) => {
     valid = false,
     invalid = false,
     style,
+    ...elementProps
   } = props;
 
   const classes = getStyles(styles, [
@@ -53,7 +54,7 @@ const FormCheck = React.forwardRef((props, ref) => {
   ]);
 
   return (
-    <View ref={ref} style={[classes, style]}>
+    <View {...elementProps} ref={ref} style={[classes, style]}>
       <FormCheckContext.Provider value={{ reverse, disabled, valid, invalid }}>
         {children}
       </FormCheckContext.Provider>

@@ -24,8 +24,6 @@ const propTypes = {
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  nativeID: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -80,7 +78,7 @@ const PickerNative = React.forwardRef((props, ref) => {
     placeholderTextColor = StyleSheet.value('input-placeholder-color'),
     disabled = false,
     style,
-    nativeID,
+    ...elementProps
   } = props;
 
   const background = useBackground(style);
@@ -102,6 +100,7 @@ const PickerNative = React.forwardRef((props, ref) => {
   return (
     <>
       <Pressable
+        {...elementProps}
         ref={ref}
         accessibilityRole="combobox"
         accessibilityDisabled={disabled}
@@ -115,7 +114,6 @@ const PickerNative = React.forwardRef((props, ref) => {
         onBlur={onBlur}
         disabled={disabled}
         style={background.style}
-        nativeID={nativeID}
       >
         {background.element}
         <Text

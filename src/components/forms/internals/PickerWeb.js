@@ -20,8 +20,6 @@ const propTypes = {
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  nativeID: PropTypes.any,
 };
 
 const PLACEHOLDER = '__PLACEHOLDER__';
@@ -47,7 +45,7 @@ const PickerWeb = React.forwardRef((props, ref) => {
     placeholderTextColor,
     disabled,
     style,
-    nativeID,
+    ...elementProps
   } = props;
 
   const background = useBackground(style);
@@ -57,6 +55,7 @@ const PickerWeb = React.forwardRef((props, ref) => {
 
   return (
     <BasePicker
+      {...elementProps}
       ref={ref}
       selectedValue={showPlaceholder ? PLACEHOLDER : selectedValue}
       onValueChange={onValueChange}
@@ -67,7 +66,6 @@ const PickerWeb = React.forwardRef((props, ref) => {
         background.style,
         showPlaceholder && { color: placeholderTextColor },
       ]}
-      nativeID={nativeID}
     >
       {placeholder && (
         <option value={PLACEHOLDER} disabled hidden>
