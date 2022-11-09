@@ -3,24 +3,27 @@ import { useState } from 'react';
 export default function useControlledState(
   defaultValue,
   controlledValue,
-  onChange = () => {},
+  handleChange = () => {},
 ) {
   const [stateValue, setStateValue] = useState(defaultValue);
 
-  const isControlled = typeof controlledValue === 'boolean';
+  const isControlled =
+    controlledValue !== undefined && controlledValue !== null;
 
   const value = isControlled ? controlledValue : stateValue;
 
-  const setValue = (nextValue) => {
+  const setValue = (next) => {
+    const nextValue = typeof next === 'function' ? next(value) : next;
+
     if (value === nextValue) {
       return;
     }
 
     if (!isControlled) {
-      setStateValue(nextValue);
+      setStateValue(next);
     }
 
-    onChange(nextValue);
+    handleChange(nextValue);
   };
 
   return [value, setValue];
