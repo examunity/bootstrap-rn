@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 const PickerNativeItem = React.forwardRef((props, ref) => {
   const { label, value, disabled = false } = props;
 
-  const { selectedValue, onValueChange } = useForcedContext(
+  const { selectedValue, handleValueChange } = useForcedContext(
     PickerNativeContext,
   );
   const media = useMedia();
@@ -47,7 +47,7 @@ const PickerNativeItem = React.forwardRef((props, ref) => {
     <Pressable
       ref={ref}
       onPress={() => {
-        onValueChange(value);
+        handleValueChange(value);
       }}
       accessibilitySelected={selected}
       disabled={disabled}

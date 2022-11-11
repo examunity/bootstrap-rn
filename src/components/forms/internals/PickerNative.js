@@ -9,7 +9,7 @@ import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
 
 const propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   selectedValue: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
@@ -22,6 +22,8 @@ const propTypes = {
   placeholder: PropTypes.string,
   placeholderTextColor: PropTypes.string,
   disabled: PropTypes.bool,
+  renderText: PropTypes.func,
+  renderMenu: PropTypes.func,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -67,6 +69,37 @@ const extractTextStyles = (style) => {
   return textStyles;
 };
 
+const renderTextDefault = ({ children, selectedValue }) => {
+  const items = React.Children.map(children, (child) => ({
+    label: child.props.label,
+    value: child.props.value,
+  }));
+
+  const selectedItem = items.find((item) => item.value === selectedValue);
+
+  return selectedItem?.label;
+};
+
+const renderMenuDefault = ({
+  children,
+  selectedValue,
+  handleValueChange,
+  handleClose,
+}) => (
+  <Offcanvas placement="bottom" visible onToggle={handleClose}>
+    <Offcanvas.Body contentContainerStyle={styles.menu}>
+      <PickerNativeContext.Provider
+        value={{
+          selectedValue,
+          handleValueChange,
+        }}
+      >
+        {children}
+      </PickerNativeContext.Provider>
+    </Offcanvas.Body>
+  </Offcanvas>
+);
+
 const PickerNative = React.forwardRef((props, ref) => {
   const {
     children,
@@ -77,25 +110,28 @@ const PickerNative = React.forwardRef((props, ref) => {
     placeholder,
     placeholderTextColor = StyleSheet.value('input-placeholder-color'),
     disabled = false,
+    renderText = renderTextDefault,
+    renderMenu = renderMenuDefault,
     style,
     ...elementProps
   } = props;
 
   const background = useBackground(style);
 
-  const [open, setOpen] = useState(false);
-
-  const items = React.Children.map(children, (child) => ({
-    label: child.props.label,
-    value: child.props.value,
-  }));
-
-  const selectedItem = items.find((item) => item.value === selectedValue);
+  const [visible, setVisible] = useState(false);
 
   const textStyle = extractTextStyles(background.style);
 
   const showPlaceholder =
     placeholder && (selectedValue === undefined || selectedValue === null);
+
+  const handleValueChange = (nextValue) => {
+    onValueChange(nextValue);
+    setVisible(false);
+  };
+  const handleClose = () => {
+    setVisible(false);
+  };
 
   return (
     <>
@@ -108,7 +144,7 @@ const PickerNative = React.forwardRef((props, ref) => {
         focusable={!disabled}
         selectable={false}
         onPress={() => {
-          setOpen(true);
+          setVisible(true);
         }}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -123,30 +159,18 @@ const PickerNative = React.forwardRef((props, ref) => {
             showPlaceholder && { color: placeholderTextColor },
           ]}
         >
-          {selectedItem ? selectedItem.label : placeholder}
+          {showPlaceholder
+            ? placeholder
+            : renderText({ children, selectedValue })}
         </Text>
       </Pressable>
-      <Offcanvas
-        placement="bottom"
-        visible={open}
-        onToggle={() => {
-          setOpen(false);
-        }}
-      >
-        <Offcanvas.Body contentContainerStyle={styles.menu}>
-          <PickerNativeContext.Provider
-            value={{
-              selectedValue,
-              onValueChange(nextValue) {
-                onValueChange(nextValue);
-                setOpen(false);
-              },
-            }}
-          >
-            {children}
-          </PickerNativeContext.Provider>
-        </Offcanvas.Body>
-      </Offcanvas>
+      {visible &&
+        renderMenu({
+          children,
+          selectedValue,
+          handleValueChange,
+          handleClose,
+        })}
     </>
   );
 });
