@@ -9,7 +9,7 @@ import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
 
 const propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   selectedValue: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
@@ -22,8 +22,7 @@ const propTypes = {
   placeholder: PropTypes.string,
   placeholderTextColor: PropTypes.string,
   disabled: PropTypes.bool,
-  renderText: PropTypes.func,
-  renderMenu: PropTypes.func,
+  MenuComponent: PropTypes.elementType,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
 };
@@ -69,7 +68,7 @@ const extractTextStyles = (style) => {
   return textStyles;
 };
 
-const renderTextDefault = ({ children, selectedValue }) => {
+const getText = ({ children, selectedValue }) => {
   const items = React.Children.map(children, (child) => ({
     label: child.props.label,
     value: child.props.value,
@@ -80,7 +79,8 @@ const renderTextDefault = ({ children, selectedValue }) => {
   return selectedItem?.label;
 };
 
-const renderMenuDefault = ({
+/* eslint-disable react/prop-types */
+const DefaultMenuComponent = ({
   children,
   selectedValue,
   handleValueChange,
@@ -99,6 +99,7 @@ const renderMenuDefault = ({
     </Offcanvas.Body>
   </Offcanvas>
 );
+/* eslint-enable */
 
 const PickerNative = React.forwardRef((props, ref) => {
   const {
@@ -108,10 +109,9 @@ const PickerNative = React.forwardRef((props, ref) => {
     onFocus = () => {},
     onBlur = () => {},
     placeholder,
-    placeholderTextColor = StyleSheet.value('input-placeholder-color'),
+    placeholderTextColor,
     disabled = false,
-    renderText = renderTextDefault,
-    renderMenu = renderMenuDefault,
+    MenuComponent = DefaultMenuComponent,
     style,
     ...elementProps
   } = props;
@@ -159,18 +159,18 @@ const PickerNative = React.forwardRef((props, ref) => {
             showPlaceholder && { color: placeholderTextColor },
           ]}
         >
-          {showPlaceholder
-            ? placeholder
-            : renderText({ children, selectedValue })}
+          {showPlaceholder ? placeholder : getText({ children, selectedValue })}
         </Text>
       </Pressable>
-      {visible &&
-        renderMenu({
-          children,
-          selectedValue,
-          handleValueChange,
-          handleClose,
-        })}
+      {visible && (
+        <MenuComponent
+          selectedValue={selectedValue}
+          onValueChange={handleValueChange}
+          onClose={handleClose}
+        >
+          {children}
+        </MenuComponent>
+      )}
     </>
   );
 });

@@ -16,7 +16,7 @@ import PickerContext from './PickerContext';
 
 /* eslint-disable react/no-unused-prop-types */
 const propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   placeholderTextColor: PropTypes.string,
