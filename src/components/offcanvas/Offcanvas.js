@@ -31,7 +31,11 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
+  dialogStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
   textStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  dialogTextStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -155,7 +159,9 @@ const Offcanvas = React.forwardRef((props, ref) => {
     scroll = false,
     onToggle: handleToggle,
     style,
+    dialogStyle,
     textStyle,
+    dialogTextStyle,
     ...elementProps
   } = props;
 
@@ -226,7 +232,10 @@ const Offcanvas = React.forwardRef((props, ref) => {
         textStyle={[textClasses, textStyle]}
       >
         <SafeAreaView style={{ flexShrink: 1 }}>
-          <View style={dialogClasses}>
+          <View
+            style={[dialogClasses, dialogStyle]}
+            textStyle={dialogTextStyle}
+          >
             <OffcanvasContext.Provider value={offcanvas}>
               <OverlayProvider>{children}</OverlayProvider>
             </OffcanvasContext.Provider>

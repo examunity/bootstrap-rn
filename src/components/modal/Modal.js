@@ -29,7 +29,17 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
+  innerStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  dialogStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  contentStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
   textStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  dialogTextStyle: PropTypes.any,
+  // eslint-disable-next-line react/forbid-prop-types
+  contentTextStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -142,7 +152,12 @@ const Modal = React.forwardRef((props, ref) => {
     centered = false,
     onToggle: handleToggle,
     style,
+    innerStyle,
+    dialogStyle,
+    contentStyle,
     textStyle,
+    dialogTextStyle,
+    contentTextStyle,
     ...elementProps
   } = props;
 
@@ -178,8 +193,12 @@ const Modal = React.forwardRef((props, ref) => {
     <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
       {backdrop && <View style={backdropClasses} />}
       <FlexView
-        style={classes}
-        contentContainerStyle={scrollable ? undefined : { flexGrow: 1 }}
+        style={[classes, style]}
+        textStyle={textStyle}
+        contentContainerStyle={[
+          scrollable ? undefined : { flexGrow: 1 },
+          innerStyle,
+        ]}
       >
         <BackdropHandler
           dialogRef={dialogRef}
@@ -187,12 +206,16 @@ const Modal = React.forwardRef((props, ref) => {
           backdrop={backdrop}
         />
         <SafeAreaView style={{ flexShrink: 1 }}>
-          <View ref={dialogRef} style={dialogClasses}>
+          <View
+            ref={dialogRef}
+            style={[dialogClasses, dialogStyle]}
+            textStyle={dialogTextStyle}
+          >
             <View
               {...elementProps}
               ref={ref}
-              style={[contentClasses, style]}
-              textStyle={[contentTextClasses, textStyle]}
+              style={[contentClasses, contentStyle]}
+              textStyle={[contentTextClasses, contentTextStyle]}
             >
               <ModalContext.Provider value={modal}>
                 <OverlayProvider>{children}</OverlayProvider>
