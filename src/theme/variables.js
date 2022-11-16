@@ -737,21 +737,21 @@ const variables = css`
   )};
 
   $input-height: ${add(
-    (t) => calculate(t['input-line-height'], '*', 1), // 1em
+    (t) => calculate(t['input-line-height'], '*', t['input-font-size']), // 1em
     add(
       (t) => calculate(t['input-padding-y'], '*', 2),
       (t) => t['input-height-border'],
     ),
   )};
   $input-height-sm: ${add(
-    (t) => calculate(t['input-line-height'], '*', 1), // 1em
+    (t) => calculate(t['input-line-height'], '*', t['input-font-size-sm']), // 1em
     add(
       (t) => calculate(t['input-padding-y-sm'], '*', 2),
       (t) => t['input-height-border'],
     ),
   )};
   $input-height-lg: ${add(
-    (t) => calculate(t['input-line-height'], '*', 1), // 1em
+    (t) => calculate(t['input-line-height'], '*', t['input-font-size-lg']), // 1em
     add(
       (t) => calculate(t['input-padding-y-lg'], '*', 2),
       (t) => t['input-height-border'],

@@ -20,15 +20,34 @@ const propTypes = {
   style: PropTypes.any,
 };
 
+// Known issues:
+//
+// line-height (iOS)
+// If a line height is defined on iOS the text will be displayed on the bottom
+// of the line. As a workaround the line height is only defined for multi line
+// inputs.
+//
+// multi line height (iOS)
+// A multi line input on iOS has only the height of a single line input. As a
+// workaround we added a height of $input-height-sm + 8rem for multi line
+// inputs on iOS.
+//
+// single line height (Android)
+// If no height is defined, Android sets a text line height of 28px auto-
+// matically, which leads to a larger height than min height for the default
+// and sm size. As a workaround we set a height for single line inputs.
 const styles = StyleSheet.create({
   '.form-control': css`
     // display: block;
     width: 100%;
+    min-height: $input-height; // added for bootstrap-rn
     padding: $input-padding-y $input-padding-x;
     font-family: $input-font-family;
     font-size: $input-font-size;
     font-weight: $input-font-weight;
-    line-height: $input-font-size * $input-line-height;
+    @include platform(web) {
+      line-height: $input-font-size * $input-line-height;
+    }
     color: $input-color;
     background-color: $input-bg;
     // background-clip: padding-box;
@@ -69,38 +88,66 @@ const styles = StyleSheet.create({
     min-height: $input-height-sm;
     padding: $input-padding-y-sm $input-padding-x-sm;
     font-size: $input-font-size-sm;
-    line-height: $input-font-size-sm * $line-height-base; // added for bootstrap-rn
+    @include platform(web) {
+      line-height: $input-font-size-sm * $line-height-base; // added for bootstrap-rn
+    }
     border-radius: $input-border-radius-sm;
   `,
   '.form-control-lg': css`
     min-height: $input-height-lg;
     padding: $input-padding-y-lg $input-padding-x-lg;
     font-size: $input-font-size-lg;
-    line-height: $input-font-size-lg * $line-height-base; // added for bootstrap-rn
+    @include platform(web) {
+      line-height: $input-font-size-lg * $line-height-base; // added for bootstrap-rn
+    }
     border-radius: $input-border-radius-lg;
   `,
-  '.form-control-multiline': css`
+  '.form-control:not(textarea)': css`
+    @include platform(android) {
+      height: $input-height; // added for bootstrap-rn
+    }
+  `,
+  '.form-control-sm:not(textarea)': css`
+    @include platform(android) {
+      height: $input-height-sm; // added for bootstrap-rn
+    }
+  `,
+  '.form-control-lg:not(textarea)': css`
+    @include platform(android) {
+      height: $input-height-lg; // added for bootstrap-rn
+    }
+  `,
+  'textarea.form-control': css`
     text-align-vertical: top; // added for bootstrap-rn
     min-height: $input-height;
 
     @include platform(ios) {
       min-height: $input-height-sm + 8rem; // added for bootstrap-rn
     }
+    @include platform(native) {
+      line-height: $input-font-size * $input-line-height; // added for bootstrap-rn
+    }
   `,
-  '.form-control-multiline-sm': css`
+  'textarea.form-control-sm': css`
     min-height: $input-height-sm;
 
     @include platform(ios) {
       // TODO: Adjust ios height to sm size
       min-height: $input-height-sm + 8rem; // added for bootstrap-rn
     }
+    @include platform(native) {
+      line-height: $input-font-size-sm * $line-height-base; // added for bootstrap-rn
+    }
   `,
-  '.form-control-multiline-lg': css`
+  'textarea.form-control-lg': css`
     min-height: $input-height-lg;
 
     @include platform(ios) {
       // TODO: Adjust ios height to lg size
       min-height: $input-height-sm + 8rem; // added for bootstrap-rn
+    }
+    @include platform(native) {
+      line-height: $input-font-size-sm * $line-height-base; // added for bootstrap-rn
     }
   `,
   ...each(FORM_VALIDATION_STATES, (state, data) => ({
@@ -139,9 +186,12 @@ const Input = React.forwardRef((props, ref) => {
     disabled && '.form-control.disabled',
     size === 'sm' && '.form-control-sm',
     size === 'lg' && '.form-control-lg',
-    multiline && '.form-control-multiline',
-    multiline && size === 'sm' && '.form-control-multiline-sm',
-    multiline && size === 'lg' && '.form-control-multiline-lg',
+    !multiline && '.form-control:not(textarea)',
+    !multiline && size === 'sm' && '.form-control-sm:not(textarea)',
+    !multiline && size === 'lg' && '.form-control-lg:not(textarea)',
+    multiline && 'textarea.form-control',
+    multiline && size === 'sm' && 'textarea.form-control-sm',
+    multiline && size === 'lg' && 'textarea.form-control-lg',
     valid && '.form-control:valid',
     invalid && '.form-control:invalid',
   ]);
