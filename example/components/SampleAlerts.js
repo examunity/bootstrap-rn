@@ -55,7 +55,9 @@ function SampleAlerts() {
           <Col size={6}>
             <Text>dismissible</Text>
           </Col>
-          <Col size={6} />
+          <Col size={6}>
+            <Text>boolean</Text>
+          </Col>
         </Row>
       </Container>
       {/* END PROPS -----------------------------------------------------  */}
