@@ -83,8 +83,8 @@ const getText = ({ children, selectedValue }) => {
 const DefaultMenuComponent = ({
   children,
   selectedValue,
-  handleValueChange,
-  handleClose,
+  onValueChange: handleValueChange,
+  onClose: handleClose,
 }) => (
   <Offcanvas placement="bottom" visible onToggle={handleClose}>
     <Offcanvas.Body contentContainerStyle={styles.menu}>
@@ -139,10 +139,6 @@ const PickerNative = React.forwardRef((props, ref) => {
         {...elementProps}
         ref={ref}
         accessibilityRole="combobox"
-        accessibilityDisabled={disabled}
-        accessible
-        focusable={!disabled}
-        selectable={false}
         onPress={() => {
           setVisible(true);
         }}
