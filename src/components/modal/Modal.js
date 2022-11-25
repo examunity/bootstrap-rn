@@ -131,11 +131,11 @@ const styles = StyleSheet.create({
     @include media-breakpoint-up(lg) {
       max-width: $modal-lg;
     }
-    @include media-breakpoint-up(xl) {
-      max-width: $modal-xl;
-    }
   `,
   '.modal-xl': css`
+    @include media-breakpoint-up(lg) {
+      max-width: $modal-lg;
+    }
     @include media-breakpoint-up(xl) {
       max-width: $modal-xl;
     }
