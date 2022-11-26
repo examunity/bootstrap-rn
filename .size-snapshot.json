@@ -1,31 +1,31 @@
 {
   "bootstrap-rn.cjs.js": {
-    "bundled": 429809,
-    "minified": 302433,
-    "gzipped": 58219
+    "bundled": 432922,
+    "minified": 304252,
+    "gzipped": 58457
   },
   "bootstrap-rn.esm.js": {
-    "bundled": 410889,
-    "minified": 286109,
-    "gzipped": 57314,
+    "bundled": 413862,
+    "minified": 287809,
+    "gzipped": 57529,
     "treeshaked": {
       "rollup": {
-        "code": 217595,
+        "code": 219049,
         "import_statements": 794
       },
       "webpack": {
-        "code": 223371
+        "code": 224839
       }
     }
   },
   "bootstrap-rn.umd.min.js": {
-    "bundled": 526084,
-    "minified": 270528,
-    "gzipped": 64754
+    "bundled": 529147,
+    "minified": 271990,
+    "gzipped": 65026
   },
   "bootstrap-rn.umd.js": {
-    "bundled": 567906,
-    "minified": 286666,
-    "gzipped": 69363
+    "bundled": 570969,
+    "minified": 288128,
+    "gzipped": 69634
   }
 }
