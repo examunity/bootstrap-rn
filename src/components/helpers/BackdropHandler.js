@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
 const initialState = {
   waitingForMouseUp: false,
-  isDialogClick: false,
+  ignoreBackdropClick: false,
 };
 
 const BackdropHandler = (props) => {
@@ -55,22 +55,25 @@ const BackdropHandler = (props) => {
       // Workaround for chrome, because chrome does not fire onMouseDown event
       // for dialog when clicking on the <select> menu.
       const handleDialogMouseUp = () => {
-        state.isDialogClick = true;
+        state.ignoreBackdropClick = true;
       };
 
       const handleDocumentClick = ({ target }) => {
+        const isDialogClick =
+          state.ignoreBackdropClick || dialog.contains(target);
+
         if (backdrop === 'static' || autoClose === false) {
           return;
         }
 
         // Click outside -> return if autoClose is inside.
-        if (!state.isDialogClick && autoClose === 'inside') {
+        if (!isDialogClick && autoClose === 'inside') {
           return;
         }
 
         // Click inside / on dialog -> return if autoClose is outside.
-        if (state.isDialogClick) {
-          state.isDialogClick = false;
+        if (isDialogClick) {
+          state.ignoreBackdropClick = false;
 
           if (autoClose === 'outside') {
             return;
@@ -87,7 +90,7 @@ const BackdropHandler = (props) => {
 
       const handleDocumentMouseUp = () => {
         if (state.waitingForMouseUp) {
-          state.isDialogClick = true;
+          state.ignoreBackdropClick = true;
         }
 
         state.waitingForMouseUp = false;
