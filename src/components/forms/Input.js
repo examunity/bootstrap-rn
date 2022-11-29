@@ -176,7 +176,7 @@ const Input = React.forwardRef((props, ref) => {
     valid = false,
     invalid = false,
     editable = true,
-    selectTextOnFocus = true,
+    selectTextOnFocus = false,
     style,
     ...elementProps
   } = modifierProps;
@@ -203,8 +203,8 @@ const Input = React.forwardRef((props, ref) => {
       placeholderTextColor={placeholderTextColor}
       multiline={multiline}
       disabled={disabled}
-      editable={disabled ? !disabled : editable}
-      selectTextOnFocus={disabled ? !disabled : selectTextOnFocus}
+      editable={disabled ? false : editable}
+      selectTextOnFocus={disabled ? false : selectTextOnFocus}
       style={[classes, style]}
     />
   );
