@@ -50,8 +50,7 @@ const PickerWeb = React.forwardRef((props, ref) => {
 
   const background = useBackground(style);
 
-  const showPlaceholder =
-    placeholder && (selectedValue === undefined || selectedValue === null);
+  const showPlaceholder = selectedValue === undefined || selectedValue === null;
 
   return (
     <BasePicker
@@ -67,11 +66,9 @@ const PickerWeb = React.forwardRef((props, ref) => {
         showPlaceholder && { color: placeholderTextColor },
       ]}
     >
-      {placeholder && (
-        <option value={PLACEHOLDER} disabled hidden>
-          {placeholder}
-        </option>
-      )}
+      <option value={PLACEHOLDER} disabled hidden>
+        {placeholder}
+      </option>
       <PickerWebContext.Provider
         value={{
           optionColor: getOptionStyle(background.style, showPlaceholder),

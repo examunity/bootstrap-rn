@@ -122,8 +122,7 @@ const PickerNative = React.forwardRef((props, ref) => {
 
   const textStyle = extractTextStyles(background.style);
 
-  const showPlaceholder =
-    placeholder && (selectedValue === undefined || selectedValue === null);
+  const showPlaceholder = selectedValue === undefined || selectedValue === null;
 
   const handleValueChange = (nextValue) => {
     onValueChange(nextValue);
@@ -155,7 +154,9 @@ const PickerNative = React.forwardRef((props, ref) => {
             showPlaceholder && { color: placeholderTextColor },
           ]}
         >
-          {showPlaceholder ? placeholder : getText({ children, selectedValue })}
+          {showPlaceholder
+            ? placeholder || <Text>&nbsp;</Text>
+            : getText({ children, selectedValue })}
         </Text>
       </Pressable>
       {visible && (
