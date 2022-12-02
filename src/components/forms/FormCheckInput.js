@@ -31,8 +31,11 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.form-check .form-check-input': css`
+    $margin-top-double: $line-height-base - $form-check-input-width;
+
     // float: left;
     // margin-left: $form-check-padding-start * -1;
+    margin-top: $margin-top-double * 0.5; // added for bootstrap-rn
     margin-right: $form-check-padding-start - $form-check-input-width; // added for bootstrap-rn
   `,
   '.form-check-reverse .form-check-input': css`

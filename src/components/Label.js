@@ -9,7 +9,7 @@ const propTypes = {
   htmlFor: PropTypes.string,
 };
 
-const Heading = React.forwardRef((props, ref) => {
+const Label = React.forwardRef((props, ref) => {
   const { children, htmlFor, ...elementProps } = props;
 
   // Ref: https://github.com/necolas/react-native-web/issues/1651
@@ -34,7 +34,7 @@ const Heading = React.forwardRef((props, ref) => {
   );
 });
 
-Heading.displayName = 'Heading';
-Heading.propTypes = propTypes;
+Label.displayName = 'Label';
+Label.propTypes = propTypes;
 
-export default Heading;
+export default Label;

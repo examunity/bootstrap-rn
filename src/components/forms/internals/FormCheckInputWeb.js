@@ -21,6 +21,7 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   reboot: {
+    flexShrink: 0,
     margin: 0,
   },
 });

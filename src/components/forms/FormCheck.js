@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
   '.form-check': css`
     // display: block;
     flex-direction: row; // added for bootstrap-rn
-    align-items: center; // added for bootstrap-rn
     min-height: $form-check-min-height;
     // padding-left: $form-check-padding-start;
     margin-bottom: $form-check-margin-bottom;

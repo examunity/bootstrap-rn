@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
     opacity: $form-check-label-disabled-opacity;
   `,
   '.form-check-label': css`
+    flex-shrink: 1; // added for bootstrap-rn
+
     @include platform(web) {
       cursor: $form-check-label-cursor;
     }
