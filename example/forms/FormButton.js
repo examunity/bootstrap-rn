@@ -27,15 +27,17 @@ const FormButton = React.forwardRef((props, ref) => {
       {...elementProps}
       ref={ref}
       onPress={(event) => {
-        if (type === 'submit') {
-          form.submitForm();
-        }
-
-        if (type === 'reset') {
-          form.resetForm();
-        }
-
         if (handlePress) handlePress(event);
+
+        if (!event.defaultPrevented) {
+          if (type === 'submit') {
+            form.submitForm();
+          }
+
+          if (type === 'reset') {
+            form.resetForm();
+          }
+        }
       }}
       disabled={buttonDisabled}
     />

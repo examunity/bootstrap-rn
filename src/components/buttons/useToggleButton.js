@@ -10,7 +10,10 @@ export default function useToggleButton(props) {
     active: pressed,
     onPress: (event) => {
       if (handlePress) handlePress(event);
-      setPressed((value) => !value);
+
+      if (!event.defaultPrevented) {
+        setPressed((value) => !value);
+      }
     },
     accessibilityPressed: pressed,
   };

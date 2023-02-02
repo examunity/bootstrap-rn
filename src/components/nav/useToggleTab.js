@@ -19,8 +19,10 @@ export default function useToggleTab(props) {
     onPress: (event) => {
       if (handlePress) handlePress(event);
 
-      event.preventDefault();
-      context.setActiveTarget(target);
+      if (!event.defaultPrevented) {
+        event.preventDefault();
+        context.setActiveTarget(target);
+      }
     },
     active,
     accessibilityRole: 'tab',

@@ -10,7 +10,10 @@ export default function useDismissNavbar(props) {
     ...restProps,
     onPress: (event) => {
       if (handlePress) handlePress(event);
-      context.setExpanded(false);
+
+      if (!event.defaultPrevented) {
+        context.setExpanded(false);
+      }
     },
     accessibilityLabel: 'Close',
   };

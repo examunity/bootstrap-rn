@@ -12,7 +12,10 @@ export default function useToggleDropdown(props) {
     ref: context.toggleRef,
     onPress: (event) => {
       if (handlePress) handlePress(event);
-      context.setVisible((value) => !value);
+
+      if (!event.defaultPrevented) {
+        context.setVisible((value) => !value);
+      }
     },
     accessibilityHasPopup: true,
     accessibilityExpanded: context.visible,
