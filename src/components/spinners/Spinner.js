@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     border-top-color: $body-color;
     border-bottom-color: $body-color;
     border-left-color: $body-color;
-    border-right-color: transparent;
+    // workaround for issue https://github.com/facebook/react-native/issues/34722
+    border-right-color: rgba(0, 0, 0, 0.01); // transparent;
     border-radius: $spinner-width * 0.5; // 50%;
     // animation: $spinner-animation-speed linear infinite spinner-border;
   `,
