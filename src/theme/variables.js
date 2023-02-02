@@ -476,7 +476,7 @@ const variables = css`
   $font-family-monospace: ${() =>
     Platform.select({
       android: 'monospace',
-      ios: 'Courier',
+      ios: 'Courier New',
       default:
         "\"SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace\"",
     })};
