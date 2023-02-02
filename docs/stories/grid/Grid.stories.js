@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Container, Row, Col, Text, Grid } from 'bootstrap-rn';
+import { View, Container, Row, Col, Text } from 'bootstrap-rn';
 
 const GridMeta = {
-  title: 'Grid',
-  component: Grid,
+  title: 'Row',
+  component: Row,
   argTypes: {
     //
   },
