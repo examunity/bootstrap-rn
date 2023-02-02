@@ -13,7 +13,7 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
-  innerStyle: PropTypes.any,
+  contentContainerStyle: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 });
 
 const ModalBody = React.forwardRef((props, ref) => {
-  const { children, style, innerStyle, ...elementProps } = props;
+  const { children, style, contentContainerStyle, ...elementProps } = props;
 
   const { scrollable } = useForcedContext(ModalContext);
 
@@ -42,7 +42,9 @@ const ModalBody = React.forwardRef((props, ref) => {
       {...elementProps}
       ref={ref}
       style={scrollable ? style : [classes, style]}
-      contentContainerStyle={scrollable ? [classes, innerStyle] : undefined}
+      contentContainerStyle={
+        scrollable ? [classes, contentContainerStyle] : undefined
+      }
     >
       {children}
     </FlexView>

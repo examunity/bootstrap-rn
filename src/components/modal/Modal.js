@@ -29,7 +29,7 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
-  innerStyle: PropTypes.any,
+  contentContainerStyle: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
   dialogStyle: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -152,7 +152,7 @@ const Modal = React.forwardRef((props, ref) => {
     centered = false,
     onToggle: handleToggle,
     style,
-    innerStyle,
+    contentContainerStyle,
     dialogStyle,
     contentStyle,
     textStyle,
@@ -193,12 +193,13 @@ const Modal = React.forwardRef((props, ref) => {
     <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
       {backdrop && <View style={backdropClasses} />}
       <FlexView
+        {...elementProps}
+        ref={ref}
         style={[classes, style]}
         textStyle={textStyle}
-        contentContainerStyle={[
-          scrollable ? undefined : { flexGrow: 1 },
-          innerStyle,
-        ]}
+        contentContainerStyle={
+          scrollable ? undefined : [{ flexGrow: 1 }, contentContainerStyle]
+        }
       >
         <BackdropHandler
           dialogRef={dialogRef}
@@ -212,8 +213,6 @@ const Modal = React.forwardRef((props, ref) => {
             textStyle={dialogTextStyle}
           >
             <View
-              {...elementProps}
-              ref={ref}
               style={[contentClasses, contentStyle]}
               textStyle={[contentTextClasses, contentTextStyle]}
             >
