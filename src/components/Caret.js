@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   `,
   'caret-up': css`
     // &::after styles
-    border-top: 0;
+    border-top-width: 0;
     border-right-width: $caret-width;
     border-right-color: transparent;
     border-bottom-width: $caret-width;
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     // &::after styles
     border-top-width: $caret-width;
     border-top-color: transparent;
-    border-right: 0;
+    border-right-width: 0;
     border-bottom-width: $caret-width;
     border-bottom-color: transparent;
     border-left-width: $caret-width;
