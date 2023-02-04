@@ -19,6 +19,6 @@ export default function useToggleDropdown(props) {
     },
     accessibilityHasPopup: true,
     accessibilityExpanded: context.visible,
-    caret: caret || { direction: context.direction },
+    caret: caret === undefined ? { direction: context.direction } : caret,
   };
 }
