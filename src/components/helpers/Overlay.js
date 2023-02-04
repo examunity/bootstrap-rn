@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import { Platform, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { useOverlayPosition } from '@react-native-aria/overlays';
 
@@ -44,15 +43,6 @@ const Overlay = (props) => {
     if (overlay.arrowProps.style.left) {
       overlay.arrowProps.style.left -= arrowOffset;
     }
-  }
-
-  // Adjust bottom value by status bar height on Android
-  if (
-    Platform.OS === 'android' &&
-    overlay.overlayProps.style.bottom !== undefined &&
-    StatusBar.currentHeight
-  ) {
-    overlay.overlayProps.style.bottom -= StatusBar.currentHeight;
   }
 
   return children(overlay, overlayRef);

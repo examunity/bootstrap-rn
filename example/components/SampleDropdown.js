@@ -94,7 +94,7 @@ function SampleDropdowns() {
           </Col>
           <Col size={6}>
             <Text small>
-              [&apos;top&apos;, &apos;bottom&apos;, &apos;start&apos;,
+              [&apos;up&apos;, &apos;down&apos;, &apos;start&apos;,
               &apos;end&apos;]
             </Text>
           </Col>
@@ -105,12 +105,12 @@ function SampleDropdowns() {
       <Card styleName="mb-3">
         <Card.Header>
           <Heading size={5} styleName="mb-0">
-            Dropdown{' '}
+            Dropdown
           </Heading>
         </Card.Header>
         <Card.Body>
           <View>
-            <Dropdown direction="bottom" styleName="mb-3">
+            <Dropdown styleName="mb-3">
               <Dropdown.Toggle>
                 {(toggleProps) => (
                   <Button {...toggleProps} styleName="as-center">
@@ -141,7 +141,7 @@ function SampleDropdowns() {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown direction="bottom">
+            <Dropdown direction="up" center>
               <Button toggle={Dropdown} styleName="as-center">
                 <Text>Show Dropdown</Text>
               </Button>

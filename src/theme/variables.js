@@ -447,7 +447,7 @@ const variables = css`
   $component-active-color: $white;
   $component-active-bg: $primary;
 
-  $caret-width: 0.3em;
+  $caret-width: 1rem * 0.3; // 0.3em;
   $caret-vertical-align: $caret-width * 0.85;
   $caret-spacing: $caret-width * 0.85;
 

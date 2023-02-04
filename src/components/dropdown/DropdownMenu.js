@@ -101,7 +101,11 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getAlignment = (media, start, end) => {
+const getAlignment = (media, center, start, end) => {
+  if (center) {
+    return 'center';
+  }
+
   const alignStart = typeof start === 'boolean' ? start : media.up(start);
   const alignEnd = typeof end === 'boolean' ? end : media.up(end);
 
@@ -119,12 +123,16 @@ const getAlignment = (media, start, end) => {
   return startIndex > endIndex ? 'start' : 'end';
 };
 
-const transformPlacement = (media, direction, start, end) => {
-  if (direction === 'start' || direction === 'end') {
-    return `${direction} top`;
+const transformPlacement = (media, direction, center, start, end) => {
+  if (direction === 'up') {
+    return `top ${getAlignment(media, center, start, end)}`;
   }
 
-  return `${direction} ${getAlignment(media, start, end)}`;
+  if (direction === 'down') {
+    return `bottom ${getAlignment(media, center, start, end)}`;
+  }
+
+  return `${direction} top`;
 };
 
 const DropdownMenu = React.forwardRef((props, ref) => {
@@ -155,6 +163,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
     visible,
     setVisible,
     direction,
+    center,
     display,
     autoClose,
   } = dropdown;
@@ -229,7 +238,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
   return (
     <OverlayContainer>
       <Overlay
-        placement={transformPlacement(media, direction, start, end)}
+        placement={transformPlacement(media, direction, center, start, end)}
         targetRef={toggleRef}
         offset={convertToNumber(StyleSheet.value('dropdown-spacer'))}
         visible={visible}

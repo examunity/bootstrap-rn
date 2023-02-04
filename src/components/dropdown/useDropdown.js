@@ -7,6 +7,7 @@ export default function useDropdown(
   controlledVisible,
   onToggle,
   direction,
+  center,
   display,
   autoClose,
 ) {
@@ -27,9 +28,10 @@ export default function useDropdown(
       setVisible,
       toggleRef,
       direction,
+      center,
       display,
       autoClose,
     }),
-    [visible],
+    [visible, direction, center, display, autoClose],
   );
 }

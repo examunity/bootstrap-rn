@@ -15,7 +15,7 @@ import useDropdown from './useDropdown';
 import useDismissDropdown from './useDismissDropdown';
 import useToggleDropdown from './useToggleDropdown';
 
-const DIRECTIONS = ['top', 'bottom', 'start', 'end'];
+const DIRECTIONS = ['up', 'down', 'start', 'end'];
 
 const propTypes = {
   children: PropTypes.node,
@@ -23,6 +23,7 @@ const propTypes = {
   visible: PropTypes.bool,
   onToggle: PropTypes.func,
   direction: PropTypes.oneOf(DIRECTIONS),
+  center: PropTypes.bool,
   display: PropTypes.oneOf(['dynamic', 'static']),
   autoClose: PropTypes.oneOfType([
     PropTypes.bool,
@@ -44,7 +45,8 @@ const Dropdown = React.forwardRef((props, ref) => {
     defaultVisible = false,
     visible,
     onToggle,
-    direction = 'bottom',
+    direction = 'down',
+    center = false,
     display = 'dynamic',
     autoClose = 'outside',
     style,
@@ -56,6 +58,7 @@ const Dropdown = React.forwardRef((props, ref) => {
     visible,
     onToggle,
     direction,
+    center,
     display,
     autoClose,
   );

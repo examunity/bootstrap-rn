@@ -15,6 +15,7 @@ import Button from './components/buttons/Button';
 import Blockquote from './components/type/Blockquote';
 import Body from './components/Body';
 import Card from './components/card/Card';
+import Caret from './components/Caret';
 import CloseButton from './components/close/CloseButton';
 import Collapse from './components/collapse/Collapse';
 import Container from './components/containers/Container';
@@ -76,6 +77,7 @@ export {
   Body,
   css,
   Card,
+  Caret,
   CloseButton,
   Collapse,
   Container,
