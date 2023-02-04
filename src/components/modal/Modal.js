@@ -85,9 +85,7 @@ const styles = StyleSheet.create({
   `,
   '.modal-dialog-centered': css`
     display: flex;
-    flex-direction: row; // added for bootstrap-rn
-    flex-grow: 1; // added for bootstrap-rn
-    align-items: center;
+    // align-items: center;
     // min-height: calc(100% - var(--#{$prefix}modal-margin) * 2);
   `,
   '.modal-content': css`
@@ -189,16 +187,20 @@ const Modal = React.forwardRef((props, ref) => {
   // If scrollable we use a ScrollView in ModalBody, so we can use a View here.
   const FlexView = scrollable ? View : ScrollView;
 
+  const centeredStyle = centered && { justifyContent: 'center' };
+
   return (
     <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
       {backdrop && <View style={backdropClasses} />}
       <FlexView
         {...elementProps}
         ref={ref}
-        style={[classes, style]}
+        style={[classes, scrollable && centeredStyle, style]}
         textStyle={textStyle}
         contentContainerStyle={
-          scrollable ? undefined : [{ flexGrow: 1 }, contentContainerStyle]
+          scrollable
+            ? undefined
+            : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
         }
       >
         <BackdropHandler
