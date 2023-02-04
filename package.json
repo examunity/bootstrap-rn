@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-rn",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Bootstrap RN is a design framework for React Native. The library is inspired by Bootstrap and tries to bring best practices from the Sass/Css world to JavaScript.",
   "author": "Markus Wetzel <markuswetzel@gmx.net>",
   "license": "MIT",
