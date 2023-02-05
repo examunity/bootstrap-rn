@@ -11,9 +11,7 @@ export default function useToggleCollapse(props) {
     onPress: (event) => {
       if (handlePress) handlePress(event);
 
-      if (!event.defaultPrevented) {
-        context.setVisible((value) => !value);
-      }
+      context.setVisible((value) => !value);
     },
     accessibilityExpanded: context.visible,
     accessibilityControls: context.identifier,

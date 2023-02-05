@@ -12,9 +12,7 @@ export default function useToggleNavbar(props) {
     onPress: (event) => {
       if (handlePress) handlePress(event);
 
-      if (!event.defaultPrevented) {
-        context.setExpanded((value) => !value);
-      }
+      context.setExpanded((value) => !value);
     },
     accessibilitControls: context.identifier,
     accessibilityExpanded: context.expanded,

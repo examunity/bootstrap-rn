@@ -130,9 +130,11 @@ const DropdownItem = (props) => {
       onPress={(event) => {
         if (handlePress) handlePress(event);
 
-        if (!event.defaultPrevented) {
-          dropdown.setVisible(false);
+        if (event.defaultPrevented) {
+          return;
         }
+
+        dropdown.setVisible(false);
       }}
       disabled={disabled}
       style={[classes, style]}
