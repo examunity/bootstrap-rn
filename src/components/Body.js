@@ -21,7 +21,7 @@ const propTypes = {
 const styles = StyleSheet.create({
   body: css`
     background-color: $body-bg;
-    height: 100%; // added for bootstrap-rn
+    flex-grow: 1; // added for bootstrap-rn
   `,
   'body --text': css`
     color: $body-color;
