@@ -2,12 +2,12 @@
   "bootstrap-rn.cjs.js": {
     "bundled": 438760,
     "minified": 308398,
-    "gzipped": 59315
+    "gzipped": 59317
   },
   "bootstrap-rn.esm.js": {
     "bundled": 419258,
     "minified": 291573,
-    "gzipped": 58338,
+    "gzipped": 58340,
     "treeshaked": {
       "rollup": {
         "code": 222075,
@@ -21,11 +21,11 @@
   "bootstrap-rn.umd.min.js": {
     "bundled": 535534,
     "minified": 275362,
-    "gzipped": 65945
+    "gzipped": 65943
   },
   "bootstrap-rn.umd.js": {
     "bundled": 577356,
     "minified": 291500,
-    "gzipped": 70515
+    "gzipped": 70512
   }
 }
