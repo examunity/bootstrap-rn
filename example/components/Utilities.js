@@ -63,7 +63,6 @@ function Utilities() {
           <Code styleName="text-warning">{exampleCode}</Code>
         </Card.Footer>
       </Card>
-      <Heading size={2} />
     </>
   );
 }
