@@ -10,7 +10,8 @@ import View from '../View';
 import useMedia from '../../hooks/useMedia';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
-import { getStyles, each, concatRefs, convertToNumber } from '../../utils';
+import { getStyles, each, concatRefs } from '../../utils';
+import { normalizeNumber } from '../../style/math';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import DropdownContext from './DropdownContext';
@@ -240,7 +241,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
       <Overlay
         placement={transformPlacement(media, direction, center, start, end)}
         targetRef={toggleRef}
-        offset={convertToNumber(StyleSheet.value('dropdown-spacer'))}
+        offset={normalizeNumber(StyleSheet.value('dropdown-spacer'))}
         visible={visible}
       >
         {(overlay, overlayRef) => (

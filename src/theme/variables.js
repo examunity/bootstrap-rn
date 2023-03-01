@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import css from '../style/css';
+import { calculate } from '../style/math';
 import { shadeColor, tintColor, shiftColor, add, subtract } from './functions';
-import { calculate } from '../math';
 
 const url = (val) => (t) =>
   `url("${val.replace(/#{\$(.*?)}/g, (_, key) => t[key])}")`;
@@ -365,10 +365,10 @@ const variables = css`
 
   $link-color: $primary;
   $link-decoration: underline;
-  $link-shade-percentage: 0.2; // 20%;
+  $link-shade-percentage: 20%;
   $link-hover-color: ${shiftColor(
-    (t) => t['link-shade-percentage'],
     (t) => t['link-color'],
+    (t) => t['link-shade-percentage'],
   )};
   $link-hover-decoration: null;
 
@@ -647,14 +647,14 @@ const variables = css`
   $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-  $btn-hover-bg-shade-amount: 0.15; // 15%;
-  $btn-hover-bg-tint-amount: 0.15; // 15%;
-  $btn-hover-border-shade-amount: 0.2; // 20%;
-  $btn-hover-border-tint-amount: 0.1; // 10%;
-  $btn-active-bg-shade-amount: 0.2; // 20%;
-  $btn-active-bg-tint-amount: 0.2; // 20%;
-  $btn-active-border-shade-amount: 0.25; // 25%;
-  $btn-active-border-tint-amount: 0.1; // 10%;
+  $btn-hover-bg-shade-amount: 15%;
+  $btn-hover-bg-tint-amount: 15%;
+  $btn-hover-border-shade-amount: 20%;
+  $btn-hover-border-tint-amount: 10%;
+  $btn-active-bg-shade-amount: 20%;
+  $btn-active-bg-tint-amount: 20%;
+  $btn-active-border-shade-amount: 25%;
+  $btn-active-border-tint-amount: 10%;
 
   // Breadcrumb
 
@@ -713,7 +713,7 @@ const variables = css`
   $input-border-radius-lg: $border-radius-lg;
 
   $input-focus-bg: $input-bg;
-  $input-focus-border-color: ${tintColor(0.5, (t) => t['component-active-bg'])};
+  $input-focus-border-color: ${tintColor((t) => t['component-active-bg'], 0.5)};
   $input-focus-color: $input-color;
   $input-focus-width: $input-btn-focus-width;
   $input-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -776,7 +776,7 @@ const variables = css`
   $form-check-input-bg: $input-bg;
   $form-check-input-border: 1px solid rgba($black, 0.25);
   $form-check-input-border-radius: $font-size-base * 0.25; // 0.25em;
-  $form-check-radio-border-radius: 50px; // 50%;
+  $form-check-radio-border-radius: 50%;
   $form-check-input-focus-border: $input-focus-border-color;
   $form-check-input-focus-box-shadow: $input-btn-focus-box-shadow;
 
@@ -1055,8 +1055,8 @@ const variables = css`
   $dropdown-link-color: $gray-900;
 
   $dropdown-link-hover-color: ${shadeColor(
-    0.1,
     (t) => t['dropdown-link-color'],
+    0.1,
   )};
   $dropdown-link-hover-bg: $gray-200;
 
@@ -1141,7 +1141,7 @@ const variables = css`
   )};
   $popover-box-shadow: $box-shadow;
 
-  $popover-header-bg: ${shadeColor(0.06, (t) => t['popover-bg'])};
+  $popover-header-bg: ${shadeColor((t) => t['popover-bg'], 0.06)};
   $popover-header-color: $headings-color;
   $popover-header-padding-y: 0.5rem;
   $popover-header-padding-x: $spacer;
@@ -1238,9 +1238,9 @@ const variables = css`
   $alert-border-radius: $border-radius;
   $alert-link-font-weight: $font-weight-bold;
   $alert-border-width: $border-width;
-  $alert-bg-scale: -0.8; // 80%;
-  $alert-border-scale: -0.7; // 70%;
-  $alert-color-scale: 0.4; // 40%;
+  $alert-bg-scale: -80%;
+  $alert-border-scale: -70%;
+  $alert-color-scale: 40%;
   $alert-dismissible-padding-r: $alert-padding-x * 3; // 3x covers width of x plus default padding on either side
 
   // Pagination
@@ -1305,8 +1305,8 @@ const variables = css`
 
   $list-group-item-padding-y: $spacer * 0.5;
   $list-group-item-padding-x: $spacer;
-  $list-group-item-bg-scale: -0.8; // 80%;
-  $list-group-item-color-scale: 0.4; // 40%;
+  $list-group-item-bg-scale: -80%;
+  $list-group-item-color-scale: 40%;
 
   $list-group-hover-bg: $gray-100;
   $list-group-active-color: $component-active-color;

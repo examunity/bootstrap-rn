@@ -70,35 +70,35 @@ const actionStyles = StyleSheet.create({
     [`.list-group-item-${state}-action`]: css`
       &:hover {
         background-color: ${shadeColor(
+          shiftColor(value, (t) => t['list-group-item-bg-scale']),
           0.1,
-          shiftColor((t) => t['list-group-item-bg-scale'], value),
         )};
       }
 
       &:focus {
         background-color: ${shadeColor(
+          shiftColor(value, (t) => t['list-group-item-bg-scale']),
           0.1,
-          shiftColor((t) => t['list-group-item-bg-scale'], value),
         )};
       }
     `,
     [`.list-group-item-${state}-action --text`]: css`
       &:hover {
-        color: ${shiftColor((t) => t['list-group-item-color-scale'], value)};
+        color: ${shiftColor(value, (t) => t['list-group-item-color-scale'])};
       }
 
       &:focus {
-        color: ${shiftColor((t) => t['list-group-item-color-scale'], value)};
+        color: ${shiftColor(value, (t) => t['list-group-item-color-scale'])};
       }
     `,
     [`.list-group-item-${state}-action.active`]: css`
       background-color: ${shiftColor(
-        (t) => t['list-group-item-color-scale'],
         value,
+        (t) => t['list-group-item-color-scale'],
       )};
       border-color: ${shiftColor(
-        (t) => t['list-group-item-color-scale'],
         value,
+        (t) => t['list-group-item-color-scale'],
       )};
     `,
     [`.list-group-item-${state}-action.active --text`]: css`

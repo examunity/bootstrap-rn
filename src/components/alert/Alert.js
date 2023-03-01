@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
   `,
   ...each(THEME_COLORS, (state, value) => ({
     [`.alert-${state}`]: css`
-      background-color: ${shiftColor((t) => t['alert-bg-scale'], value)};
-      border-color: ${shiftColor((t) => t['alert-border-scale'], value)};
+      background-color: ${shiftColor(value, (t) => t['alert-bg-scale'])};
+      border-color: ${shiftColor(value, (t) => t['alert-border-scale'])};
     `,
     [`.alert-${state} --text`]: css`
-      color: ${shiftColor((t) => t['alert-color-scale'], value)};
+      color: ${shiftColor(value, (t) => t['alert-color-scale'])};
     `,
   })),
   '.alert-dismissible': {

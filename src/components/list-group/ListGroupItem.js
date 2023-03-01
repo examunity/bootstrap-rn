@@ -80,12 +80,12 @@ export const styles = StyleSheet.create({
   ...each(THEME_COLORS, (state, value) => ({
     [`.list-group-item-${state}`]: css`
       background-color: ${shiftColor(
-        (t) => t['list-group-item-bg-scale'],
         value,
+        (t) => t['list-group-item-bg-scale'],
       )};
     `,
     [`.list-group-item-${state} --text`]: css`
-      color: ${shiftColor((t) => t['list-group-item-color-scale'], value)};
+      color: ${shiftColor(value, (t) => t['list-group-item-color-scale'])};
     `,
   })),
 });

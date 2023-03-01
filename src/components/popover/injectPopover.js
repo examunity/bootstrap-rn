@@ -4,7 +4,7 @@ import { OverlayContainer } from '@react-native-aria/overlays';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
 import useTrigger, { TriggerPropTypes } from '../../hooks/useTrigger';
-import { convertToNumber } from '../../utils';
+import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Popover from './Popover';
 
@@ -44,7 +44,7 @@ export default function injectPopover(Target) {
       templateProps,
     } = useTrigger(trigger, tooltipProps, elementProps, ref);
 
-    const offset = convertToNumber(StyleSheet.value('popover-arrow-height'));
+    const offset = normalizeNumber(StyleSheet.value('popover-arrow-height'));
 
     return (
       <>

@@ -1,6 +1,6 @@
-import { calculate } from '../../math';
+import { calculate } from '../math';
 
-const formulaRE = /([+-])?([\d.Ee]+)(rem|px)?\s*(\+|-|\*|%)\s*([+-])?([\d.Ee]+)(rem|px)?/g;
+const formulaRE = /([+-]+)?([\d.Ee]+)(rem|px|%)?\s*(\+|-|\*|%)\s*([+-]+)?([\d.Ee]+)(rem|px|%)?/g;
 
 function formula(value) {
   // Naïve approach to calculate simple formulas.
@@ -11,14 +11,14 @@ function formula(value) {
       _,
       leftUnary = '',
       leftNumber,
-      leftUnit = null,
+      leftUnit = '',
       operator,
       rightUnary = '',
       rightNumber,
-      rightUnit = null,
+      rightUnit = '',
     ) => {
-      const leftValue = [parseFloat(`${leftUnary}${leftNumber}`), leftUnit];
-      const rightValue = [parseFloat(`${rightUnary}${rightNumber}`), rightUnit];
+      const leftValue = `${leftUnary}${leftNumber}${leftUnit}`;
+      const rightValue = `${rightUnary}${rightNumber}${rightUnit}`;
 
       return calculate(leftValue, operator, rightValue);
     },

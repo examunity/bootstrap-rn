@@ -1,10 +1,9 @@
-import { PixelRatio, I18nManager } from 'react-native';
+import { I18nManager } from 'react-native';
 
 export function each(source, apply) {
   return Object.entries(source)
     .map(([key, value]) => {
       const resolve = typeof value === 'function' ? value : () => value;
-
       return apply(key, resolve);
     })
     .reduce((carry, item) => Object.assign(carry, item), {});
@@ -51,23 +50,12 @@ export function getElementId(identifier, name) {
 }
 
 export function transformPlacement(placement) {
-  if (placement === 'left') {
-    return I18nManager.isRTL ? 'end' : 'start';
+  switch (placement) {
+    case 'left':
+      return I18nManager.isRTL ? 'end' : 'start';
+    case 'right':
+      return I18nManager.isRTL ? 'start' : 'end';
+    default:
+      return placement;
   }
-
-  if (placement === 'right') {
-    return I18nManager.isRTL ? 'start' : 'end';
-  }
-
-  return placement;
-}
-
-export function convertToNumber(value) {
-  return parseFloat(
-    value.replace(
-      /([+-])?([\d.Ee]+)rem/g,
-      (_, unary, number) =>
-        `${unary || ''}${PixelRatio.getFontScale() * 16 * number}px`,
-    ),
-  );
 }

@@ -4,7 +4,7 @@ import { OverlayContainer } from '@react-native-aria/overlays';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
 import useTrigger, { TriggerPropTypes } from '../../hooks/useTrigger';
-import { convertToNumber } from '../../utils';
+import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
 
@@ -42,7 +42,7 @@ export default function injectTooltip(Target) {
       templateProps,
     } = useTrigger(trigger, tooltipProps, elementProps, ref);
 
-    const offset = convertToNumber(StyleSheet.value('tooltip-arrow-height'));
+    const offset = normalizeNumber(StyleSheet.value('tooltip-arrow-height'));
 
     return (
       <>

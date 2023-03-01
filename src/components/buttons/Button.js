@@ -86,23 +86,23 @@ const styles = StyleSheet.create({
 
       &:hover {
         background-color: ${shadeColor(
-          (t) => t['btn-hover-bg-shade-amount'],
           value,
+          (t) => t['btn-hover-bg-shade-amount'],
         )};
         border-color: ${shadeColor(
-          (t) => t['btn-hover-border-shade-amount'],
           value,
+          (t) => t['btn-hover-border-shade-amount'],
         )};
       }
 
       &:focus {
         background-color: ${shadeColor(
-          (t) => t['btn-hover-bg-shade-amount'],
           value,
+          (t) => t['btn-hover-bg-shade-amount'],
         )};
         border-color: ${shadeColor(
-          (t) => t['btn-hover-border-shade-amount'],
           value,
+          (t) => t['btn-hover-border-shade-amount'],
         )};
         /* @if $enable-shadows {
           @include box-shadow($btn-box-shadow, 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5));
@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
 
       &:active {
         background-color: ${shadeColor(
-          (t) => t['btn-active-bg-shade-amount'],
           value,
+          (t) => t['btn-active-bg-shade-amount'],
         )};
         // Remove CSS gradients if they're enabled
         // background-image: if($enable-gradients, none, null);
         border-color: ${shadeColor(
-          (t) => t['btn-active-border-shade-amount'],
           value,
+          (t) => t['btn-active-border-shade-amount'],
         )};
       }
     `,
@@ -142,14 +142,14 @@ const styles = StyleSheet.create({
     `,
     [`.btn-${color}.active`]: css`
       background-color: ${shadeColor(
-        (t) => t['btn-active-bg-shade-amount'],
         value,
+        (t) => t['btn-active-bg-shade-amount'],
       )};
       // Remove CSS gradients if they're enabled
       // background-image: if($enable-gradients, none, null);
       border-color: ${shadeColor(
-        (t) => t['btn-active-border-shade-amount'],
         value,
+        (t) => t['btn-active-border-shade-amount'],
       )};
     `,
     [`.btn-${color}.active --text`]: css`

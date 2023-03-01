@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     border-left-color: $body-color;
     // workaround for issue https://github.com/facebook/react-native/issues/34722
     border-right-color: rgba(0, 0, 0, 0.01); // transparent;
-    border-radius: $spinner-width * 0.5; // 50%;
+    border-radius: $spinner-width * 50%;
     // animation: $spinner-animation-speed linear infinite spinner-border;
   `,
   ...each(THEME_COLORS, (color, value) => ({
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     height: $spinner-height;
     // vertical-align: $spinner-vertical-align;
     background-color: $body-color;
-    border-radius: $spinner-width * 0.5; // 50%;
+    border-radius: $spinner-width * 50%;
     opacity: 0;
     // animation: $spinner-animation-speed linear infinite spinner-grow;
   `,
