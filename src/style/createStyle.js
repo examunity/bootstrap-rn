@@ -49,15 +49,19 @@ function createStyle(definitions) {
       const active = platformDefinitions[key].scopes.every((scope) => {
         if (scope.type === 'selector') {
           if (scope.name === 'hover') {
-            return interaction && interaction.hovered;
+            return interaction && interaction.hover;
           }
 
           if (scope.name === 'focus') {
-            return interaction && interaction.focused;
+            return interaction && interaction.focus;
+          }
+
+          if (scope.name === 'focus-visible') {
+            return interaction && interaction.focusVisible;
           }
 
           if (scope.name === 'active') {
-            return interaction && interaction.pressed;
+            return interaction && interaction.active;
           }
         }
 

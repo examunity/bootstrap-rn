@@ -25,6 +25,7 @@ const propTypes = {
   valid: PropTypes.bool,
   invalid: PropTypes.bool,
   useNativeComponent: PropTypes.bool,
+  autoFocus: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -126,13 +127,14 @@ const Picker = React.forwardRef((props, ref) => {
     valid = false,
     invalid = false,
     useNativeComponent = false,
+    autoFocus = false,
     style,
     styleName,
     ...elementProps
   } = modifierProps;
 
   const media = useMedia();
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(autoFocus);
 
   const classes = getStyles(styles, [
     'select', // reboot
@@ -146,15 +148,6 @@ const Picker = React.forwardRef((props, ref) => {
 
   const resolveStyle = useStyle([classes, style], styleName);
 
-  const handleFocus = () => {
-    setFocused(true);
-    onFocus();
-  };
-  const handleBlur = () => {
-    setFocused(false);
-    onBlur();
-  };
-
   const BasePicker =
     Platform.OS === 'web' && !useNativeComponent ? PickerWeb : PickerNative;
 
@@ -164,10 +157,20 @@ const Picker = React.forwardRef((props, ref) => {
         {...elementProps}
         ref={modifierRef}
         placeholderTextColor={placeholderTextColor}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onFocus={(event) => {
+          setFocused(true);
+          onFocus(event);
+        }}
+        onBlur={(event) => {
+          setFocused(false);
+          onBlur(event);
+        }}
         disabled={disabled}
-        style={resolveStyle({ media, interaction: { focused } })}
+        autoFocus={autoFocus}
+        style={resolveStyle({
+          media,
+          interaction: { focus: focused, focusVisible: focused },
+        })}
       >
         {children}
       </BasePicker>

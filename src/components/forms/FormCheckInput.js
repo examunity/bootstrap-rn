@@ -175,12 +175,13 @@ const FormCheckInput = React.forwardRef((props, ref) => {
     valid = context ? context.valid : false,
     invalid = context ? context.invalid : false,
     useNativeComponent = false,
+    autoFocus = false,
     style,
     ...elementProps
   } = modifierProps;
 
   const media = useMedia();
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(autoFocus);
 
   const classes = getStyles(styles, [
     context && '.form-check .form-check-input',
@@ -210,15 +211,6 @@ const FormCheckInput = React.forwardRef((props, ref) => {
 
   const resolveStyle = useStyle([classes, style]);
 
-  const handleFocus = () => {
-    setFocused(true);
-    onFocus();
-  };
-  const handleBlur = () => {
-    setFocused(false);
-    onBlur();
-  };
-
   const BaseFormCheckInput =
     Platform.OS === 'web' && !useNativeComponent
       ? FormCheckInputWeb
@@ -230,10 +222,20 @@ const FormCheckInput = React.forwardRef((props, ref) => {
       ref={modifierRef}
       type={type}
       value={value}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      onFocus={() => {
+        setFocused(true);
+        onFocus();
+      }}
+      onBlur={() => {
+        setFocused(false);
+        onBlur();
+      }}
       disabled={disabled}
-      style={resolveStyle({ media, interaction: { focused } })}
+      autoFocus={autoFocus}
+      style={resolveStyle({
+        media,
+        interaction: { focus: focused, focusVisible: focused },
+      })}
     />
   );
 });

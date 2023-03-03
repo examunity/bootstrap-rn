@@ -1,7 +1,7 @@
 import isIdent from '../isIdent';
 import isWhitespace from '../isWhitespace';
 
-const SELECTOR_TYPES = ['hover', 'focus', 'active'];
+const SELECTOR_TYPES = ['hover', 'focus', 'focus-visible', 'active'];
 
 const selector = {
   locate(input) {

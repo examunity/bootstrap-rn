@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
@@ -8,17 +8,12 @@ import ModalContext from '../modal/ModalContext';
 import OffcanvasContext from '../offcanvas/OffcanvasContext';
 import useMedia from '../../hooks/useMedia';
 import useStyle from '../../hooks/useStyle';
+import useInteractionState from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
 
 const propTypes = {
   children: PropTypes.node,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onHoverIn: PropTypes.func,
-  onHoverOut: PropTypes.func,
-  onPressIn: PropTypes.func,
-  onPressOut: PropTypes.func,
   disabled: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -97,12 +92,6 @@ const styles = StyleSheet.create({
 const CloseButton = React.forwardRef((props, ref) => {
   const {
     children,
-    onFocus = () => {},
-    onBlur = () => {},
-    onHoverIn = () => {},
-    onHoverOut = () => {},
-    onPressIn = () => {},
-    onPressOut = () => {},
     disabled = false,
     style,
     textStyle,
@@ -111,9 +100,6 @@ const CloseButton = React.forwardRef((props, ref) => {
   } = props;
 
   const media = useMedia();
-  const [focused, setFocused] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [pressed, setPressed] = useState(false);
 
   const modal = useContext(ModalContext);
   const offcanvas = useContext(OffcanvasContext);
@@ -129,42 +115,22 @@ const CloseButton = React.forwardRef((props, ref) => {
   const textClasses = getStyles(styles, ['.btn-close --text']);
 
   const resolveStyle = useStyle([classes, style], styleName);
+
+  const { interaction, interactionProps } = useInteractionState(elementProps);
+
   const background = useBackground(
     resolveStyle({
       media,
-      interaction: { focused, hovered, pressed },
+      interaction,
     }),
   );
 
   return (
     <Pressable
       {...elementProps}
+      {...interactionProps}
       component={Pressable}
       ref={ref}
-      onFocus={() => {
-        setFocused(true);
-        onFocus();
-      }}
-      onBlur={() => {
-        setFocused(false);
-        onBlur();
-      }}
-      onHoverIn={() => {
-        setHovered(true);
-        onHoverIn();
-      }}
-      onHoverOut={() => {
-        setHovered(false);
-        onHoverOut();
-      }}
-      onPressIn={() => {
-        setPressed(true);
-        onPressIn();
-      }}
-      onPressOut={() => {
-        setPressed(false);
-        onPressOut();
-      }}
       disabled={disabled}
       style={background.style}
       textStyle={[textClasses, textStyle]}

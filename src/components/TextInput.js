@@ -7,6 +7,7 @@ import useStyle from '../hooks/useStyle';
 const propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
+  autoFocus: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
@@ -17,12 +18,13 @@ const TextInput = React.forwardRef((props, ref) => {
   const {
     onFocus = () => {},
     onBlur = () => {},
+    autoFocus = false,
     style,
     styleName,
     ...elementProps
   } = props;
 
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(autoFocus);
 
   const media = useMedia();
   const resolveStyle = useStyle(style, styleName);
@@ -31,15 +33,19 @@ const TextInput = React.forwardRef((props, ref) => {
     <BaseTextInput
       {...elementProps}
       ref={ref}
-      onFocus={() => {
+      onFocus={(event) => {
         setFocused(true);
-        onFocus();
+        onFocus(event);
       }}
-      onBlur={() => {
+      onBlur={(event) => {
         setFocused(false);
-        onBlur();
+        onBlur(event);
       }}
-      style={resolveStyle({ media, interaction: { focused } })}
+      autoFocus={autoFocus}
+      style={resolveStyle({
+        media,
+        interaction: { focus: focused, focusVisible: focused },
+      })}
     />
   );
 });

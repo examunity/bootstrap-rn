@@ -6,6 +6,7 @@ import useModifier from '../hooks/useModifier';
 import useAction from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
+import useInteractionState from '../hooks/useInteractionState';
 import Caret from './Caret';
 
 const DIRECTIONS = ['up', 'down', 'start', 'end'];
@@ -106,34 +107,37 @@ const Pressable = React.forwardRef((props, ref) => {
   const resolveTextStyle = useStyle([context && context.style, textStyle]);
   const resolveActiveTextStyle = useStyle(active && activeTextStyle);
 
+  const { interaction, interactionProps } = useInteractionState(elementProps);
+
   const hasTextStyle = (context && context.style) || textStyle;
   const wrappedChildren = applyCaret(children, caret);
 
   return (
     <BasePressable
       {...elementProps}
+      {...interactionProps}
       ref={actionRef}
       accessibilityRole={getRole(actionProps)}
-      style={(interaction) => [
+      style={[
         resolveStyle({ media, interaction }),
         resolveActiveStyle({ media, interaction }),
       ]}
     >
-      {hasTextStyle
-        ? (interaction) => (
-            <TextStyleContext.Provider
-              value={{
-                style: [
-                  resolveTextStyle({ media, interaction }),
-                  resolveActiveTextStyle({ media, interaction }),
-                ],
-                hasAncestor: context && context.hasTextAncestor,
-              }}
-            >
-              {wrappedChildren}
-            </TextStyleContext.Provider>
-          )
-        : wrappedChildren}
+      {hasTextStyle ? (
+        <TextStyleContext.Provider
+          value={{
+            style: [
+              resolveTextStyle({ media, interaction }),
+              resolveActiveTextStyle({ media, interaction }),
+            ],
+            hasAncestor: context && context.hasTextAncestor,
+          }}
+        >
+          {wrappedChildren}
+        </TextStyleContext.Provider>
+      ) : (
+        wrappedChildren
+      )}
     </BasePressable>
   );
 });
