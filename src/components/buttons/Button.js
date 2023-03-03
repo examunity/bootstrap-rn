@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     border-radius: $btn-border-radius;
     // @include transition($btn-transition);
 
-    &:focus {
+    &:focus-visible {
       // outline: 0;
       // box-shadow: $btn-focus-box-shadow;
     }
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     &:active {
       // @include box-shadow($btn-active-box-shadow);
 
-      &:focus {
+      &:focus-visible {
         // @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
       }
     }
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         )};
       }
 
-      &:focus {
+      &:focus-visible {
         background-color: ${shadeColor(
           value,
           (t) => t['btn-hover-bg-shade-amount'],
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         color: ${colorContrast(value)};
       }
 
-      &:focus {
+      &:focus-visible {
         color: ${colorContrast(value)};
       }
 
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         border-color: ${value};
       }
 
-      &:focus {
+      &:focus-visible {
         // box-shadow: 0 0 0 $btn-focus-width rgba($color, .5);
       }
 
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
       text-decoration-line: $link-hover-decoration;
     }
 
-    &:focus {
+    &:focus-visible {
       text-decoration-line: $link-hover-decoration;
     }
 
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     &:hover {
       z-index: 1;
     }
-    &:focus {
+    &:focus-visible {
       z-index: 1;
     }
     &:active {
