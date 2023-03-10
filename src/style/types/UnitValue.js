@@ -33,21 +33,9 @@ export default class UnitValue {
     );
   }
 
-  toPercentage() {
-    if (!['number', 'percent'].includes(this.unit)) {
-      throw new Error(`Unexpected unit "${this.unit}".`);
-    }
-
+  toNumber() {
     if (this.unit === 'percent') {
       return this.value / 100;
-    }
-
-    return this.value;
-  }
-
-  toNumber() {
-    if (!['number', 'px', 'rem'].includes(this.unit)) {
-      throw new Error(`Unexpected unit "${this.unit}".`);
     }
 
     if (this.unit === 'rem') {
@@ -58,6 +46,14 @@ export default class UnitValue {
   }
 
   toString() {
-    return `${this.value}${this.unit === 'number' ? '' : this.unit}`;
+    if (this.unit === 'number') {
+      return this.value;
+    }
+
+    if (this.unit === 'percent') {
+      return `${this.value}%`;
+    }
+
+    return `${this.value}${this.unit}`;
   }
 }

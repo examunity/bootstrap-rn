@@ -22,7 +22,7 @@ export function opacity(value) {
 export function mix(color1, color2, weight = 0.5) {
   const rgb1 = RgbaValue.parse(color1).toRgb();
   const rgb2 = RgbaValue.parse(color2).toRgb();
-  const percentage = UnitValue.parse(weight).toPercentage();
+  const percentage = UnitValue.parse(weight).toNumber();
 
   const [r, g, b] = rgb1.map((value, key) =>
     Math.round(rgb2[key] + (value - rgb2[key]) * percentage),

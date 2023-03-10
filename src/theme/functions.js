@@ -113,7 +113,7 @@ export const shadeColor = fn(([color, weight], t) => {
 
 // Shade the color if the weight is positive, else tint it
 export const shiftColor = fn(([color, weight], t) => {
-  const percentage = UnitValue.parse(weight).toPercentage();
+  const percentage = UnitValue.parse(weight).toNumber();
 
   const handle =
     percentage > 0
