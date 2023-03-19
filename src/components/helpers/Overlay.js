@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Platform, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { useOverlayPosition } from '@react-native-aria/overlays';
 
@@ -31,17 +32,27 @@ const Overlay = (props) => {
     isOpen: visible,
   });
 
-  // Remove undefined arrow styles and adjust arrow offset.
-  if (overlay.arrowProps.style.left === undefined) {
+  // Remove unnecessary arrow styles and adjust arrow offset.
+  if (placement === 'top' || placement === 'bottom') {
+    delete overlay.arrowProps.style.top;
+    if (typeof overlay.arrowProps.style.left === 'number') {
+      overlay.arrowProps.style.left -= arrowOffset;
+    }
+  }
+  if (placement === 'left' || placement === 'right') {
     delete overlay.arrowProps.style.left;
-    if (overlay.arrowProps.style.top) {
+    if (typeof overlay.arrowProps.style.top === 'number') {
       overlay.arrowProps.style.top -= arrowOffset;
     }
   }
-  if (overlay.arrowProps.style.top === undefined) {
-    delete overlay.arrowProps.style.top;
-    if (overlay.arrowProps.style.left) {
-      overlay.arrowProps.style.left -= arrowOffset;
+
+  // Adjust top value by status bar height on Android
+  if (Platform.OS === 'android' && StatusBar.currentHeight) {
+    if (typeof overlay.overlayProps.style.top === 'number') {
+      overlay.overlayProps.style.top -= StatusBar.currentHeight;
+    }
+    if (typeof overlay.arrowProps.style.top === 'number') {
+      overlay.arrowProps.style.top -= StatusBar.currentHeight;
     }
   }
 
