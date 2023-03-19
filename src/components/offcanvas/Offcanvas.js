@@ -216,22 +216,23 @@ const Offcanvas = React.forwardRef((props, ref) => {
       visible={navbar ? navbar.expanded : visible}
       onRequestClose={handleToggle}
     >
-      {backdrop && (
-        <View style={backdropClasses}>
-          <BackdropHandler
-            dialogRef={offcanvasRef}
-            onClose={handleToggle}
-            backdrop={backdrop}
-          />
-        </View>
-      )}
-      <View
-        {...elementProps}
-        ref={concatRefs(offcanvasRef, ref)}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        <SafeAreaView style={{ flexShrink: 1 }}>
+      {placement !== 'bottom' && <SafeAreaView style={{ flexGrow: 0 }} />}
+      <SafeAreaView style={{ flexGrow: 1 }}>
+        {backdrop && (
+          <View style={backdropClasses}>
+            <BackdropHandler
+              dialogRef={offcanvasRef}
+              onClose={handleToggle}
+              backdrop={backdrop}
+            />
+          </View>
+        )}
+        <View
+          {...elementProps}
+          ref={concatRefs(offcanvasRef, ref)}
+          style={[classes, style]}
+          textStyle={[textClasses, textStyle]}
+        >
           <View
             style={[dialogClasses, dialogStyle]}
             textStyle={dialogTextStyle}
@@ -240,8 +241,8 @@ const Offcanvas = React.forwardRef((props, ref) => {
               <OverlayProvider>{children}</OverlayProvider>
             </OffcanvasContext.Provider>
           </View>
-        </SafeAreaView>
-      </View>
+        </View>
+      </SafeAreaView>
     </BaseModal>
   );
 });
