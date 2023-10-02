@@ -137,6 +137,10 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     !first && active && '.list-group-item + .list-group-item.active',
     flush && '.list-group-item-flush',
     flush && last && '.list-group-item-flush:last-child',
+    !first &&
+      flush &&
+      active &&
+      '.list-group-item-flush + .list-group-item-flush.active',
     color && `.list-group-item-${color}`,
     color && `.list-group-item-${color}-action`,
   ]);

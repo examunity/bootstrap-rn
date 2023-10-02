@@ -77,6 +77,9 @@ export const styles = StyleSheet.create({
   '.list-group-item-flush:last-child': css`
     border-bottom-width: 0;
   `,
+  '.list-group-item-flush + .list-group-item-flush.active': css`
+    border-top-width: $list-group-border-width; // added for bootstrap-rn
+  `,
   ...each(THEME_COLORS, (state, value) => ({
     [`.list-group-item-${state}`]: css`
       background-color: ${shiftColor(
@@ -114,6 +117,10 @@ const ListGroupItem = React.forwardRef((props, ref) => {
     !first && active && '.list-group-item + .list-group-item.active',
     flush && '.list-group-item-flush',
     flush && last && '.list-group-item-flush:last-child',
+    !first &&
+      flush &&
+      active &&
+      '.list-group-item-flush + .list-group-item-flush.active',
     color && `.list-group-item-${color}`,
   ]);
 
