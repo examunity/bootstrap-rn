@@ -43,9 +43,9 @@ const TabPane = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      nativeID={id}
-      accessibilityRole={role}
-      accessibilityLabelledBy={`${id}-tab`}
+      id={id}
+      role={role}
+      aria-labelledby={`${id}-tab`}
       style={[classes, style]}
     />
   );

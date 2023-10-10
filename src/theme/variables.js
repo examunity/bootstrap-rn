@@ -776,7 +776,7 @@ const variables = css`
   $form-check-input-bg: $input-bg;
   $form-check-input-border: 1px solid rgba($black, 0.25);
   $form-check-input-border-radius: $font-size-base * 0.25; // 0.25em;
-  $form-check-radio-border-radius: 50%;
+  $form-check-radio-border-radius: $form-check-input-width * 0.5; // 50%;
   $form-check-input-focus-border: $input-focus-border-color;
   $form-check-input-focus-box-shadow: $input-btn-focus-box-shadow;
 

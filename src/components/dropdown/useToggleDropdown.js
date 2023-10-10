@@ -8,15 +8,15 @@ export default function useToggleDropdown(props) {
 
   return {
     ...restProps,
-    nativeID: context.identifier,
+    id: context.identifier,
     ref: context.toggleRef,
     onPress: (event) => {
       if (handlePress) handlePress(event);
 
       context.setVisible((value) => !value);
     },
-    accessibilityHasPopup: true,
-    accessibilityExpanded: context.visible,
+    'aria-haspopup': true,
+    'aria-expanded': context.visible,
     caret: caret === undefined ? { direction: context.direction } : caret,
   };
 }

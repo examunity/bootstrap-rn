@@ -137,7 +137,7 @@ const PickerNative = React.forwardRef((props, ref) => {
       <Pressable
         {...elementProps}
         ref={ref}
-        accessibilityRole="combobox"
+        role="combobox"
         onPress={() => {
           setVisible(true);
         }}

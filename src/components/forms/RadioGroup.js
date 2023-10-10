@@ -25,7 +25,7 @@ const RadioGroup = React.forwardRef((props, ref) => {
   } = props;
 
   return (
-    <View {...elementProps} ref={ref} accessibilityRole="radiogroup">
+    <View {...elementProps} ref={ref} role="radiogroup">
       <RadioContext.Provider value={{ selectedValue, onValueChange, disabled }}>
         {children}
       </RadioContext.Provider>

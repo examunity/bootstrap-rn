@@ -32,12 +32,7 @@ const Code = React.forwardRef((props, ref) => {
   const role = Platform.OS === 'web' ? 'code' : null;
 
   return (
-    <Text
-      {...elementProps}
-      ref={ref}
-      accessibilityRole={role}
-      style={[classes, style]}
-    >
+    <Text {...elementProps} ref={ref} role={role} style={[classes, style]}>
       {children}
     </Text>
   );

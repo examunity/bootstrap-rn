@@ -13,6 +13,6 @@ export default function useToggleButton(props) {
 
       setPressed((value) => !value);
     },
-    accessibilityPressed: pressed,
+    'aria-pressed': pressed,
   };
 }

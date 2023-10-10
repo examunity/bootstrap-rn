@@ -73,7 +73,7 @@ const Popover = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole={role}
+      role={role}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >

@@ -56,7 +56,7 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
     setVisible,
     targetProps: {
       ref: concatRefs(targetRef, ref),
-      ...optional(visible, { accessibilityDescribedBy: identifier }),
+      ...optional(visible, { 'aria-describedby': identifier }),
       onPress: (event) => {
         const handleHoverAsPress =
           (Platform.OS === 'android' || Platform.OS === 'ios') &&
@@ -127,7 +127,7 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
     },
     targetRef,
     templateProps: {
-      nativeID: identifier,
+      id: identifier,
     },
   };
 }

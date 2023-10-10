@@ -77,7 +77,7 @@ const Link = React.forwardRef((props, ref) => {
         handleMouseLeaveInteraction(event);
       }}
       ref={actionRef}
-      accessibilityRole={getRole(actionProps)}
+      role={getRole(actionProps)}
       accessible
       style={resolveStyle({
         media,

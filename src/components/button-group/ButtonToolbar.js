@@ -26,12 +26,7 @@ const ButtonToolbar = React.forwardRef((props, ref) => {
   const classes = getStyles(styles, ['.btn-toolbar']);
 
   return (
-    <View
-      {...elementProps}
-      ref={ref}
-      accessibilityRole="toolbar"
-      style={[classes, style]}
-    >
+    <View {...elementProps} ref={ref} role="toolbar" style={[classes, style]}>
       {children}
     </View>
   );

@@ -31,12 +31,7 @@ const Pagination = React.forwardRef((props, ref) => {
   const role = Platform.OS === 'web' ? 'list' : null;
 
   return (
-    <View
-      {...elementProps}
-      ref={ref}
-      accessibilityRole={role}
-      style={[classes, style]}
-    >
+    <View {...elementProps} ref={ref} role={role} style={[classes, style]}>
       {list}
     </View>
   );

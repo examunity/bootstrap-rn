@@ -20,7 +20,7 @@ const Collapse = React.forwardRef((props, ref) => {
   }
 
   return (
-    <View {...elementProps} ref={ref} nativeID={identifier}>
+    <View {...elementProps} ref={ref} id={identifier}>
       {children}
     </View>
   );

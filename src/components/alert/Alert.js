@@ -62,7 +62,7 @@ const Alert = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole="alert"
+      role="alert"
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >

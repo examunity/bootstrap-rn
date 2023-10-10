@@ -84,7 +84,7 @@ const Nav = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole={getRole(tabbable, navbar)}
+      role={getRole(tabbable, navbar)}
       style={[classes, style]}
     >
       <NavContext.Provider value={{ variant }}>{children}</NavContext.Provider>

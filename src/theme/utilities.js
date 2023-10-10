@@ -13,12 +13,12 @@ import {
 
 const utilities = {
   align: {
-    property: 'text-align-vertical',
+    property: 'vertical-align',
     class: 'align',
     values: {
       // baseline: 'baseline',
       top: 'top',
-      center: 'center', // 'middle',
+      middle: 'middle',
       bottom: 'bottom',
       // 'text-bottom': 'text-bottom',
       // 'text-top': 'text-top',

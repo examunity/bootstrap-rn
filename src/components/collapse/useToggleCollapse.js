@@ -13,7 +13,7 @@ export default function useToggleCollapse(props) {
 
       context.setVisible((value) => !value);
     },
-    accessibilityExpanded: context.visible,
-    accessibilityControls: context.identifier,
+    'aria-expanded': context.visible,
+    'aria-controls': context.identifier,
   };
 }

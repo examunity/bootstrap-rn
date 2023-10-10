@@ -8,14 +8,14 @@ export default function useToggleNavbar(props) {
 
   return {
     ...restProps,
-    nativeID: context.identifier,
+    id: context.identifier,
     onPress: (event) => {
       if (handlePress) handlePress(event);
 
       context.setExpanded((value) => !value);
     },
     accessibilitControls: context.identifier,
-    accessibilityExpanded: context.expanded,
-    accessibilityLabel: 'Toggle navigation',
+    'aria-expanded': context.expanded,
+    'aria-label': 'Toggle navigation',
   };
 }

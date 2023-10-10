@@ -40,8 +40,8 @@ const Heading = React.forwardRef((props, ref) => {
     <Text
       {...elementProps}
       ref={ref}
-      accessibilityRole="header"
-      accessibilityLevel={size}
+      role="heading"
+      aria-level={size}
       style={[classes, style]}
     >
       {children}

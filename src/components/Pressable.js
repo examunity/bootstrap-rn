@@ -34,17 +34,17 @@ const propTypes = {
 };
 
 // One of the following should be set for aria support:
-// 1) accessibilityRole
-// 2) accessibilityLabel + accessibilityHint
+// 1) role
+// 2) aria-label + aria-hint
 // 3) accessibilityActions + onAccessibilityAction
 export const getRole = (props) => {
-  const { accessibilityRole, accessibilityLabel, accessibilityActions } = props;
+  const { role, accessibilityActions } = props;
 
-  if (accessibilityRole) {
-    return accessibilityRole;
+  if (role) {
+    return role;
   }
 
-  if (accessibilityLabel || accessibilityActions) {
+  if (props['aria-label'] || accessibilityActions) {
     return null;
   }
 
@@ -117,7 +117,7 @@ const Pressable = React.forwardRef((props, ref) => {
       {...elementProps}
       {...interactionProps}
       ref={actionRef}
-      accessibilityRole={getRole(actionProps)}
+      role={getRole(actionProps)}
       style={[
         resolveStyle({ media, interaction }),
         resolveActiveStyle({ media, interaction }),

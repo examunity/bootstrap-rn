@@ -13,6 +13,6 @@ export default function useDismissNavbar(props) {
 
       context.setExpanded(false);
     },
-    accessibilityLabel: 'Close',
+    'aria-label': 'Close',
   };
 }

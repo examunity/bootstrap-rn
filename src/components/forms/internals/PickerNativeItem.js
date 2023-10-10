@@ -49,7 +49,7 @@ const PickerNativeItem = React.forwardRef((props, ref) => {
       onPress={() => {
         handleValueChange(value);
       }}
-      accessibilitySelected={selected}
+      aria-selected={selected}
       disabled={disabled}
       style={resolveStyle({ media })}
     >

@@ -63,13 +63,13 @@ const BreadcrumbItem = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole={role}
-      {...optional(active, { accessibilityCurrent: 'page' })}
+      role={role}
+      {...optional(active, { 'aria-current': 'page' })}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >
       {!first && (
-        <Text selectable={false} style={[dividerClasses, dividerStyle]}>
+        <Text style={[dividerClasses, dividerStyle]}>
           {I18nManager.isRTL
             ? StyleSheet.value('breadcrumb-divider-flipped')
             : StyleSheet.value('breadcrumb-divider')}

@@ -14,7 +14,7 @@ const propTypes = {
   disabled: PropTypes.bool,
   valid: PropTypes.bool,
   invalid: PropTypes.bool,
-  editable: PropTypes.bool,
+  readOnly: PropTypes.bool,
   selectTextOnFocus: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     }
   `,
   'textarea.form-control': css`
-    text-align-vertical: top; // added for bootstrap-rn
+    vertical-align: top; // added for bootstrap-rn
     min-height: $input-height;
 
     @include platform(ios) {
@@ -175,7 +175,7 @@ const Input = React.forwardRef((props, ref) => {
     disabled = false,
     valid = false,
     invalid = false,
-    editable = true,
+    readOnly = false,
     selectTextOnFocus = false,
     style,
     ...elementProps
@@ -203,7 +203,7 @@ const Input = React.forwardRef((props, ref) => {
       placeholderTextColor={placeholderTextColor}
       multiline={multiline}
       disabled={disabled}
-      editable={disabled ? false : editable}
+      readOnly={disabled ? true : readOnly}
       selectTextOnFocus={disabled ? false : selectTextOnFocus}
       style={[classes, style]}
     />

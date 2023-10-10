@@ -15,7 +15,7 @@ export default function useToggleTab(props) {
 
   return {
     ...restProps,
-    nativeID: `${id}-tab`,
+    id: `${id}-tab`,
     onPress: (event) => {
       if (handlePress) handlePress(event);
 
@@ -23,8 +23,8 @@ export default function useToggleTab(props) {
       context.setActiveTarget(target);
     },
     active,
-    accessibilityRole: 'tab',
-    accessibilityControls: id,
-    accessibilitySelected: active,
+    role: 'tab',
+    'aria-controls': id,
+    'aria-selected': active,
   };
 }

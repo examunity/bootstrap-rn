@@ -33,12 +33,7 @@ const ButtonGroup = React.forwardRef((props, ref) => {
   const role = Platform.OS === 'web' ? 'group' : null;
 
   return (
-    <View
-      {...elementProps}
-      ref={ref}
-      accessibilityRole={role}
-      style={[classes, style]}
-    >
+    <View {...elementProps} ref={ref} role={role} style={[classes, style]}>
       <ButtonGroupContext.Provider value={{ size }}>
         {list}
       </ButtonGroupContext.Provider>

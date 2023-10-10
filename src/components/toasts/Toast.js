@@ -55,9 +55,9 @@ const Toast = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole="alert"
-      accessibilityLive="assertive"
-      accessibilityAtomic
+      role="alert"
+      aria-live="assertive"
+      aria-atomic
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >

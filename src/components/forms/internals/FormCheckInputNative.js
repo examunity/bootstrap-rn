@@ -14,7 +14,7 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
-  nativeID: PropTypes.any,
+  id: PropTypes.any,
 };
 
 const FormCheckInputNative = React.forwardRef((props, ref) => {
@@ -27,7 +27,7 @@ const FormCheckInputNative = React.forwardRef((props, ref) => {
     hitSlop = 8,
     disabled = false,
     style,
-    nativeID,
+    id,
   } = props;
 
   const inputBackground = useBackground(style);
@@ -35,8 +35,8 @@ const FormCheckInputNative = React.forwardRef((props, ref) => {
   return (
     <Pressable
       ref={ref}
-      accessibilityRole={type}
-      accessibilityChecked={value}
+      role={type}
+      aria-checked={value}
       onPress={() => {
         handleValueChange(!value);
       }}
@@ -45,7 +45,7 @@ const FormCheckInputNative = React.forwardRef((props, ref) => {
       hitSlop={hitSlop}
       disabled={disabled}
       style={inputBackground.style}
-      nativeID={nativeID}
+      id={id}
     >
       {inputBackground.element}
     </Pressable>

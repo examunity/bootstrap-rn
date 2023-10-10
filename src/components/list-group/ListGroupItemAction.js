@@ -169,7 +169,7 @@ const ListGroupItemAction = React.forwardRef((props, ref) => {
     <Pressable
       {...elementProps}
       ref={modifierRef}
-      accessibilityRole={role}
+      role={role}
       active={active}
       disabled={disabled}
       style={[...classes, style]}

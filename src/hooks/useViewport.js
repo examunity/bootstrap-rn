@@ -45,8 +45,8 @@ export default function useViewport(initialViewport) {
     setViewport(nextViewport);
   };
 
-  // Initially determine viewport after mounting.
   useEffect(() => {
+    // Initially determine viewport after mounting.
     handleChange({ window: Dimensions.get('window') });
 
     const subscription = Dimensions.addEventListener('change', handleChange);

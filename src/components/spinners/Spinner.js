@@ -70,25 +70,17 @@ const getAnimationStyle = (variant, animation) => {
   switch (variant) {
     case 'border':
       return {
-        transform: [
-          {
-            rotate: animation.interpolate({
-              inputRange: [0, 1],
-              outputRange: ['0deg', '360deg'],
-            }),
-          },
-        ],
+        transform: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['rotate(0deg)', 'rotate(360deg)'],
+        }),
       };
     case 'grow':
       return {
-        transform: [
-          {
-            scale: animation.interpolate({
-              inputRange: [0, 0.5, 1],
-              outputRange: [0, 1, 1],
-            }),
-          },
-        ],
+        transform: animation.interpolate({
+          inputRange: [0, 0.5, 1],
+          outputRange: ['scale(0)', 'scale(1)', 'scale(1)'],
+        }),
         opacity: animation.interpolate({
           inputRange: [0, 0.5, 1],
           outputRange: [0, 1, 0],
@@ -130,8 +122,8 @@ const Spinner = React.forwardRef((props, ref) => {
     <AnimatedView
       {...elementProps}
       ref={ref}
-      accessibilityRole={role}
-      accessibilityHidden
+      role={role}
+      aria-hidden
       style={[classes, getAnimationStyle(variant, animation), style]}
     />
   );

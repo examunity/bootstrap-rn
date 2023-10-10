@@ -54,10 +54,10 @@ const ProgressBar = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole="progressbar"
-      accessibilityValueNow={value}
-      accessibilityValueMin={min}
-      accessibilityValueMax={max}
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={min}
+      aria-valuemax={max}
       style={[classes, style, { width: `${getPercentage(value, min, max)}%` }]}
     >
       {children && <Text style={[textClasses, textStyle]}>{children}</Text>}

@@ -61,7 +61,7 @@ const ListGroup = React.forwardRef((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      accessibilityRole={getRole(tabbable)}
+      role={getRole(tabbable)}
       style={[classes, style]}
     >
       <ListGroupContext.Provider value={{ flush }}>

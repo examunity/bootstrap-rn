@@ -24,11 +24,7 @@ const Label = React.forwardRef((props, ref) => {
   const role = Platform.OS === 'web' ? 'label' : null;
 
   return (
-    <View
-      {...elementProps}
-      ref={concatRefs(forRef, ref)}
-      accessibilityRole={role}
-    >
+    <View {...elementProps} ref={concatRefs(forRef, ref)} role={role}>
       {children}
     </View>
   );

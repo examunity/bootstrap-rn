@@ -226,7 +226,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
         <View
           {...elementProps}
           ref={concatRefs(dialogRef, ref)}
-          accessibilityLabelledBy={identifier}
+          aria-labelledby={identifier}
           style={[classes, style]}
           textStyle={[textClasses, textStyle]}
         >
@@ -257,7 +257,7 @@ const DropdownMenu = React.forwardRef((props, ref) => {
             <View
               {...elementProps}
               ref={concatRefs(overlayRef, ref)}
-              accessibilityLabelledBy={identifier}
+              aria-labelledby={identifier}
               style={[
                 classes,
                 overlay.overlayProps.style,

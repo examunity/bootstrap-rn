@@ -16,7 +16,7 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.any,
   // eslint-disable-next-line react/forbid-prop-types
-  nativeID: PropTypes.any,
+  id: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
@@ -40,7 +40,7 @@ const FormCheckInputWeb = React.forwardRef((props, ref) => {
     onBlur = () => {},
     disabled = false,
     style,
-    nativeID,
+    id,
   } = props;
 
   const inputBackground = useBackground(style);
@@ -57,7 +57,7 @@ const FormCheckInputWeb = React.forwardRef((props, ref) => {
       onBlur={onBlur}
       disabled={disabled}
       style={inputBackground.style}
-      nativeID={nativeID}
+      id={id}
     />
   );
 });

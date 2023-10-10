@@ -31,7 +31,8 @@ const propTypes = {
 
 const styles = StyleSheet.create({
   '.form-check .form-check-input': css`
-    $margin-top-double: $line-height-base - $form-check-input-width;
+    $height: $line-height-base * 1rem;
+    $margin-top-double: $height - $form-check-input-width;
 
     // float: left;
     // margin-left: $form-check-padding-start * -1;
