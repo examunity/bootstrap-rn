@@ -66,7 +66,7 @@ const FormChoice = React.forwardRef((props, ref) => {
                   onBlur={() => {
                     field.setTouched();
                   }}
-                  nativeID={`${id}-${key}`}
+                  id={`${id}-${key}`}
                 />
                 <FormCheck.Label htmlFor={`${id}-${key}`}>
                   <Text>{option.label}</Text>
@@ -101,7 +101,7 @@ const FormChoice = React.forwardRef((props, ref) => {
                   onBlur={() => {
                     field.setTouched();
                   }}
-                  nativeID={`${id}-${key}`}
+                  id={`${id}-${key}`}
                 />
                 <FormCheck.Label htmlFor={`${id}-${key}`}>
                   <Text>{option.label}</Text>

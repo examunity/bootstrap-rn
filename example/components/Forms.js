@@ -238,7 +238,7 @@ function Forms() {
             value={text}
             onChangeText={onChangeText}
             multiline
-            numberOfLines={5}
+            rows={5}
             invalid={error}
           />
           <Button

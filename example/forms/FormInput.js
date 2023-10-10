@@ -20,7 +20,7 @@ const propTypes = {
   ]),
   size: PropTypes.oneOf(['sm', 'lg']),
   multiline: PropTypes.bool,
-  numberOfLines: PropTypes.number,
+  rows: PropTypes.number,
   autoComplete: PropTypes.string,
   autoFocus: PropTypes.bool,
   trimValue: PropTypes.bool,
@@ -36,7 +36,7 @@ const FormInput = React.forwardRef((props, ref) => {
     size,
     info,
     multiline = false,
-    numberOfLines,
+    rows,
     autoComplete = 'on',
     autoFocus = false,
     trimValue = false,
@@ -87,12 +87,12 @@ const FormInput = React.forwardRef((props, ref) => {
         placeholder={placeholder}
         size={size}
         multiline={multiline}
-        numberOfLines={numberOfLines || (multiline ? 7 : null)}
+        rows={rows || (multiline ? 7 : null)}
         autoComplete={autoComplete === 'on' ? null : autoComplete}
         autoFocus={autoFocus}
         invalid={field.touched && field.error}
         disabled={disabled}
-        nativeID={id}
+        id={id}
       />
     </Field>
   );

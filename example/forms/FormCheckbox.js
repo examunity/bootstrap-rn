@@ -50,7 +50,7 @@ const FormCheckbox = React.forwardRef((props, ref) => {
           }}
           invalid={field.touched && field.error}
           disabled={disabled}
-          nativeID={id}
+          id={id}
         />
         <FormCheck.Label htmlFor={id}>
           <Text>{label}</Text>

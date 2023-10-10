@@ -22,7 +22,7 @@ export default function useLink(props) {
 
   if (external) {
     return {
-      accessibilityRole: 'link',
+      role: 'link',
       href: to,
       hrefAttrs: { ...defaultHrefAttrs, ...external },
       onPress: handlePress,
@@ -34,7 +34,7 @@ export default function useLink(props) {
   const internalOnClick = useLinkClickHandler(to, { replace, state });
 
   return {
-    accessibilityRole: 'link',
+    role: 'link',
     href,
     onPress: (event) => {
       if (handlePress) handlePress(event);

@@ -32,7 +32,7 @@ export default function useLink(props) {
   };
 
   return {
-    accessibilityRole: 'link',
+    role: 'link',
     onPress,
     ...restProps,
   };

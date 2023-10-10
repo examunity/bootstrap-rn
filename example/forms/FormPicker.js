@@ -60,7 +60,7 @@ const FormPicker = React.forwardRef((props, ref) => {
         placeholder={placeholder}
         invalid={field.touched && field.error}
         disabled={disabled}
-        nativeID={id}
+        id={id}
       >
         {options.map((option) => (
           <Picker.Item

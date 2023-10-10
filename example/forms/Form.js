@@ -38,7 +38,7 @@ const Form = React.forwardRef((props, ref) => {
       onSubmit={onSubmit}
     >
       {(form) => (
-        <View {...elementProps} ref={ref} accessibilityRole={role}>
+        <View {...elementProps} ref={ref} role={role}>
           {typeof children === 'function' ? children(form) : children}
         </View>
       )}
