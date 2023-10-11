@@ -2,6 +2,24 @@ import React from 'react';
 import { I18nManager, StyleSheet, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
+// The assumed background styles are typed as followed:
+//
+// type Position = 'center' | 'left' | 'right' | 'top' | 'bottom';
+// type PositionX = 'center' | 'left' | 'right';
+// type PositionY = 'center' | 'top' | 'bottom';
+//
+// type BackgroundStyles = {
+//   backgroundImage: string,
+//   backgroundSize: 'contain' | 'cover' | string | number,
+//   backgroundPosition: Position,
+//   backgroundPositionX:
+//     | PositionX
+//     | { position: PositionX, offset: string | number },
+//   backgroundPositionY:
+//     | PositionY
+//     | { position: PositionY, offset: string | number },
+// };
+
 const styles = StyleSheet.create({
   container: { overflow: 'hidden' },
   object: { aspectRatio: 1 },
