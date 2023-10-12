@@ -16,15 +16,16 @@
   "bugs": {
     "url": "https://github.com/examunity/bootstrap-rn/issues"
   },
-  "main": "dist/bootstrap-rn.cjs.js",
-  "module": "dist/bootstrap-rn.esm.js",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.js",
   "scripts": {
-    "build": "packsy build",
-    "dev": "packsy dev",
-    "prepublishOnly": "packsy validate && packsy build"
+    "prepare": "bob build",
+    "prepublishOnly": "packsy validate && bob build"
   },
   "files": [
-    "dist"
+    "src",
+    "lib"
   ],
   "dependencies": {
     "@react-native-aria/focus": "^0.2.7",
@@ -38,6 +39,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.5",
+    "react-native-builder-bob": "^0.23.1",
     "react-native-svg": "13.9.0"
   },
   "peerDependencies": {
@@ -51,8 +53,17 @@
       "pre-commit": "packsy pre-commit"
     }
   },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module"
+    ]
+  },
   "engines": {
     "node": ">= 8",
     "npm": ">= 5"
-  }
+  },
+  "source": "src/index.js"
 }
