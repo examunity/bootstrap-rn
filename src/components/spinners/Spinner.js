@@ -70,17 +70,37 @@ const getAnimationStyle = (variant, animation) => {
   switch (variant) {
     case 'border':
       return {
-        transform: animation.interpolate({
-          inputRange: [0, 1],
-          outputRange: ['rotate(0deg)', 'rotate(360deg)'],
-        }),
+        transform:
+          Platform.OS === 'web'
+            ? animation.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['rotate(0deg)', 'rotate(360deg)'],
+              })
+            : [
+                {
+                  rotate: animation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ['0deg', '360deg'],
+                  }),
+                },
+              ],
       };
     case 'grow':
       return {
-        transform: animation.interpolate({
-          inputRange: [0, 0.5, 1],
-          outputRange: ['scale(0)', 'scale(1)', 'scale(1)'],
-        }),
+        transform:
+          Platform.OS === 'web'
+            ? animation.interpolate({
+                inputRange: [0, 0.5, 1],
+                outputRange: ['scale(0)', 'scale(1)', 'scale(1)'],
+              })
+            : [
+                {
+                  scale: animation.interpolate({
+                    inputRange: [0, 0.5, 1],
+                    outputRange: [0, 1, 1],
+                  }),
+                },
+              ],
         opacity: animation.interpolate({
           inputRange: [0, 0.5, 1],
           outputRange: [0, 1, 0],
