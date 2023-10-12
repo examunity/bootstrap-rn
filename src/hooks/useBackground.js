@@ -88,7 +88,7 @@ const resolveBackgroundPosition = (style) => {
   return `${valueX} ${valueY}`;
 };
 
-export default function useBackgroundWeb(style) {
+export default function useBackground(style) {
   const flattenedStyle = StyleSheet.flatten(style);
 
   return {
