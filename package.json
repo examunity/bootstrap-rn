@@ -20,8 +20,8 @@
   "module": "lib/module/index.js",
   "react-native": "src/index.js",
   "scripts": {
-    "prepare": "bob build",
-    "prepublishOnly": "packsy validate && bob build"
+    "build": "bob build",
+    "prepare": "packsy validate && bob build"
   },
   "files": [
     "src",
