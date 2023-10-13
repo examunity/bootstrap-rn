@@ -635,22 +635,22 @@ const utilities = {
       gradient: 'var(--#{$variable-prefix}gradient))',
     },
   }, */
-  /* userSelect: {
+  userSelect: {
     property: 'user-select',
     values: {
       all: 'all',
       auto: 'auto',
       none: 'none',
     },
-  }, */
-  /* pointerEvents: {
+  },
+  pointerEvents: {
     property: 'pointer-events',
     class: 'pe',
     values: {
       none: 'none',
       auto: 'auto',
     },
-  }, */
+  },
   rounded: {
     property: 'border-radius',
     class: 'rounded',

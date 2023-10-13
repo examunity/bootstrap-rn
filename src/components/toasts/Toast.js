@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   '.toast': css`
     width: $toast-max-width;
     max-width: 100%;
-    // pointer-events: auto;
+    pointer-events: auto;
     background-color: $toast-background-color;
     // background-clip: padding-box;
     border: $toast-border-width solid $toast-border-color;

@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     border-bottom-right-radius: $list-group-border-radius;
   `,
   '.list-group-item.disabled': css`
-    // pointer-events: none;
+    pointer-events: none;
     background-color: $list-group-disabled-bg;
   `,
   '.list-group-item.disabled --text': css`

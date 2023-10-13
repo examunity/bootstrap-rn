@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     }
   `,
   '.btn-close.disabled': css`
-    // pointer-events: none;
-    // user-select: none;
+    pointer-events: none;
+    user-select: none;
     opacity: $btn-close-disabled-opacity;
   `,
   // Modal styles

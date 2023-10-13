@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     // display: inline-block;
     width: $navbar-toggler-font-size * 1.5; // 1.5em;
     height: $navbar-toggler-font-size * 1.5; // 1.5em;
-    // vertical-align: middle;
+    vertical-align: middle;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;

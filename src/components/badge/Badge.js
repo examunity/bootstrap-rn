@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     color: $badge-color;
     text-align: center;
     // white-space: nowrap;
-    // vertical-align: baseline;
+    vertical-align: middle; // baseline;
   `,
 });
 

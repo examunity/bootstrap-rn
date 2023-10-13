@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     // display: inline-block;
     @include platform(web) {
       // cursor: if($enable-button-pointers, pointer, null);
-      user-select: none;
     }
+    user-select: none;
     background-color: transparent;
     border: $btn-border-width solid transparent;
     padding: $btn-padding-y $btn-padding-x;
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     text-align: center;
     text-decoration: none; // if($link-decoration == none, null, none);
     white-space: $btn-white-space;
-    // vertical-align: middle;
+    vertical-align: middle;
     font-size: $btn-font-size;
 
     &:hover {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     }
   `,
   '.btn.disabled': css`
-    // pointer-events: none;
+    pointer-events: none;
     opacity: $btn-disabled-opacity;
     // @include box-shadow(none);
   `,

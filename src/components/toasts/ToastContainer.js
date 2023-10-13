@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   '.toast-container': css`
     width: 100%; // max-content;
     max-width: 100%;
-    // pointer-events: none;
+    pointer-events: none;
   `,
 });
 

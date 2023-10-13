@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     width: $form-check-input-width;
     height: $form-check-input-width;
     // margin-top: ($line-height-base - $form-check-input-width) * 0.5; // line-height minus check height
-    // vertical-align: top;
+    vertical-align: top;
     background-color: $form-check-input-bg;
     background-repeat: no-repeat;
     background-position: center;

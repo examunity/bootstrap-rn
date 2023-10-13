@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     // display: inline-block;
     margin-left: 0; // added for bootstrap-rn
     margin-right: $caret-spacing;
-    // vertical-align: $vertical-align;
+    // vertical-align: $caret-vertical-align;
     // content: "";
     border-top-width: $caret-width;
     border-top-color: transparent;

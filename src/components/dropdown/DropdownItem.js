@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   `,
 
   '.dropdown-item.disabled': css`
-    // pointer-events: none;
+    pointer-events: none;
     background-color: transparent;
     // Remove CSS gradients if they're enabled
     // background-image: if($enable-gradients, none, null);
