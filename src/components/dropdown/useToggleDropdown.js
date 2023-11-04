@@ -17,6 +17,7 @@ export default function useToggleDropdown(props) {
     },
     'aria-haspopup': true,
     'aria-expanded': context.visible,
+    active: context.visible,
     caret: caret === undefined ? { direction: context.direction } : caret,
   };
 }
