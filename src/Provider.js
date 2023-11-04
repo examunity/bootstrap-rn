@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import useViewport from './hooks/useViewport';
+import useScrollbarEffects from './hooks/useScrollbarEffects';
 import Context from './Context';
 
 const propTypes = {
@@ -22,9 +23,12 @@ function Provider(props) {
 
   const counter = useRef(0);
 
+  const scrollbars = useScrollbarEffects(fixed);
+
   const context = {
     utilities,
     modifiers,
+    scrollbars,
     fixed,
     getViewport() {
       return viewport;

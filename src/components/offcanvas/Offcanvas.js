@@ -10,7 +10,6 @@ import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
 import useMedia from '../../hooks/useMedia';
-import useScrollbarEffects from '../../hooks/useScrollbarEffects';
 import NavbarContext from '../navbar/NavbarContext';
 import useOffcanvas from './useOffcanvas';
 import OffcanvasContext from './OffcanvasContext';
@@ -169,12 +168,7 @@ const Offcanvas = React.forwardRef((props, ref) => {
   const navbar = useContext(NavbarContext);
   const offcanvasRef = useRef();
 
-  const offcanvas = useOffcanvas();
-
-  useScrollbarEffects({
-    keepBodyScroll: scroll,
-    visible,
-  });
+  const offcanvas = useOffcanvas(visible, scroll);
 
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
   const classes = getStyles(styles, [

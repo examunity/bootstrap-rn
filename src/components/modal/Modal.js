@@ -8,7 +8,6 @@ import css from '../../style/css';
 import ScrollView from '../ScrollView';
 import View from '../View';
 import BackdropHandler from '../helpers/BackdropHandler';
-import useScrollbarEffects from '../../hooks/useScrollbarEffects';
 import useModal from './useModal';
 import ModalContext from './ModalContext';
 import ModalHeader from './ModalHeader';
@@ -161,12 +160,7 @@ const Modal = React.forwardRef((props, ref) => {
 
   const dialogRef = useRef();
 
-  const modal = useModal(scrollable);
-
-  useScrollbarEffects({
-    keepBodyScroll: false,
-    visible,
-  });
+  const modal = useModal(visible, scrollable);
 
   const backdropClasses = getStyles(styles, ['.modal-backdrop']);
   const classes = getStyles(styles, ['.modal']);
