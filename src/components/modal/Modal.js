@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     width: auto;
     margin: $modal-dialog-margin;
     // allow clicks to pass through for custom click handling to close modal
-    pointer-events: none;
+    pointer-events: auto; // pointer-events: none;
 
     @include media-breakpoint-up(sm) {
       width: 100%; // added for bootstrap-rn
