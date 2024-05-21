@@ -9,16 +9,16 @@ function formula(value) {
     formulaRE,
     (
       _,
-      leftUnary = '',
+      leftUnary,
       leftNumber,
-      leftUnit = '',
+      leftUnit,
       operator,
-      rightUnary = '',
+      rightUnary,
       rightNumber,
       rightUnit = '',
     ) => {
-      const leftValue = `${leftUnary}${leftNumber}${leftUnit}`;
-      const rightValue = `${rightUnary}${rightNumber}${rightUnit}`;
+      const leftValue = `${leftUnary || ''}${leftNumber}${leftUnit || ''}`;
+      const rightValue = `${rightUnary || ''}${rightNumber}${rightUnit}`;
 
       return calculate(leftValue, operator, rightValue);
     },

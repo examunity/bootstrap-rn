@@ -1,7 +1,7 @@
 import transform from './transform';
 import variables from '../theme/variables';
 
-const extractVariables = (source, baseVariables = {}, options) => {
+const extractVariables = (source, options, baseVariables = {}) => {
   if (typeof source !== 'function') {
     // TODO: Resolve t => ... functions on source object.
     return { ...source, ...baseVariables };
@@ -15,5 +15,5 @@ const extractVariables = (source, baseVariables = {}, options) => {
 export default function makeTheme(customVariables) {
   const customTheme = extractVariables(customVariables);
 
-  return extractVariables(variables, customTheme, { preferTheme: true });
+  return extractVariables(variables, { preferTheme: true }, customTheme);
 }

@@ -11,7 +11,7 @@ function rem(value) {
 
   return value.replace(
     transformREMUnitRE,
-    (_, unary = '', number) => `${unary}${convertRemToPx(number)}px`,
+    (_, unary, number) => `${unary || ''}${convertRemToPx(number)}px`,
   );
 }
 
