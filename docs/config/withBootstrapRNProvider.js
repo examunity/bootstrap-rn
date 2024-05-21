@@ -37,8 +37,10 @@ const modifiers = {
   },
 };
 
-export default (Story) => (
-  <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
-    <Story />
-  </Provider>
-);
+export default function withBootstrapRNProvider(Story) {
+  return (
+    <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
+      <Story />
+    </Provider>
+  );
+}
