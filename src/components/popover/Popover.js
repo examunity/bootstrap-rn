@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
@@ -57,11 +57,14 @@ const Popover = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
-  const popover = {
-    placement: transformPlacement(placement),
-    arrowStyle,
-    popper,
-  };
+  const popover = useMemo(
+    () => ({
+      placement: transformPlacement(placement),
+      arrowStyle,
+      popper,
+    }),
+    [arrowStyle],
+  );
 
   const classes = getStyles(styles, ['.popover']);
   const textClasses = getStyles(styles, ['.popover --text']);

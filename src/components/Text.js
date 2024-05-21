@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Text as BaseText } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
@@ -91,6 +91,14 @@ const Text = React.forwardRef((props, ref) => {
     getStyleName(styleName, color),
   );
 
+  const contextValue = useMemo(
+    () => ({
+      style: null,
+      hasTextAncestor: true,
+    }),
+    [],
+  );
+
   const element = (
     <BaseText {...elementProps} ref={ref} style={resolveStyle({ media })} />
   );
@@ -104,12 +112,7 @@ const Text = React.forwardRef((props, ref) => {
   // to true for nested text components. Furthermore we need to reset the
   // context style, because we only need to apply the style once.
   return (
-    <TextStyleContext.Provider
-      value={{
-        style: null,
-        hasTextAncestor: true,
-      }}
-    >
+    <TextStyleContext.Provider value={contextValue}>
       {element}
     </TextStyleContext.Provider>
   );

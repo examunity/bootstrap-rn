@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Picker as BasePicker, StyleSheet as StyleUtils } from 'react-native';
 import PropTypes from 'prop-types';
 import useBackground from '../../../hooks/useBackground';
@@ -52,6 +52,13 @@ const PickerWeb = React.forwardRef((props, ref) => {
 
   const showPlaceholder = selectedValue === undefined || selectedValue === null;
 
+  const contextValue = useMemo(
+    () => ({
+      optionColor: getOptionStyle(background.style, showPlaceholder),
+    }),
+    [background, showPlaceholder],
+  );
+
   return (
     <BasePicker
       {...elementProps}
@@ -69,11 +76,7 @@ const PickerWeb = React.forwardRef((props, ref) => {
       <option value={PLACEHOLDER} disabled hidden>
         {placeholder}
       </option>
-      <PickerWebContext.Provider
-        value={{
-          optionColor: getOptionStyle(background.style, showPlaceholder),
-        }}
-      >
+      <PickerWebContext.Provider value={contextValue}>
         {children}
       </PickerWebContext.Provider>
     </BasePicker>

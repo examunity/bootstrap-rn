@@ -10,13 +10,13 @@ const propTypes = {
   onChange: PropTypes.func,
 };
 
-const TabProvider = (props) => {
+function TabProvider(props) {
   const { children, defaultActiveTarget, activeTarget, onChange } = props;
 
   const tabbable = useTabbable(defaultActiveTarget, activeTarget, onChange);
 
   return <TabContext.Provider value={tabbable}>{children}</TabContext.Provider>;
-};
+}
 
 TabProvider.displayName = 'TabProvider';
 TabProvider.propTypes = propTypes;

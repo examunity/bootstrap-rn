@@ -32,7 +32,7 @@ const initialState = {
   ignoreBackdropClick: false,
 };
 
-const BackdropHandler = (props) => {
+function BackdropHandler(props) {
   const {
     toggleRef,
     dialogRef,
@@ -127,7 +127,7 @@ const BackdropHandler = (props) => {
       importantForAccessibility="no"
     />
   );
-};
+}
 
 BackdropHandler.displayName = 'BackdropHandler';
 BackdropHandler.propTypes = propTypes;

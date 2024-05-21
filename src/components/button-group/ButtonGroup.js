@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
@@ -32,9 +32,11 @@ const ButtonGroup = React.forwardRef((props, ref) => {
   // Accessiblity role tabpanel is only supported on web.
   const role = Platform.OS === 'web' ? 'group' : null;
 
+  const contextValue = useMemo(() => ({ size }), [size]);
+
   return (
     <View {...elementProps} ref={ref} role={role} style={[classes, style]}>
-      <ButtonGroupContext.Provider value={{ size }}>
+      <ButtonGroupContext.Provider value={contextValue}>
         {list}
       </ButtonGroupContext.Provider>
     </View>

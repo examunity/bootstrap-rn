@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Text, I18nManager, Pressable as BasePressable } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
@@ -112,6 +112,17 @@ const Pressable = React.forwardRef((props, ref) => {
   const hasTextStyle = (context && context.style) || textStyle;
   const wrappedChildren = applyCaret(children, caret);
 
+  const contextValue = useMemo(
+    () => ({
+      style: [
+        resolveTextStyle({ media, interaction }),
+        resolveActiveTextStyle({ media, interaction }),
+      ],
+      hasAncestor: context && context.hasTextAncestor,
+    }),
+    [resolveTextStyle, resolveActiveTextStyle, media, interaction],
+  );
+
   return (
     <BasePressable
       {...elementProps}
@@ -124,15 +135,7 @@ const Pressable = React.forwardRef((props, ref) => {
       ]}
     >
       {hasTextStyle ? (
-        <TextStyleContext.Provider
-          value={{
-            style: [
-              resolveTextStyle({ media, interaction }),
-              resolveActiveTextStyle({ media, interaction }),
-            ],
-            hasAncestor: context && context.hasTextAncestor,
-          }}
-        >
+        <TextStyleContext.Provider value={contextValue}>
           {wrappedChildren}
         </TextStyleContext.Provider>
       ) : (

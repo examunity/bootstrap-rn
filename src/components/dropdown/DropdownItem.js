@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownItem = (props) => {
+function DropdownItem(props) {
   const {
     children,
     onPress: handlePress,
@@ -143,7 +143,7 @@ const DropdownItem = (props) => {
       {children}
     </Pressable>
   );
-};
+}
 
 DropdownItem.displayName = 'DropdownItem';
 DropdownItem.propTypes = propTypes;

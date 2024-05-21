@@ -12,7 +12,7 @@ const propTypes = {
   visible: PropTypes.bool.isRequired,
 };
 
-const Overlay = (props) => {
+function Overlay(props) {
   const {
     children,
     targetRef,
@@ -57,7 +57,7 @@ const Overlay = (props) => {
   }
 
   return children(overlay, overlayRef);
-};
+}
 
 Overlay.displayName = 'Overlay';
 Overlay.propTypes = propTypes;

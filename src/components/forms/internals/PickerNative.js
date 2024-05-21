@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../../style/StyleSheet';
 import css from '../../../style/css';
@@ -80,25 +80,30 @@ const getText = ({ children, selectedValue }) => {
 };
 
 /* eslint-disable react/prop-types */
-const DefaultMenuComponent = ({
+function DefaultMenuComponent({
   children,
   selectedValue,
   onValueChange: handleValueChange,
   onClose: handleClose,
-}) => (
-  <Offcanvas placement="bottom" visible onToggle={handleClose}>
-    <Offcanvas.Body contentContainerStyle={styles.menu}>
-      <PickerNativeContext.Provider
-        value={{
-          selectedValue,
-          handleValueChange,
-        }}
-      >
-        {children}
-      </PickerNativeContext.Provider>
-    </Offcanvas.Body>
-  </Offcanvas>
-);
+}) {
+  const contextValue = useMemo(
+    () => ({
+      selectedValue,
+      handleValueChange,
+    }),
+    [selectedValue, handleValueChange],
+  );
+
+  return (
+    <Offcanvas placement="bottom" visible onToggle={handleClose}>
+      <Offcanvas.Body contentContainerStyle={styles.menu}>
+        <PickerNativeContext.Provider value={contextValue}>
+          {children}
+        </PickerNativeContext.Provider>
+      </Offcanvas.Body>
+    </Offcanvas>
+  );
+}
 /* eslint-enable */
 
 const PickerNative = React.forwardRef((props, ref) => {

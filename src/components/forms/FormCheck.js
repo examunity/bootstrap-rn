@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -52,9 +52,16 @@ const FormCheck = React.forwardRef((props, ref) => {
     reverse && '.form-check-reverse',
   ]);
 
+  const contextValue = useMemo(() => ({ reverse, disabled, valid, invalid }), [
+    reverse,
+    disabled,
+    valid,
+    invalid,
+  ]);
+
   return (
     <View {...elementProps} ref={ref} style={[classes, style]}>
-      <FormCheckContext.Provider value={{ reverse, disabled, valid, invalid }}>
+      <FormCheckContext.Provider value={contextValue}>
         {children}
       </FormCheckContext.Provider>
     </View>
