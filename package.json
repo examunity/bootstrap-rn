@@ -39,7 +39,7 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "packsy": "^0.2.2",
+    "packsy": "^0.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.5",
@@ -51,6 +51,11 @@
     "react-dom": ">=16.13.1",
     "react-native": ">=0.63.0",
     "react-native-svg": ">=12.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "packsy pre-commit"
+    }
   },
   "react-native-builder-bob": {
     "source": "src",
