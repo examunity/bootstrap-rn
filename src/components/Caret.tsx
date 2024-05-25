@@ -1,22 +1,25 @@
-import React, { useContext } from 'react';
-import { I18nManager, StyleSheet as StyleUtils } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { useContext, forwardRef } from 'react';
+import { I18nManager, StyleSheet as StyleUtils, ViewStyle } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import { getStyles } from '../utils';
 import css from '../style/css';
-import TextStyleContext from '../style/TextStyleContext';
+import TextStyleContext, {
+  TextStyleContextType,
+} from '../style/TextStyleContext';
 import View from './View';
 
-const DIRECTIONS = ['up', 'down', 'start', 'end'];
+export const CARET_DIRECTIONS = ['up', 'down', 'start', 'end'] as const;
 
-const propTypes = {
-  color: PropTypes.string,
-  direction: PropTypes.oneOf(DIRECTIONS),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+type CaretDirectionTypes = typeof CARET_DIRECTIONS[number];
+
+export type CaretProps = {
+  color?: string;
+  direction?: CaretDirectionTypes;
+  style?: any;
+  [key: string]: any;
 };
 
-const getColor = (context) => {
+const getColor = (context: TextStyleContextType | null): string => {
   if (context && context.style) {
     const flattenedStyle = StyleUtils.flatten(context.style);
 
@@ -28,7 +31,10 @@ const getColor = (context) => {
   return StyleSheet.value('body-color');
 };
 
-const getBorderColorStyle = (color, direction) => {
+const getBorderColorStyle = (
+  color: string,
+  direction: CaretDirectionTypes,
+): ViewStyle => {
   switch (direction) {
     case 'down':
       return { borderTopColor: color };
@@ -49,15 +55,10 @@ const getBorderColorStyle = (color, direction) => {
 
 const styles = StyleSheet.create({
   caret: css`
-    // &::after styles
-    // display: inline-block;
     margin-left: $caret-spacing;
-    // vertical-align: $caret-vertical-align;
-    align-self: center; // added for bootstrap-rn
-    // content: "";
+    align-self: center;
   `,
   'caret-down': css`
-    // &::after styles
     border-top-width: $caret-width;
     border-right-width: $caret-width;
     border-right-color: transparent;
@@ -66,7 +67,6 @@ const styles = StyleSheet.create({
     border-left-color: transparent;
   `,
   'caret-up': css`
-    // &::after styles
     border-top-width: 0;
     border-right-width: $caret-width;
     border-right-color: transparent;
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     border-left-color: transparent;
   `,
   'caret-end': css`
-    // &::after styles
     border-top-width: $caret-width;
     border-top-color: transparent;
     border-right-width: 0;
@@ -84,15 +83,8 @@ const styles = StyleSheet.create({
     border-left-width: $caret-width;
   `,
   'caret-start': css`
-    // &::after styles
-    // display: none;
-
-    // &::before styles
-    // display: inline-block;
-    margin-left: 0; // added for bootstrap-rn
+    margin-left: 0;
     margin-right: $caret-spacing;
-    // vertical-align: $caret-vertical-align;
-    // content: "";
     border-top-width: $caret-width;
     border-top-color: transparent;
     border-right-width: $caret-width;
@@ -101,10 +93,10 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Caret = React.forwardRef((props, ref) => {
+const Caret = forwardRef<ViewStyle, CaretProps>((props, ref) => {
   const { color, direction = 'down', style, ...elementProps } = props;
 
-  const context = useContext(TextStyleContext);
+  const context = useContext(TextStyleContext) as TextStyleContextType;
 
   const classes = getStyles(styles, ['caret', `caret-${direction}`]);
 
@@ -122,6 +114,5 @@ const Caret = React.forwardRef((props, ref) => {
 });
 
 Caret.displayName = 'Caret';
-Caret.propTypes = propTypes;
 
 export default Caret;

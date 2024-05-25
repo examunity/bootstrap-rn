@@ -1,21 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { getStyles, each } from '../../utils';
-import { THEME_COLORS } from '../../theme/proxies';
+import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
-  dismissible: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-};
+export type AlertProps = {
+  children: React.ReactNode;
+  color?: ThemeColorsType;
+  dismissible?: boolean;
+  style?: React.CSSProperties;
+  textStyle?: any;
+  [key: string]: any;
+}
 
 const styles = StyleSheet.create({
   '.alert': css`
@@ -26,13 +24,13 @@ const styles = StyleSheet.create({
     border: $alert-border-width solid transparent;
     border-radius: $alert-border-radius;
   `,
-  ...each(THEME_COLORS, (state, value) => ({
+  ...each(THEME_COLORS, (state: string, value: string) => ({
     [`.alert-${state}`]: css`
-      background-color: ${shiftColor(value, (t) => t['alert-bg-scale'])};
-      border-color: ${shiftColor(value, (t) => t['alert-border-scale'])};
+      background-color: ${shiftColor(value, (t: any) => t['alert-bg-scale'])};
+      border-color: ${shiftColor(value, (t: any) => t['alert-border-scale'])};
     `,
     [`.alert-${state} --text`]: css`
-      color: ${shiftColor(value, (t) => t['alert-color-scale'])};
+      color: ${shiftColor(value, (t: any) => t['alert-color-scale'])};
     `,
   })),
   '.alert-dismissible': {
@@ -40,7 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Alert = React.forwardRef((props, ref) => {
+const Alert = React.forwardRef<any, AlertProps>((props, ref) => {
   const {
     children,
     color = 'primary',
@@ -52,17 +50,17 @@ const Alert = React.forwardRef((props, ref) => {
 
   const classes = getStyles(styles, [
     '.alert',
-    `.alert-${color}`,
+    `.alert-${String(color)}`,
     dismissible && '.alert-dismissible',
   ]);
 
-  const textClasses = getStyles(styles, [`.alert-${color} --text`]);
+  const textClasses = getStyles(styles, [`.alert-${String(color)} --text`]);
 
   return (
     <View
       {...elementProps}
       ref={ref}
-      role="alert"
+      role="alert" // causing no overload match this call
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >
@@ -72,6 +70,5 @@ const Alert = React.forwardRef((props, ref) => {
 });
 
 Alert.displayName = 'Alert';
-Alert.propTypes = propTypes;
 
 export default Alert;

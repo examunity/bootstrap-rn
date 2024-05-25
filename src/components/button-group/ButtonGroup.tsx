@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -8,12 +7,12 @@ import { getStyles } from '../../utils';
 import ButtonGroupContext from './ButtonGroupContext';
 import useList from '../../hooks/useList';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  size: PropTypes.oneOf(['lg', 'sm']),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-};
+export interface ButtonGroupProps {
+  children: React.ReactNode;
+  size?: 'lg' | 'sm';
+  style?: any;
+  [key: string]: any;
+}
 
 const styles = StyleSheet.create({
   '.btn-group': css`
@@ -22,7 +21,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ButtonGroup = React.forwardRef((props, ref) => {
+const ButtonGroup = React.forwardRef<any, ButtonGroupProps>((props, ref) => {
+  // const ButtonGroup = React.forwardRef((props, ref) => {
   const { children, size, style, ...elementProps } = props;
 
   const list = useList(children);
@@ -32,7 +32,7 @@ const ButtonGroup = React.forwardRef((props, ref) => {
   // Accessiblity role tabpanel is only supported on web.
   const role = Platform.OS === 'web' ? 'group' : null;
 
-  const contextValue = useMemo(() => ({ size }), [size]);
+  const contextValue = useMemo(() => ({ size: String(size) }), [size]);
 
   return (
     <View {...elementProps} ref={ref} role={role} style={[classes, style]}>
@@ -44,6 +44,5 @@ const ButtonGroup = React.forwardRef((props, ref) => {
 });
 
 ButtonGroup.displayName = 'ButtonGroup';
-ButtonGroup.propTypes = propTypes;
 
 export default ButtonGroup;

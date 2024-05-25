@@ -30,9 +30,13 @@
   "dependencies": {
     "@react-native-aria/focus": "^0.2.7",
     "@react-native-aria/overlays": "^0.3.5",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
     "css-to-react-native": "^3.2.0",
     "prop-types": "^15.7.2",
-    "tiny-invariant": "^1.3.1"
+    "tiny-invariant": "^1.3.1",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "packsy": "^0.2.2",
@@ -47,11 +51,6 @@
     "react-dom": ">=16.13.1",
     "react-native": ">=0.63.0",
     "react-native-svg": ">=12.3.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "packsy pre-commit"
-    }
   },
   "react-native-builder-bob": {
     "source": "src",

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
@@ -8,13 +7,12 @@ import View from '../View';
 import useList from '../../hooks/useList';
 import BreadcrumbItem from './BreadcrumbItem';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-};
+export interface BreadcrumbProps {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: any;
+  [key: string]: any;
+}
 
 const styles = StyleSheet.create({
   '.breadcrumb': css`
@@ -33,7 +31,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Breadcrumb = React.forwardRef((props, ref) => {
+const Breadcrumb = React.forwardRef<any, BreadcrumbProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const list = useList(children);
@@ -57,8 +55,7 @@ const Breadcrumb = React.forwardRef((props, ref) => {
 });
 
 Breadcrumb.displayName = 'Breadcrumb';
-Breadcrumb.propTypes = propTypes;
 
-Breadcrumb.Item = BreadcrumbItem;
-
-export default Breadcrumb;
+export default Object.assign(Breadcrumb, {
+  Item: BreadcrumbItem,
+});

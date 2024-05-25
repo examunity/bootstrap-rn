@@ -1,18 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import Text from '../Text';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-};
+export type BadgeProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: any;
+  [key: string]: any;
+}
 
 const styles = StyleSheet.create({
   '.badge': css`
@@ -32,7 +30,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Badge = React.forwardRef((props, ref) => {
+const Badge = React.forwardRef<any, BadgeProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.badge']);
@@ -47,6 +45,5 @@ const Badge = React.forwardRef((props, ref) => {
 });
 
 Badge.displayName = 'Badge';
-Badge.propTypes = propTypes;
 
 export default Badge;

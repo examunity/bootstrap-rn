@@ -1,5 +1,4 @@
 import React, { useContext, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Text, I18nManager, Pressable as BasePressable } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useModifier from '../hooks/useModifier';
@@ -7,37 +6,31 @@ import useAction from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
-import Caret from './Caret';
+import Caret, { CaretProps } from './Caret';
 
-const DIRECTIONS = ['up', 'down', 'start', 'end'];
+type CaretTypes = boolean | CaretProps;
 
-const propTypes = {
-  children: PropTypes.node,
-  caret: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.shape({
-      direction: PropTypes.oneOf(DIRECTIONS),
-      color: PropTypes.string,
-    }),
-  ]),
-  active: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  activeStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  activeTextStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  styleName: PropTypes.any,
-};
+interface PressableProps {
+  children?: React.ReactNode;
+  caret?: CaretTypes;
+  active?: boolean;
+  disabled?: boolean;
+  style?: any;
+  activeStyle?: any;
+  textStyle?: any;
+  activeTextStyle?: any;
+  styleName?: any;
+  role?: string;
+  'aria-label'?: string;
+  accessibilityActions?: any[];
+  [key: string]: any;
+}
 
 // One of the following should be set for aria support:
 // 1) role
 // 2) aria-label + aria-hint
 // 3) accessibilityActions + onAccessibilityAction
-export const getRole = (props) => {
+export const getRole = (props: PressableProps): string | null => {
   const { role, accessibilityActions } = props;
 
   if (role) {
@@ -51,7 +44,10 @@ export const getRole = (props) => {
   return 'button';
 };
 
-const applyCaret = (children, caret) => {
+const applyCaret = (
+  children: React.ReactNode,
+  caret?: CaretTypes,
+): React.ReactNode => {
   if (!caret) {
     return children;
   }
@@ -146,6 +142,5 @@ const Pressable = React.forwardRef((props, ref) => {
 });
 
 Pressable.displayName = 'Pressable';
-Pressable.propTypes = propTypes;
 
 export default Pressable;

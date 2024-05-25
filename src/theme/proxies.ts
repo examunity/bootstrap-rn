@@ -6,6 +6,7 @@ import { makeProxy } from '../utils';
 
 // Color system
 
+
 export const GRAYS = makeProxy('grays', [
   '100',
   '200',
@@ -271,5 +272,8 @@ const proxies = {
   DISPLAY_FONT_SIZES,
   FORM_VALIDATION_STATES,
 };
+
+
+export type ThemeColorsType = keyof typeof THEME_COLORS;
 
 export default proxies;

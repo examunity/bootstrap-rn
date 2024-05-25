@@ -3,14 +3,19 @@ import { calculate } from '../style/math';
 import RgbaValue from '../style/types/RgbaValue';
 import UnitValue from '../style/types/UnitValue';
 
-export const fn = (handle) => (...args) => (t) => {
+export const fn = <T>(handle: (input: any[], t: T) => any) => (...args: any[]) => (t: T) => {
   const input = args.map((arg) => (typeof arg === 'function' ? arg(t) : arg));
   return handle(input, t);
 };
 
+// export const fn = (handle) => (...args) => (t) => {
+//   const input = args.map((arg) => (typeof arg === 'function' ? arg(t) : arg));
+//   return handle(input, t);
+// };
+
 /* eslint-disable arrow-body-style */
 
-const escapedCharacters = {
+const escapedCharacters: { [key: string]: string } = {
   '<': '%3c',
   '>': '%3e',
   '#': '%23',
@@ -18,8 +23,17 @@ const escapedCharacters = {
   ')': '%29',
 };
 
-export const escapeSvg = (string) => {
-  const strReplace = (val) =>
+// const escapedCharacters = {
+//   '<': '%3c',
+//   '>': '%3e',
+//   '#': '%23',
+//   '(': '%28',
+//   ')': '%29',
+// };
+
+
+export const escapeSvg = (string: string): string => {
+  const strReplace = (val: string): string =>
     Object.entries(escapedCharacters).reduce(
       (result, [char, encoded]) =>
         result.replace(new RegExp(`\\${char}`, 'g'), encoded),
@@ -31,6 +45,22 @@ export const escapeSvg = (string) => {
     : strReplace(string);
 };
 
+// export const escapeSvg = (string) => {
+//   const strReplace = (val) =>
+//     Object.entries(escapedCharacters).reduce(
+//       (result, [char, encoded]) =>
+//         result.replace(new RegExp(`\\${char}`, 'g'), encoded),
+//       val,
+//     );
+
+//   return string.startsWith('url(')
+//     ? `url("${strReplace(string.slice(5, -2))}")`
+//     : strReplace(string);
+// };
+
+
+
+
 // Color contrast
 
 // A list of pre-calculated numbers of pow(divide((divide($value, 255) + .055), 1.055), 2.4). (from 0 to 255)
@@ -40,7 +70,7 @@ const luminanceList = [0.0008, 0.001, 0.0011, 0.0013, 0.0015, 0.0017, 0.002, 0.0
 // Return WCAG2.0 relative luminance
 // See https://www.w3.org/WAI/GL/wiki/Relative_luminance
 // See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
-const luminance = (color) => {
+const luminance = (color: string): number => {
   const rgb = RgbaValue.parse(color).toRgb();
 
   const [red, green, blue] = rgb.map((value) => {
@@ -50,19 +80,41 @@ const luminance = (color) => {
   return red * 0.2126 + green * 0.7152 + blue * 0.0722;
 };
 
+// const luminance = (color) => {
+//   const rgb = RgbaValue.parse(color).toRgb();
+
+//   const [red, green, blue] = rgb.map((value) => {
+//     return value / 255 < 0.04045 ? value / 255 / 12.92 : luminanceList[value];
+//   });
+
+//   return red * 0.2126 + green * 0.7152 + blue * 0.0722;
+// };
+
 // Return opaque color
 // opaque(#fff, rgba(0, 0, 0, .5)) => #808080
-const opaque = (background, foreground) => {
+const opaque = (background: string, foreground: string): string => {
   const foregroundRgba = RgbaValue.parse(foreground);
   return mix(rgba(foregroundRgba, 1), background, opacity(foregroundRgba));
 };
 
-const contrastRatio = (background, foreground) => {
+// const opaque = (background, foreground) => {
+//   const foregroundRgba = RgbaValue.parse(foreground);
+//   return mix(rgba(foregroundRgba, 1), background, opacity(foregroundRgba));
+// };
+
+const contrastRatio = (background: string, foreground: string): number => {
   const l1 = luminance(background);
   const l2 = luminance(opaque(background, foreground));
 
   return l1 > l2 ? (l1 + 0.05) / (l2 + 0.05) : (l2 + 0.05) / (l1 + 0.05);
 };
+
+// const contrastRatio = (background, foreground) => {
+//   const l1 = luminance(background);
+//   const l2 = luminance(opaque(background, foreground));
+
+//   return l1 > l2 ? (l1 + 0.05) / (l2 + 0.05) : (l2 + 0.05) / (l1 + 0.05);
+// };
 
 export const colorContrast = fn(([background], t) => {
   const foregrounds = [

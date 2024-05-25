@@ -5,27 +5,27 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
 import { getStyles, each } from '../../utils';
-import { THEME_COLORS } from '../../theme/proxies';
+import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
-import ButtonGroupContext from '../button-group/ButtonGroupContext';
+import ButtonGroupContext, {
+  ButtonGroupContextType,
+} from '../button-group/ButtonGroupContext';
 import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf([...Object.keys(THEME_COLORS), 'link']),
-  size: PropTypes.oneOf(['lg', 'sm']),
-  outline: PropTypes.bool,
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  activeStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  activeTextStyle: PropTypes.any,
+type ThemeColors = ThemeColorsType | 'link';
+
+export type ButtonProps = {
+  children: React.ReactNode;
+  color: ThemeColors;
+  size?: 'lg' | 'sm';
+  outline?: boolean;
+  active?: boolean;
+  disabled?: boolean;
+  style?: any;
+  activeStyle?: any;
+  textStyle?: any;
+  activeTextStyle?: any;
 };
 
 const styles = StyleSheet.create({
@@ -87,22 +87,22 @@ const styles = StyleSheet.create({
       &:hover {
         background-color: ${shadeColor(
           value,
-          (t) => t['btn-hover-bg-shade-amount'],
+          (t: any) => t['btn-hover-bg-shade-amount'],
         )};
         border-color: ${shadeColor(
           value,
-          (t) => t['btn-hover-border-shade-amount'],
+          (t: any) => t['btn-hover-border-shade-amount'],
         )};
       }
 
       &:focus-visible {
         background-color: ${shadeColor(
           value,
-          (t) => t['btn-hover-bg-shade-amount'],
+          (t: any) => t['btn-hover-bg-shade-amount'],
         )};
         border-color: ${shadeColor(
           value,
-          (t) => t['btn-hover-border-shade-amount'],
+          (t: any) => t['btn-hover-border-shade-amount'],
         )};
         /* @if $enable-shadows {
           @include box-shadow($btn-box-shadow, 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5));
@@ -115,13 +115,13 @@ const styles = StyleSheet.create({
       &:active {
         background-color: ${shadeColor(
           value,
-          (t) => t['btn-active-bg-shade-amount'],
+          (t: any) => t['btn-active-bg-shade-amount'],
         )};
         // Remove CSS gradients if they're enabled
         // background-image: if($enable-gradients, none, null);
         border-color: ${shadeColor(
           value,
-          (t) => t['btn-active-border-shade-amount'],
+          (t: any) => t['btn-active-border-shade-amount'],
         )};
       }
     `,
@@ -143,13 +143,13 @@ const styles = StyleSheet.create({
     [`.btn-${color}.active`]: css`
       background-color: ${shadeColor(
         value,
-        (t) => t['btn-active-bg-shade-amount'],
+        (t: any) => t['btn-active-bg-shade-amount'],
       )};
       // Remove CSS gradients if they're enabled
       // background-image: if($enable-gradients, none, null);
       border-color: ${shadeColor(
         value,
-        (t) => t['btn-active-border-shade-amount'],
+        (t: any) => t['btn-active-border-shade-amount'],
       )};
     `,
     [`.btn-${color}.active --text`]: css`
@@ -283,19 +283,23 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getVariant = (color, outline) => {
+const getVariant = (color: ThemeColors, outline?: boolean) => {
   if (color === 'link') {
     return null;
   }
 
   if (outline) {
-    return `.btn-outline-${color}`;
+    return `.btn-outline-${String(color)}`;
   }
 
-  return `.btn-${color}`;
+  return `.btn-${String(color)}`;
 };
 
-const hasSize = (size, group, value) => {
+const hasSize = (
+  value: string,
+  group: ButtonGroupContextType | null,
+  size?: string,
+) => {
   if (size !== undefined || !group) {
     return size === value;
   }
@@ -303,10 +307,10 @@ const hasSize = (size, group, value) => {
   return group.size === value;
 };
 
-const Button = React.forwardRef((props, ref) => {
+const Button = React.forwardRef<any, ButtonProps>((props, ref) => {
   const {
     children,
-    color = 'primary',
+    color = 'prmary',
     size,
     outline = false,
     active = false,
@@ -331,8 +335,8 @@ const Button = React.forwardRef((props, ref) => {
     getVariant(color, outline),
     disabled && '.btn.disabled',
     disabled && `${getVariant(color, outline)}.disabled`,
-    hasSize(size, group, 'lg') && '.btn-lg',
-    hasSize(size, group, 'sm') && '.btn-sm',
+    hasSize('lg', group, size) && '.btn-lg',
+    hasSize('sm', group, size) && '.btn-sm',
     group && '.btn-group > .btn',
     group && active && '.btn-group > .btn.active',
     group && !listItem.first && '.btn-group > .btn:not(:first-child)',
@@ -349,8 +353,8 @@ const Button = React.forwardRef((props, ref) => {
     color === 'link' && '.btn-link --text',
     disabled && `${getVariant(color, outline)}.disabled --text`,
     disabled && color === 'link' && '.btn-link.disabled --text',
-    hasSize(size, group, 'lg') && '.btn-lg --text',
-    hasSize(size, group, 'sm') && '.btn-sm --text',
+    hasSize('lg', group, size) && '.btn-lg --text',
+    hasSize('sm', group, size) && '.btn-sm --text',
   ]);
 
   const activeTextClasses = getStyles(styles, [
@@ -374,8 +378,7 @@ const Button = React.forwardRef((props, ref) => {
 });
 
 Button.displayName = 'Button';
-Button.propTypes = propTypes;
 
-Button.useToggle = useToggleButton;
-
-export default Button;
+export default Object.assign(Button, {
+  useToggle: useToggleButton,
+});
