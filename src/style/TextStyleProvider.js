@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import TextStyleContext from './TextStyleContext';
 
@@ -13,13 +13,16 @@ function TextStyleProvider(props) {
 
   const parentContext = useContext(TextStyleContext);
 
+  const contextValue = useMemo(
+    () => ({
+      style: parentContext ? [parentContext.style, style] : style,
+      hasTextAncestor: parentContext && parentContext.hasTextAncestor,
+    }),
+    [parentContext, style],
+  );
+
   return (
-    <TextStyleContext.Provider
-      value={{
-        style: parentContext ? [parentContext.style, style] : style,
-        hasTextAncestor: parentContext && parentContext.hasTextAncestor,
-      }}
-    >
+    <TextStyleContext.Provider value={contextValue}>
       {children}
     </TextStyleContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
@@ -57,6 +57,8 @@ const ListGroup = React.forwardRef((props, ref) => {
   // TODO: Implement TabContext
   const tabbable = false;
 
+  const contextValue = useMemo(() => ({ flush }), [flush]);
+
   return (
     <View
       {...elementProps}
@@ -64,7 +66,7 @@ const ListGroup = React.forwardRef((props, ref) => {
       role={getRole(tabbable)}
       style={[classes, style]}
     >
-      <ListGroupContext.Provider value={{ flush }}>
+      <ListGroupContext.Provider value={contextValue}>
         {list}
       </ListGroupContext.Provider>
     </View>

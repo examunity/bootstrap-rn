@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import View from '../View';
 import RadioContext from './RadioContext';
@@ -24,9 +24,18 @@ const RadioGroup = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
+  const contextValue = useMemo(
+    () => ({
+      selectedValue,
+      onValueChange,
+      disabled,
+    }),
+    [selectedValue, onValueChange, disabled],
+  );
+
   return (
     <View {...elementProps} ref={ref} role="radiogroup">
-      <RadioContext.Provider value={{ selectedValue, onValueChange, disabled }}>
+      <RadioContext.Provider value={contextValue}>
         {children}
       </RadioContext.Provider>
     </View>

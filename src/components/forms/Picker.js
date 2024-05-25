@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
@@ -151,8 +151,15 @@ const Picker = React.forwardRef((props, ref) => {
   const BasePicker =
     Platform.OS === 'web' && !useNativeComponent ? PickerWeb : PickerNative;
 
+  const contextValue = useMemo(
+    () => ({
+      useNativeComponent,
+    }),
+    [useNativeComponent],
+  );
+
   return (
-    <PickerContext.Provider value={{ useNativeComponent }}>
+    <PickerContext.Provider value={contextValue}>
       <BasePicker
         {...elementProps}
         ref={modifierRef}

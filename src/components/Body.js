@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { SafeAreaView as BaseSafeAreaView } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
@@ -41,17 +41,20 @@ const Body = React.forwardRef((props, ref) => {
   const resolveStyle = useStyle([classes, style], styleName);
   const resolveTextStyle = useStyle([textClasses, textStyle]);
 
+  const contextValue = useMemo(
+    () => ({
+      style: resolveTextStyle({ media }),
+    }),
+    [resolveTextStyle, media],
+  );
+
   return (
     <BaseSafeAreaView
       {...elementProps}
       ref={ref}
       style={resolveStyle({ media })}
     >
-      <TextStyleContext.Provider
-        value={{
-          style: resolveTextStyle({ media }),
-        }}
-      >
+      <TextStyleContext.Provider value={contextValue}>
         {children}
       </TextStyleContext.Provider>
     </BaseSafeAreaView>

@@ -5,11 +5,11 @@ const propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-const DropdownToggle = (props) => {
+function DropdownToggle(props) {
   const { children } = props;
 
   return children(useToggleDropdown({}));
-};
+}
 
 DropdownToggle.displayName = 'DropdownToggle';
 DropdownToggle.propTypes = propTypes;

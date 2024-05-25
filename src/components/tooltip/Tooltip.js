@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import View from '../View';
@@ -62,11 +62,14 @@ const Tooltip = React.forwardRef((props, ref) => {
     ...elementProps
   } = props;
 
-  const tooltip = {
-    placement: transformPlacement(placement),
-    arrowStyle,
-    popper,
-  };
+  const tooltip = useMemo(
+    () => ({
+      placement: transformPlacement(placement),
+      arrowStyle,
+      popper,
+    }),
+    [placement, arrowStyle, popper],
+  );
 
   const classes = getStyles(styles, [
     '.tooltip',

@@ -25,31 +25,34 @@ function Provider(props) {
 
   const scrollbars = useScrollbarEffects(fixed);
 
-  const context = {
-    utilities,
-    modifiers,
-    scrollbars,
-    fixed,
-    getViewport() {
-      return viewport;
-    },
-    addFixedElement(ref) {
-      fixed.push(ref);
+  const context = useMemo(
+    () => ({
+      utilities,
+      modifiers,
+      scrollbars,
+      fixed,
+      getViewport() {
+        return viewport;
+      },
+      addFixedElement(ref) {
+        fixed.push(ref);
 
-      return {
-        remove() {
-          const index = fixed.findIndex((item) => item === ref);
+        return {
+          remove() {
+            const index = fixed.findIndex((item) => item === ref);
 
-          fixed.splice(index, 1);
-        },
-      };
-    },
-    generateKey(prefix) {
-      counter.current += 1;
+            fixed.splice(index, 1);
+          },
+        };
+      },
+      generateKey(prefix) {
+        counter.current += 1;
 
-      return `ui-${prefix}-${counter.current}`;
-    },
-  };
+        return `ui-${prefix}-${counter.current}`;
+      },
+    }),
+    [utilities, modifiers, scrollbars, fixed, viewport, fixed, counter],
+  );
 
   return (
     <Context.Provider value={context}>

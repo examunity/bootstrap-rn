@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView as BaseScrollView } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
@@ -36,6 +36,14 @@ const ScrollView = React.forwardRef((props, ref) => {
 
   const hasTextStyle = (context && context.style) || textStyle;
 
+  const contextValue = useMemo(
+    () => ({
+      style: resolveTextStyle({ media }),
+      hasAncestor: context && context.hasTextAncestor,
+    }),
+    [resolveTextStyle, context, media],
+  );
+
   return (
     <BaseScrollView
       {...elementProps}
@@ -44,12 +52,7 @@ const ScrollView = React.forwardRef((props, ref) => {
       style={resolveStyle({ media })}
     >
       {hasTextStyle ? (
-        <TextStyleContext.Provider
-          value={{
-            style: resolveTextStyle({ media }),
-            hasAncestor: context && context.hasTextAncestor,
-          }}
-        >
+        <TextStyleContext.Provider value={contextValue}>
           {children}
         </TextStyleContext.Provider>
       ) : (

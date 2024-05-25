@@ -10,7 +10,7 @@ const propTypes = {
   onToggle: PropTypes.func,
 };
 
-const CollapseProvider = (props) => {
+function CollapseProvider(props) {
   const { children, defaultVisible = false, visible, onToggle } = props;
 
   const collapse = useCollapse(defaultVisible, visible, onToggle);
@@ -20,7 +20,7 @@ const CollapseProvider = (props) => {
       {children}
     </CollapseContext.Provider>
   );
-};
+}
 
 CollapseProvider.displayName = 'CollapseProvider';
 CollapseProvider.propTypes = propTypes;

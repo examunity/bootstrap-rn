@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
@@ -80,6 +80,13 @@ const Nav = React.forwardRef((props, ref) => {
       } .navbar-nav`,
   ]);
 
+  const contextValue = useMemo(
+    () => ({
+      variant,
+    }),
+    [variant],
+  );
+
   return (
     <View
       {...elementProps}
@@ -87,7 +94,7 @@ const Nav = React.forwardRef((props, ref) => {
       role={getRole(tabbable, navbar)}
       style={[classes, style]}
     >
-      <NavContext.Provider value={{ variant }}>{children}</NavContext.Provider>
+      <NavContext.Provider value={contextValue}>{children}</NavContext.Provider>
     </View>
   );
 });
