@@ -1,17 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
+import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
 import { getStyles } from '../../utils';
 import CardBody from './CardBody';
 import CardHeader from './CardHeader';
 import CardFooter from './CardFooter';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type CardProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Card = React.forwardRef((props, ref) => {
+const Card = React.forwardRef<BaseView, CardProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card']);
@@ -43,10 +42,9 @@ const Card = React.forwardRef((props, ref) => {
 });
 
 Card.displayName = 'Card';
-Card.propTypes = propTypes;
 
-Card.Header = CardHeader;
-Card.Body = CardBody;
-Card.Footer = CardFooter;
-
-export default Card;
+export default Object.assign(Card, {
+  Header: CardHeader,
+  Body: CardBody,
+  Footer: CardFooter,
+});

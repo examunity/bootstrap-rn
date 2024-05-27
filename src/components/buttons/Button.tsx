@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import invariant from 'tiny-invariant';
-import StyleSheet from '../../style/StyleSheet';
-import css from '../../style/css';
 import Pressable from '../Pressable';
-import { getStyles, each } from '../../utils';
 import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
 import ButtonGroupContext, {
   ButtonGroupContextType,
 } from '../button-group/ButtonGroupContext';
+import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
+import { getStyles, each } from '../../utils';
 import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
+import { ThemeVariables } from '../../theme/types';
 
 type ThemeColors = ThemeColorsType | 'link';
 
@@ -22,10 +22,10 @@ export type ButtonProps = {
   outline?: boolean;
   active?: boolean;
   disabled?: boolean;
-  style?: any;
-  activeStyle?: any;
-  textStyle?: any;
-  activeTextStyle?: any;
+  style?: React.CSSProperties;
+  activeStyle?: unknown;
+  textStyle?: unknown;
+  activeTextStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     opacity: $btn-disabled-opacity;
     // @include box-shadow(none);
   `,
-  ...each(THEME_COLORS, (color, value) => ({
-    [`.btn-${color}`]: css`
+  ...each(THEME_COLORS, (color: ThemeColors, value: string) => ({
+    [`.btn-${String(color)}`]: css`
       background-color: ${value};
       border-color: ${value};
       // @include box-shadow($btn-box-shadow);
@@ -87,22 +87,22 @@ const styles = StyleSheet.create({
       &:hover {
         background-color: ${shadeColor(
           value,
-          (t: any) => t['btn-hover-bg-shade-amount'],
+          (t: ThemeVariables) => t['btn-hover-bg-shade-amount'],
         )};
         border-color: ${shadeColor(
           value,
-          (t: any) => t['btn-hover-border-shade-amount'],
+          (t: ThemeVariables) => t['btn-hover-border-shade-amount'],
         )};
       }
 
       &:focus-visible {
         background-color: ${shadeColor(
           value,
-          (t: any) => t['btn-hover-bg-shade-amount'],
+          (t: ThemeVariables) => t['btn-hover-bg-shade-amount'],
         )};
         border-color: ${shadeColor(
           value,
-          (t: any) => t['btn-hover-border-shade-amount'],
+          (t: ThemeVariables) => t['btn-hover-border-shade-amount'],
         )};
         /* @if $enable-shadows {
           @include box-shadow($btn-box-shadow, 0 0 0 $btn-focus-width rgba(mix($color, $border, 15%), .5));
@@ -115,17 +115,17 @@ const styles = StyleSheet.create({
       &:active {
         background-color: ${shadeColor(
           value,
-          (t: any) => t['btn-active-bg-shade-amount'],
+          (t: ThemeVariables) => t['btn-active-bg-shade-amount'],
         )};
         // Remove CSS gradients if they're enabled
         // background-image: if($enable-gradients, none, null);
         border-color: ${shadeColor(
           value,
-          (t: any) => t['btn-active-border-shade-amount'],
+          (t: ThemeVariables) => t['btn-active-border-shade-amount'],
         )};
       }
     `,
-    [`.btn-${color} --text`]: css`
+    [`.btn-${String(color)} --text`]: css`
       color: ${colorContrast(value)};
 
       &:hover {
@@ -140,22 +140,22 @@ const styles = StyleSheet.create({
         color: ${colorContrast(value)};
       }
     `,
-    [`.btn-${color}.active`]: css`
+    [`.btn-${String(color)}.active`]: css`
       background-color: ${shadeColor(
         value,
-        (t: any) => t['btn-active-bg-shade-amount'],
+        (t: ThemeVariables) => t['btn-active-bg-shade-amount'],
       )};
       // Remove CSS gradients if they're enabled
       // background-image: if($enable-gradients, none, null);
       border-color: ${shadeColor(
         value,
-        (t: any) => t['btn-active-border-shade-amount'],
+        (t: ThemeVariables) => t['btn-active-border-shade-amount'],
       )};
     `,
-    [`.btn-${color}.active --text`]: css`
+    [`.btn-${String(color)}.active --text`]: css`
       color: ${colorContrast(value)};
     `,
-    [`.btn-${color}.disabled`]: css`
+    [`.btn-${String(color)}.disabled`]: css`
       $disabled-background: ${value};
       $disabled-border: ${value};
 
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
       // background-image: if($enable-gradients, none, null);
       border-color: $disabled-border;
     `,
-    [`.btn-${color}.disabled --text`]: css`
+    [`.btn-${String(color)}.disabled --text`]: css`
       $disabled-color: ${colorContrast(value)};
 
       color: $disabled-color;
     `,
-    [`.btn-outline-${color}`]: css`
+    [`.btn-outline-${String(color)}`]: css`
       border-color: ${value};
 
       &:hover {
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
         } */
       }
     `,
-    [`.btn-outline-${color} --text`]: css`
+    [`.btn-outline-${String(color)} --text`]: css`
       color: ${value};
 
       &:hover {
@@ -209,10 +209,10 @@ const styles = StyleSheet.create({
         color: ${colorContrast(value)};
       }
     `,
-    [`.btn-outline-${color}.disabled`]: css`
+    [`.btn-outline-${String(color)}.disabled`]: css`
       background-color: transparent;
     `,
-    [`.btn-outline-${color}.disabled --text`]: css`
+    [`.btn-outline-${String(color)}.disabled --text`]: css`
       color: ${value};
     `,
   })),
@@ -307,7 +307,7 @@ const hasSize = (
   return group.size === value;
 };
 
-const Button = React.forwardRef<any, ButtonProps>((props, ref) => {
+const Button = React.forwardRef<unknown, ButtonProps>((props, ref) => {
   const {
     children,
     color = 'prmary',

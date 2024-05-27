@@ -1,5 +1,10 @@
 import React, { useContext, useMemo } from 'react';
-import { Text, I18nManager, Pressable as BasePressable } from 'react-native';
+import {
+  Text,
+  I18nManager,
+  Pressable as BasePressable,
+  PressableProps as BasePressableProps,
+} from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useModifier from '../hooks/useModifier';
 import useAction from '../hooks/useAction';
@@ -10,20 +15,17 @@ import Caret, { CaretProps } from './Caret';
 
 type CaretTypes = boolean | CaretProps;
 
-interface PressableProps {
-  children?: React.ReactNode;
+export interface PressableProps extends BasePressableProps {
+  // children?: React.ReactNode;
   caret?: CaretTypes;
   active?: boolean;
-  disabled?: boolean;
-  style?: any;
-  activeStyle?: any;
-  textStyle?: any;
-  activeTextStyle?: any;
-  styleName?: any;
-  role?: string;
-  'aria-label'?: string;
-  accessibilityActions?: any[];
-  [key: string]: any;
+  // disabled?: boolean;
+  activeStyle?: unknown;
+  textStyle?: unknown;
+  activeTextStyle?: unknown;
+  styleName?: unknown;
+  // 'aria-label'?: string;
+  // accessibilityActions?: any[];
 }
 
 // One of the following should be set for aria support:
@@ -79,7 +81,7 @@ const applyCaret = (
   );
 };
 
-const Pressable = React.forwardRef((props, ref) => {
+const Pressable = React.forwardRef<unknown, PressableProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
   const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
 

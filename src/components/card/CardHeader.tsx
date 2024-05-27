@@ -1,16 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
+import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type CardHeaderProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -28,7 +26,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardHeader = React.forwardRef((props, ref) => {
+const CardHeader = React.forwardRef<BaseView, CardHeaderProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-header']);
@@ -48,6 +46,5 @@ const CardHeader = React.forwardRef((props, ref) => {
 });
 
 CardHeader.displayName = 'CardHeader';
-CardHeader.propTypes = propTypes;
 
 export default CardHeader;

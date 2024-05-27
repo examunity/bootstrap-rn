@@ -1,16 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
+import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type CardBodyProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +21,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardBody = React.forwardRef((props, ref) => {
+const CardBody = React.forwardRef<BaseView, CardBodyProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-body']);
@@ -43,6 +41,5 @@ const CardBody = React.forwardRef((props, ref) => {
 });
 
 CardBody.displayName = 'CardBody';
-CardBody.propTypes = propTypes;
 
 export default CardBody;

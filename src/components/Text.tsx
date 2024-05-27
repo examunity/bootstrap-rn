@@ -12,15 +12,14 @@ import useStyle from '../hooks/useStyle';
 
 type ThemeColors = ThemeColorsType | 'muted' | 'black-50' | 'white-50';
 
-export type TextProps = {
+export interface TextProps extends BaseTextProps {
   color?: ThemeColors;
   small?: boolean;
   mark?: boolean;
   bold?: boolean;
   italic?: boolean;
-  style?: any; // React.CSSProperties; //  causing Type 'any[]' is not assignable to type 'CSSProperties & RecursiveArray<Falsy | TextStyle | RegisteredStyle<TextStyle>>'
-  styleName?: any;
-} & BaseTextProps;
+  styleName?: string;
+}
 
 const styles = StyleSheet.create({
   text: css`
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getStyleName = (styleName: string, color?: ThemeColors) => {
+const getStyleName = (styleName?: string, color?: ThemeColors) => {
   if (!color) {
     return styleName;
   }
@@ -79,7 +78,7 @@ const Text = React.forwardRef<BaseText, TextProps>(
 
     const resolveStyle = useStyle(
       [
-        // @ts-ignore: styles is possibly 'null'.
+        // @ts-expect-error: styles is possibly 'null'.
         (!context || !context.hasTextAncestor) && styles.text,
         context && context.style,
         classes,

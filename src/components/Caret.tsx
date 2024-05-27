@@ -1,22 +1,22 @@
 import React, { useContext, forwardRef } from 'react';
 import { I18nManager, StyleSheet as StyleUtils, ViewStyle } from 'react-native';
+import type { View as BaseView } from 'react-native';
+import View from './View';
 import StyleSheet from '../style/StyleSheet';
 import { getStyles } from '../utils';
 import css from '../style/css';
 import TextStyleContext, {
   TextStyleContextType,
 } from '../style/TextStyleContext';
-import View from './View';
 
 export const CARET_DIRECTIONS = ['up', 'down', 'start', 'end'] as const;
 
-type CaretDirectionTypes = typeof CARET_DIRECTIONS[number];
+type CaretDirectionTypes = (typeof CARET_DIRECTIONS)[number];
 
 export type CaretProps = {
   color?: string;
   direction?: CaretDirectionTypes;
-  style?: any;
-  [key: string]: any;
+  style?: React.CSSProperties;
 };
 
 const getColor = (context: TextStyleContextType | null): string => {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Caret = forwardRef<ViewStyle, CaretProps>((props, ref) => {
+const Caret = forwardRef<BaseView, CaretProps>((props, ref) => {
   const { color, direction = 'down', style, ...elementProps } = props;
 
   const context = useContext(TextStyleContext) as TextStyleContextType;

@@ -1,16 +1,16 @@
 import React from 'react';
-import StyleSheet from '../../style/StyleSheet';
-import css from '../../style/css';
+import type { View as BaseView } from 'react-native';
 import View from '../View';
 import Text from '../Text';
+import StyleSheet from '../../style/StyleSheet';
+import css from '../../style/css';
 import { getStyles } from '../../utils';
 
 export type BadgeProps = {
   children: React.ReactNode;
   style?: React.CSSProperties;
-  textStyle?: any;
-  [key: string]: any;
-}
+  textStyle?: unknown;
+};
 
 const styles = StyleSheet.create({
   '.badge': css`
@@ -30,13 +30,12 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Badge = React.forwardRef<any, BadgeProps>((props, ref) => {
+const Badge = React.forwardRef<BaseView, BadgeProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.badge']);
   const textClasses = getStyles(styles, ['.badge --text']);
 
-  // composite component
   return (
     <View {...elementProps} ref={ref} style={[classes, style]}>
       <Text style={[textClasses, textStyle]}>{children}</Text>

@@ -1,18 +1,18 @@
 import React from 'react';
 import { Platform } from 'react-native';
+import type { View as BaseView } from 'react-native';
+import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
-import View from '../View';
 import useList from '../../hooks/useList';
 import BreadcrumbItem from './BreadcrumbItem';
 
-export interface BreadcrumbProps {
+export type BreadcrumbProps = {
   children: React.ReactNode;
   style?: React.CSSProperties;
-  textStyle?: any;
-  [key: string]: any;
-}
+  textStyle?: unknown;
+};
 
 const styles = StyleSheet.create({
   '.breadcrumb': css`
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Breadcrumb = React.forwardRef<any, BreadcrumbProps>((props, ref) => {
+const Breadcrumb = React.forwardRef<BaseView, BreadcrumbProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const list = useList(children);
@@ -39,7 +39,7 @@ const Breadcrumb = React.forwardRef<any, BreadcrumbProps>((props, ref) => {
   const classes = getStyles(styles, ['.breadcrumb']);
   const textClasses = getStyles(styles, ['.breadcrumb --text']);
 
-  const role = Platform.OS === 'web' ? 'list' : null;
+  const role = Platform.OS === 'web' ? 'list' : undefined;
 
   return (
     <View

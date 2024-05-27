@@ -1,20 +1,21 @@
 import React from 'react';
 import { Platform, I18nManager } from 'react-native';
+import type { View as BaseView } from 'react-native';
+import View from '../View';
+import Text from '../Text';
+import useForcedContext from '../../hooks/useForcedContext';
+import ListContext from '../helpers/ListContext';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, optional } from '../../utils';
-import useForcedContext from '../../hooks/useForcedContext';
-import ListContext from '../helpers/ListContext';
-import View from '../View';
-import Text from '../Text';
 
-export interface BreadcrumbItemProps {
+export type BreadcrumbItemProps = {
   children: React.ReactNode;
   active: boolean;
   style?: React.CSSProperties;
-  textStyle?: any;
-  [key: string]: any;
-}
+  dividerStyle?: unknown;
+  textStyle?: unknown;
+};
 
 const styles = StyleSheet.create({
   '.breadcrumb-item + .breadcrumb-item': css`
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const BreadcrumbItem = React.forwardRef<any, BreadcrumbItemProps>(
+const BreadcrumbItem = React.forwardRef<BaseView, BreadcrumbItemProps>(
   (props, ref) => {
     const {
       children,
@@ -54,7 +55,7 @@ const BreadcrumbItem = React.forwardRef<any, BreadcrumbItemProps>(
       '.breadcrumb-item + .breadcrumb-item::before',
     ]);
 
-    const role = Platform.OS === 'web' ? 'listitem' : null;
+    const role = Platform.OS === 'web' ? 'listitem' : undefined;
 
     return (
       <View

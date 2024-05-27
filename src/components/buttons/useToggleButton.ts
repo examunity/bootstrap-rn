@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
-interface ToggleButtonProps {
+export type ToggleButtonProps = {
   active?: boolean;
   handlePress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  [key: string]: any;
-}
+};
 
 export default function useToggleButton(props: ToggleButtonProps) {
   const { active = false, handlePress, ...restProps } = props;

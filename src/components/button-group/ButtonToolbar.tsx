@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
+import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
 import { getStyles } from '../../utils';
 
 export interface ButtonToolbarProps {
   children: React.ReactNode;
-  style?: any;
+  style?: React.CSSProperties;
 }
 const styles = StyleSheet.create({
   '.btn-toolbar': css`
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ButtonToolbar = React.forwardRef<any, ButtonToolbarProps>(
+const ButtonToolbar = React.forwardRef<BaseView, ButtonToolbarProps>(
   (props, ref) => {
     const { children, style, ...elementProps } = props;
 

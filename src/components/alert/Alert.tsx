@@ -1,19 +1,20 @@
 import React from 'react';
+import type { View as BaseView } from 'react-native';
+import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
+import { ThemeVariables } from '../../theme/types';
 
 export type AlertProps = {
   children: React.ReactNode;
   color?: ThemeColorsType;
   dismissible?: boolean;
   style?: React.CSSProperties;
-  textStyle?: any;
-  [key: string]: any;
-}
+  textStyle?: unknown;
+};
 
 const styles = StyleSheet.create({
   '.alert': css`
@@ -26,11 +27,20 @@ const styles = StyleSheet.create({
   `,
   ...each(THEME_COLORS, (state: string, value: string) => ({
     [`.alert-${state}`]: css`
-      background-color: ${shiftColor(value, (t: any) => t['alert-bg-scale'])};
-      border-color: ${shiftColor(value, (t: any) => t['alert-border-scale'])};
+      background-color: ${shiftColor(
+        value,
+        (t: ThemeVariables) => t['alert-bg-scale'],
+      )};
+      border-color: ${shiftColor(
+        value,
+        (t: ThemeVariables) => t['alert-border-scale'],
+      )};
     `,
     [`.alert-${state} --text`]: css`
-      color: ${shiftColor(value, (t: any) => t['alert-color-scale'])};
+      color: ${shiftColor(
+        value,
+        (t: ThemeVariables) => t['alert-color-scale'],
+      )};
     `,
   })),
   '.alert-dismissible': {
@@ -38,7 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Alert = React.forwardRef<any, AlertProps>((props, ref) => {
+const Alert = React.forwardRef<BaseView, AlertProps>((props, ref) => {
   const {
     children,
     color = 'primary',
@@ -60,7 +70,7 @@ const Alert = React.forwardRef<any, AlertProps>((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
-      role="alert" // causing no overload match this call
+      role="alert"
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}
     >
