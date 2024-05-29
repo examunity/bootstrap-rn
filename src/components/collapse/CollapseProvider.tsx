@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'; // Import React and FC type
 import CollapseContext from './CollapseContext';
 import useCollapse from './useCollapse';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  defaultVisible: PropTypes.bool,
-  visible: PropTypes.bool,
-  onToggle: PropTypes.func,
+export type CollapseProviderProps = {
+  children: React.ReactNode;
+  defaultVisible?: boolean; // Make defaultVisible optional
+  visible?: boolean;
+  onToggle: () => void;
 };
 
-function CollapseProvider(props) {
+function CollapseProvider(props: CollapseProviderProps) {
   const { children, defaultVisible = false, visible, onToggle } = props;
 
   const collapse = useCollapse(defaultVisible, visible, onToggle);
@@ -23,6 +22,5 @@ function CollapseProvider(props) {
 }
 
 CollapseProvider.displayName = 'CollapseProvider';
-CollapseProvider.propTypes = propTypes;
 
 export default CollapseProvider;

@@ -1,26 +1,25 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
-import Pressable from '../Pressable';
+import Pressable, { PressableProps } from '../Pressable';
 import ModalContext from '../modal/ModalContext';
 import OffcanvasContext from '../offcanvas/OffcanvasContext';
 import useMedia from '../../hooks/useMedia';
 import useStyle from '../../hooks/useStyle';
-import useInteractionState from '../../hooks/useInteractionState';
+import useInteractionState, {
+  UseInteractionStateProps,
+} from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
+import { ThemeVariables } from '../../theme/types';
 
-const propTypes = {
-  children: PropTypes.node,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  styleName: PropTypes.any,
+export type CloseButtonProps = {
+  children: React.ReactNode;
+  disabled?: boolean;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
+  styleName?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     height: $btn-close-height + $additional-height;
     padding: $btn-close-padding-y $btn-close-padding-x;
     background-color: transparent; // include transparent for button elements
-    background-image: ${(t) => escapeSvg(t['btn-close-bg'])};
+    background-image: ${(t: ThemeVariables) => escapeSvg(t['btn-close-bg'])};
     background-position: center;
     background-size: $btn-close-width auto;
     background-repeat: no-repeat;
@@ -89,58 +88,60 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CloseButton = React.forwardRef((props, ref) => {
-  const {
-    children,
-    disabled = false,
-    style,
-    textStyle,
-    styleName,
-    ...elementProps
-  } = props;
+const CloseButton = React.forwardRef<PressableProps, CloseButtonProps>(
+  (props, ref) => {
+    const {
+      disabled = false,
+      style,
+      textStyle,
+      styleName,
+      ...elementProps
+    } = props;
 
-  const media = useMedia();
+    const media = useMedia();
 
-  const modal = useContext(ModalContext);
-  const offcanvas = useContext(OffcanvasContext);
+    const modal = useContext(ModalContext);
+    const offcanvas = useContext(OffcanvasContext);
 
-  const classes = getStyles(styles, [
-    '.btn-close',
-    disabled && '.btn-close.disabled',
-    // Modal styles
-    modal && '.modal-header .btn-close',
-    // Offcanvas styles
-    offcanvas && '.offcanvas-header .btn-close',
-  ]);
-  const textClasses = getStyles(styles, ['.btn-close --text']);
+    const classes = getStyles(styles, [
+      '.btn-close',
+      disabled && '.btn-close.disabled',
+      // Modal styles
+      modal && '.modal-header .btn-close',
+      // Offcanvas styles
+      offcanvas && '.offcanvas-header .btn-close',
+    ]);
+    const textClasses = getStyles(styles, ['.btn-close --text']);
 
-  const resolveStyle = useStyle([classes, style], styleName);
+    const resolveStyle = useStyle([classes, style], styleName);
 
-  const { interaction, interactionProps } = useInteractionState(elementProps);
+    const { interaction, interactionProps } = useInteractionState(
+      elementProps as UseInteractionStateProps,
+    );
 
-  const background = useBackground(
-    resolveStyle({
-      media,
-      interaction,
-    }),
-  );
+    const background = useBackground(
+      resolveStyle({
+        media,
+        interaction,
+      }),
+    );
 
-  return (
-    <Pressable
-      {...elementProps}
-      {...interactionProps}
-      component={Pressable}
-      ref={ref}
-      disabled={disabled}
-      style={background.style}
-      textStyle={[textClasses, textStyle]}
-    >
-      {background.element}
-    </Pressable>
-  );
-});
+    return (
+      <Pressable
+        {...elementProps}
+        {...interactionProps}
+        // component={Pressable} // To confirm: if this is needed as its not exist on BasePressableProps
+        ref={ref}
+        disabled={disabled}
+        style={background.style}
+        textStyle={[textClasses, textStyle]}
+      >
+        {background.element}
+      </Pressable>
+    );
+  },
+);
 
 CloseButton.displayName = 'CloseButton';
-CloseButton.propTypes = propTypes;
 
 export default CloseButton;

@@ -3,9 +3,9 @@ import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
 
 export default function useCollapse(
-  defaultVisible,
-  controlledVisible,
-  onToggle,
+  defaultVisible: boolean,
+  controlledVisible?: boolean,
+  onToggle?: () => void,
 ) {
   const identifier = useIdentifier('collapse');
 
@@ -21,6 +21,6 @@ export default function useCollapse(
       visible,
       setVisible,
     }),
-    [visible],
+    [identifier, visible, setVisible],
   );
 }

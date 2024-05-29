@@ -1,16 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import View from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import CollapseContext from './CollapseContext';
 import CollapseProvider from './CollapseProvider';
 import useToggleCollapse from './useToggleCollapse';
 
-const propTypes = {
-  children: PropTypes.node,
+export type CollapseProps = {
+  children: React.ReactNode;
 };
 
-const Collapse = React.forwardRef((props, ref) => {
+const Collapse = React.forwardRef<BaseView, CollapseProps>((props, ref) => {
   const { children, ...elementProps } = props;
 
   const { identifier, visible } = useForcedContext(CollapseContext);
@@ -27,9 +27,8 @@ const Collapse = React.forwardRef((props, ref) => {
 });
 
 Collapse.displayName = 'Collapse';
-Collapse.propTypes = propTypes;
 
-Collapse.Provider = CollapseProvider;
-Collapse.useToggle = useToggleCollapse;
-
-export default Collapse;
+export default Object.assign(Collapse, {
+  Provider: CollapseProvider,
+  useToggle: useToggleCollapse,
+});
