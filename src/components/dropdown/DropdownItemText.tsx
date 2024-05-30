@@ -1,0 +1,42 @@
+import React from 'react';
+import type { View as BaseView } from 'react-native';
+import StyleSheet from '../../style/StyleSheet';
+import { getStyles } from '../../utils';
+import css from '../../style/css';
+import View from '../View';
+import Text from '../Text';
+
+export type DropdownItemTextProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
+};
+
+const styles = StyleSheet.create({
+  '.dropdown-item-text': css`
+    // display: block;
+    padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+  `,
+  '.dropdown-item-text --text': css`
+    color: $dropdown-link-color;
+  `,
+});
+
+const DropdownItemText = React.forwardRef<BaseView, DropdownItemTextProps>(
+  (props, ref) => {
+    const { children, style, textStyle, ...elementProps } = props;
+
+    const classes = getStyles(styles, ['.dropdown-item-text']);
+    const textClasses = getStyles(styles, ['.dropdown-item-text --text']);
+
+    return (
+      <View {...elementProps} ref={ref} style={[classes, style]}>
+        <Text style={[textClasses, textStyle]}>{children}</Text>
+      </View>
+    );
+  },
+);
+
+DropdownItemText.displayName = 'DropdownItemText';
+
+export default DropdownItemText;

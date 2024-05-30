@@ -2,15 +2,27 @@ import { useMemo, useRef } from 'react';
 import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
 
+// The type UseDropdownReturnType will be inferred as:
+export type UseDropdownReturnType = {
+  identifier: string;
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
+  toggleRef: React.MutableRefObject<undefined>;
+  direction: string;
+  center: boolean;
+  display: string;
+  autoClose: string | boolean;
+};
+
 export default function useDropdown(
-  defaultVisible,
-  controlledVisible,
-  onToggle,
-  direction,
-  center,
-  display,
-  autoClose,
-) {
+  defaultVisible: boolean,
+  controlledVisible: boolean | undefined,
+  onToggle: () => void,
+  direction: string,
+  center: boolean,
+  display: string,
+  autoClose: string | boolean,
+): UseDropdownReturnType {
   const identifier = useIdentifier('dropdown');
 
   const toggleRef = useRef();

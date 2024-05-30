@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { GestureResponderEvent } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
@@ -7,15 +7,13 @@ import css from '../../style/css';
 import Pressable from '../Pressable';
 import DropdownContext from './DropdownContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  onPress: PropTypes.func,
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type DropdownItemProps = {
+  children: React.ReactNode;
+  onPress: (event: GestureResponderEvent) => void;
+  active?: boolean;
+  disabled?: boolean;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-function DropdownItem(props) {
+function DropdownItem(props: DropdownItemProps) {
   const {
     children,
     onPress: handlePress,
@@ -127,7 +125,7 @@ function DropdownItem(props) {
   return (
     <Pressable
       {...elementProps}
-      onPress={(event) => {
+      onPress={(event: GestureResponderEvent) => {
         if (handlePress) handlePress(event);
 
         if (event.defaultPrevented) {
@@ -146,6 +144,5 @@ function DropdownItem(props) {
 }
 
 DropdownItem.displayName = 'DropdownItem';
-DropdownItem.propTypes = propTypes;
 
 export default DropdownItem;

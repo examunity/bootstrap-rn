@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -17,20 +17,16 @@ import useToggleDropdown from './useToggleDropdown';
 
 const DIRECTIONS = ['up', 'down', 'start', 'end'];
 
-const propTypes = {
-  children: PropTypes.node,
-  defaultVisible: PropTypes.bool,
-  visible: PropTypes.bool,
-  onToggle: PropTypes.func,
-  direction: PropTypes.oneOf(DIRECTIONS),
-  center: PropTypes.bool,
-  display: PropTypes.oneOf(['dynamic', 'static']),
-  autoClose: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(['inside', 'outside']),
-  ]),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type DropdownProps = {
+  children: React.ReactNode;
+  defaultVisible?: boolean;
+  visible?: boolean;
+  onToggle: () => void;
+  direction?: (typeof DIRECTIONS)[number];
+  center?: boolean;
+  display?: 'dynamic' | 'static';
+  autoClose?: boolean | 'inside' | 'outside';
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -39,7 +35,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Dropdown = React.forwardRef((props, ref) => {
+const Dropdown = React.forwardRef<BaseView, DropdownProps>((props, ref) => {
   const {
     children,
     defaultVisible = false,
@@ -75,16 +71,15 @@ const Dropdown = React.forwardRef((props, ref) => {
 });
 
 Dropdown.displayName = 'Dropdown';
-Dropdown.propTypes = propTypes;
 
-Dropdown.Context = DropdownContext;
-Dropdown.Toggle = DropdownToggle;
-Dropdown.Menu = DropdownMenu;
-Dropdown.Header = DropdownHeader;
-Dropdown.Item = DropdownItem;
-Dropdown.ItemText = DropdownItemText;
-Dropdown.Divider = DropdownDivider;
-Dropdown.useDismiss = useDismissDropdown;
-Dropdown.useToggle = useToggleDropdown;
-
-export default Dropdown;
+export default Object.assign(Dropdown, {
+  Context: DropdownContext,
+  Toggle: DropdownToggle,
+  Menu: DropdownMenu,
+  Header: DropdownHeader,
+  Item: DropdownItem,
+  ItemText: DropdownItemText,
+  Divider: DropdownDivider,
+  useDismiss: useDismissDropdown,
+  useToggle: useToggleDropdown,
+});

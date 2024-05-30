@@ -1,13 +1,12 @@
 import React, { useContext, useRef } from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import { OverlayContainer } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
 import View from '../View';
-import useMedia from '../../hooks/useMedia';
+import useMedia, { useMediaProps } from '../../hooks/useMedia';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
@@ -16,18 +15,28 @@ import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import DropdownContext from './DropdownContext';
 
-const ALIGNMENT_BREAKPOINTS = [true, 'sm', 'md', 'lg', 'xl', 'xxl'];
+// type Direction = 'up' | 'down' | 'left' | 'right';
+type AlignmentBreakpointsSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+type AlignmentBreakpoints = boolean | AlignmentBreakpointsSize;
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  start: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
-  right: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
-  end: PropTypes.oneOf(ALIGNMENT_BREAKPOINTS),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-};
+// Define the prop types using an interface
+interface DropdownProps {
+  children: React.ReactNode;
+  start?: AlignmentBreakpoints;
+  right?: AlignmentBreakpoints;
+  end?: AlignmentBreakpoints;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
+}
+
+const ALIGNMENT_BREAKPOINTS: AlignmentBreakpoints[] = [
+  true,
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  'xxl',
+];
 
 const styles = StyleSheet.create({
   '.dropdown-menu': css`
@@ -49,7 +58,7 @@ const styles = StyleSheet.create({
     left: 0;
     margin-top: $dropdown-spacer;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.dropdown-menu${infix(breakpoint)}-start[data-bs-popper]`]: css`
       @include media-breakpoint-up(${breakpoint}) {
         right: auto;
@@ -86,10 +95,8 @@ const styles = StyleSheet.create({
   '.navbar-nav .dropdown-menu': css`
     position: relative; // static;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
-    [`.navbar-expand${infix(
-      next(breakpoint),
-    )} .navbar-nav .dropdown-menu`]: css`
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+    [`.navbar-expand${infix(next(breakpoint))} .navbar-nav .dropdown-menu`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         position: absolute;
       }
@@ -102,13 +109,21 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getAlignment = (media, center, start, end) => {
+const getAlignment = (
+  media: useMediaProps,
+  center: boolean,
+  start?: AlignmentBreakpoints,
+  end?: AlignmentBreakpoints,
+): 'center' | 'start' | 'end' => {
   if (center) {
     return 'center';
   }
 
-  const alignStart = typeof start === 'boolean' ? start : media.up(start);
-  const alignEnd = typeof end === 'boolean' ? end : media.up(end);
+  const tempStart = start ? media.up(String(start)) : false;
+  const alignStart = typeof start === 'boolean' ? start : tempStart;
+
+  const tempEnd = end ? media.up(String(end)) : false;
+  const alignEnd = typeof end === 'boolean' ? end : tempEnd;
 
   if (!alignEnd) {
     return 'start';
@@ -118,13 +133,21 @@ const getAlignment = (media, center, start, end) => {
     return 'end';
   }
 
-  const startIndex = ALIGNMENT_BREAKPOINTS.indexOf(start);
-  const endIndex = ALIGNMENT_BREAKPOINTS.indexOf(end);
+  const startIndex = ALIGNMENT_BREAKPOINTS.indexOf(
+    start as AlignmentBreakpoints,
+  );
+  const endIndex = ALIGNMENT_BREAKPOINTS.indexOf(end as AlignmentBreakpoints);
 
   return startIndex > endIndex ? 'start' : 'end';
 };
 
-const transformPlacement = (media, direction, center, start, end) => {
+const transformPlacement = (
+  media: useMediaProps,
+  direction: string, // use string instead of Direction as its also have `top` `end` `start`
+  center: boolean,
+  start?: AlignmentBreakpoints,
+  end?: AlignmentBreakpoints,
+): string => {
   if (direction === 'up') {
     return `top ${getAlignment(media, center, start, end)}`;
   }
@@ -136,7 +159,7 @@ const transformPlacement = (media, direction, center, start, end) => {
   return `${direction} top`;
 };
 
-const DropdownMenu = React.forwardRef((props, ref) => {
+const DropdownMenu = React.forwardRef<unknown, DropdownProps>((props, ref) => {
   const {
     children,
     start = true,
@@ -278,6 +301,5 @@ const DropdownMenu = React.forwardRef((props, ref) => {
 });
 
 DropdownMenu.displayName = 'DropdownMenu';
-DropdownMenu.propTypes = propTypes;
 
 export default DropdownMenu;

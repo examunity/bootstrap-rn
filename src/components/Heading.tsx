@@ -1,18 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Text as BaseText } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import Text from './Text';
 import { FONT_SIZES } from '../theme/proxies';
 import { getStyles, each } from '../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  size: PropTypes.oneOf(Object.keys(FONT_SIZES).map((k) => Number(k)))
-    .isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-};
+interface HeadingProps {
+  children: React.ReactNode;
+  size: keyof typeof FONT_SIZES;
+  // style?: React.CSSProperties casuing Type 'any[]' is not assignable to type 'Properties<string | number, string & {}>'.
+  style?: unknown;
+}
 
 const styles = StyleSheet.create({
   heading: css`
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
     font-weight: $headings-font-weight;
     color: $headings-color;
   `,
-  ...each(FONT_SIZES, (size, value) => ({
+  ...each(FONT_SIZES, (size: number, value: number) => ({
     [`.h${size}`]: css`
       font-size: ${value};
       line-height: ${value} * $headings-line-height;
@@ -31,10 +30,10 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Heading = React.forwardRef((props, ref) => {
+const Heading = React.forwardRef<BaseText, HeadingProps>((props, ref) => {
   const { children, size, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['heading', `.h${size}`]);
+  const classes = getStyles(styles, ['heading', `.h${String(size)}`]);
 
   return (
     <Text
@@ -50,6 +49,5 @@ const Heading = React.forwardRef((props, ref) => {
 });
 
 Heading.displayName = 'Heading';
-Heading.propTypes = propTypes;
 
 export default Heading;

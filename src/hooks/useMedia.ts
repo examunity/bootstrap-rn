@@ -2,7 +2,14 @@ import { useContext } from 'react';
 import Context from '../Context';
 import StyleSheet from '../style/StyleSheet';
 
-export default function useMedia() {
+export type useMediaProps = {
+  up: (point: string) => boolean;
+  down: (point: string) => boolean;
+  only: (point: string) => boolean;
+  between: (lower: string, upper: string) => boolean;
+};
+
+export default function useMedia(): useMediaProps {
   const context = useContext(Context);
 
   const viewport = context.getViewport();
@@ -11,16 +18,16 @@ export default function useMedia() {
   const breakpointKeys = Object.keys(breakpoints);
 
   return {
-    up(point) {
+    up(point: string) {
       return breakpointKeys.indexOf(viewport) >= breakpointKeys.indexOf(point);
     },
-    down(point) {
+    down(point: string) {
       return breakpointKeys.indexOf(viewport) <= breakpointKeys.indexOf(point);
     },
-    only(point) {
+    only(point: string) {
       return viewport === point;
     },
-    between(lower, upper) {
+    between(lower: string, upper: string) {
       return this.up(lower) && this.down(upper);
     },
   };
