@@ -1,15 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  rows: PropTypes.number,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type RowProps = {
+  children: React.ReactNode;
+  rows?: number;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Row = React.forwardRef((props, ref) => {
+const Row = React.forwardRef<BaseView, RowProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.row']);
@@ -36,6 +35,5 @@ const Row = React.forwardRef((props, ref) => {
 });
 
 Row.displayName = 'Row';
-Row.propTypes = propTypes;
 
 export default Row;

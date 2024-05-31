@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -7,17 +7,14 @@ import { GRID_BREAKPOINTS, GRID_COLUMNS } from '../../theme/proxies';
 import { infix } from '../../theme/breakpoints';
 import { getStyles, each, makeArray, normalize } from '../../utils';
 
-const sizes = makeArray(GRID_COLUMNS).map((v) => v + 1);
-
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  size: PropTypes.oneOf(['auto', ...sizes]),
-  sizeSm: PropTypes.oneOf(['auto', ...sizes]),
-  sizeMd: PropTypes.oneOf(['auto', ...sizes]),
-  sizeLg: PropTypes.oneOf(['auto', ...sizes]),
-  sizeXl: PropTypes.oneOf(['auto', ...sizes]),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type ColProps = {
+  children: React.ReactNode;
+  size: 'auto' | number;
+  sizeSm?: 'auto' | number;
+  sizeMd?: 'auto' | number;
+  sizeLg?: 'auto' | number;
+  sizeXl?: 'auto' | number;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
     padding-left: $grid-gutter-width * 0.5;
     margin-top: 0;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.col${infix(breakpoint)}`]: css`
       @include media-breakpoint-up(${breakpoint}) {
         flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
@@ -53,7 +50,7 @@ const styles = StyleSheet.create({
       }
     `,
     ...normalize(
-      makeArray(GRID_COLUMNS - 1, (i) => ({
+      makeArray(GRID_COLUMNS - 1, (i: number) => ({
         [`.col${infix(breakpoint)}-${i + 1}`]: css`
           @include media-breakpoint-up(${breakpoint}) {
             flex: 0 0 auto;
@@ -70,7 +67,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Col = React.forwardRef((props, ref) => {
+const Col = React.forwardRef<BaseView, ColProps>((props, ref) => {
   const {
     children,
     size,
@@ -99,6 +96,5 @@ const Col = React.forwardRef((props, ref) => {
 });
 
 Col.displayName = 'Col';
-Col.propTypes = propTypes;
 
 export default Col;

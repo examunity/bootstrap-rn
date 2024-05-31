@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -10,17 +10,16 @@ import { shiftColor } from '../../theme/functions';
 import useForcedContext from '../../hooks/useForcedContext';
 import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
+import { ThemeVariables } from '../../theme/types';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(Object.keys(THEME_COLORS)),
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-};
+interface ListGroupItemProps {
+  children: ReactNode;
+  color?: keyof typeof THEME_COLORS;
+  active?: boolean;
+  disabled?: boolean;
+  style?: CSSProperties;
+  textStyle?: CSSProperties;
+}
 
 export const styles = StyleSheet.create({
   '.list-group-item': css`
@@ -80,73 +79,77 @@ export const styles = StyleSheet.create({
   '.list-group-item-flush + .list-group-item-flush.active': css`
     border-top-width: $list-group-border-width; // added for bootstrap-rn
   `,
-  ...each(THEME_COLORS, (state, value) => ({
+  ...each(THEME_COLORS, (state: string, value: string) => ({
     [`.list-group-item-${state}`]: css`
       background-color: ${shiftColor(
         value,
-        (t) => t['list-group-item-bg-scale'],
+        (t: ThemeVariables) => t['list-group-item-bg-scale'],
       )};
     `,
     [`.list-group-item-${state} --text`]: css`
-      color: ${shiftColor(value, (t) => t['list-group-item-color-scale'])};
+      color: ${shiftColor(
+        value,
+        (t: ThemeVariables) => t['list-group-item-color-scale'],
+      )};
     `,
   })),
 });
 
-const ListGroupItem = React.forwardRef((props, ref) => {
-  const {
-    children,
-    color,
-    active = false,
-    disabled = false,
-    style,
-    textStyle,
-    ...elementProps
-  } = props;
+const ListGroupItem = React.forwardRef<BaseView, ListGroupItemProps>(
+  (props, ref) => {
+    const {
+      children,
+      color,
+      active = false,
+      disabled = false,
+      style,
+      textStyle,
+      ...elementProps
+    } = props;
 
-  const { first, last } = useForcedContext(ListContext);
-  const { flush } = useForcedContext(ListGroupContext);
+    const { first, last } = useForcedContext(ListContext);
+    const { flush } = useForcedContext(ListGroupContext);
 
-  const classes = getStyles(styles, [
-    '.list-group-item',
-    first && '.list-group-item:first-child',
-    last && '.list-group-item:last-child',
-    active && '.list-group-item.active',
-    disabled && '.list-group-item.disabled',
-    !first && '.list-group-item + .list-group-item',
-    !first && active && '.list-group-item + .list-group-item.active',
-    flush && '.list-group-item-flush',
-    flush && last && '.list-group-item-flush:last-child',
-    !first &&
-      flush &&
-      active &&
-      '.list-group-item-flush + .list-group-item-flush.active',
-    color && `.list-group-item-${color}`,
-  ]);
+    const classes = getStyles(styles, [
+      '.list-group-item',
+      first && '.list-group-item:first-child',
+      last && '.list-group-item:last-child',
+      active && '.list-group-item.active',
+      disabled && '.list-group-item.disabled',
+      !first && '.list-group-item + .list-group-item',
+      !first && active && '.list-group-item + .list-group-item.active',
+      flush && '.list-group-item-flush',
+      flush && last && '.list-group-item-flush:last-child',
+      !first &&
+        flush &&
+        active &&
+        '.list-group-item-flush + .list-group-item-flush.active',
+      color && `.list-group-item-${String(color)}`,
+    ]);
 
-  const textClasses = getStyles(styles, [
-    '.list-group-item --text',
-    active && '.list-group-item.active --text',
-    disabled && '.list-group-item.disabled --text',
-    color && `.list-group-item-${color} --text`,
-  ]);
+    const textClasses = getStyles(styles, [
+      '.list-group-item --text',
+      active && '.list-group-item.active --text',
+      disabled && '.list-group-item.disabled --text',
+      color && `.list-group-item-${String(color)} --text`,
+    ]);
 
-  const role = Platform.OS === 'web' ? 'listitem' : null;
+    const role = Platform.OS === 'web' ? 'listitem' : undefined;
 
-  return (
-    <View
-      {...elementProps}
-      ref={ref}
-      role={role}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
-    >
-      {children}
-    </View>
-  );
-});
+    return (
+      <View
+        {...elementProps}
+        ref={ref}
+        role={role}
+        style={[classes, style]}
+        textStyle={[textClasses, textStyle]}
+      >
+        {children}
+      </View>
+    );
+  },
+);
 
 ListGroupItem.displayName = 'ListGroupItem';
-ListGroupItem.propTypes = propTypes;
 
 export default ListGroupItem;

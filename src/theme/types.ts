@@ -1,4 +1,4 @@
-type ContainerMaxWidths = {
+export type ContainerMaxWidths = {
   sm: string;
   md: string;
   lg: string;
