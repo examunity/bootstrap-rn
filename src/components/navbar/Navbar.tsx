@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -14,16 +14,16 @@ import NavbarContext from './NavbarContext';
 import useNavbar from './useNavbar';
 import useDismissNavbar from './useDismissNavbar';
 import useToggleNavbar from './useToggleNavbar';
+import { NavbarExpand, NavbarVariant } from '../../theme/types';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['light', 'dark']),
-  defaultExpanded: PropTypes.bool,
-  expanded: PropTypes.bool,
-  onToggle: PropTypes.func,
-  expand: PropTypes.oneOf([true, 'sm', 'md', 'lg', 'xl', 'xxl']),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type NavbarProps = {
+  children: React.ReactNode;
+  variant?: NavbarVariant;
+  defaultExpanded?: boolean;
+  expanded?: boolean;
+  onToggle: () => void;
+  expand: NavbarExpand;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     padding-left: $navbar-padding-x; // default: null
     // @include gradient-bg();
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.navbar-expand${infix(next(breakpoint))}`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         flex-wrap: nowrap;
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Navbar = React.forwardRef((props, ref) => {
+const Navbar = React.forwardRef<BaseView, NavbarProps>((props, ref) => {
   const {
     children,
     variant = 'light',
@@ -83,13 +83,12 @@ const Navbar = React.forwardRef((props, ref) => {
 });
 
 Navbar.displayName = 'Navbar';
-Navbar.propTypes = propTypes;
 
-Navbar.Brand = NavbarBrand;
-Navbar.Text = NavbarText;
-Navbar.Collapse = NavbarCollapse;
-Navbar.Toggler = NavbarToggler;
-Navbar.useDismiss = useDismissNavbar;
-Navbar.useToggle = useToggleNavbar;
-
-export default Navbar;
+export default Object.assign(Navbar, {
+  Brand: NavbarBrand,
+  Text: NavbarText,
+  Collapse: NavbarCollapse,
+  Toggler: NavbarToggler,
+  useDismiss: useDismissNavbar,
+  useToggle: useToggleNavbar,
+});

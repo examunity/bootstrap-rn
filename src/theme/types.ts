@@ -13,3 +13,7 @@ export type ThemeVariables = {
   containerMaxWidths: ContainerMaxWidths;
   [key: string]: string | ContainerMaxWidths;
 };
+
+export type NavbarExpand = true | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type NavbarVariant = 'light' | 'dark';
+export type NavVariant = 'tabs' | 'pills';

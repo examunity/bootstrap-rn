@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
@@ -7,12 +6,10 @@ import useForcedContext from '../../hooks/useForcedContext';
 import { getStyles } from '../../utils';
 import NavbarContext from './NavbarContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type NavbarBrand = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarBrand = React.forwardRef((props, ref) => {
+const NavbarBrand = React.forwardRef<unknown, NavbarBrand>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const { variant } = useForcedContext(NavbarContext);
@@ -81,6 +78,5 @@ const NavbarBrand = React.forwardRef((props, ref) => {
 });
 
 NavbarBrand.displayName = 'NavbarBrand';
-NavbarBrand.propTypes = propTypes;
 
 export default NavbarBrand;

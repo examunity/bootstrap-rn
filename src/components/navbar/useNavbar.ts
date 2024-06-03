@@ -1,14 +1,23 @@
 import { useMemo } from 'react';
 import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
+import { NavbarExpand, NavbarVariant } from '../../theme/types';
+
+interface UseNavbarReturn {
+  identifier: string;
+  variant?: NavbarVariant;
+  expanded?: boolean;
+  setExpanded: (expanded: boolean) => void;
+  expand?: NavbarExpand;
+}
 
 export default function useNavbar(
-  variant,
-  defaultExpanded,
-  controlledExpanded,
-  onToggle,
-  expand,
-) {
+  variant: NavbarVariant,
+  defaultExpanded: boolean,
+  controlledExpanded?: boolean,
+  onToggle?: () => void,
+  expand?: NavbarExpand,
+): UseNavbarReturn {
   const identifier = useIdentifier('navbar');
 
   const [expanded, setExpanded] = useControlledState(
@@ -25,6 +34,6 @@ export default function useNavbar(
       setExpanded,
       expand,
     }),
-    [variant, expanded, expand],
+    [identifier, variant, expanded, expand],
   );
 }

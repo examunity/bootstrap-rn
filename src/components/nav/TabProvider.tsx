@@ -1,16 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TabContext from './TabContext';
 import useTabbable from './useTabbable';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  defaultActiveTarget: PropTypes.string.isRequired,
-  activeTarget: PropTypes.string,
-  onChange: PropTypes.func,
+export type TabProviderProps = {
+  children: React.ReactNode;
+  defaultActiveTarget: string;
+  activeTarget: string;
+  onChange: () => void;
 };
 
-function TabProvider(props) {
+function TabProvider(props: TabProviderProps) {
   const { children, defaultActiveTarget, activeTarget, onChange } = props;
 
   const tabbable = useTabbable(defaultActiveTarget, activeTarget, onChange);
@@ -19,6 +18,5 @@ function TabProvider(props) {
 }
 
 TabProvider.displayName = 'TabProvider';
-TabProvider.propTypes = propTypes;
 
 export default TabProvider;

@@ -1,11 +1,11 @@
 import { useContext, useEffect, useMemo } from 'react';
 import Context from '../../Context';
 
-export default function useModal(visible, scrollable) {
+export default function useModal(visible: boolean, scrollable: boolean) {
   const context = useContext(Context);
 
   useEffect(() => {
-    if (!visible) {
+    if (!visible || !context) {
       return undefined;
     }
 
@@ -14,7 +14,7 @@ export default function useModal(visible, scrollable) {
     return () => {
       context.scrollbars.show();
     };
-  }, [visible]);
+  }, [visible, context]);
 
   return useMemo(
     () => ({

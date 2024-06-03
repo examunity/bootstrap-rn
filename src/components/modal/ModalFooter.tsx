@@ -1,14 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type ModalFooterProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -28,19 +27,20 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalFooter = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+const ModalFooter = React.forwardRef<BaseView, ModalFooterProps>(
+  (props, ref) => {
+    const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['.modal-footer']);
+    const classes = getStyles(styles, ['.modal-footer']);
 
-  return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
-      {children}
-    </View>
-  );
-});
+    return (
+      <View {...elementProps} ref={ref} style={[classes, style]}>
+        {children}
+      </View>
+    );
+  },
+);
 
 ModalFooter.displayName = 'ModalFooter';
-ModalFooter.propTypes = propTypes;
 
 export default ModalFooter;

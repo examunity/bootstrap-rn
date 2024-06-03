@@ -1,14 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Text as BaseText } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Heading from '../Heading';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type ModalTitleProps = {
+  children: React.ReactNode;
+  style?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalTitle = React.forwardRef((props, ref) => {
+const ModalTitle = React.forwardRef<BaseText, ModalTitleProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.modal-title']);
@@ -31,6 +30,5 @@ const ModalTitle = React.forwardRef((props, ref) => {
 });
 
 ModalTitle.displayName = 'ModalTitle';
-ModalTitle.propTypes = propTypes;
 
 export default ModalTitle;

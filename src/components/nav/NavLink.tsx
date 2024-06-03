@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
@@ -11,18 +10,14 @@ import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  activeStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  activeTextStyle: PropTypes.any,
+export type NavLinkProps = {
+  children: React.ReactNode;
+  active?: boolean;
+  disabled?: boolean;
+  style?: React.CSSProperties;
+  activeStyle?: unknown;
+  textStyle?: unknown;
+  activeTextStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -139,7 +134,7 @@ const styles = StyleSheet.create({
     padding-right: 0;
     padding-left: 0;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-nav .nav-link`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         padding-right: $navbar-nav-link-padding-x;
@@ -195,7 +190,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavLink = React.forwardRef((props, ref) => {
+const NavLink = React.forwardRef<unknown, NavLinkProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
 
   const {
@@ -275,6 +270,5 @@ const NavLink = React.forwardRef((props, ref) => {
 });
 
 NavLink.displayName = 'NavLink';
-NavLink.propTypes = propTypes;
 
 export default NavLink;

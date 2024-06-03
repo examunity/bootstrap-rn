@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -10,10 +10,9 @@ import { getStyles, each } from '../../utils';
 import useMedia from '../../hooks/useMedia';
 import NavbarContext from './NavbarContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type NavbarCollapseProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
     // properly vertically. Can be easily overridden with flex utilities.
     // align-items: center;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-collapse`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         flex-direction: row; // added for bootstrap-rn
@@ -36,32 +35,33 @@ const styles = StyleSheet.create({
   })),
 });
 
-const NavbarCollapse = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+const NavbarCollapse = React.forwardRef<BaseView, NavbarCollapseProps>(
+  (props, ref) => {
+    const { children, style, ...elementProps } = props;
 
-  const { expand, expanded } = useForcedContext(NavbarContext);
-  const media = useMedia();
+    const { expand, expanded } = useForcedContext(NavbarContext);
+    const media = useMedia();
 
-  const classes = getStyles(styles, [
-    '.navbar-collapse',
-    expand &&
-      `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-collapse`,
-  ]);
+    const classes = getStyles(styles, [
+      '.navbar-collapse',
+      expand &&
+        `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-collapse`,
+    ]);
 
-  const show = expanded || (expand && (expand === true || media.up(expand)));
+    const show = expanded || (expand && (expand === true || media.up(expand)));
 
-  if (!show) {
-    return null;
-  }
+    if (!show) {
+      return null;
+    }
 
-  return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
-      {children}
-    </View>
-  );
-});
+    return (
+      <View {...elementProps} ref={ref} style={[classes, style]}>
+        {children}
+      </View>
+    );
+  },
+);
 
 NavbarCollapse.displayName = 'NavbarCollapse';
-NavbarCollapse.propTypes = propTypes;
 
 export default NavbarCollapse;

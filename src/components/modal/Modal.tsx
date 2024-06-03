@@ -1,6 +1,9 @@
-import React, { useRef } from 'react';
-import { Modal as BaseModal, SafeAreaView } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { useRef, ReactNode } from 'react';
+import {
+  Modal as BaseModal,
+  SafeAreaView,
+  View as BaseView,
+} from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
@@ -15,30 +18,23 @@ import ModalTitle from './ModalTitle';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 
-const MODAL_SIZES = ['sm', 'lg', 'xl'];
+const MODAL_SIZES = ['sm', 'lg', 'xl'] as const;
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  visible: PropTypes.bool.isRequired,
-  size: PropTypes.oneOf(MODAL_SIZES),
-  backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
-  scrollable: PropTypes.bool,
-  centered: PropTypes.bool,
-  onToggle: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  contentContainerStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  dialogStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  contentStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  dialogTextStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  contentTextStyle: PropTypes.any,
+export type ModalProps = {
+  children: ReactNode;
+  visible: boolean;
+  size?: (typeof MODAL_SIZES)[number];
+  backdrop?: boolean | 'static';
+  scrollable?: boolean;
+  centered?: boolean;
+  onToggle: () => void;
+  style?: React.CSSProperties;
+  contentContainerStyle?: unknown;
+  dialogStyle?: unknown;
+  contentStyle?: unknown;
+  textStyle?: unknown;
+  dialogTextStyle?: unknown;
+  contentTextStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -139,7 +135,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Modal = React.forwardRef((props, ref) => {
+const Modal = React.forwardRef<BaseView, ModalProps>((props, ref) => {
   const {
     children,
     visible,
@@ -224,12 +220,11 @@ const Modal = React.forwardRef((props, ref) => {
 });
 
 Modal.displayName = 'Modal';
-Modal.propTypes = propTypes;
 
-Modal.Context = ModalContext;
-Modal.Header = ModalHeader;
-Modal.Title = ModalTitle;
-Modal.Body = ModalBody;
-Modal.Footer = ModalFooter;
-
-export default Modal;
+export default Object.assign(Modal, {
+  Context: ModalContext,
+  Header: ModalHeader,
+  Title: ModalTitle,
+  Body: ModalBody,
+  Footer: ModalFooter,
+});

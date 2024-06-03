@@ -3,7 +3,23 @@ import useForcedContext from '../../hooks/useForcedContext';
 import TabContext from './TabContext';
 import { getElementId } from '../../utils';
 
-export default function useToggleTab(props) {
+export type useToggleTabProps = {
+  target: string;
+  onPress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+export type ToggleTabResult = {
+  id: string;
+  onPress: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  active: boolean;
+  role: string;
+  'aria-controls': string;
+  'aria-selected': boolean;
+};
+
+export default function useToggleTab(
+  props: useToggleTabProps,
+): ToggleTabResult {
   const context = useForcedContext(TabContext);
 
   const { target, onPress: handlePress, ...restProps } = props;
@@ -16,7 +32,7 @@ export default function useToggleTab(props) {
   return {
     ...restProps,
     id: `${id}-tab`,
-    onPress: (event) => {
+    onPress: (event: React.MouseEvent<HTMLButtonElement>) => {
       if (handlePress) handlePress(event);
 
       event.preventDefault();

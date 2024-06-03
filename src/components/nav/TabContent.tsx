@@ -1,18 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import View from '../View';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
+export type TabContentProps = {
+  children: React.ReactNode;
 };
 
-const TabContent = React.forwardRef((props, ref) => {
+const TabContent = React.forwardRef<BaseView, TabContentProps>((props, ref) => {
   const { ...elementProps } = props;
 
   return <View {...elementProps} ref={ref} />;
 });
 
 TabContent.displayName = 'TabContent';
-TabContent.propTypes = propTypes;
 
 export default TabContent;

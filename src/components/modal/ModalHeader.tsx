@@ -1,14 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type ModalHeaderProps = {
+  children: React.ReactNode;
+  style?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -27,19 +26,20 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalHeader = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+const ModalHeader = React.forwardRef<BaseView, ModalHeaderProps>(
+  (props, ref) => {
+    const { children, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['.modal-header']);
+    const classes = getStyles(styles, ['.modal-header']);
 
-  return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
-      {children}
-    </View>
-  );
-});
+    return (
+      <View {...elementProps} ref={ref} style={[classes, style]}>
+        {children}
+      </View>
+    );
+  },
+);
 
 ModalHeader.displayName = 'ModalHeader';
-ModalHeader.propTypes = propTypes;
 
 export default ModalHeader;

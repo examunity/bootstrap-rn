@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -8,12 +8,10 @@ import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from './NavbarContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type NavbarTextProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarText = React.forwardRef((props, ref) => {
+const NavbarText = React.forwardRef<BaseView, NavbarTextProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const { variant } = useForcedContext(NavbarContext);
@@ -48,6 +46,5 @@ const NavbarText = React.forwardRef((props, ref) => {
 });
 
 NavbarText.displayName = 'NavbarText';
-NavbarText.propTypes = propTypes;
 
 export default NavbarText;

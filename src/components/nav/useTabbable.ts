@@ -2,11 +2,17 @@ import { useMemo } from 'react';
 import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
 
+type UseTabbableReturnType = {
+  identifier: string;
+  activeTarget: string;
+  setActiveTarget: (target: string) => void;
+};
+
 export default function useTabbable(
-  defaultActiveTarget,
-  controlledActiveTarget,
-  onChange,
-) {
+  defaultActiveTarget: string,
+  controlledActiveTarget: string,
+  onChange: () => void,
+): UseTabbableReturnType {
   const identifier = useIdentifier('tabbable');
 
   const [activeTarget, setActiveTarget] = useControlledState(

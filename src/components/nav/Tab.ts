@@ -6,10 +6,10 @@ import useToggleTab from './useToggleTab';
 
 const Tab = {};
 
-Tab.Context = TabContext;
-Tab.Provider = TabProvider;
-Tab.Content = TabContent;
-Tab.Pane = TabPane;
-Tab.useToggle = useToggleTab;
-
-export default Tab;
+export default Object.assign(Tab, {
+  Context: TabContext,
+  Provider: TabProvider,
+  Content: TabContent,
+  Pane: TabPane,
+  useToggle: useToggleTab,
+});

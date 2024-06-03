@@ -1,22 +1,22 @@
 import React, { useContext, useMemo } from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
+import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
-import NavbarContext from '../navbar/NavbarContext';
+import NavbarContext, { NavbarContextType } from '../navbar/NavbarContext';
 import NavContext from './NavContext';
 import NavLink from './NavLink';
-import TabContext from './TabContext';
+import TabContext, { TabContextType } from './TabContext';
+import { NavVariant } from '../../theme/types';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['tabs', 'pills']),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type NavProps = {
+  children: React.ReactNode;
+  variant?: NavVariant;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     margin-bottom: 0;
     // list-style: none;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-nav`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         flex-direction: row;
@@ -50,7 +50,10 @@ const styles = StyleSheet.create({
   })),
 });
 
-const getRole = (tabbable, navbar) => {
+const getRole = (
+  tabbable: TabContextType | null,
+  navbar: NavbarContextType | null,
+) => {
   if (tabbable) {
     return 'tablist';
   }
@@ -59,10 +62,10 @@ const getRole = (tabbable, navbar) => {
     return 'navigation';
   }
 
-  return null;
+  return undefined;
 };
 
-const Nav = React.forwardRef((props, ref) => {
+const Nav = React.forwardRef<BaseView, NavProps>((props, ref) => {
   const { children, variant, style, ...elementProps } = props;
 
   const navbar = useContext(NavbarContext);
@@ -100,9 +103,8 @@ const Nav = React.forwardRef((props, ref) => {
 });
 
 Nav.displayName = 'Nav';
-Nav.propTypes = propTypes;
 
-Nav.Context = NavContext;
-Nav.Link = NavLink;
-
-export default Nav;
+export default Object.assign(Nav, {
+  Context: NavContext,
+  Link: NavLink,
+});
