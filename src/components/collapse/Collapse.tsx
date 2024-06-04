@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import CollapseContext from './CollapseContext';
@@ -10,7 +9,7 @@ export type CollapseProps = {
   children: React.ReactNode;
 };
 
-const Collapse = React.forwardRef<BaseView, CollapseProps>((props, ref) => {
+const Collapse = React.forwardRef<ViewRef, CollapseProps>((props, ref) => {
   const { children, ...elementProps } = props;
 
   const { identifier, visible } = useForcedContext(CollapseContext);

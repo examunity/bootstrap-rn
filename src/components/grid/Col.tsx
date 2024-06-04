@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Col = React.forwardRef<BaseView, ColProps>((props, ref) => {
+const Col = React.forwardRef<ViewRef, ColProps>((props, ref) => {
   const {
     children,
     size,

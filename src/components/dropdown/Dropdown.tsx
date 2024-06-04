@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Dropdown = React.forwardRef<BaseView, DropdownProps>((props, ref) => {
+const Dropdown = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
   const {
     children,
     defaultVisible = false,

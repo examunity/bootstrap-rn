@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from 'react';
 import { Platform } from 'react-native';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -11,7 +10,7 @@ import NavbarContext, { NavbarContextType } from '../navbar/NavbarContext';
 import NavContext from './NavContext';
 import NavLink from './NavLink';
 import TabContext, { TabContextType } from './TabContext';
-import { NavVariant } from '../../theme/types';
+import { NavVariant } from '../../types';
 
 export type NavProps = {
   children: React.ReactNode;
@@ -65,7 +64,7 @@ const getRole = (
   return undefined;
 };
 
-const Nav = React.forwardRef<BaseView, NavProps>((props, ref) => {
+const Nav = React.forwardRef<ViewRef, NavProps>((props, ref) => {
   const { children, variant, style, ...elementProps } = props;
 
   const navbar = useContext(NavbarContext);

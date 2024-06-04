@@ -1,6 +1,5 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import { Platform } from 'react-native';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -10,7 +9,7 @@ import { shiftColor } from '../../theme/functions';
 import useForcedContext from '../../hooks/useForcedContext';
 import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
-import { ThemeVariables } from '../../theme/types';
+import { ThemeVariables } from '../../types';
 
 interface ListGroupItemProps {
   children: ReactNode;
@@ -95,7 +94,7 @@ export const styles = StyleSheet.create({
   })),
 });
 
-const ListGroupItem = React.forwardRef<BaseView, ListGroupItemProps>(
+const ListGroupItem = React.forwardRef<ViewRef, ListGroupItemProps>(
   (props, ref) => {
     const {
       children,

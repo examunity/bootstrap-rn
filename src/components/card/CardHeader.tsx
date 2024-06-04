@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardHeader = React.forwardRef<BaseView, CardHeaderProps>((props, ref) => {
+const CardHeader = React.forwardRef<ViewRef, CardHeaderProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-header']);

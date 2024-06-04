@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ButtonGroup = React.forwardRef<BaseView, ButtonGroupProps>(
+const ButtonGroup = React.forwardRef<ViewRef, ButtonGroupProps>(
   (props, ref) => {
     const { children, size, style, ...elementProps } = props;
 

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { NavbarExpand, NavbarVariant } from '../../theme/types';
+import { NavbarExpand, NavbarVariant } from '../../types';
 
 export type NavbarContextType = {
   expand?: NavbarExpand;

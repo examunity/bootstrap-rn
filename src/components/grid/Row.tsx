@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Row = React.forwardRef<BaseView, RowProps>((props, ref) => {
+const Row = React.forwardRef<ViewRef, RowProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.row']);

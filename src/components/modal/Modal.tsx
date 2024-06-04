@@ -1,9 +1,5 @@
 import React, { useRef, ReactNode } from 'react';
-import {
-  Modal as BaseModal,
-  SafeAreaView,
-  View as BaseView,
-} from 'react-native';
+import { Modal as BaseModal, SafeAreaView } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
@@ -135,7 +131,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Modal = React.forwardRef<BaseView, ModalProps>((props, ref) => {
+const Modal = React.forwardRef<ViewRef, ModalProps>((props, ref) => {
   const {
     children,
     visible,

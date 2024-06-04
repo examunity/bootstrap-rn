@@ -81,7 +81,7 @@ const applyCaret = (
   );
 };
 
-const Pressable = React.forwardRef<unknown, PressableProps>((props, ref) => {
+const Pressable = React.forwardRef<ViewRef, PressableProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
   const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
 

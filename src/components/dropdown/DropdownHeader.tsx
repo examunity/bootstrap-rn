@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownHeader = React.forwardRef<BaseView, DropdownHeaderProps>(
+const DropdownHeader = React.forwardRef<ViewRef, DropdownHeaderProps>(
   (props, ref) => {
     const { children, style, textStyle, ...elementProps } = props;
 

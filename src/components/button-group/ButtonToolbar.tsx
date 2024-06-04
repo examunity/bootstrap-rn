@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ButtonToolbar = React.forwardRef<BaseView, ButtonToolbarProps>(
+const ButtonToolbar = React.forwardRef<ViewRef, ButtonToolbarProps>(
   (props, ref) => {
     const { children, style, ...elementProps } = props;
 

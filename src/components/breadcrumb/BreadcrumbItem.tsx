@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform, I18nManager } from 'react-native';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import Text from '../Text';
 import useForcedContext from '../../hooks/useForcedContext';
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const BreadcrumbItem = React.forwardRef<BaseView, BreadcrumbItemProps>(
+const BreadcrumbItem = React.forwardRef<ViewRef, BreadcrumbItemProps>(
   (props, ref) => {
     const {
       children,

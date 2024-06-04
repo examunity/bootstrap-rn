@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
 import css from '../../style/css';
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalHeader = React.forwardRef<BaseView, ModalHeaderProps>(
+const ModalHeader = React.forwardRef<ViewRef, ModalHeaderProps>(
   (props, ref) => {
     const { children, style, ...elementProps } = props;
 

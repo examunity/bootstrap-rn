@@ -1,6 +1,5 @@
 import React, { useContext, forwardRef } from 'react';
 import { I18nManager, StyleSheet as StyleUtils, ViewStyle } from 'react-native';
-import type { View as BaseView } from 'react-native';
 import View from './View';
 import StyleSheet from '../style/StyleSheet';
 import { getStyles } from '../utils';
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Caret = forwardRef<BaseView, CaretProps>((props, ref) => {
+const Caret = forwardRef<ViewRef, CaretProps>((props, ref) => {
   const { color, direction = 'down', style, ...elementProps } = props;
 
   const context = useContext(TextStyleContext) as TextStyleContextType;

@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import Text from '../Text';
 import StyleSheet from '../../style/StyleSheet';
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Badge = React.forwardRef<BaseView, BadgeProps>((props, ref) => {
+const Badge = React.forwardRef<ViewRef, BadgeProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.badge']);

@@ -11,7 +11,7 @@ import useForcedContext from '../../hooks/useForcedContext';
 import { styles as baseStyles } from './ListGroupItem';
 import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
-import { ThemeVariables } from '../../theme/types';
+import { ThemeVariables } from '../../types';
 
 export type ListGroupItemActionProps = {
   children: React.ReactNode;

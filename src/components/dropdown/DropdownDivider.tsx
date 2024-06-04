@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownDivider = React.forwardRef<BaseView, DropdownDividerProps>(
+const DropdownDivider = React.forwardRef<ViewRef, DropdownDividerProps>(
   (props, ref) => {
     const { style, ...elementProps } = props;
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardBody = React.forwardRef<BaseView, CardBodyProps>((props, ref) => {
+const CardBody = React.forwardRef<ViewRef, CardBodyProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-body']);

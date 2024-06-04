@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const NavbarCollapse = React.forwardRef<BaseView, NavbarCollapseProps>(
+const NavbarCollapse = React.forwardRef<ViewRef, NavbarCollapseProps>(
   (props, ref) => {
     const { children, style, ...elementProps } = props;
 

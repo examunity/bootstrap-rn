@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarText = React.forwardRef<BaseView, NavbarTextProps>((props, ref) => {
+const NavbarText = React.forwardRef<ViewRef, NavbarTextProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const { variant } = useForcedContext(NavbarContext);

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const TabPane = React.forwardRef<BaseView, TabPaneProps>((props, ref) => {
+const TabPane = React.forwardRef<ViewRef, TabPaneProps>((props, ref) => {
   const { id: target, style, ...elementProps } = props;
 
   const tabbable = useForcedContext(TabContext);

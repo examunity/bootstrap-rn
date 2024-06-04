@@ -1,5 +1,4 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -14,7 +13,7 @@ import NavbarContext from './NavbarContext';
 import useNavbar from './useNavbar';
 import useDismissNavbar from './useDismissNavbar';
 import useToggleNavbar from './useToggleNavbar';
-import { NavbarExpand, NavbarVariant } from '../../theme/types';
+import { NavbarExpand, NavbarVariant } from '../../types';
 
 export type NavbarProps = {
   children: React.ReactNode;
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Navbar = React.forwardRef<BaseView, NavbarProps>((props, ref) => {
+const Navbar = React.forwardRef<ViewRef, NavbarProps>((props, ref) => {
   const {
     children,
     variant = 'light',

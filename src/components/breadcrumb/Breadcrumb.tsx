@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Breadcrumb = React.forwardRef<BaseView, BreadcrumbProps>((props, ref) => {
+const Breadcrumb = React.forwardRef<ViewRef, BreadcrumbProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const list = useList(children);

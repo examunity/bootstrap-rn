@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
-import type { View as BaseView, Role } from 'react-native';
+import type { Role } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -43,7 +43,7 @@ const getRole = (tabbable: boolean): Role | undefined => {
   return undefined;
 };
 
-const ListGroup = React.forwardRef<BaseView, ListGroupProps>((props, ref) => {
+const ListGroup = React.forwardRef<ViewRef, ListGroupProps>((props, ref) => {
   const { children, flush, style, ...elementProps } = props;
 
   const list = useList(children);

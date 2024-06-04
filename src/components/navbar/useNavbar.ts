@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
-import { NavbarExpand, NavbarVariant } from '../../theme/types';
+import { NavbarExpand, NavbarVariant } from '../../types';
 
 interface UseNavbarReturn {
   identifier: string;

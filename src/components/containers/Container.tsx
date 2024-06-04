@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import type { View as BaseView } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -7,7 +6,7 @@ import { CONTAINER_MAX_WIDTHS, GRID_BREAKPOINTS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
 import { infix, next } from '../../theme/breakpoints';
 import NavbarContext from '../navbar/NavbarContext';
-import { ThemeVariables, ContainerMaxWidths } from '../../theme/types';
+import { ThemeVariables, ContainerMaxWidths } from '../../types';
 
 export type ContainerProps = {
   children: React.ReactNode;
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Container = React.forwardRef<BaseView, ContainerProps>((props, ref) => {
+const Container = React.forwardRef<ViewRef, ContainerProps>((props, ref) => {
   const { fluid = 'sm', style, ...elementProps } = props;
 
   const navbar = useContext(NavbarContext);

@@ -1,12 +1,11 @@
 import React from 'react';
-import type { View as BaseView } from 'react-native';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
-import { ThemeVariables } from '../../theme/types';
+import { ThemeVariables } from '../../types';
 
 export type AlertProps = {
   children: React.ReactNode;
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Alert = React.forwardRef<BaseView, AlertProps>((props, ref) => {
+const Alert = React.forwardRef<ViewRef, AlertProps>((props, ref) => {
   const {
     children,
     color = 'primary',
