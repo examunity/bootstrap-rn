@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavLink = React.forwardRef<unknown, NavLinkProps>((props, ref) => {
+const NavLink = React.forwardRef<ViewRef, NavLinkProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
 
   const {

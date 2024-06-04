@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text as BaseText } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Heading from '../Heading';
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalTitle = React.forwardRef<BaseText, ModalTitleProps>((props, ref) => {
+const ModalTitle = React.forwardRef<TextRef, ModalTitleProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.modal-title']);

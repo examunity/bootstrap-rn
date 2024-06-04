@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarBrand = React.forwardRef<unknown, NavbarBrand>((props, ref) => {
+const NavbarBrand = React.forwardRef<ViewRef, NavbarBrand>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const { variant } = useForcedContext(NavbarContext);

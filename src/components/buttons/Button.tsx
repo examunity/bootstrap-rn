@@ -11,7 +11,7 @@ import css from '../../style/css';
 import { getStyles, each } from '../../utils';
 import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
-import { ThemeVariables } from '../../theme/types';
+import { ThemeVariables } from '../../types';
 
 type ThemeColors = ThemeColorsType | 'link';
 
@@ -307,7 +307,7 @@ const hasSize = (
   return group.size === value;
 };
 
-const Button = React.forwardRef<unknown, ButtonProps>((props, ref) => {
+const Button = React.forwardRef<ViewRef, ButtonProps>((props, ref) => {
   const {
     children,
     color = 'prmary',

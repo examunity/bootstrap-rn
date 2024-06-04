@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text as BaseText } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import Text from './Text';
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Heading = React.forwardRef<BaseText, HeadingProps>((props, ref) => {
+const Heading = React.forwardRef<TextRef, HeadingProps>((props, ref) => {
   const { children, size, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['heading', `.h${String(size)}`]);

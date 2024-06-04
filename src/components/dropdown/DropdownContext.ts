@@ -3,7 +3,7 @@ import { UseDropdownReturnType } from './useDropdown';
 
 interface DropdownContextProps extends UseDropdownReturnType {
   visible: boolean;
-  toggle: () => void;
+  toggle?: () => void;
   setVisible: (visible: boolean) => void;
 }
 

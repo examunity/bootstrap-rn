@@ -1,5 +1,4 @@
 import React from 'react';
-import { PressableProps } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
@@ -14,7 +13,7 @@ import useToggleNavbar from './useToggleNavbar';
 import useStyle from '../../hooks/useStyle';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import { ThemeVariables } from '../../theme/types';
+import { ThemeVariables } from '../../types';
 
 export type NavbarTogglerProps = {
   style?: React.CSSProperties;
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarToggler = React.forwardRef<PressableProps, NavbarTogglerProps>(
+const NavbarToggler = React.forwardRef<ViewRef, NavbarTogglerProps>(
   (props, ref) => {
     const { style, textStyle, iconStyle, ...elementProps } = props;
 

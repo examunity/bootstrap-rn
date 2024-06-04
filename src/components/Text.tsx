@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, ForwardedRef } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Text as BaseText, TextProps as BaseTextProps } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
@@ -53,63 +53,61 @@ const getStyleName = (styleName?: string, color?: ThemeColors) => {
     : `text-${String(color)}`;
 };
 
-const Text = React.forwardRef<BaseText, TextProps>(
-  (props, ref: ForwardedRef<BaseText>) => {
-    const {
-      color, // will be deprecated soon
-      bold = false,
-      italic = false,
-      mark = false,
-      small = false,
+const Text = React.forwardRef<TextRef, TextProps>((props, ref) => {
+  const {
+    color, // will be deprecated soon
+    bold = false,
+    italic = false,
+    mark = false,
+    small = false,
+    style,
+    styleName,
+    ...elementProps
+  } = props;
+
+  const media = useMedia();
+  const context = useContext<TextStyleContextType | null>(TextStyleContext);
+
+  const classes = getStyles(styles, [
+    bold && 'strong',
+    italic && 'italic',
+    small && 'small',
+    mark && 'mark',
+  ]);
+
+  const resolveStyle = useStyle(
+    [
+      // @ts-expect-error: styles is possibly 'null'.
+      (!context || !context.hasTextAncestor) && styles.text,
+      context && context.style,
+      classes,
       style,
-      styleName,
-      ...elementProps
-    } = props;
+    ],
+    getStyleName(styleName, color),
+  );
 
-    const media = useMedia();
-    const context = useContext<TextStyleContextType | null>(TextStyleContext);
+  const contextValue = useMemo(
+    () => ({
+      style: null,
+      hasTextAncestor: true,
+    }),
+    [],
+  );
 
-    const classes = getStyles(styles, [
-      bold && 'strong',
-      italic && 'italic',
-      small && 'small',
-      mark && 'mark',
-    ]);
+  const element = (
+    <BaseText {...elementProps} ref={ref} style={resolveStyle({ media })} />
+  );
 
-    const resolveStyle = useStyle(
-      [
-        // @ts-expect-error: styles is possibly 'null'.
-        (!context || !context.hasTextAncestor) && styles.text,
-        context && context.style,
-        classes,
-        style,
-      ],
-      getStyleName(styleName, color),
-    );
+  if (context && context.hasTextAncestor && !context.style) {
+    return element;
+  }
 
-    const contextValue = useMemo(
-      () => ({
-        style: null,
-        hasTextAncestor: true,
-      }),
-      [],
-    );
-
-    const element = (
-      <BaseText {...elementProps} ref={ref} style={resolveStyle({ media })} />
-    );
-
-    if (context && context.hasTextAncestor && !context.style) {
-      return element;
-    }
-
-    return (
-      <TextStyleContext.Provider value={contextValue}>
-        {element}
-      </TextStyleContext.Provider>
-    );
-  },
-);
+  return (
+    <TextStyleContext.Provider value={contextValue}>
+      {element}
+    </TextStyleContext.Provider>
+  );
+});
 
 Text.displayName = 'Text';
 

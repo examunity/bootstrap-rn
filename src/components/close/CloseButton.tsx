@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
-import Pressable, { PressableProps } from '../Pressable';
+import Pressable from '../Pressable';
 import ModalContext from '../modal/ModalContext';
 import OffcanvasContext from '../offcanvas/OffcanvasContext';
 import useMedia from '../../hooks/useMedia';
@@ -12,7 +12,7 @@ import useInteractionState, {
 } from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import { ThemeVariables } from '../../theme/types';
+import { ThemeVariables } from '../../types';
 
 export type CloseButtonProps = {
   children: React.ReactNode;
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CloseButton = React.forwardRef<PressableProps, CloseButtonProps>(
+const CloseButton = React.forwardRef<ViewRef, CloseButtonProps>(
   (props, ref) => {
     const {
       disabled = false,
@@ -130,7 +130,6 @@ const CloseButton = React.forwardRef<PressableProps, CloseButtonProps>(
       <Pressable
         {...elementProps}
         {...interactionProps}
-        // component={Pressable} // To confirm: if this is needed as its not exist on BasePressableProps
         ref={ref}
         disabled={disabled}
         style={background.style}
