@@ -1,6 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { useState, useMemo, ReactNode, CSSProperties } from 'react';
+import {
+  Platform,
+  TextInputFocusEventData,
+  NativeSyntheticEvent,
+} from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import useMedia from '../../hooks/useMedia';
@@ -13,53 +16,44 @@ import PickerWeb from './internals/PickerWeb';
 import PickerNative from './internals/PickerNative';
 import PickerItem from './PickerItem';
 import PickerContext from './PickerContext';
+import { ThemeVariables } from '../../types';
 
-/* eslint-disable react/no-unused-prop-types */
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  placeholderTextColor: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'lg']),
-  disabled: PropTypes.bool,
-  valid: PropTypes.bool,
-  invalid: PropTypes.bool,
-  useNativeComponent: PropTypes.bool,
-  autoFocus: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  styleName: PropTypes.any,
+export type PickerProps = {
+  children: ReactNode;
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  placeholderTextColor?: string;
+  size?: 'sm' | 'lg';
+  disabled?: boolean;
+  valid?: boolean;
+  invalid?: boolean;
+  useNativeComponent?: boolean;
+  autoFocus?: boolean;
+  style?: CSSProperties;
+  styleName?: unknown;
 };
-/* eslint-enable */
 
 const styles = StyleSheet.create({
   select: css`
     opacity: 1;
   `,
   '.form-select': css`
-    // display: block;
     width: 100%;
     padding: $form-select-padding-y $form-select-indicator-padding
       $form-select-padding-y $form-select-padding-x;
-    /* @include platform(web) {
-      // See https://github.com/twbs/bootstrap/issues/32636
-      -moz-padding-start: subtract($form-select-padding-x, 3px);
-    } */
     font-family: $form-select-font-family;
     font-size: $form-select-font-size;
     font-weight: $form-select-font-weight;
     line-height: $form-select-font-size * $form-select-line-height;
     color: $form-select-color;
     background-color: $form-select-bg;
-    background-image: ${(t) => escapeSvg(t['form-select-indicator'])};
+    background-image: ${(t: ThemeVariables) =>
+      escapeSvg(t['form-select-indicator'])};
     background-repeat: no-repeat;
     background-position: $form-select-bg-position;
     background-size: $form-select-bg-size;
     border: $form-select-border-width solid $form-select-border-color;
     border-radius: $form-select-border-radius;
-    // @include box-shadow($form-select-box-shadow);
-    // @include transition($form-select-transition);
     @include platform(web) {
       appearance: none;
     }
@@ -67,16 +61,8 @@ const styles = StyleSheet.create({
     &:focus {
       border-color: $form-select-focus-border-color;
       @include platform(web) {
-        outline-width: 0; // outline: 0;
-        // @if $enable-shadows {
-        //   @include box-shadow(
-        //     $form-select-box-shadow,
-        //     $form-select-focus-box-shadow
-        //   );
-        // } @else {
-        //   // Avoid using mixin so we can pass custom focus shadow properly
+        outline-width: 0;
         box-shadow: $form-select-focus-box-shadow;
-        // }
       }
     }
   `,
@@ -99,22 +85,25 @@ const styles = StyleSheet.create({
     font-size: $form-select-font-size-lg;
     border-radius: $form-select-border-radius-lg;
   `,
-  ...each(FORM_VALIDATION_STATES, (state, data) => ({
+  ...each(FORM_VALIDATION_STATES, (state: string, data) => ({
     [`.form-select:${state}`]: css`
-      border-color: ${(t) => data(t).color};
+      border-color: ${(t: ThemeVariables) => data(t).color};
 
       &:focus {
-        border-color: ${(t) => data(t).color};
+        border-color: ${(t: ThemeVariables) => data(t).color};
         @include platform(web) {
           box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
-            rgba(${(t) => data(t).color}, $input-btn-focus-color-opacity);
+            rgba(
+              ${(t: ThemeVariables) => data(t).color},
+              $input-btn-focus-color-opacity
+            );
         }
       }
     `,
   })),
 });
 
-const Picker = React.forwardRef((props, ref) => {
+const Picker = React.forwardRef<unknown, PickerProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
 
   const {
@@ -137,7 +126,7 @@ const Picker = React.forwardRef((props, ref) => {
   const [focused, setFocused] = useState(autoFocus);
 
   const classes = getStyles(styles, [
-    'select', // reboot
+    'select',
     '.form-select',
     disabled && '.form-select.disabled',
     size === 'sm' && '.form-select-sm',
@@ -164,11 +153,11 @@ const Picker = React.forwardRef((props, ref) => {
         {...elementProps}
         ref={modifierRef}
         placeholderTextColor={placeholderTextColor}
-        onFocus={(event) => {
+        onFocus={(event: NativeSyntheticEvent<TextInputFocusEventData>) => {
           setFocused(true);
           onFocus(event);
         }}
-        onBlur={(event) => {
+        onBlur={(event: NativeSyntheticEvent<TextInputFocusEventData>) => {
           setFocused(false);
           onBlur(event);
         }}
@@ -186,8 +175,7 @@ const Picker = React.forwardRef((props, ref) => {
 });
 
 Picker.displayName = 'Picker';
-Picker.propTypes = propTypes;
 
-Picker.Item = PickerItem;
-
-export default Picker;
+export default Object.assign(Picker, {
+  Item: PickerItem,
+});

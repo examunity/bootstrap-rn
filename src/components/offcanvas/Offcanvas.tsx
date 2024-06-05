@@ -1,5 +1,4 @@
-import React, { useContext, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useRef, ReactNode } from 'react';
 import { Modal as BaseModal, SafeAreaView } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
@@ -17,25 +16,20 @@ import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
 import OffcanvasBody from './OffcanvasBody';
 
-export const PLACEMENTS = ['top', 'bottom', 'start', 'end']; // , 'auto'
+export const PLACEMENTS = ['top', 'bottom', 'start', 'end'];
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  visible: PropTypes.bool,
-  placement: PropTypes.oneOf(PLACEMENTS),
-  backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
-  // Currently only supported on web.
-  scroll: PropTypes.bool,
-  onToggle: PropTypes.func,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  dialogStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  dialogTextStyle: PropTypes.any,
-};
+interface OffcanvasProps {
+  children: ReactNode;
+  visible?: boolean;
+  placement?: (typeof PLACEMENTS)[number];
+  backdrop?: boolean | 'static';
+  scroll?: boolean;
+  onToggle?: () => void;
+  style?: React.CSSProperties;
+  dialogStyle?: unknown;
+  textStyle?: unknown;
+  dialogTextStyle?: unknown;
+}
 
 const styles = StyleSheet.create({
   '.offcanvas': css`
@@ -130,7 +124,7 @@ const styles = StyleSheet.create({
     height: $offcanvas-vertical-height;
   `,
   // Navbar styles
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.navbar-expand${infix(next(breakpoint))} .offcanvas`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         position: relative; // inherit;
@@ -149,10 +143,10 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Offcanvas = React.forwardRef((props, ref) => {
+const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
   const {
     children,
-    visible,
+    visible = false,
     placement = 'top',
     backdrop = true,
     scroll = false,
@@ -242,11 +236,10 @@ const Offcanvas = React.forwardRef((props, ref) => {
 });
 
 Offcanvas.displayName = 'Offcanvas';
-Offcanvas.propTypes = propTypes;
 
-Offcanvas.Context = OffcanvasContext;
-Offcanvas.Header = OffcanvasHeader;
-Offcanvas.Title = OffcanvasTitle;
-Offcanvas.Body = OffcanvasBody;
-
-export default Offcanvas;
+export default Object.assign(Offcanvas, {
+  Context: OffcanvasContext,
+  Header: OffcanvasHeader,
+  Title: OffcanvasTitle,
+  Body: OffcanvasBody,
+});

@@ -1,21 +1,15 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import View from '../View';
 import RadioContext from './RadioContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  selectedValue: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  onValueChange: PropTypes.func,
-  disabled: PropTypes.bool,
+export type RadioGroupProps = {
+  children: React.ReactNode;
+  selectedValue?: boolean | number | string | object;
+  onValueChange?: (value?: boolean | number | string | object) => void;
+  disabled?: boolean;
 };
 
-const RadioGroup = React.forwardRef((props, ref) => {
+const RadioGroup = React.forwardRef<ViewRef, RadioGroupProps>((props, ref) => {
   const {
     children,
     selectedValue,
@@ -43,6 +37,5 @@ const RadioGroup = React.forwardRef((props, ref) => {
 });
 
 RadioGroup.displayName = 'RadioGroup';
-RadioGroup.propTypes = propTypes;
 
 export default RadioGroup;

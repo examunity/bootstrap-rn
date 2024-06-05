@@ -1,16 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Label from '../Label';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type FormLabelProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -26,7 +23,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormLabel = React.forwardRef((props, ref) => {
+const FormLabel = React.forwardRef<ViewRef, FormLabelProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.form-label']);
@@ -45,6 +42,5 @@ const FormLabel = React.forwardRef((props, ref) => {
 });
 
 FormLabel.displayName = 'FormLabel';
-FormLabel.propTypes = propTypes;
 
 export default FormLabel;

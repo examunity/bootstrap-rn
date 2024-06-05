@@ -1,23 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import TextInput from '../TextInput';
 import { getStyles, each } from '../../utils';
 import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
+import { ThemeData, ThemeVariables } from '../../types';
 
-const propTypes = {
-  size: PropTypes.oneOf(['sm', 'lg']),
-  placeholderTextColor: PropTypes.string,
-  multiline: PropTypes.bool,
-  disabled: PropTypes.bool,
-  valid: PropTypes.bool,
-  invalid: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  selectTextOnFocus: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type InputProps = {
+  size?: 'sm' | 'lg';
+  placeholderTextColor?: string;
+  multiline?: boolean;
+  disabled?: boolean;
+  valid?: boolean;
+  invalid?: boolean;
+  readOnly?: boolean;
+  selectTextOnFocus?: boolean;
+  style?: React.CSSProperties;
 };
 
 // Known issues:
@@ -150,15 +149,18 @@ const styles = StyleSheet.create({
       line-height: $input-font-size-sm * $line-height-base; // added for bootstrap-rn
     }
   `,
-  ...each(FORM_VALIDATION_STATES, (state, data) => ({
+  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
     [`.form-control:${state}`]: css`
-      border-color: ${(t) => data(t).color};
+      border-color: ${(t: ThemeVariables) => data(t).color};
 
       &:focus {
-        border-color: ${(t) => data(t).color};
+        border-color: ${(t: ThemeVariables) => data(t).color};
         @include platform(web) {
           box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
-            rgba(${(t) => data(t).color}, $input-btn-focus-color-opacity);
+            rgba(
+              ${(t: ThemeVariables) => data(t).color},
+              $input-btn-focus-color-opacity
+            );
         }
       }
     `,
@@ -211,6 +213,5 @@ const Input = React.forwardRef((props, ref) => {
 });
 
 Input.displayName = 'Input';
-Input.propTypes = propTypes;
 
 export default Input;

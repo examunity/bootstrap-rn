@@ -1,40 +1,42 @@
-import React, { useMemo } from 'react';
-import { Picker as BasePicker, StyleSheet as StyleUtils } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { useMemo, forwardRef } from 'react';
+import {
+  Picker as BasePicker,
+  StyleSheet as StyleUtils,
+  ViewStyle,
+  NativeSyntheticEvent,
+  TargetedEvent,
+} from 'react-native';
 import useBackground from '../../../hooks/useBackground';
 import PickerWebContext from './PickerWebContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  selectedValue: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  onValueChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  placeholder: PropTypes.string,
-  placeholderTextColor: PropTypes.string,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-};
+interface PickerWebProps {
+  children: React.ReactNode;
+  selectedValue: boolean | number | string | object | null | undefined;
+  onValueChange?: (value: boolean | number | string | object) => void;
+  onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+  onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+  placeholder?: string;
+  placeholderTextColor?: string;
+  disabled?: boolean;
+  style?: ViewStyle;
+}
 
 const PLACEHOLDER = '__PLACEHOLDER__';
 
-const getOptionStyle = (style, showPlaceholder) => {
+const getOptionStyle = (
+  style: ViewStyle,
+  showPlaceholder: boolean,
+): string | null => {
   if (!showPlaceholder) {
     return null;
   }
 
   const flattenedStyle = StyleUtils.flatten(style);
 
-  return flattenedStyle.color;
+  return flattenedStyle.color as string;
 };
 
-const PickerWeb = React.forwardRef((props, ref) => {
+const PickerWeb = forwardRef<BasePicker, PickerWebProps>((props, ref) => {
   const {
     children,
     selectedValue,
@@ -82,7 +84,5 @@ const PickerWeb = React.forwardRef((props, ref) => {
     </BasePicker>
   );
 });
-
-PickerWeb.propTypes = propTypes;
 
 export default PickerWeb;

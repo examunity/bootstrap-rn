@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, each } from '../../utils';
@@ -12,20 +11,19 @@ import { escapeSvg } from '../../theme/functions';
 import FormCheckContext from './FormCheckContext';
 import FormCheckInputWeb from './internals/FormCheckInputWeb';
 import FormCheckInputNative from './internals/FormCheckInputNative';
+import { ThemeData, ThemeVariables } from '../../types';
 
-/* eslint-disable react/no-unused-prop-types */
-const propTypes = {
-  type: PropTypes.oneOf(['checkbox', 'radio', 'switch']).isRequired,
-  value: PropTypes.bool.isRequired,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  disabled: PropTypes.bool,
-  valid: PropTypes.bool,
-  invalid: PropTypes.bool,
-  useNativeComponent: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
+export type FormCheckInputProps = {
+  type: 'checkbox' | 'radio' | 'switch';
+  value: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onValueChange?: (value?: boolean | number | string | object) => void;
+  disabled?: boolean;
+  valid?: boolean;
+  invalid?: boolean;
+  useNativeComponent?: boolean;
+  style?: React.CSSProperties;
 };
 /* eslint-enable */
 
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
     // @if $enable-gradients {
     //   background-image: escape-svg($form-check-input-checked-bg-image), var(--#{$variable-prefix}gradient);
     // } @else {
-    background-image: ${(t) =>
+    background-image: ${(t: ThemeVariables) =>
       escapeSvg(t['form-check-input-checked-bg-image'])};
     // }
   `,
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
     // @if $enable-gradients {
     //   background-image: escape-svg($form-check-radio-checked-bg-image), var(--#{$variable-prefix}gradient);
     // } @else {
-    background-image: ${(t) =>
+    background-image: ${(t: ThemeVariables) =>
       escapeSvg(t['form-check-radio-checked-bg-image'])};
     // }
   `,
@@ -108,20 +106,24 @@ const styles = StyleSheet.create({
     }
     opacity: $form-check-label-disabled-opacity;
   `,
-  ...each(FORM_VALIDATION_STATES, (state, data) => ({
+  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
     [`.form-check-input:${state}`]: css`
-      border-color: ${(t) => data(t).color};
+      border-color: ${(t: ThemeVariables) => data(t).color};
 
       &:focus {
-        border-color: ${(t) => data(t).color}; // added for bootstrap-rn
+        border-color: ${(t: ThemeVariables) =>
+          data(t).color}; // added for bootstrap-rn
         @include platform(web) {
           box-shadow: 0 0 $input-btn-focus-blur $input-focus-width
-            rgba(${(t) => data(t).color}, $input-btn-focus-color-opacity);
+            rgba(
+              ${(t: ThemeVariables) => data(t).color},
+              $input-btn-focus-color-opacity
+            );
         }
       }
     `,
     [`.form-check-input:${state}:checked`]: css`
-      background-color: ${(t) => data(t).color};
+      background-color: ${(t: ThemeVariables) => data(t).color};
     `,
   })),
   '.form-switch.form-check .form-check-input': css`
@@ -137,13 +139,15 @@ const styles = StyleSheet.create({
   `,
   '.form-switch .form-check-input': css`
     width: $form-switch-width;
-    background-image: ${(t) => escapeSvg(t['form-switch-bg-image'])};
+    background-image: ${(t: ThemeVariables) =>
+      escapeSvg(t['form-switch-bg-image'])};
     background-position: left center;
     border-radius: $form-switch-border-radius;
     // @include transition($form-switch-transition);
 
     &:focus {
-      background-image: ${(t) => escapeSvg(t['form-switch-focus-bg-image'])};
+      background-image: ${(t: ThemeVariables) =>
+        escapeSvg(t['form-switch-focus-bg-image'])};
     }
   `,
   '.form-switch .form-check-input:checked': css`
@@ -152,96 +156,104 @@ const styles = StyleSheet.create({
     // @if $enable-gradients {
     //   background-image: escape-svg($form-switch-checked-bg-image), var(--#{$prefix}gradient);
     // } @else {
-    background-image: ${(t) => escapeSvg(t['form-switch-checked-bg-image'])};
+    background-image: ${(t: ThemeVariables) =>
+      escapeSvg(t['form-switch-checked-bg-image'])};
     // }
 
     &:focus {
-      background-image: ${(t) =>
+      background-image: ${(t: ThemeVariables) =>
         escapeSvg(t['form-switch-checked-bg-image'])}; // added for bootstrap-rn
     }
   `,
 });
 
-const FormCheckInput = React.forwardRef((props, ref) => {
-  const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
+const FormCheckInput = React.forwardRef<unknown, FormCheckInputProps>(
+  (props, ref) => {
+    const [modifierProps, modifierRef] = useModifier(
+      'useFormField',
+      props,
+      ref,
+    );
 
-  const context = useContext(FormCheckContext);
+    const context = useContext(FormCheckContext);
 
-  const {
-    type,
-    value,
-    onFocus = () => {},
-    onBlur = () => {},
-    disabled = context ? context.disabled : false,
-    valid = context ? context.valid : false,
-    invalid = context ? context.invalid : false,
-    useNativeComponent = false,
-    autoFocus = false,
-    style,
-    ...elementProps
-  } = modifierProps;
+    const {
+      type,
+      value,
+      onFocus = () => {},
+      onBlur = () => {},
+      disabled = context ? context.disabled : false,
+      valid = context ? context.valid : false,
+      invalid = context ? context.invalid : false,
+      useNativeComponent = false,
+      autoFocus = false,
+      style,
+      ...elementProps
+    } = modifierProps;
 
-  const media = useMedia();
-  const [focused, setFocused] = useState(autoFocus);
+    const media = useMedia();
+    const [focused, setFocused] = useState(autoFocus);
 
-  const classes = getStyles(styles, [
-    context && '.form-check .form-check-input',
-    context?.reverse && '.form-check-reverse .form-check-input',
-    '.form-check-input',
-    type === 'checkbox' && '.form-check-input[type="checkbox"]',
-    type === 'radio' && '.form-check-input[type="radio"]',
-    value && '.form-check-input:checked',
-    type === 'checkbox' &&
-      value &&
-      '.form-check-input[type="checkbox"]:checked',
-    type === 'radio' && value && '.form-check-input[type="radio"]:checked',
-    disabled && '.form-check-input:disabled',
-    // validation
-    valid && '.form-check-input:valid',
-    valid && value && '.form-check-input:valid:checked',
-    invalid && '.form-check-input:invalid',
-    invalid && value && '.form-check-input:invalid:checked',
-    // switch
-    context && type === 'switch' && '.form-switch.form-check .form-check-input',
-    context?.reverse &&
-      type === 'switch' &&
-      '.form-switch.form-check-reverse .form-check-input',
-    type === 'switch' && '.form-switch .form-check-input',
-    type === 'switch' && value && '.form-switch .form-check-input:checked',
-  ]);
+    const classes = getStyles(styles, [
+      context && '.form-check .form-check-input',
+      context?.reverse && '.form-check-reverse .form-check-input',
+      '.form-check-input',
+      type === 'checkbox' && '.form-check-input[type="checkbox"]',
+      type === 'radio' && '.form-check-input[type="radio"]',
+      value && '.form-check-input:checked',
+      type === 'checkbox' &&
+        value &&
+        '.form-check-input[type="checkbox"]:checked',
+      type === 'radio' && value && '.form-check-input[type="radio"]:checked',
+      disabled && '.form-check-input:disabled',
+      // validation
+      valid && '.form-check-input:valid',
+      valid && value && '.form-check-input:valid:checked',
+      invalid && '.form-check-input:invalid',
+      invalid && value && '.form-check-input:invalid:checked',
+      // switch
+      context &&
+        type === 'switch' &&
+        '.form-switch.form-check .form-check-input',
+      context?.reverse &&
+        type === 'switch' &&
+        '.form-switch.form-check-reverse .form-check-input',
+      type === 'switch' && '.form-switch .form-check-input',
+      type === 'switch' && value && '.form-switch .form-check-input:checked',
+    ]);
 
-  const resolveStyle = useStyle([classes, style]);
+    const resolveStyle = useStyle([classes, style]);
 
-  const BaseFormCheckInput =
-    Platform.OS === 'web' && !useNativeComponent
-      ? FormCheckInputWeb
-      : FormCheckInputNative;
+    const BaseFormCheckInput =
+      Platform.OS === 'web' && !useNativeComponent
+        ? FormCheckInputWeb
+        : FormCheckInputNative;
 
-  return (
-    <BaseFormCheckInput
-      {...elementProps}
-      ref={modifierRef}
-      type={type}
-      value={value}
-      onFocus={() => {
-        setFocused(true);
-        onFocus();
-      }}
-      onBlur={() => {
-        setFocused(false);
-        onBlur();
-      }}
-      disabled={disabled}
-      autoFocus={autoFocus}
-      style={resolveStyle({
-        media,
-        interaction: { focus: focused, focusVisible: focused },
-      })}
-    />
-  );
-});
+    return (
+      <BaseFormCheckInput
+        {...elementProps}
+        ref={modifierRef}
+        type={type}
+        value={value}
+        onFocus={() => {
+          setFocused(true);
+          onFocus();
+        }}
+        onBlur={() => {
+          setFocused(false);
+          onBlur();
+        }}
+        disabled={disabled}
+        autoFocus={autoFocus}
+        style={resolveStyle({
+          media,
+          interaction: { focus: focused, focusVisible: focused },
+        })}
+      />
+    );
+  },
+);
 
 FormCheckInput.displayName = 'FormCheckInput';
-FormCheckInput.propTypes = propTypes;
 
 export default FormCheckInput;

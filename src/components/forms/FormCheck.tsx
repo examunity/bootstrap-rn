@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -7,14 +6,13 @@ import { getStyles } from '../../utils';
 import FormCheckContext from './FormCheckContext';
 import FormCheckLabel from './FormCheckLabel';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  reverse: PropTypes.bool,
-  disabled: PropTypes.bool,
-  valid: PropTypes.bool,
-  invalid: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type FormCheckProps = {
+  children: React.ReactNode;
+  reverse?: boolean;
+  disabled?: boolean;
+  valid?: boolean;
+  invalid?: boolean;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormCheck = React.forwardRef((props, ref) => {
+const FormCheck = React.forwardRef<ViewRef, FormCheckProps>((props, ref) => {
   const {
     children,
     reverse = false,
@@ -52,12 +50,10 @@ const FormCheck = React.forwardRef((props, ref) => {
     reverse && '.form-check-reverse',
   ]);
 
-  const contextValue = useMemo(() => ({ reverse, disabled, valid, invalid }), [
-    reverse,
-    disabled,
-    valid,
-    invalid,
-  ]);
+  const contextValue = useMemo(
+    () => ({ reverse, disabled, valid, invalid }),
+    [reverse, disabled, valid, invalid],
+  );
 
   return (
     <View {...elementProps} ref={ref} style={[classes, style]}>
@@ -69,8 +65,7 @@ const FormCheck = React.forwardRef((props, ref) => {
 });
 
 FormCheck.displayName = 'FormCheck';
-FormCheck.propTypes = propTypes;
 
-FormCheck.Label = FormCheckLabel;
-
-export default FormCheck;
+export default Object.assign(FormCheck, {
+  Label: FormCheckLabel,
+});

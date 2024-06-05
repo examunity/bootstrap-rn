@@ -3,20 +3,17 @@ import {
   unstable_createElement as createElement,
   StyleSheet,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import useBackground from '../../../hooks/useBackground';
 
-const propTypes = {
-  type: PropTypes.oneOf(['checkbox', 'radio', 'switch']).isRequired,
-  value: PropTypes.bool.isRequired,
-  onValueChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  id: PropTypes.any,
+export type FormCheckInputWebProps = {
+  type: 'checkbox' | 'radio' | 'switch';
+  value: boolean;
+  onValueChange: (value?: boolean) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  disabled?: boolean;
+  style?: unknown;
+  id?: string;
 };
 
 const styles = StyleSheet.create({
@@ -26,12 +23,19 @@ const styles = StyleSheet.create({
   },
 });
 
-// eslint-disable-next-line react/prop-types
-const Input = React.forwardRef(({ style, ...props }, ref) =>
-  createElement('input', { ...props, ref, style: [styles.reboot, style] }),
+type InputProps = {
+  style?: unknown;
+};
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ style, ...props }, ref) =>
+    createElement('input', { ...props, ref, style: [styles.reboot, style] }),
 );
 
-const FormCheckInputWeb = React.forwardRef((props, ref) => {
+const FormCheckInputWeb = React.forwardRef<
+  HTMLInputElement,
+  FormCheckInputWebProps
+>((props, ref) => {
   const {
     type,
     value,
@@ -63,6 +67,5 @@ const FormCheckInputWeb = React.forwardRef((props, ref) => {
 });
 
 FormCheckInputWeb.displayName = 'FormCheckInputWeb';
-FormCheckInputWeb.propTypes = propTypes;
 
 export default FormCheckInputWeb;

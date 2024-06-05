@@ -1,19 +1,21 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import View from './View';
 import { concatRefs } from '../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  htmlFor: PropTypes.string,
+export type LabelProps = {
+  children: React.ReactNode;
+  htmlFor?: string;
+  disabled?: boolean;
+  style?: unknown;
+  textStyle?: unknown;
 };
 
-const Label = React.forwardRef((props, ref) => {
+const Label = React.forwardRef<ViewRef, LabelProps>((props, ref) => {
   const { children, htmlFor, ...elementProps } = props;
 
   // Ref: https://github.com/necolas/react-native-web/issues/1651
-  const forRef = React.useCallback((node) => {
+  const forRef = React.useCallback((node: HTMLElement | null) => {
     if (Platform.OS !== 'web' || !htmlFor || !node) {
       return;
     }
@@ -21,7 +23,7 @@ const Label = React.forwardRef((props, ref) => {
     node.setAttribute('for', htmlFor);
   }, []);
 
-  const role = Platform.OS === 'web' ? 'label' : null;
+  const role = Platform.OS === 'web' ? 'label' : undefined;
 
   return (
     <View {...elementProps} ref={concatRefs(forRef, ref)} role={role}>
@@ -31,6 +33,5 @@ const Label = React.forwardRef((props, ref) => {
 });
 
 Label.displayName = 'Label';
-Label.propTypes = propTypes;
 
 export default Label;

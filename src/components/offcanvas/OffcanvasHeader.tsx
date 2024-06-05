@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import css from '../../style/css';
 import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
@@ -8,10 +7,9 @@ import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext from '../navbar/NavbarContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type OffcanvasHeaderProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +21,7 @@ const styles = StyleSheet.create({
     padding: $offcanvas-padding-y $offcanvas-padding-x;
   `,
   // Navbar styles
-  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
     [`.navbar-expand${infix(next(breakpoint))} .offcanvas-header`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         display: none;
@@ -32,28 +30,29 @@ const styles = StyleSheet.create({
   })),
 });
 
-const OffcanvasHeader = React.forwardRef((props, ref) => {
-  const { children, style, ...elementProps } = props;
+const OffcanvasHeader = React.forwardRef<ViewRef, OffcanvasHeaderProps>(
+  (props, ref) => {
+    const { children, style, ...elementProps } = props;
 
-  const navbar = useContext(NavbarContext);
+    const navbar = useContext(NavbarContext);
 
-  const classes = getStyles(styles, [
-    '.offcanvas-header',
-    navbar &&
-      navbar.expand &&
-      `.navbar-expand${
-        navbar.expand === true ? '' : `-${navbar.expand}`
-      } .offcanvas-header`,
-  ]);
+    const classes = getStyles(styles, [
+      '.offcanvas-header',
+      navbar &&
+        navbar.expand &&
+        `.navbar-expand${
+          navbar.expand === true ? '' : `-${navbar.expand}`
+        } .offcanvas-header`,
+    ]);
 
-  return (
-    <View {...elementProps} ref={ref} style={[classes, style]}>
-      {children}
-    </View>
-  );
-});
+    return (
+      <View {...elementProps} ref={ref} style={[classes, style]}>
+        {children}
+      </View>
+    );
+  },
+);
 
 OffcanvasHeader.displayName = 'OffcanvasHeader';
-OffcanvasHeader.propTypes = propTypes;
 
 export default OffcanvasHeader;

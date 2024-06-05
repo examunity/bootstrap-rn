@@ -1,17 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import Text from '../Text';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type FormTextProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -26,7 +23,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormText = React.forwardRef((props, ref) => {
+const FormText = React.forwardRef<ViewRef, FormTextProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.form-text']);
@@ -41,6 +38,5 @@ const FormText = React.forwardRef((props, ref) => {
 });
 
 FormText.displayName = 'FormText';
-FormText.propTypes = propTypes;
 
 export default FormText;

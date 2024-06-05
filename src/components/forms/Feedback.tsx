@@ -1,35 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Text from '../Text';
 import { each, getStyles } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
+import { ThemeData, ThemeVariables } from '../../types';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  type: PropTypes.oneOf(Object.keys(FORM_VALIDATION_STATES)),
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+type FeedbackProps = {
+  children: React.ReactNode;
+  type?: keyof typeof FORM_VALIDATION_STATES;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
-  ...each(FORM_VALIDATION_STATES, (state, data) => ({
+  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
     [`.${state}-feedback`]: css`
       // display: none;
       width: 100%;
       margin-top: $form-feedback-margin-top;
       font-size: $form-feedback-font-size;
       font-style: $form-feedback-font-style;
-      color: ${(t) => data(t).color};
+      color: ${(t: ThemeVariables) => data(t).color};
     `,
   })),
 });
 
-const Feedback = React.forwardRef((props, ref) => {
+const Feedback = React.forwardRef<TextRef, FeedbackProps>((props, ref) => {
   const { children, type, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, [`.${type}-feedback`]);
+  const classes = getStyles(styles, [`.${String(type)}-feedback`]);
 
   return (
     <Text {...elementProps} ref={ref} style={[classes, style]}>
@@ -39,6 +38,5 @@ const Feedback = React.forwardRef((props, ref) => {
 });
 
 Feedback.displayName = 'Feedback';
-Feedback.propTypes = propTypes;
 
 export default Feedback;
