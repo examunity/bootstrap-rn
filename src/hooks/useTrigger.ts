@@ -1,11 +1,15 @@
-import { useState, useRef } from 'react';
-import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
+import { useState, useRef, ForwardedRef, MouseEvent } from 'react';
+import {
+  Platform,
+  TextInputFocusEventData,
+  NativeSyntheticEvent,
+  GestureResponderEvent,
+} from 'react-native';
 import useIdentifier from './useIdentifier';
 import { optional, concatRefs } from '../utils';
 import useControlledState from './useControlledState';
 
-const PLACEMENTS = ['top', 'bottom', 'left', 'right'];
+const PLACEMENTS = ['top', 'bottom', 'left', 'right'] as const;
 
 const TRIGGERS = [
   'press',
@@ -18,18 +22,34 @@ const TRIGGERS = [
   'focus hover',
   'press focus',
   'focus press',
-];
+] as const;
 
-export const TriggerPropTypes = {
-  trigger: PropTypes.oneOf(TRIGGERS),
-  placement: PropTypes.oneOf(PLACEMENTS),
-  offset: PropTypes.number,
-  defaultVisible: PropTypes.bool,
-  visible: PropTypes.bool,
-  onToggle: PropTypes.func,
+type Placement = (typeof PLACEMENTS)[number];
+type Trigger = (typeof TRIGGERS)[number];
+
+export type TriggerProps = {
+  trigger: Trigger;
+  placement?: Placement;
+  offset?: number;
+  defaultVisible?: boolean;
+  visible?: boolean;
+  onToggle?: (visible: boolean) => void;
 };
 
-export default function useTrigger(rawTrigger, props, elementProps, ref) {
+interface ElementProps {
+  onPress?: (event: GestureResponderEvent) => void;
+  onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onMouseOver?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onMouseLeave?: (event: MouseEvent<HTMLButtonElement>) => void;
+}
+
+export default function useTrigger<T>(
+  rawTrigger: string,
+  props: TriggerProps,
+  elementProps: ElementProps,
+  ref: ForwardedRef<T>,
+) {
   const {
     defaultVisible = false,
     visible: controlledVisible,
@@ -46,8 +66,8 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
     controlledVisible,
     onToggle,
   );
-  const [focused, setFocused] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState<boolean>(false);
+  const [hovered, setHovered] = useState<boolean>(false);
 
   const targetRef = useRef();
 
@@ -57,7 +77,7 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
     targetProps: {
       ref: concatRefs(targetRef, ref),
       ...optional(visible, { 'aria-describedby': identifier }),
-      onPress: (event) => {
+      onPress: (event: GestureResponderEvent) => {
         const handleHoverAsPress =
           (Platform.OS === 'android' || Platform.OS === 'ios') &&
           trigger.includes('hover');
@@ -70,7 +90,7 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
           onPress(event);
         }
       },
-      onFocus: (event) => {
+      onFocus: (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
         if (trigger.includes('focus')) {
           setFocused(true);
 
@@ -83,7 +103,7 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
           onFocus(event);
         }
       },
-      onBlur: (event) => {
+      onBlur: (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
         if (trigger.includes('focus')) {
           setFocused(false);
 
@@ -97,7 +117,7 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
           onBlur(event);
         }
       },
-      onMouseOver: (event) => {
+      onMouseOver: (event: MouseEvent<HTMLButtonElement>) => {
         if (trigger.includes('hover')) {
           setHovered(true);
 
@@ -110,7 +130,7 @@ export default function useTrigger(rawTrigger, props, elementProps, ref) {
           onMouseOver(event);
         }
       },
-      onMouseLeave: (event) => {
+      onMouseLeave: (event: MouseEvent<HTMLButtonElement>) => {
         if (trigger.includes('hover')) {
           setHovered(false);
 

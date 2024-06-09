@@ -25,6 +25,13 @@ const styles = StyleSheet.create({
 
 type InputProps = {
   style?: unknown;
+  type: 'checkbox' | 'radio';
+  checked: boolean;
+  onChange: () => void;
+  onFocus: () => void;
+  onBlur: () => void;
+  disabled: boolean;
+  id?: string;
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(

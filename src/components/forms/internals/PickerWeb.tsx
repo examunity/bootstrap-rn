@@ -3,6 +3,7 @@ import {
   Picker as BasePicker,
   StyleSheet as StyleUtils,
   ViewStyle,
+  TextStyle,
   NativeSyntheticEvent,
   TargetedEvent,
 } from 'react-native';
@@ -18,13 +19,13 @@ interface PickerWebProps {
   placeholder?: string;
   placeholderTextColor?: string;
   disabled?: boolean;
-  style?: ViewStyle;
+  style?: ViewStyle | TextStyle;
 }
 
 const PLACEHOLDER = '__PLACEHOLDER__';
 
 const getOptionStyle = (
-  style: ViewStyle,
+  style: ViewStyle | TextStyle,
   showPlaceholder: boolean,
 ): string | null => {
   if (!showPlaceholder) {
@@ -33,7 +34,7 @@ const getOptionStyle = (
 
   const flattenedStyle = StyleUtils.flatten(style);
 
-  return flattenedStyle.color as string;
+  return String((flattenedStyle as TextStyle).color) || null;
 };
 
 const PickerWeb = forwardRef<BasePicker, PickerWebProps>((props, ref) => {

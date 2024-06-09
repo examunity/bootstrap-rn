@@ -150,7 +150,7 @@ const Modal = React.forwardRef<ViewRef, ModalProps>((props, ref) => {
     ...elementProps
   } = props;
 
-  const dialogRef = useRef();
+  const dialogRef = useRef(null);
 
   const modal = useModal(visible, scrollable);
 
