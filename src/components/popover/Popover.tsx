@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles, transformPlacement } from '../../utils';
 import css from '../../style/css';
@@ -10,16 +9,13 @@ import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
 import PopoverContext from './PopoverContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  placement: PropTypes.string,
-  popper: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  arrowStyle: PropTypes.any,
+export type PopoverProps = {
+  children: React.ReactNode;
+  placement?: string;
+  popper?: boolean;
+  style?: unknown;
+  textStyle?: unknown;
+  arrowStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -46,7 +42,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Popover = React.forwardRef((props, ref) => {
+const Popover = React.forwardRef<ViewRef, PopoverProps>((props, ref) => {
   const {
     children,
     placement = 'right',
@@ -70,7 +66,7 @@ const Popover = React.forwardRef((props, ref) => {
   const textClasses = getStyles(styles, ['.popover --text']);
 
   // Accessiblity role tooltip is only supported on web.
-  const role = Platform.OS === 'web' ? 'tooltip' : null;
+  const role = Platform.OS === 'web' ? 'tooltip' : undefined;
 
   return (
     <View
@@ -88,10 +84,9 @@ const Popover = React.forwardRef((props, ref) => {
 });
 
 Popover.displayName = 'Popover';
-Popover.propTypes = propTypes;
 
-Popover.Arrow = PopoverArrow;
-Popover.Header = PopoverHeader;
-Popover.Body = PopoverBody;
-
-export default Popover;
+export default Object.assign(Popover, {
+  Arrow: PopoverArrow,
+  Header: PopoverHeader,
+  Body: PopoverBody,
+});

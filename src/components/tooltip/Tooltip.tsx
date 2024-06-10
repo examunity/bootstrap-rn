@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles, transformPlacement } from '../../utils';
@@ -9,16 +8,13 @@ import TooltipArrow from './TooltipArrow';
 import TooltipInner from './TooltipInner';
 import TooltipContext from './TooltipContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  placement: PropTypes.string,
-  popper: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  arrowStyle: PropTypes.any,
+export type TooltipProps = {
+  children: React.ReactNode;
+  placement?: string;
+  popper?: boolean;
+  style?: unknown;
+  textStyle?: unknown;
+  arrowStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -51,7 +47,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Tooltip = React.forwardRef((props, ref) => {
+const Tooltip = React.forwardRef<ViewRef, TooltipProps>((props, ref) => {
   const {
     children,
     placement = 'top',
@@ -79,7 +75,7 @@ const Tooltip = React.forwardRef((props, ref) => {
   const textClasses = getStyles(styles, ['.tooltip --text']);
 
   // Accessiblity role tooltip is only supported on web.
-  const role = Platform.OS === 'web' ? 'tooltip' : null;
+  const role = Platform.OS === 'web' ? 'tooltip' : undefined;
 
   return (
     <View
@@ -97,9 +93,8 @@ const Tooltip = React.forwardRef((props, ref) => {
 });
 
 Tooltip.displayName = 'Tooltip';
-Tooltip.propTypes = propTypes;
 
-Tooltip.Arrow = TooltipArrow;
-Tooltip.Inner = TooltipInner;
-
-export default Tooltip;
+export default Object.assign(Tooltip, {
+  Arrow: TooltipArrow,
+  Inner: TooltipInner,
+});

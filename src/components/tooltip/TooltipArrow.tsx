@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
@@ -7,9 +6,8 @@ import css from '../../style/css';
 import useForcedContext from '../../hooks/useForcedContext';
 import TooltipContext from './TooltipContext';
 
-const propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type TooltipArrowProps = {
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -78,28 +76,29 @@ const styles = StyleSheet.create({
   `,
 });
 
-const TooltipArrow = React.forwardRef((props, ref) => {
-  const { style, ...elementProps } = props;
+const TooltipArrow = React.forwardRef<ViewRef, TooltipArrowProps>(
+  (props, ref) => {
+    const { style, ...elementProps } = props;
 
-  const { placement, arrowStyle, popper } = useForcedContext(TooltipContext);
+    const { placement, arrowStyle, popper } = useForcedContext(TooltipContext);
 
-  const classes = getStyles(styles, [
-    '.tooltip-arrow',
-    popper && `.bs-tooltip-${placement} .tooltip-arrow`,
-  ]);
-  const beforeClasses = getStyles(styles, [
-    '.tooltip-arrow::before',
-    popper && `.bs-tooltip-${placement} .tooltip-arrow::before`,
-  ]);
+    const classes = getStyles(styles, [
+      '.tooltip-arrow',
+      popper && `.bs-tooltip-${placement} .tooltip-arrow`,
+    ]);
+    const beforeClasses = getStyles(styles, [
+      '.tooltip-arrow::before',
+      popper && `.bs-tooltip-${placement} .tooltip-arrow::before`,
+    ]);
 
-  return (
-    <View {...elementProps} ref={ref} style={[classes, arrowStyle, style]}>
-      <View style={beforeClasses} />
-    </View>
-  );
-});
+    return (
+      <View {...elementProps} ref={ref} style={[classes, arrowStyle, style]}>
+        <View style={beforeClasses} />
+      </View>
+    );
+  },
+);
 
 TooltipArrow.displayName = 'TooltipArrow';
-TooltipArrow.propTypes = propTypes;
 
 export default TooltipArrow;

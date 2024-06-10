@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import View from '../View';
 import { subtract } from '../../theme/functions';
 import StyleSheet from '../../style/StyleSheet';
@@ -7,10 +6,10 @@ import { getStyles } from '../../utils';
 import css from '../../style/css';
 import useForcedContext from '../../hooks/useForcedContext';
 import PopoverContext from './PopoverContext';
+import { ThemeVariables } from '../../types';
 
-const propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type PopoverArrowProps = {
+  style?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -42,8 +41,8 @@ const styles = StyleSheet.create({
   `,
   '.bs-popover-top .popover-arrow': css`
     bottom: ${subtract(
-      (t) => `-${t['popover-arrow-height']}`,
-      (t) => t['popover-border-width'],
+      (t: ThemeVariables) => `-${t['popover-arrow-height']}`,
+      (t: ThemeVariables) => t['popover-border-width'],
     )};
   `,
   '.bs-popover-top .popover-arrow::before': css`
@@ -64,8 +63,8 @@ const styles = StyleSheet.create({
   `,
   '.bs-popover-end .popover-arrow': css`
     left: ${subtract(
-      (t) => `-${t['popover-arrow-height']}`,
-      (t) => t['popover-border-width'],
+      (t: ThemeVariables) => `-${t['popover-arrow-height']}`,
+      (t: ThemeVariables) => t['popover-border-width'],
     )};
     width: $popover-arrow-height;
     height: $popover-arrow-width;
@@ -88,8 +87,8 @@ const styles = StyleSheet.create({
   `,
   '.bs-popover-bottom .popover-arrow': css`
     top: ${subtract(
-      (t) => `-${t['popover-arrow-height']}`,
-      (t) => t['popover-border-width'],
+      (t: ThemeVariables) => `-${t['popover-arrow-height']}`,
+      (t: ThemeVariables) => t['popover-border-width'],
     )};
   `,
   '.bs-popover-bottom .popover-arrow::before': css`
@@ -110,8 +109,8 @@ const styles = StyleSheet.create({
   `,
   '.bs-popover-start .popover-arrow': css`
     right: ${subtract(
-      (t) => `-${t['popover-arrow-height']}`,
-      (t) => t['popover-border-width'],
+      (t: ThemeVariables) => `-${t['popover-arrow-height']}`,
+      (t: ThemeVariables) => t['popover-border-width'],
     )};
     width: $popover-arrow-height;
     height: $popover-arrow-width;
@@ -134,33 +133,34 @@ const styles = StyleSheet.create({
   `,
 });
 
-const PopoverArrow = React.forwardRef((props, ref) => {
-  const { style, ...elementProps } = props;
+const PopoverArrow = React.forwardRef<ViewRef, PopoverArrowProps>(
+  (props, ref) => {
+    const { style, ...elementProps } = props;
 
-  const { placement, arrowStyle, popper } = useForcedContext(PopoverContext);
+    const { placement, arrowStyle, popper } = useForcedContext(PopoverContext);
 
-  const classes = getStyles(styles, [
-    '.popover-arrow',
-    popper && `.bs-popover-${placement} .popover-arrow`,
-  ]);
-  const beforeClasses = getStyles(styles, [
-    '.popover-arrow::before',
-    popper && `.bs-popover-${placement} .popover-arrow::before`,
-  ]);
-  const afterClasses = getStyles(styles, [
-    '.popover-arrow::after',
-    popper && `.bs-popover-${placement} .popover-arrow::after`,
-  ]);
+    const classes = getStyles(styles, [
+      '.popover-arrow',
+      popper && `.bs-popover-${placement} .popover-arrow`,
+    ]);
+    const beforeClasses = getStyles(styles, [
+      '.popover-arrow::before',
+      popper && `.bs-popover-${placement} .popover-arrow::before`,
+    ]);
+    const afterClasses = getStyles(styles, [
+      '.popover-arrow::after',
+      popper && `.bs-popover-${placement} .popover-arrow::after`,
+    ]);
 
-  return (
-    <View {...elementProps} ref={ref} style={[classes, arrowStyle, style]}>
-      <View style={beforeClasses} />
-      <View style={afterClasses} />
-    </View>
-  );
-});
+    return (
+      <View {...elementProps} ref={ref} style={[classes, arrowStyle, style]}>
+        <View style={beforeClasses} />
+        <View style={afterClasses} />
+      </View>
+    );
+  },
+);
 
 PopoverArrow.displayName = 'PopoverArrow';
-PopoverArrow.propTypes = propTypes;
 
 export default PopoverArrow;

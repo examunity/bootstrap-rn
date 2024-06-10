@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -8,14 +7,12 @@ import ProgressBar from './ProgressBar';
 import ProgressContext from './ProgressContext';
 import useProgress from './useProgress';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type ProgressProps = {
+  children: React.ReactNode;
+  min?: number;
+  max?: number;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -34,7 +31,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Progress = React.forwardRef((props, ref) => {
+const Progress = React.forwardRef<ViewRef, ProgressProps>((props, ref) => {
   const {
     children,
     min = 0,
@@ -65,8 +62,7 @@ const Progress = React.forwardRef((props, ref) => {
 });
 
 Progress.displayName = 'Progress';
-Progress.propTypes = propTypes;
 
-Progress.Bar = ProgressBar;
-
-export default Progress;
+export default Object.assign(Progress, {
+  Bar: ProgressBar,
+});

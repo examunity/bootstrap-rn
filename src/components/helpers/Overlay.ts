@@ -1,28 +1,29 @@
-import { useRef } from 'react';
+import React, { useRef, ReactNode } from 'react';
 import { Platform, StatusBar } from 'react-native';
-import PropTypes from 'prop-types';
 import { useOverlayPosition } from '@react-native-aria/overlays';
+import { Placement } from '../../types';
 
-const propTypes = {
-  children: PropTypes.func.isRequired,
-  placement: PropTypes.string.isRequired,
-  targetRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  offset: PropTypes.number,
-  arrowOffset: PropTypes.number,
-  visible: PropTypes.bool.isRequired,
-};
+interface OverlayProps {
+  children: (
+    overlay: unknown,
+    overlayRef: React.RefObject<unknown>,
+  ) => ReactNode;
+  placement: Placement;
+  targetRef: React.RefObject<unknown>;
+  offset?: number;
+  arrowOffset?: number;
+  visible: boolean;
+}
 
-function Overlay(props) {
-  const {
-    children,
-    targetRef,
-    placement,
-    offset,
-    arrowOffset = 0,
-    visible,
-  } = props;
-
-  const overlayRef = useRef();
+const Overlay: React.FC<OverlayProps> = ({
+  children,
+  targetRef,
+  placement,
+  offset,
+  arrowOffset = 0,
+  visible,
+}) => {
+  const overlayRef = useRef(null);
 
   const overlay = useOverlayPosition({
     placement,
@@ -57,9 +58,8 @@ function Overlay(props) {
   }
 
   return children(overlay, overlayRef);
-}
+};
 
 Overlay.displayName = 'Overlay';
-Overlay.propTypes = propTypes;
 
 export default Overlay;

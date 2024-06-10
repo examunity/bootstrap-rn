@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
@@ -8,10 +7,9 @@ import useList from '../../hooks/useList';
 import View from '../View';
 import PaginationItem from './PaginationItem';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type PaginationProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -21,14 +19,14 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Pagination = React.forwardRef((props, ref) => {
+const Pagination = React.forwardRef<ViewRef, PaginationProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
   const list = useList(children);
 
   const classes = getStyles(styles, ['.pagination']);
 
-  const role = Platform.OS === 'web' ? 'list' : null;
+  const role = Platform.OS === 'web' ? 'list' : undefined;
 
   return (
     <View {...elementProps} ref={ref} role={role} style={[classes, style]}>
@@ -38,8 +36,7 @@ const Pagination = React.forwardRef((props, ref) => {
 });
 
 Pagination.displayName = 'Pagination';
-Pagination.propTypes = propTypes;
 
-Pagination.Item = PaginationItem;
-
-export default Pagination;
+export default Object.assign(Pagination, {
+  Item: PaginationItem,
+});

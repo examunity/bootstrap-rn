@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-export default function useProgress(min, max) {
+export default function useProgress(min: number, max: number) {
   return useMemo(
     () => ({
       min,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
@@ -8,14 +7,12 @@ import View from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import ListContext from '../helpers/ListContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type PaginationItemProps = {
+  children: React.ReactNode;
+  active?: boolean;
+  disabled?: boolean;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -59,48 +56,49 @@ const styles = StyleSheet.create({
   `,
 });
 
-const PaginationItem = React.forwardRef((props, ref) => {
-  const {
-    children,
-    active = false,
-    disabled = false,
-    style,
-    textStyle,
-    ...elementProps
-  } = props;
+const PaginationItem = React.forwardRef<ViewRef, PaginationItemProps>(
+  (props, ref) => {
+    const {
+      children,
+      active = false,
+      disabled = false,
+      style,
+      textStyle,
+      ...elementProps
+    } = props;
 
-  const { first, last } = useForcedContext(ListContext);
+    const { first, last } = useForcedContext(ListContext);
 
-  const classes = getStyles(styles, [
-    '.pagination-item',
-    first && '.pagination-item:first-child',
-    last && '.pagination-item:last-child',
-    active && '.pagination-item.active',
-    disabled && '.pagination-item.disabled',
-  ]);
+    const classes = getStyles(styles, [
+      '.pagination-item',
+      first && '.pagination-item:first-child',
+      last && '.pagination-item:last-child',
+      active && '.pagination-item.active',
+      disabled && '.pagination-item.disabled',
+    ]);
 
-  const textClasses = getStyles(styles, [
-    active && '.pagination-item.active',
-    disabled && '.pagination-item.disabled',
-  ]);
+    const textClasses = getStyles(styles, [
+      active && '.pagination-item.active',
+      disabled && '.pagination-item.disabled',
+    ]);
 
-  const role = Platform.OS === 'web' ? 'listitem' : null;
+    const role = Platform.OS === 'web' ? 'listitem' : undefined;
 
-  return (
-    <View
-      {...elementProps}
-      ref={ref}
-      role={role}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
-    >
-      {children}
-    </View>
-  );
-});
+    return (
+      <View
+        {...elementProps}
+        ref={ref}
+        role={role}
+        style={[classes, style]}
+        textStyle={[textClasses, textStyle]}
+      >
+        {children}
+      </View>
+    );
+  },
+);
 
 PaginationItem.displayName = 'PaginationItem';
-PaginationItem.propTypes = propTypes;
 
 export default PaginationItem;
 
