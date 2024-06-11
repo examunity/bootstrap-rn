@@ -64,13 +64,13 @@ export default function injectTooltip<T extends ComponentType<T>>(Target: T) {
                       placement={overlay.placement}
                       popper={overlay.rendered}
                       style={[
-                        overlay.overlayProps.style,
+                        overlay.overlayProps?.style,
                         {
                           maxHeight: 'auto',
                           opacity: overlay.rendered ? 1 : 0,
                         },
                       ]}
-                      arrowStyle={overlay.arrowProps.style}
+                      arrowStyle={overlay.arrowProps?.style}
                     >
                       <Tooltip.Arrow />
                       <Tooltip.Inner>{title}</Tooltip.Inner>

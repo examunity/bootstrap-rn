@@ -3,9 +3,23 @@ import { Platform, StatusBar } from 'react-native';
 import { useOverlayPosition } from '@react-native-aria/overlays';
 import { Placement } from '../../types';
 
+type ChildOverlayProps = {
+  style?: unknown;
+};
+type ChildArrowProps = {
+  style?: unknown;
+};
+
+type OverlayReturnType = {
+  placement: Placement;
+  rendered?: boolean;
+  overlayProps?: ChildOverlayProps;
+  arrowProps?: ChildArrowProps;
+};
+
 interface OverlayProps {
   children: (
-    overlay: unknown,
+    overlay: OverlayReturnType,
     overlayRef: React.RefObject<unknown>,
   ) => ReactNode;
   placement: Placement;

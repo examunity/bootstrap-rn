@@ -1,3 +1,5 @@
+import type { Placement as BasePlacement } from '@react-types/overlays';
+
 export type ContainerMaxWidths = {
   sm: string;
   md: string;
@@ -25,29 +27,21 @@ export type NavbarVariant = 'light' | 'dark';
 export type NavVariant = 'tabs' | 'pills';
 export type SpinnerVariant = 'border' | 'grow';
 
+export type DropDownDirection =
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right'
+  | 'start'
+  | 'end';
+
 // Copty from @react-native-aria/overlays
 export type Axis = 'top' | 'bottom' | 'left' | 'right';
 export type PlacementAxis = Axis | 'center';
+export type RnPlacement = BasePlacement;
+
 export type Placement =
-  | 'bottom'
-  | 'bottom left'
-  | 'bottom right'
-  | 'bottom start'
-  | 'bottom end'
-  | 'top'
-  | 'top left'
-  | 'top right'
-  | 'top start'
-  | 'top end'
-  | 'left'
-  | 'left top'
-  | 'left bottom'
-  | 'start'
-  | 'start top'
-  | 'start bottom'
-  | 'right'
-  | 'right top'
-  | 'right bottom'
-  | 'end'
-  | 'end top'
-  | 'end bottom';
+  | RnPlacement
+  | 'top center'
+  | 'bottom center'
+  | 'top center';

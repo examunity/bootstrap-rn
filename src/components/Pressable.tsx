@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useModifier from '../hooks/useModifier';
-import useAction from '../hooks/useAction';
+import useAction, { UseActionProps } from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
@@ -15,17 +15,13 @@ import Caret, { CaretProps } from './Caret';
 
 type CaretTypes = boolean | CaretProps;
 
-export interface PressableProps extends BasePressableProps {
-  // children?: React.ReactNode;
+export interface PressableProps extends UseActionProps, BasePressableProps {
   caret?: CaretTypes;
   active?: boolean;
-  // disabled?: boolean;
   activeStyle?: unknown;
   textStyle?: unknown;
   activeTextStyle?: unknown;
   styleName?: unknown;
-  // 'aria-label'?: string;
-  // accessibilityActions?: any[];
 }
 
 // One of the following should be set for aria support:

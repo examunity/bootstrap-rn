@@ -14,6 +14,7 @@ import useStyle from '../../hooks/useStyle';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
 import { ThemeVariables } from '../../types';
+import { ToggleType } from '../../hooks/useAction';
 
 export type NavbarTogglerProps = {
   style?: React.CSSProperties;
@@ -117,7 +118,7 @@ const NavbarToggler = React.forwardRef<ViewRef, NavbarTogglerProps>(
       <Pressable
         {...elementProps}
         ref={ref}
-        toggle={useToggleNavbar}
+        toggle={useToggleNavbar as ToggleType}
         style={[classes, style]}
         textStyle={[textClasses, textStyle]}
       >

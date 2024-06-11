@@ -13,15 +13,14 @@ import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
 import useDismissDropdown from './useDismissDropdown';
 import useToggleDropdown from './useToggleDropdown';
-
-const DIRECTIONS = ['up', 'down', 'start', 'end'];
+import { DropDownDirection } from '../../types';
 
 export type DropdownProps = {
   children: React.ReactNode;
   defaultVisible?: boolean;
   visible?: boolean;
   onToggle: () => void;
-  direction?: (typeof DIRECTIONS)[number];
+  direction?: DropDownDirection;
   center?: boolean;
   display?: 'dynamic' | 'static';
   autoClose?: boolean | 'inside' | 'outside';

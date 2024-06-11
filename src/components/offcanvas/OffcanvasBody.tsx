@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { ScrollView as BaseScrollView } from 'react-native';
 import css from '../../style/css';
 import StyleSheet from '../../style/StyleSheet';
 import ScrollView from '../ScrollView';
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const OffcanvasBody = React.forwardRef<ViewRef, OffcanvasBodyProps>(
+const OffcanvasBody = React.forwardRef<BaseScrollView, OffcanvasBodyProps>(
   (props, ref) => {
     const { children, style, contentContainerStyle, ...elementProps } = props;
 

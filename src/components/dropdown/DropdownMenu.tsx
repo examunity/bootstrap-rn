@@ -14,8 +14,8 @@ import { normalizeNumber } from '../../style/math';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import DropdownContext from './DropdownContext';
+import { DropDownDirection, Placement } from '../../types';
 
-// type Direction = 'up' | 'down' | 'left' | 'right';
 type AlignmentBreakpointsSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 type AlignmentBreakpoints = boolean | AlignmentBreakpointsSize;
 
@@ -143,11 +143,11 @@ const getAlignment = (
 
 const transformPlacement = (
   media: useMediaProps,
-  direction: string, // use string instead of Direction as its also have `top` `end` `start`
+  direction: DropDownDirection, // use string instead of Direction as its also have `top` `end` `start`
   center: boolean,
   start?: AlignmentBreakpoints,
   end?: AlignmentBreakpoints,
-): string => {
+): Placement => {
   if (direction === 'up') {
     return `top ${getAlignment(media, center, start, end)}`;
   }

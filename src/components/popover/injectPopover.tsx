@@ -18,7 +18,7 @@ export type InjectPopoverProps = {
 };
 
 export default function injectPopover<T extends ComponentType<T>>(Target: T) {
-  const OverlayPopover = React.forwardRef<ViewRef, InjectPopoverProps>(
+  const OverlayPopover = React.forwardRef<PopoverProps, InjectPopoverProps>(
     (props, ref) => {
       const {
         popover: {
@@ -65,13 +65,13 @@ export default function injectPopover<T extends ComponentType<T>>(Target: T) {
                       placement={overlay.placement}
                       popper={overlay.rendered}
                       style={[
-                        overlay.overlayProps.style,
+                        overlay.overlayProps?.style,
                         {
                           maxHeight: 'auto',
                           opacity: overlay.rendered ? 1 : 0,
                         },
                       ]}
-                      arrowStyle={overlay.arrowProps.style}
+                      arrowStyle={overlay.arrowProps?.style}
                     >
                       <Popover.Arrow />
                       {title && <Popover.Header>{title}</Popover.Header>}
