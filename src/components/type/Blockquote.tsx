@@ -1,17 +1,14 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type BlockquoteProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +20,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Blockquote = React.forwardRef((props, ref) => {
+const Blockquote = React.forwardRef<ViewRef, BlockquoteProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['blockquote']);
@@ -31,7 +28,7 @@ const Blockquote = React.forwardRef((props, ref) => {
   const textClasses = getStyles(styles, ['blockquote --text']);
 
   // Accessiblity role blockquote is only supported on web.
-  const role = Platform.OS === 'web' ? 'blockquote' : null;
+  const role = Platform.OS === 'web' ? 'blockquote' : undefined;
 
   return (
     <View
@@ -47,6 +44,5 @@ const Blockquote = React.forwardRef((props, ref) => {
 });
 
 Blockquote.displayName = 'Blockquote';
-Blockquote.propTypes = propTypes;
 
 export default Blockquote;

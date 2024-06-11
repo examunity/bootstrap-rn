@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { MouseEvent } from 'react';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import Text from './Text';
@@ -11,12 +10,11 @@ import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
 import { getRole } from './Pressable';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type LinkProps = {
+  children: React.CSSProperties;
+  onMouseEnter?: (event?: MouseEvent<HTMLButtonElement>) => void;
+  onMouseLeave?: (event?: MouseEvent<HTMLButtonElement>) => void;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -41,7 +39,9 @@ const Link = React.forwardRef((props, ref) => {
     children,
     // Filter hover handlers, because Text component does not have hover
     // handlers. Instead we use mouse enter/leave handlers.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onHoverIn,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onHoverOut,
     onMouseEnter: handleMouseEnter = () => {},
     onMouseLeave: handleMouseLeave = () => {},
@@ -68,11 +68,11 @@ const Link = React.forwardRef((props, ref) => {
     <Text
       {...elementProps}
       {...interactionProps}
-      onMouseEnter={(event) => {
+      onMouseEnter={(event: MouseEvent<HTMLButtonElement>) => {
         handleMouseEnter(event);
         handleMouseEnterInteraction(event);
       }}
-      onMouseLeave={(event) => {
+      onMouseLeave={(event: MouseEvent<HTMLButtonElement>) => {
         handleMouseLeave(event);
         handleMouseLeaveInteraction(event);
       }}
@@ -90,6 +90,5 @@ const Link = React.forwardRef((props, ref) => {
 });
 
 Link.displayName = 'Link';
-Link.propTypes = propTypes;
 
 export default Link;

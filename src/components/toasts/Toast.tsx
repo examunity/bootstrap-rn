@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
@@ -9,12 +8,10 @@ import ToastBody from './ToastBody';
 import ToastContainerContext from './ToastContainerContext';
 import ListContext from '../helpers/ListContext';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type ToastProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle?: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -38,7 +35,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Toast = React.forwardRef((props, ref) => {
+const Toast = React.forwardRef<ViewRef, ToastProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const listItem = useContext(ListContext);
@@ -67,9 +64,8 @@ const Toast = React.forwardRef((props, ref) => {
 });
 
 Toast.displayName = 'Toast';
-Toast.propTypes = propTypes;
 
-Toast.Header = ToastHeader;
-Toast.Body = ToastBody;
-
-export default Toast;
+export default Object.assign(Toast, {
+  Header: ToastHeader,
+  Body: ToastBody,
+});

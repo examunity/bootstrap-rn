@@ -1,17 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { subtract } from '../../theme/functions';
 import { getStyles } from '../../utils';
+import { ThemeVariables } from '../../types';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type ToastHeaderProps = {
+  children: React.ReactNode;
+  style: React.CSSProperties;
+  textStyle: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -26,12 +24,12 @@ const styles = StyleSheet.create({
     border-style: solid;
     border-color: $toast-header-border-color;
     border-top-left-radius: ${subtract(
-      (t) => t['toast-border-radius'],
-      (t) => t['toast-border-width'],
+      (t: ThemeVariables) => t['toast-border-radius'],
+      (t: ThemeVariables) => t['toast-border-width'],
     )};
     border-top-right-radius: ${subtract(
-      (t) => t['toast-border-radius'],
-      (t) => t['toast-border-width'],
+      (t: ThemeVariables) => t['toast-border-radius'],
+      (t: ThemeVariables) => t['toast-border-width'],
     )};
   `,
   '.toast-header --text': css`
@@ -39,26 +37,27 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ToastHeader = React.forwardRef((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+const ToastHeader = React.forwardRef<ViewRef, ToastHeaderProps>(
+  (props, ref) => {
+    const { children, style, textStyle, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['.toast-header']);
+    const classes = getStyles(styles, ['.toast-header']);
 
-  const textClasses = getStyles(styles, ['.toast-header --text']);
+    const textClasses = getStyles(styles, ['.toast-header --text']);
 
-  return (
-    <View
-      {...elementProps}
-      ref={ref}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
-    >
-      {children}
-    </View>
-  );
-});
+    return (
+      <View
+        {...elementProps}
+        ref={ref}
+        style={[classes, style]}
+        textStyle={[textClasses, textStyle]}
+      >
+        {children}
+      </View>
+    );
+  },
+);
 
 ToastHeader.displayName = 'ToastHeader';
-ToastHeader.propTypes = propTypes;
 
 export default ToastHeader;

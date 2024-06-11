@@ -1,16 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
-  // eslint-disable-next-line react/forbid-prop-types
-  textStyle: PropTypes.any,
+export type ToastBodyProps = {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  textStyle: unknown;
 };
 
 const styles = StyleSheet.create({
@@ -24,7 +21,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ToastBody = React.forwardRef((props, ref) => {
+const ToastBody = React.forwardRef<ViewRef, ToastBodyProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.toast-body']);
@@ -44,6 +41,5 @@ const ToastBody = React.forwardRef((props, ref) => {
 });
 
 ToastBody.displayName = 'ToastBody';
-ToastBody.propTypes = propTypes;
 
 export default ToastBody;

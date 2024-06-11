@@ -1,16 +1,14 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Text from '../Text';
 import { getStyles } from '../../utils';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  lead: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.any,
+export type ParagraphProps = {
+  children: React.ReactNode;
+  lead?: boolean;
+  style?: React.CSSProperties;
 };
 
 const styles = StyleSheet.create({
@@ -25,13 +23,13 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Heading = React.forwardRef((props, ref) => {
+const Heading = React.forwardRef<ViewRef, ParagraphProps>((props, ref) => {
   const { children, lead, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['paragraph', lead && '.lead']);
 
   // Accessiblity role paragraph is only supported on web.
-  const role = Platform.OS === 'web' ? 'paragraph' : null;
+  const role = Platform.OS === 'web' ? 'paragraph' : undefined;
 
   return (
     <Text {...elementProps} ref={ref} role={role} style={[classes, style]}>
@@ -41,6 +39,5 @@ const Heading = React.forwardRef((props, ref) => {
 });
 
 Heading.displayName = 'Heading';
-Heading.propTypes = propTypes;
 
 export default Heading;
