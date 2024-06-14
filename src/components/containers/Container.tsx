@@ -8,11 +8,9 @@ import { infix, next } from '../../theme/breakpoints';
 import NavbarContext from '../navbar/NavbarContext';
 import { ThemeVariables, ContainerMaxWidths } from '../../types';
 
-export type ContainerProps = {
-  children: React.ReactNode;
+export interface ContainerProps extends ViewProps {
   fluid: true | keyof typeof CONTAINER_MAX_WIDTHS;
-  style: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '.container': css`

@@ -6,11 +6,9 @@ import { each, getStyles } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import { ThemeData, ThemeVariables } from '../../types';
 
-type FeedbackProps = {
-  children: React.ReactNode;
+export interface FeedbackProps extends TextProps {
   type?: keyof typeof FORM_VALIDATION_STATES;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({

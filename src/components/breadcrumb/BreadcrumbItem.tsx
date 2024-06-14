@@ -8,13 +8,10 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, optional } from '../../utils';
 
-export type BreadcrumbItemProps = {
-  children: React.ReactNode;
+export interface BreadcrumbItemProps extends ViewProps {
   active: boolean;
-  style?: React.CSSProperties;
   dividerStyle?: unknown;
-  textStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.breadcrumb-item + .breadcrumb-item': css`

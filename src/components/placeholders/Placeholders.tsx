@@ -4,10 +4,7 @@ import css from '../../style/css';
 import { getStyles } from '../../utils';
 import View from '../View';
 
-export type PlaceholdersProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface PlaceholdersProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.placeholders': css``,

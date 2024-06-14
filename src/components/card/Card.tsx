@@ -7,10 +7,7 @@ import CardBody from './CardBody';
 import CardHeader from './CardHeader';
 import CardFooter from './CardFooter';
 
-export type CardProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface CardProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.card': css`

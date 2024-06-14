@@ -7,11 +7,7 @@ import { getStyles } from '../../utils';
 import useList from '../../hooks/useList';
 import BreadcrumbItem from './BreadcrumbItem';
 
-export type BreadcrumbProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface BreadcrumbProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.breadcrumb': css`

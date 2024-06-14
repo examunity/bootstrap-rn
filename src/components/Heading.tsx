@@ -5,11 +5,8 @@ import Text from './Text';
 import { FONT_SIZES } from '../theme/proxies';
 import { getStyles, each } from '../utils';
 
-interface HeadingProps {
-  children: React.ReactNode;
+export interface HeadingProps extends TextProps {
   size: keyof typeof FONT_SIZES;
-  // style?: React.CSSProperties casuing Type 'any[]' is not assignable to type 'Properties<string | number, string & {}>'.
-  style?: unknown;
 }
 
 const styles = StyleSheet.create({

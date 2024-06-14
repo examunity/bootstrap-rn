@@ -15,15 +15,13 @@ import useDismissNavbar from './useDismissNavbar';
 import useToggleNavbar from './useToggleNavbar';
 import { NavbarExpand, NavbarVariant } from '../../types';
 
-export type NavbarProps = {
-  children: React.ReactNode;
+export interface NavbarProps extends ViewProps {
   variant?: NavbarVariant;
   defaultExpanded?: boolean;
   expanded?: boolean;
   onToggle: () => void;
   expand: NavbarExpand;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '.navbar': css`

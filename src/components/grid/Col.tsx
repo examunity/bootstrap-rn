@@ -6,15 +6,13 @@ import { GRID_BREAKPOINTS, GRID_COLUMNS } from '../../theme/proxies';
 import { infix } from '../../theme/breakpoints';
 import { getStyles, each, makeArray, normalize } from '../../utils';
 
-export type ColProps = {
-  children: React.ReactNode;
+export interface ColProps extends ViewProps {
   size: 'auto' | number;
   sizeSm?: 'auto' | number;
   sizeMd?: 'auto' | number;
   sizeLg?: 'auto' | number;
   sizeXl?: 'auto' | number;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '*': css`

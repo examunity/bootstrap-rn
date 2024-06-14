@@ -4,11 +4,7 @@ import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
 
-export type ToastBodyProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle: unknown;
-};
+export interface ToastBodyProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.toast-body': css`

@@ -4,10 +4,8 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-export interface ButtonToolbarProps {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-}
+export interface ButtonToolbarProps extends ViewProps {}
+
 const styles = StyleSheet.create({
   '.btn-toolbar': css`
     display: flex;

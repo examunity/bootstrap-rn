@@ -5,11 +5,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-export type BadgeProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface BadgeProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.badge': css`

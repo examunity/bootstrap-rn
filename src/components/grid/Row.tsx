@@ -4,11 +4,7 @@ import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
 
-export type RowProps = {
-  children: React.ReactNode;
-  rows?: number;
-  style?: React.CSSProperties;
-};
+export interface RowProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.row': css`

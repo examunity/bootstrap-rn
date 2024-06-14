@@ -1,4 +1,4 @@
-import React, { useRef, ReactNode } from 'react';
+import React, { useRef } from 'react';
 import { Modal as BaseModal, SafeAreaView } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
@@ -16,22 +16,19 @@ import ModalFooter from './ModalFooter';
 
 const MODAL_SIZES = ['sm', 'lg', 'xl'] as const;
 
-export type ModalProps = {
-  children: ReactNode;
+export interface ModalProps extends ViewProps {
   visible: boolean;
   size?: (typeof MODAL_SIZES)[number];
   backdrop?: boolean | 'static';
   scrollable?: boolean;
   centered?: boolean;
   onToggle: () => void;
-  style?: React.CSSProperties;
   contentContainerStyle?: unknown;
   dialogStyle?: unknown;
   contentStyle?: unknown;
-  textStyle?: unknown;
   dialogTextStyle?: unknown;
   contentTextStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.modal': css`

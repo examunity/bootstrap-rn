@@ -15,8 +15,7 @@ import useDismissDropdown from './useDismissDropdown';
 import useToggleDropdown from './useToggleDropdown';
 import { DropDownDirection } from '../../types';
 
-export type DropdownProps = {
-  children: React.ReactNode;
+export interface DropdownProps extends ViewProps {
   defaultVisible?: boolean;
   visible?: boolean;
   onToggle: () => void;
@@ -24,8 +23,7 @@ export type DropdownProps = {
   center?: boolean;
   display?: 'dynamic' | 'static';
   autoClose?: boolean | 'inside' | 'outside';
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '.dropdown': css`

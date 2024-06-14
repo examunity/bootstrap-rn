@@ -10,12 +10,10 @@ import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
 import { getRole } from './Pressable';
 
-export type LinkProps = {
-  children: React.CSSProperties;
+export interface LinkProps extends TextProps {
   onMouseEnter?: (event?: MouseEvent<HTMLButtonElement>) => void;
   onMouseLeave?: (event?: MouseEvent<HTMLButtonElement>) => void;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   link: css`
@@ -31,7 +29,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Link = React.forwardRef((props, ref) => {
+const Link = React.forwardRef<TextRef, LinkProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
   const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
 

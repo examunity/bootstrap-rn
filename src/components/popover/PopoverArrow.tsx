@@ -8,9 +8,7 @@ import useForcedContext from '../../hooks/useForcedContext';
 import PopoverContext from './PopoverContext';
 import { ThemeVariables } from '../../types';
 
-export type PopoverArrowProps = {
-  style?: unknown;
-};
+export interface PopoverArrowProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.popover-arrow': css`

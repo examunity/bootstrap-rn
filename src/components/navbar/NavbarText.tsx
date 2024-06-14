@@ -7,11 +7,7 @@ import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from './NavbarContext';
 
-export type NavbarTextProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface NavbarTextProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.navbar-text': css`

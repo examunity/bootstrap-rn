@@ -4,10 +4,7 @@ import View from '../View';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-export type ModalFooterProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface ModalFooterProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.modal-footer': css`

@@ -5,10 +5,7 @@ import css from '../../style/css';
 import Text from '../Text';
 import { getStyles } from '../../utils';
 
-export type CodeProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface CodeProps extends TextProps {}
 
 const styles = StyleSheet.create({
   code: css`
@@ -30,6 +27,7 @@ const Code = React.forwardRef<TextRef, CodeProps>((props, ref) => {
   const role = Platform.OS === 'web' ? 'code' : undefined;
 
   return (
+    // @ts-expect-error web only role
     <Text {...elementProps} ref={ref} role={role} style={[classes, style]}>
       {children}
     </Text>

@@ -9,10 +9,7 @@ import { getStyles, each } from '../../utils';
 import useMedia from '../../hooks/useMedia';
 import NavbarContext from './NavbarContext';
 
-export type NavbarCollapseProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface NavbarCollapseProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.navbar-collapse': css`

@@ -7,10 +7,8 @@ import { getStyles } from '../../utils';
 import ButtonGroupContext from './ButtonGroupContext';
 import useList from '../../hooks/useList';
 
-export interface ButtonGroupProps {
-  children: React.ReactNode;
+export interface ButtonGroupProps extends ViewProps {
   size?: 'lg' | 'sm';
-  style?: React.CSSProperties;
 }
 
 const styles = StyleSheet.create({

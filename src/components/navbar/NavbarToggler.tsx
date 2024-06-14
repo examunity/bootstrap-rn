@@ -16,11 +16,9 @@ import { escapeSvg } from '../../theme/functions';
 import { ThemeVariables } from '../../types';
 import { ToggleType } from '../../hooks/useAction';
 
-export type NavbarTogglerProps = {
-  style?: React.CSSProperties;
-  textStyle?: unknown;
+export interface NavbarTogglerProps extends ViewProps {
   iconStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.navbar-toggler': css`

@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -11,13 +11,10 @@ import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
 import { ThemeVariables } from '../../types';
 
-interface ListGroupItemProps {
-  children: ReactNode;
+export interface ListGroupItemProps extends ViewProps {
   color?: keyof typeof THEME_COLORS;
   active?: boolean;
   disabled?: boolean;
-  style?: CSSProperties;
-  textStyle?: CSSProperties;
 }
 
 export const styles = StyleSheet.create({

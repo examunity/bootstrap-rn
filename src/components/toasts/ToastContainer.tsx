@@ -6,10 +6,7 @@ import { getStyles } from '../../utils';
 import ToastContainerContext from './ToastContainerContext';
 import useList from '../../hooks/useList';
 
-export type ToastContainerProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface ToastContainerProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.toast-container': css`

@@ -4,10 +4,7 @@ import css from '../../style/css';
 import Heading from '../Heading';
 import { getStyles } from '../../utils';
 
-export type OffcanvasTitleProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface OffcanvasTitleProps extends TextProps {}
 
 const styles = StyleSheet.create({
   '.offcanvas-title': css`

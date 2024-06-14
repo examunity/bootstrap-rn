@@ -4,11 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-export type CardFooterProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface CardFooterProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.card-footer': css`

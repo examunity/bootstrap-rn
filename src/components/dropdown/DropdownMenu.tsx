@@ -14,19 +14,15 @@ import { normalizeNumber } from '../../style/math';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import DropdownContext from './DropdownContext';
-import { DropDownDirection, Placement } from '../../types';
+import { DropDownDirection, RnPlacement } from '../../types';
 
 type AlignmentBreakpointsSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 type AlignmentBreakpoints = boolean | AlignmentBreakpointsSize;
 
-// Define the prop types using an interface
-interface DropdownProps {
-  children: React.ReactNode;
+export interface DropdownProps extends ViewProps {
   start?: AlignmentBreakpoints;
   right?: AlignmentBreakpoints;
   end?: AlignmentBreakpoints;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
 }
 
 const ALIGNMENT_BREAKPOINTS: AlignmentBreakpoints[] = [
@@ -111,14 +107,9 @@ const styles = StyleSheet.create({
 
 const getAlignment = (
   media: useMediaProps,
-  center: boolean,
   start?: AlignmentBreakpoints,
   end?: AlignmentBreakpoints,
-): 'center' | 'start' | 'end' => {
-  if (center) {
-    return 'center';
-  }
-
+): 'start' | 'end' => {
   const tempStart = start ? media.up(String(start)) : false;
   const alignStart = typeof start === 'boolean' ? start : tempStart;
 
@@ -143,23 +134,22 @@ const getAlignment = (
 
 const transformPlacement = (
   media: useMediaProps,
-  direction: DropDownDirection, // use string instead of Direction as its also have `top` `end` `start`
-  center: boolean,
+  direction: DropDownDirection,
   start?: AlignmentBreakpoints,
   end?: AlignmentBreakpoints,
-): Placement => {
+): RnPlacement => {
   if (direction === 'up') {
-    return `top ${getAlignment(media, center, start, end)}`;
+    return `top ${getAlignment(media, start, end)}`;
   }
 
   if (direction === 'down') {
-    return `bottom ${getAlignment(media, center, start, end)}`;
+    return `bottom ${getAlignment(media, start, end)}`;
   }
 
   return `${direction} top`;
 };
 
-const DropdownMenu = React.forwardRef<unknown, DropdownProps>((props, ref) => {
+const DropdownMenu = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
   const {
     children,
     start = true,
@@ -187,7 +177,6 @@ const DropdownMenu = React.forwardRef<unknown, DropdownProps>((props, ref) => {
     visible,
     setVisible,
     direction,
-    center,
     display,
     autoClose,
   } = dropdown;
@@ -262,7 +251,7 @@ const DropdownMenu = React.forwardRef<unknown, DropdownProps>((props, ref) => {
   return (
     <OverlayContainer>
       <Overlay
-        placement={transformPlacement(media, direction, center, start, end)}
+        placement={transformPlacement(media, direction, start, end)}
         targetRef={toggleRef}
         offset={normalizeNumber(StyleSheet.value('dropdown-spacer'))}
         visible={visible}
@@ -283,7 +272,7 @@ const DropdownMenu = React.forwardRef<unknown, DropdownProps>((props, ref) => {
               aria-labelledby={identifier}
               style={[
                 classes,
-                overlay.overlayProps.style,
+                overlay.overlayProps?.style,
                 { maxHeight: 'auto', opacity: overlay.rendered ? 1 : 0 },
                 style,
               ]}

@@ -4,10 +4,7 @@ import css from '../../style/css';
 import Heading from '../Heading';
 import { getStyles } from '../../utils';
 
-export type ModalTitleProps = {
-  children: React.ReactNode;
-  style?: unknown;
-};
+export interface ModalTitleProps extends TextProps {}
 
 const styles = StyleSheet.create({
   '.modal-title': css`

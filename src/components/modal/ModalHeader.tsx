@@ -4,10 +4,7 @@ import View from '../View';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-export type ModalHeaderProps = {
-  children: React.ReactNode;
-  style?: unknown;
-};
+export interface ModalHeaderProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.modal-header': css`

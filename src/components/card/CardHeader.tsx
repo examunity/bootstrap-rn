@@ -4,11 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-export type CardHeaderProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface CardHeaderProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.card-header': css`

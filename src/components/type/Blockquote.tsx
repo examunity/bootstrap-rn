@@ -5,11 +5,7 @@ import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
 
-export type BlockquoteProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface BlockquoteProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   blockquote: css`
@@ -34,6 +30,7 @@ const Blockquote = React.forwardRef<ViewRef, BlockquoteProps>((props, ref) => {
     <View
       {...elementProps}
       ref={ref}
+      // @ts-expect-error web only role
       role={role}
       style={[classes, style]}
       textStyle={[textClasses, textStyle]}

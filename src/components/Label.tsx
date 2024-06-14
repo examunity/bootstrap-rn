@@ -3,13 +3,10 @@ import { Platform } from 'react-native';
 import View from './View';
 import { concatRefs } from '../utils';
 
-export type LabelProps = {
-  children: React.ReactNode;
+export interface LabelProps extends ViewProps {
   htmlFor?: string;
   disabled?: boolean;
-  style?: unknown;
-  textStyle?: unknown;
-};
+}
 
 const Label = React.forwardRef<ViewRef, LabelProps>((props, ref) => {
   const { children, htmlFor, ...elementProps } = props;
@@ -26,6 +23,7 @@ const Label = React.forwardRef<ViewRef, LabelProps>((props, ref) => {
   const role = Platform.OS === 'web' ? 'label' : undefined;
 
   return (
+    // @ts-expect-error web only role
     <View {...elementProps} ref={concatRefs(forRef, ref)} role={role}>
       {children}
     </View>

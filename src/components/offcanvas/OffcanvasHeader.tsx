@@ -7,10 +7,7 @@ import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext from '../navbar/NavbarContext';
 
-export type OffcanvasHeaderProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface OffcanvasHeaderProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.offcanvas-header': css`

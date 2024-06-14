@@ -8,14 +8,11 @@ import TooltipArrow from './TooltipArrow';
 import TooltipInner from './TooltipInner';
 import TooltipContext from './TooltipContext';
 
-export type TooltipProps = {
-  children: React.ReactNode;
+export interface TooltipProps extends ViewProps {
   placement?: string;
   popper?: boolean;
-  style?: unknown;
-  textStyle?: unknown;
   arrowStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.tooltip': css`

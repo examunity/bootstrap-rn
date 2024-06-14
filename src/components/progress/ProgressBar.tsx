@@ -7,12 +7,9 @@ import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import ProgressContext from './ProgressContext';
 
-export type ProgressBarProps = {
-  children?: React.ReactNode;
+export interface ProgressBarProps extends ViewProps {
   value: number;
-  style?: React.CSSProperties;
-  textStyle: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.progress-bar': css`

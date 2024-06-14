@@ -2,12 +2,11 @@ import React, { useMemo } from 'react';
 import View from '../View';
 import RadioContext from './RadioContext';
 
-export type RadioGroupProps = {
-  children: React.ReactNode;
+export interface RadioGroupProps extends ViewProps {
   selectedValue?: boolean | number | string | object;
   onValueChange?: (value?: boolean | number | string | object) => void;
   disabled?: boolean;
-};
+}
 
 const RadioGroup = React.forwardRef<ViewRef, RadioGroupProps>((props, ref) => {
   const {

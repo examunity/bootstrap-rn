@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { Text as BaseText, TextProps as BaseTextProps } from 'react-native';
+import { Text as BaseText } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import useMedia from '../hooks/useMedia';
@@ -11,15 +11,6 @@ import { ThemeColorsType } from '../theme/proxies';
 import useStyle from '../hooks/useStyle';
 
 type ThemeColors = ThemeColorsType | 'muted' | 'black-50' | 'white-50';
-
-export interface TextProps extends BaseTextProps {
-  color?: ThemeColors;
-  small?: boolean;
-  mark?: boolean;
-  bold?: boolean;
-  italic?: boolean;
-  styleName?: string;
-}
 
 const styles = StyleSheet.create({
   text: css`

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, ReactNode } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Modal as BaseModal, SafeAreaView } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
@@ -18,16 +18,13 @@ import OffcanvasBody from './OffcanvasBody';
 
 export const PLACEMENTS = ['top', 'bottom', 'start', 'end'];
 
-interface OffcanvasProps {
-  children: ReactNode;
+export interface OffcanvasProps extends ViewProps {
   visible?: boolean;
   placement?: (typeof PLACEMENTS)[number];
   backdrop?: boolean | 'static';
   scroll?: boolean;
   onToggle?: () => void;
-  style?: React.CSSProperties;
   dialogStyle?: unknown;
-  textStyle?: unknown;
   dialogTextStyle?: unknown;
 }
 

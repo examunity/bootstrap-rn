@@ -7,13 +7,10 @@ import ProgressBar from './ProgressBar';
 import ProgressContext from './ProgressContext';
 import useProgress from './useProgress';
 
-export type ProgressProps = {
-  children: React.ReactNode;
+export interface ProgressProps extends ViewProps {
   min?: number;
   max?: number;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.progress': css`

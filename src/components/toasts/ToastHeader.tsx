@@ -6,11 +6,7 @@ import { subtract } from '../../theme/functions';
 import { getStyles } from '../../utils';
 import { ThemeVariables } from '../../types';
 
-export type ToastHeaderProps = {
-  children: React.ReactNode;
-  style: React.CSSProperties;
-  textStyle: unknown;
-};
+export interface ToastHeaderProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.toast-header': css`

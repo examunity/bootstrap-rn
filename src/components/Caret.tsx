@@ -12,11 +12,10 @@ export const CARET_DIRECTIONS = ['up', 'down', 'start', 'end'] as const;
 
 type CaretDirectionTypes = (typeof CARET_DIRECTIONS)[number];
 
-export type CaretProps = {
+export interface CaretProps extends ViewProps {
   color?: string;
   direction?: CaretDirectionTypes;
-  style?: React.CSSProperties;
-};
+}
 
 const getColor = (context: TextStyleContextType | null): string => {
   if (context && context.style) {

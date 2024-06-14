@@ -7,13 +7,10 @@ import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
 import { ThemeVariables } from '../../types';
 
-export type AlertProps = {
-  children: React.ReactNode;
+export interface AlertProps extends ViewProps {
   color?: ThemeColorsType;
   dismissible?: boolean;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.alert': css`

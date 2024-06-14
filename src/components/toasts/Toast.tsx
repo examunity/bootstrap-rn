@@ -8,11 +8,7 @@ import ToastBody from './ToastBody';
 import ToastContainerContext from './ToastContainerContext';
 import ListContext from '../helpers/ListContext';
 
-export type ToastProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface ToastProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.toast': css`

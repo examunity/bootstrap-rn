@@ -7,13 +7,10 @@ import View from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import ListContext from '../helpers/ListContext';
 
-export type PaginationItemProps = {
-  children: React.ReactNode;
+export interface PaginationItemProps extends ViewProps {
   active?: boolean;
   disabled?: boolean;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.pagination-item': css`

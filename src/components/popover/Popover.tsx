@@ -9,14 +9,11 @@ import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
 import PopoverContext from './PopoverContext';
 
-export type PopoverProps = {
-  children: React.ReactNode;
+export interface PopoverProps extends ViewProps {
   placement?: string;
   popper?: boolean;
-  style?: unknown;
-  textStyle?: unknown;
   arrowStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.popover': css`

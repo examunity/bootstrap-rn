@@ -7,11 +7,9 @@ import { getStyles, getElementId } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import TabContext from './TabContext';
 
-export type TabPaneProps = {
-  children: React.ReactNode;
+export interface TabPaneProps extends ViewProps {
   id: string;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '.tab-pane': css`

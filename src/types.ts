@@ -1,4 +1,7 @@
-import type { Placement as BasePlacement } from '@react-types/overlays';
+import type {
+  Placement as BasePlacement,
+  PlacementAxis as BasePlacementAxis,
+} from '@react-types/overlays';
 
 export type ContainerMaxWidths = {
   sm: string;
@@ -35,10 +38,8 @@ export type DropDownDirection =
   | 'start'
   | 'end';
 
-// Copty from @react-native-aria/overlays
-export type Axis = 'top' | 'bottom' | 'left' | 'right';
-export type PlacementAxis = Axis | 'center';
 export type RnPlacement = BasePlacement;
+export type RnPlacementAxis = BasePlacementAxis;
 
 export type Placement =
   | RnPlacement

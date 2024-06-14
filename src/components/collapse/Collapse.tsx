@@ -5,9 +5,7 @@ import CollapseContext from './CollapseContext';
 import CollapseProvider from './CollapseProvider';
 import useToggleCollapse from './useToggleCollapse';
 
-export type CollapseProps = {
-  children: React.ReactNode;
-};
+export interface CollapseProps extends ViewProps {}
 
 const Collapse = React.forwardRef<ViewRef, CollapseProps>((props, ref) => {
   const { children, ...elementProps } = props;

@@ -7,10 +7,7 @@ import useList from '../../hooks/useList';
 import View from '../View';
 import PaginationItem from './PaginationItem';
 
-export type PaginationProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
+export interface PaginationProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.pagination': css`

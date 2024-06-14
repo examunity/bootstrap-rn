@@ -1,9 +1,7 @@
 import React from 'react';
 import View from '../View';
 
-export type TabContentProps = {
-  children: React.ReactNode;
-};
+export interface TabContentProps extends ViewProps {}
 
 const TabContent = React.forwardRef<ViewRef, TabContentProps>((props, ref) => {
   const { ...elementProps } = props;

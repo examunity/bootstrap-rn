@@ -6,14 +6,12 @@ import { getStyles } from '../../utils';
 import FormCheckContext from './FormCheckContext';
 import FormCheckLabel from './FormCheckLabel';
 
-export type FormCheckProps = {
-  children: React.ReactNode;
+export interface FormCheckProps extends ViewProps {
   reverse?: boolean;
   disabled?: boolean;
   valid?: boolean;
   invalid?: boolean;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '.form-check': css`

@@ -12,11 +12,9 @@ import NavLink from './NavLink';
 import TabContext, { TabContextType } from './TabContext';
 import { NavVariant } from '../../types';
 
-export type NavProps = {
-  children: React.ReactNode;
+export interface NavProps extends ViewProps {
   variant?: NavVariant;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '.nav': css`

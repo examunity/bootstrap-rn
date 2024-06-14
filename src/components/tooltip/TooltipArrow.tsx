@@ -6,9 +6,7 @@ import css from '../../style/css';
 import useForcedContext from '../../hooks/useForcedContext';
 import TooltipContext from './TooltipContext';
 
-export type TooltipArrowProps = {
-  style?: React.CSSProperties;
-};
+export interface TooltipArrowProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.tooltip-arrow': css`

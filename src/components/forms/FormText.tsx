@@ -5,11 +5,7 @@ import View from '../View';
 import Text from '../Text';
 import { getStyles } from '../../utils';
 
-export type FormTextProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface FormTextProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.form-text': css`

@@ -5,11 +5,7 @@ import css from '../../style/css';
 import View from '../View';
 import Text from '../Text';
 
-export type TooltipInnerProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface TooltipInnerProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.tooltip-inner': css`

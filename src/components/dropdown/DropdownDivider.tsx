@@ -4,9 +4,7 @@ import { getStyles } from '../../utils';
 import css from '../../style/css';
 import View from '../View';
 
-export type DropdownDividerProps = {
-  style?: React.CSSProperties;
-};
+export interface DropdownDividerProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.dropdown-divider': css`

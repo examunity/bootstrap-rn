@@ -5,11 +5,7 @@ import css from '../../style/css';
 import View from '../View';
 import Text from '../Text';
 
-export type DropdownItemTextProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface DropdownItemTextProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.dropdown-item-text': css`

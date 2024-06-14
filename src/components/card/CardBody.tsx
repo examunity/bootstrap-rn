@@ -4,11 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 
-export type CardBodyProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface CardBodyProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.card-body': css`
@@ -20,7 +16,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardBody = React.forwardRef<ViewRef, CardBodyProps>((props, ref) => {
+const CardBody = React.forwardRef<ViewRef, ViewProps>((props, ref) => {
   const { children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-body']);

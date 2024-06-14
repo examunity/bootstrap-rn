@@ -32,6 +32,7 @@ const Heading = React.forwardRef<ViewRef, ParagraphProps>((props, ref) => {
   const role = Platform.OS === 'web' ? 'paragraph' : undefined;
 
   return (
+    // @ts-expect-error web only role
     <Text {...elementProps} ref={ref} role={role} style={[classes, style]}>
       {children}
     </Text>

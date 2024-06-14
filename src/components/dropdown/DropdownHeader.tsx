@@ -5,11 +5,7 @@ import css from '../../style/css';
 import View from '../View';
 import Heading from '../Heading';
 
-export type DropdownHeaderProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface DropdownHeaderProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.dropdown-header': css`

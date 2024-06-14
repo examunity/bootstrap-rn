@@ -4,11 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
 
-export type PopoverBodyProps = {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-};
+export interface PopoverBodyProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.popover-body': css`

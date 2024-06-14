@@ -10,11 +10,9 @@ import ListGroupContext from './ListGroupContext';
 import ListGroupItem from './ListGroupItem';
 import ListGroupItemAction from './ListGroupItemAction';
 
-export type ListGroupProps = {
-  children: React.ReactNode;
+export interface ListGroupProps extends ViewProps {
   flush?: boolean;
-  style?: React.CSSProperties;
-};
+}
 
 const styles = StyleSheet.create({
   '.list-group': css`
