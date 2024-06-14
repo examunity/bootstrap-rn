@@ -1,8 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform, ScaledSize } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 
-const calculateViewport = (breakpoints, width) => {
+interface Breakpoints {
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+  xxl: number;
+}
+
+type Viewport = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+type DimensionType = { window: ScaledSize };
+
+const calculateViewport = (breakpoints: Breakpoints, width: number) => {
   if (width < breakpoints.sm) {
     return 'xs';
   }
@@ -21,7 +33,7 @@ const calculateViewport = (breakpoints, width) => {
   return 'xxl';
 };
 
-const getWidth = (dimensions) => {
+const getWidth = (dimensions: DimensionType) => {
   // Use web api on web because of issue #38:
   // https://github.com/examunity/bootstrap-rn/issues/38
   if (Platform.OS === 'web') {
@@ -34,11 +46,11 @@ const getWidth = (dimensions) => {
   return dimensions.window.width;
 };
 
-export default function useViewport(initialViewport) {
+export default function useViewport(initialViewport: Viewport) {
   const [viewport, setViewport] = useState(initialViewport);
   const breakpoints = StyleSheet.value('grid-breakpoints');
 
-  const handleChange = (dimensions) => {
+  const handleChange = (dimensions: DimensionType) => {
     const width = getWidth(dimensions);
     const nextViewport = calculateViewport(breakpoints, width);
 

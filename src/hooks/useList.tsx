@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ListContext from '../components/helpers/ListContext';
 
-const wrapChildren = (children, cache) =>
+type Cache = {
+  count: number;
+};
+
+const wrapChildren = (children: ReactNode, cache: Cache): ReactNode =>
   React.Children.map(children, (child) => {
     if (child === null) {
       return null;
     }
 
-    if (child.type === React.Fragment) {
+    if (React.isValidElement(child) && child.type === React.Fragment) {
       return (
-        <React.Fragment key={child.key}>
+        <React.Fragment key={child.key as React.Key}>
           {wrapChildren(child.props.children, cache)}
         </React.Fragment>
       );
@@ -24,7 +28,7 @@ const wrapChildren = (children, cache) =>
       return (
         <ListContext.Provider
           value={{
-            nth(value) {
+            nth(value: number) {
               return pos === value;
             },
             get first() {
@@ -37,7 +41,7 @@ const wrapChildren = (children, cache) =>
               return cache.count;
             },
           }}
-          key={child.key}
+          key={child.key as React.Key}
         >
           {child}
         </ListContext.Provider>
@@ -47,6 +51,6 @@ const wrapChildren = (children, cache) =>
     return null;
   });
 
-export default function useList(children) {
+export default function useList(children: ReactNode): ReactNode {
   return wrapChildren(children, { count: 0 });
 }

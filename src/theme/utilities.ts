@@ -10,6 +10,7 @@ import {
   UTILITIES_BG_COLORS,
   NEGATIVE_SPACERS,
 } from './maps';
+import { ThemeVariables } from '../types';
 
 const utilities = {
   align: {
@@ -75,9 +76,9 @@ const utilities = {
     property: 'box-shadow',
     class: 'shadow',
     values: {
-      null: (t) => t['box-shadow'],
-      sm: (t) => t['box-shadow-sm'],
-      lg: (t) => t['box-shadow-lg'],
+      null: (t: ThemeVariables) => t['box-shadow'],
+      sm: (t: ThemeVariables) => t['box-shadow-sm'],
+      lg: (t: ThemeVariables) => t['box-shadow-lg'],
       none: 'none',
     },
   },
@@ -121,7 +122,8 @@ const utilities = {
   border: {
     property: 'border',
     values: {
-      null: (t) => `${t['border-width']} solid ${t['border-color']}`,
+      null: (t: ThemeVariables) =>
+        `${t['border-width']} solid ${t['border-color']}`,
       0: '0',
     },
   },
@@ -502,7 +504,7 @@ const utilities = {
     property: 'font-family',
     class: 'font',
     values: {
-      monospace: (t) => t['font-family-monospace'],
+      monospace: (t: ThemeVariables) => t['font-family-monospace'],
     },
   },
   fontSize: {
@@ -523,10 +525,10 @@ const utilities = {
     property: 'font-weight',
     class: 'fw',
     values: {
-      light: (t) => t['font-weight-light'],
+      light: (t: ThemeVariables) => t['font-weight-light'],
       // lighter: (t) => t['font-weight-lighter'],
-      normal: (t) => t['font-weight-normal'],
-      bold: (t) => t['font-weight-bold'],
+      normal: (t: ThemeVariables) => t['font-weight-normal'],
+      bold: (t: ThemeVariables) => t['font-weight-bold'],
       // bolder: (t) => t['font-weight-bolder'],
     },
   },
@@ -535,10 +537,13 @@ const utilities = {
     class: 'lh',
     // Multiply line-height with font-size for react-native support.
     values: {
-      1: (t) => t['font-size-base'],
-      sm: (t) => `${t['font-size-sm']} * ${t['line-height-sm']}`,
-      base: (t) => `${t['font-size-base']} * ${t['line-height-base']}`,
-      lg: (t) => `${t['font-size-lg']} * ${t['line-height-lg']}`,
+      1: (t: ThemeVariables) => t['font-size-base'],
+      sm: (t: ThemeVariables) =>
+        `${t['font-size-sm']} * ${t['line-height-sm']}`,
+      base: (t: ThemeVariables) =>
+        `${t['font-size-base']} * ${t['line-height-base']}`,
+      lg: (t: ThemeVariables) =>
+        `${t['font-size-lg']} * ${t['line-height-lg']}`,
     },
   },
   textAlign: {
@@ -591,9 +596,9 @@ const utilities = {
     // 'local-vars': { 'text-opacity': 1 },
     values: {
       ...UTILITIES_TEXT_COLORS,
-      muted: (t) => t['text-muted'],
-      'black-50': (t) => `rgba(${t.black}, 0.5)`,
-      'white-50': (t) => `rgba(${t.white}, 0.5)`,
+      muted: (t: ThemeVariables) => t['text-muted'],
+      'black-50': (t: ThemeVariables) => `rgba(${t.black}, 0.5)`,
+      'white-50': (t: ThemeVariables) => `rgba(${t.white}, 0.5)`,
     },
   },
   textOpacity: {
@@ -655,13 +660,13 @@ const utilities = {
     property: 'border-radius',
     class: 'rounded',
     values: {
-      null: (t) => t['border-radius'],
+      null: (t: ThemeVariables) => t['border-radius'],
       0: '0',
-      1: (t) => t['border-radius-sm'],
-      2: (t) => t['border-radius'],
-      3: (t) => t['border-radius-lg'],
+      1: (t: ThemeVariables) => t['border-radius-sm'],
+      2: (t: ThemeVariables) => t['border-radius'],
+      3: (t: ThemeVariables) => t['border-radius-lg'],
       circle: '500px', // TODO: How to implement 50%?
-      pill: (t) => t['border-radius-pill'],
+      pill: (t: ThemeVariables) => t['border-radius-pill'],
     },
   },
   // TODO: Support multiple properties for rounded-* utilities.

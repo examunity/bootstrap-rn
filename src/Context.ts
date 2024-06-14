@@ -1,9 +1,13 @@
 import React from 'react';
 
-interface ContextType {
+export interface ContextType {
   scrollbars: {
     hide: () => void;
     show: () => void;
+  };
+
+  addFixedElement: (ref: unknown) => {
+    remove: () => void;
   };
 }
 

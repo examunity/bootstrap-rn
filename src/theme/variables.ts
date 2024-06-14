@@ -2,9 +2,12 @@ import { Platform } from 'react-native';
 import css from '../style/css';
 import { calculate } from '../style/math';
 import { shadeColor, tintColor, shiftColor, add, subtract } from './functions';
+import { ThemeVariables } from '../types';
 
-const url = (val) => (t) =>
-  `url("${val.replace(/#{\$(.*?)}/g, (_, key) => t[key])}")`;
+const url =
+  (val: string) =>
+  (t: ThemeVariables): string =>
+    `url("${val.replace(/#{\$(.*?)}/g, (_, key) => t[key])}")`;
 
 const variables = css`
   // Color system
@@ -21,7 +24,7 @@ const variables = css`
   $gray-900: #212529;
   $black: #000;
 
-  $grays: ${(t) => ({
+  $grays: ${(t: ThemeVariables) => ({
     100: t['gray-100'],
     200: t['gray-200'],
     300: t['gray-300'],
@@ -44,7 +47,7 @@ const variables = css`
   $teal: #20c997;
   $cyan: #0dcaf0;
 
-  $colors: ${(t) => ({
+  $colors: ${(t: ThemeVariables) => ({
     blue: t.blue,
     indigo: t.indigo,
     purple: t.purple,
@@ -66,7 +69,7 @@ const variables = css`
   $light: $gray-100;
   $dark: $gray-900;
 
-  $theme-colors: ${(t) => ({
+  $theme-colors: ${(t: ThemeVariables) => ({
     primary: t.primary,
     secondary: t.secondary,
     success: t.success,
@@ -185,7 +188,7 @@ const variables = css`
   $cyan-800: shade-color($cyan, 60%);
   $cyan-900: shade-color($cyan, 80%);
 
-  $blues: ${(t) => ({
+  $blues: ${(t: ThemeVariables) => ({
     'blue-100': t['blue-100'],
     'blue-200': t['blue-200'],
     'blue-300': t['blue-300'],
@@ -209,7 +212,7 @@ const variables = css`
     'indigo-900': t['indigo-900'],
   })};
 
-  $purples: ${(t) => ({
+  $purples: ${(t: ThemeVariables) => ({
     'purple-100': t['purple-100'],
     'purple-200': t['purple-200'],
     'purple-300': t['purple-300'],
@@ -221,7 +224,7 @@ const variables = css`
     'purple-900': t['purple-900'],
   })};
 
-  $pinks: ${(t) => ({
+  $pinks: ${(t: ThemeVariables) => ({
     'pink-100': t['pink-100'],
     'pink-200': t['pink-200'],
     'pink-300': t['pink-300'],
@@ -233,7 +236,7 @@ const variables = css`
     'pink-900': t['pink-900'],
   })};
 
-  $reds: ${(t) => ({
+  $reds: ${(t: ThemeVariables) => ({
     'red-100': t['red-100'],
     'red-200': t['red-200'],
     'red-300': t['red-300'],
@@ -245,7 +248,7 @@ const variables = css`
     'red-900': t['red-900'],
   })};
 
-  $oranges: ${(t) => ({
+  $oranges: ${(t: ThemeVariables) => ({
     'orange-100': t['orange-100'],
     'orange-200': t['orange-200'],
     'orange-300': t['orange-300'],
@@ -257,7 +260,7 @@ const variables = css`
     'orange-900': t['orange-900'],
   })};
 
-  $yellows: ${(t) => ({
+  $yellows: ${(t: ThemeVariables) => ({
     'yellow-100': t['yellow-100'],
     'yellow-200': t['yellow-200'],
     'yellow-300': t['yellow-300'],
@@ -269,7 +272,7 @@ const variables = css`
     'yellow-900': t['yellow-900'],
   })};
 
-  $greens: ${(t) => ({
+  $greens: ${(t: ThemeVariables) => ({
     'green-100': t['green-100'],
     'green-200': t['green-200'],
     'green-300': t['green-300'],
@@ -281,7 +284,7 @@ const variables = css`
     'green-900': t['green-900'],
   })};
 
-  $teals: ${(t) => ({
+  $teals: ${(t: ThemeVariables) => ({
     'teal-100': t['teal-100'],
     'teal-200': t['teal-200'],
     'teal-300': t['teal-300'],
@@ -293,7 +296,7 @@ const variables = css`
     'teal-900': t['teal-900'],
   })};
 
-  $cyans: ${(t) => ({
+  $cyans: ${(t: ThemeVariables) => ({
     'cyan-100': t['cyan-100'],
     'cyan-200': t['cyan-200'],
     'cyan-300': t['cyan-300'],
@@ -327,7 +330,7 @@ const variables = css`
   // You can add more entries to the $spacers map, should you need more variation.
 
   $spacer: 1rem;
-  $spacers: ${(t) => ({
+  $spacers: ${(t: ThemeVariables) => ({
     0: '0px',
     1: `${t.spacer} * 0.25`,
     2: `${t.spacer} * 0.5`,
@@ -367,8 +370,8 @@ const variables = css`
   $link-decoration: underline;
   $link-shade-percentage: 20%;
   $link-hover-color: ${shiftColor(
-    (t) => t['link-color'],
-    (t) => t['link-shade-percentage'],
+    (t: ThemeVariables) => t['link-color'],
+    (t: ThemeVariables) => t['link-shade-percentage'],
   )};
   $link-hover-decoration: null;
 
@@ -509,7 +512,7 @@ const variables = css`
   $h5-font-size: $font-size-base * 1.25;
   $h6-font-size: $font-size-base;
 
-  $font-sizes: ${(t) => ({
+  $font-sizes: ${(t: ThemeVariables) => ({
     1: t['h1-font-size'],
     2: t['h2-font-size'],
     3: t['h3-font-size'],
@@ -628,7 +631,8 @@ const variables = css`
   $btn-border-width: $input-btn-border-width;
 
   $btn-font-weight: $font-weight-normal;
-  $btn-box-shadow: inset 0 1px 0 rgba($white, 0.15),
+  $btn-box-shadow:
+    inset 0 1px 0 rgba($white, 0.15),
     0 1px 1px rgba($black, 0.075);
   $btn-focus-width: $input-btn-focus-width;
   $btn-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -644,8 +648,11 @@ const variables = css`
   $btn-border-radius-sm: $border-radius-sm;
   $btn-border-radius-lg: $border-radius-lg;
 
-  $btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  $btn-transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 
   $btn-hover-bg-shade-amount: 15%;
   $btn-hover-bg-tint-amount: 15%;
@@ -713,7 +720,10 @@ const variables = css`
   $input-border-radius-lg: $border-radius-lg;
 
   $input-focus-bg: $input-bg;
-  $input-focus-border-color: ${tintColor((t) => t['component-active-bg'], 0.5)};
+  $input-focus-border-color: ${tintColor(
+    (t: ThemeVariables) => t['component-active-bg'],
+    0.5,
+  )};
   $input-focus-color: $input-color;
   $input-focus-width: $input-btn-focus-width;
   $input-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -724,41 +734,45 @@ const variables = css`
   $input-height-border: $input-border-width * 2;
 
   $input-height-inner: ${add(
-    (t) => calculate(t['input-line-height'], '*', 1),
-    (t) => calculate(t['input-padding-y'], '*', 2),
+    (t: ThemeVariables) => calculate(t['input-line-height'], '*', 1),
+    (t: ThemeVariables) => calculate(t['input-padding-y'], '*', 2),
   )};
   $input-height-inner-half: ${add(
-    (t) => calculate(t['input-line-height'], '*', 0.5),
-    (t) => t['input-padding-y'],
+    (t: ThemeVariables) => calculate(t['input-line-height'], '*', 0.5),
+    (t: ThemeVariables) => t['input-padding-y'],
   )};
   $input-height-inner-quarter: ${add(
-    (t) => calculate(t['input-line-height'], '*', 0.25),
-    (t) => calculate(t['input-padding-y'], '*', 0.5),
+    (t: ThemeVariables) => calculate(t['input-line-height'], '*', 0.25),
+    (t: ThemeVariables) => calculate(t['input-padding-y'], '*', 0.5),
   )};
 
   $input-height: ${add(
-    (t) => calculate(t['input-line-height'], '*', t['input-font-size']), // 1em
+    (t: ThemeVariables) =>
+      calculate(t['input-line-height'], '*', t['input-font-size']), // 1em
     add(
-      (t) => calculate(t['input-padding-y'], '*', 2),
-      (t) => t['input-height-border'],
+      (t: ThemeVariables) => calculate(t['input-padding-y'], '*', 2),
+      (t: ThemeVariables) => t['input-height-border'],
     ),
   )};
   $input-height-sm: ${add(
-    (t) => calculate(t['input-line-height'], '*', t['input-font-size-sm']), // 1em
+    (t: ThemeVariables) =>
+      calculate(t['input-line-height'], '*', t['input-font-size-sm']), // 1em
     add(
-      (t) => calculate(t['input-padding-y-sm'], '*', 2),
-      (t) => t['input-height-border'],
+      (t: ThemeVariables) => calculate(t['input-padding-y-sm'], '*', 2),
+      (t: ThemeVariables) => t['input-height-border'],
     ),
   )};
   $input-height-lg: ${add(
-    (t) => calculate(t['input-line-height'], '*', t['input-font-size-lg']), // 1em
+    (t: ThemeVariables) =>
+      calculate(t['input-line-height'], '*', t['input-font-size-lg']), // 1em
     add(
-      (t) => calculate(t['input-padding-y-lg'], '*', 2),
-      (t) => t['input-height-border'],
+      (t: ThemeVariables) => calculate(t['input-padding-y-lg'], '*', 2),
+      (t: ThemeVariables) => t['input-height-border'],
     ),
   )};
 
-  $input-transition: border-color 0.15s ease-in-out,
+  $input-transition:
+    border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
 
   $form-color-width: 3rem;
@@ -891,19 +905,25 @@ const variables = css`
   $form-range-thumb-border: 0;
   $form-range-thumb-border-radius: 1rem;
   $form-range-thumb-box-shadow: 0 0.1rem 0.25rem rgba($black, 0.1);
-  $form-range-thumb-focus-box-shadow: 0 0 0 1px $body-bg,
+  $form-range-thumb-focus-box-shadow:
+    0 0 0 1px $body-bg,
     $input-focus-box-shadow;
   $form-range-thumb-focus-box-shadow-width: $input-focus-width; // For focus box shadow issue in Edge
   $form-range-thumb-active-bg: tint-color($component-active-bg, 70%);
   $form-range-thumb-disabled-bg: $gray-500;
-  $form-range-thumb-transition: background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  $form-range-thumb-transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 
   $form-file-button-color: $input-color;
   $form-file-button-bg: $input-group-addon-bg;
   $form-file-button-hover-bg: shade-color($form-file-button-bg, 5%);
 
-  $form-floating-height: ${add('3.5rem', (t) => t['input-height-border'])};
+  $form-floating-height: ${add(
+    '3.5rem',
+    (t: ThemeVariables) => t['input-height-border'],
+  )};
   $form-floating-line-height: 1.25;
   $form-floating-padding-x: $input-padding-x;
   $form-floating-padding-y: 1rem;
@@ -912,7 +932,8 @@ const variables = css`
   $form-floating-label-opacity: 0.65;
   $form-floating-label-transform: scale(0.85) translateY(-0.5rem)
     translateX(0.15rem);
-  $form-floating-transition: opacity 0.1s ease-in-out,
+  $form-floating-transition:
+    opacity 0.1s ease-in-out,
     transform 0.1s ease-in-out;
 
   // Form validation
@@ -932,7 +953,7 @@ const variables = css`
     "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$form-feedback-icon-invalid-color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$form-feedback-icon-invalid-color}' stroke='none'/></svg>",
   )};
 
-  $form-validation-states: ${(t) => ({
+  $form-validation-states: ${(t: ThemeVariables) => ({
     valid: {
       color: t['form-feedback-valid-color'],
       icon: t['form-feedback-icon-valid'],
@@ -966,8 +987,10 @@ const variables = css`
   $nav-link-font-weight: null;
   $nav-link-color: $link-color;
   $nav-link-hover-color: $link-hover-color;
-  $nav-link-transition: color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  $nav-link-transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
   $nav-link-disabled-color: $gray-600;
 
   $nav-tabs-border-color: $gray-300;
@@ -1045,8 +1068,8 @@ const variables = css`
   $dropdown-border-radius: $border-radius;
   $dropdown-border-width: $border-width;
   $dropdown-inner-border-radius: ${subtract(
-    (t) => t['dropdown-border-radius'],
-    (t) => t['dropdown-border-width'],
+    (t: ThemeVariables) => t['dropdown-border-radius'],
+    (t: ThemeVariables) => t['dropdown-border-width'],
   )};
   $dropdown-divider-bg: $dropdown-border-color;
   $dropdown-divider-margin-y: $spacer * 0.5;
@@ -1055,7 +1078,7 @@ const variables = css`
   $dropdown-link-color: $gray-900;
 
   $dropdown-link-hover-color: ${shadeColor(
-    (t) => t['dropdown-link-color'],
+    (t: ThemeVariables) => t['dropdown-link-color'],
     0.1,
   )};
   $dropdown-link-hover-bg: $gray-200;
@@ -1096,8 +1119,8 @@ const variables = css`
   $card-border-radius: $border-radius;
   $card-box-shadow: null;
   $card-inner-border-radius: ${subtract(
-    (t) => t['card-border-radius'],
-    (t) => t['card-border-width'],
+    (t: ThemeVariables) => t['card-border-radius'],
+    (t: ThemeVariables) => t['card-border-width'],
   )};
   $card-cap-padding-y: $card-spacer-y * 0.5;
   $card-cap-padding-x: $card-spacer-x;
@@ -1136,12 +1159,15 @@ const variables = css`
   $popover-border-color: rgba($black, 0.2);
   $popover-border-radius: $border-radius-lg;
   $popover-inner-border-radius: ${subtract(
-    (t) => t['popover-border-radius'],
-    (t) => t['popover-border-width'],
+    (t: ThemeVariables) => t['popover-border-radius'],
+    (t: ThemeVariables) => t['popover-border-width'],
   )};
   $popover-box-shadow: $box-shadow;
 
-  $popover-header-bg: ${shadeColor((t) => t['popover-bg'], 0.06)};
+  $popover-header-bg: ${shadeColor(
+    (t: ThemeVariables) => t['popover-bg'],
+    0.06,
+  )};
   $popover-header-color: $headings-color;
   $popover-header-padding-y: 0.5rem;
   $popover-header-padding-x: $spacer;
@@ -1200,8 +1226,8 @@ const variables = css`
   $modal-content-border-width: $border-width;
   $modal-content-border-radius: $border-radius-lg;
   $modal-content-inner-border-radius: ${subtract(
-    (t) => t['modal-content-border-radius'],
-    (t) => t['modal-content-border-width'],
+    (t: ThemeVariables) => t['modal-content-border-radius'],
+    (t: ThemeVariables) => t['modal-content-border-width'],
   )};
   $modal-content-box-shadow-xs: $box-shadow-sm;
   $modal-content-box-shadow-sm-up: $box-shadow;
@@ -1276,8 +1302,10 @@ const variables = css`
   $pagination-disabled-bg: $white;
   $pagination-disabled-border-color: $gray-300;
 
-  $pagination-transition: color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+  $pagination-transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
 
   $pagination-border-radius-sm: $border-radius-sm;

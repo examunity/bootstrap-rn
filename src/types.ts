@@ -12,9 +12,18 @@ export type ContainerMaxWidths = {
 };
 
 export type ThemeVariables = {
-  // is this for colors only? seems t.white and t.black are only used as properties and other as ['string']
   white: string;
   black: string;
+  blue: string;
+  indigo: string;
+  purple: string;
+  pink: string;
+  red: string;
+  yellow: string;
+  orange: string;
+  green: string;
+  teal: string;
+  cyan: string;
   containerMaxWidths: ContainerMaxWidths;
   [key: string]: string | ContainerMaxWidths;
 };
