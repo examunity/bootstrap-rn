@@ -1,12 +1,19 @@
-import { useRef, useMemo } from 'react';
-import { Platform, findNodeHandle } from 'react-native';
+import { useRef, useMemo, RefObject } from 'react';
+import { Platform, View, findNodeHandle } from 'react-native';
+
+type ScrollbarEffectsState = {
+  counter: number;
+  elements: HTMLElement[];
+  originalWidths: string[];
+  originalBodyOverflow: string;
+};
 
 const computeScrollbarWidth = () => {
   const documentWidth = document.documentElement.clientWidth;
   return Math.abs(window.innerWidth - documentWidth);
 };
 
-export default function useScrollbarEffects(elements) {
+export default function useScrollbarEffects(elements: RefObject<View>[]) {
   if (Platform.OS !== 'web') {
     return useMemo(
       () => ({
@@ -17,7 +24,7 @@ export default function useScrollbarEffects(elements) {
     );
   }
 
-  const state = useRef({
+  const state = useRef<ScrollbarEffectsState>({
     counter: 0,
     elements: [],
     originalWidths: [],
@@ -40,6 +47,8 @@ export default function useScrollbarEffects(elements) {
         const fixedElements = elements
           .filter((ref) => ref.current)
           .map((ref) => findNodeHandle(ref.current));
+
+        // @ts-expect-error fixedElements should be of type HTMLElement[]
         state.current.elements = [document.body, ...fixedElements];
 
         state.current.originalWidths = state.current.elements.map(

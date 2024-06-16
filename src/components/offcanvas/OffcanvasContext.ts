@@ -1,6 +1,6 @@
 import React from 'react';
 
-type OffcanvasContextType = unknown;
+type OffcanvasContextType = Record<string, never>;
 
 const OffcanvasContext = React.createContext<OffcanvasContextType | null>(null);
 

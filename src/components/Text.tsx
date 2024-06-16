@@ -1,16 +1,29 @@
 import React, { useContext, useMemo } from 'react';
-import { Text as BaseText } from 'react-native';
+import { Text as BaseText, TextProps as BaseTextProps } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import useMedia from '../hooks/useMedia';
-import TextStyleContext, {
-  TextStyleContextType,
-} from '../style/TextStyleContext';
+import TextStyleContext from '../style/TextStyleContext';
 import { getStyles } from '../utils';
-import { ThemeColorsType } from '../theme/proxies';
+import { THEME_COLORS } from '../theme/proxies';
 import useStyle from '../hooks/useStyle';
+import type { TextStyle, StyleName } from '../types';
 
-type ThemeColors = ThemeColorsType | 'muted' | 'black-50' | 'white-50';
+type ThemeColors =
+  | keyof typeof THEME_COLORS
+  | 'muted'
+  | 'black-50'
+  | 'white-50';
+
+export interface TextProps extends Omit<BaseTextProps, 'style'> {
+  color?: ThemeColors;
+  small?: boolean;
+  mark?: boolean;
+  bold?: boolean;
+  italic?: boolean;
+  style?: TextStyle;
+  styleName?: StyleName;
+}
 
 const styles = StyleSheet.create({
   text: css`
@@ -39,9 +52,7 @@ const getStyleName = (styleName?: string, color?: ThemeColors) => {
   if (!color) {
     return styleName;
   }
-  return styleName
-    ? `text-${String(color)} ${styleName}`
-    : `text-${String(color)}`;
+  return styleName ? `text-${color} ${styleName}` : `text-${color}`;
 };
 
 const Text = React.forwardRef<TextRef, TextProps>((props, ref) => {
@@ -57,7 +68,7 @@ const Text = React.forwardRef<TextRef, TextProps>((props, ref) => {
   } = props;
 
   const media = useMedia();
-  const context = useContext<TextStyleContextType | null>(TextStyleContext);
+  const context = useContext(TextStyleContext);
 
   const classes = getStyles(styles, [
     bold && 'strong',
@@ -68,7 +79,6 @@ const Text = React.forwardRef<TextRef, TextProps>((props, ref) => {
 
   const resolveStyle = useStyle(
     [
-      // @ts-expect-error: styles is possibly 'null'.
       (!context || !context.hasTextAncestor) && styles.text,
       context && context.style,
       classes,

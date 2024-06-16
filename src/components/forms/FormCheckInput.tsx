@@ -11,7 +11,7 @@ import { escapeSvg } from '../../theme/functions';
 import FormCheckContext from './FormCheckContext';
 import FormCheckInputWeb from './internals/FormCheckInputWeb';
 import FormCheckInputNative from './internals/FormCheckInputNative';
-import { ThemeData, ThemeVariables } from '../../types';
+import { FormValidationState, ThemeVariables } from '../../types';
 
 export type FormCheckInputProps = {
   type: 'checkbox' | 'radio' | 'switch';
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     }
     opacity: $form-check-label-disabled-opacity;
   `,
-  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
+  ...each(FORM_VALIDATION_STATES, (state, data: FormValidationState) => ({
     [`.form-check-input:${state}`]: css`
       border-color: ${(t: ThemeVariables) => data(t).color};
 

@@ -2,11 +2,14 @@ import { rgba, opacity, mix } from '../style/functions';
 import { calculate } from '../style/math';
 import RgbaValue from '../style/types/RgbaValue';
 import UnitValue from '../style/types/UnitValue';
+import type { ThemeVariables } from '../types';
 
 export const fn =
-  (handle) =>
-  (...args) =>
-  (t) => {
+  <T extends string | number | object>(
+    handle: (input: T[], t: ThemeVariables) => string | null,
+  ) =>
+  (...args: (T | ((t: ThemeVariables) => T))[]) =>
+  (t: ThemeVariables) => {
     const input = args.map((arg) => (typeof arg === 'function' ? arg(t) : arg));
     return handle(input, t);
   };
@@ -21,8 +24,8 @@ const escapedCharacters = {
   ')': '%29',
 };
 
-export const escapeSvg = (string) => {
-  const strReplace = (val) =>
+export const escapeSvg = (string: string) => {
+  const strReplace = (val: string) =>
     Object.entries(escapedCharacters).reduce(
       (result, [char, encoded]) =>
         result.replace(new RegExp(`\\${char}`, 'g'), encoded),
@@ -43,10 +46,10 @@ const luminanceList = [0.0008, 0.001, 0.0011, 0.0013, 0.0015, 0.0017, 0.002, 0.0
 // Return WCAG2.0 relative luminance
 // See https://www.w3.org/WAI/GL/wiki/Relative_luminance
 // See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
-const luminance = (color) => {
+const luminance = (color: string) => {
   const rgb = RgbaValue.parse(color).toRgb();
 
-  const [red, green, blue] = rgb.map((value) => {
+  const [red, green, blue] = rgb.map((value: number) => {
     return value / 255 < 0.04045 ? value / 255 / 12.92 : luminanceList[value];
   });
 
@@ -55,12 +58,12 @@ const luminance = (color) => {
 
 // Return opaque color
 // opaque(#fff, rgba(0, 0, 0, .5)) => #808080
-const opaque = (background, foreground) => {
+const opaque = (background: string, foreground: string) => {
   const foregroundRgba = RgbaValue.parse(foreground);
   return mix(rgba(foregroundRgba, 1), background, opacity(foregroundRgba));
 };
 
-const contrastRatio = (background, foreground) => {
+const contrastRatio = (background: string, foreground: string) => {
   const l1 = luminance(background);
   const l2 = luminance(opaque(background, foreground));
 
@@ -69,18 +72,18 @@ const contrastRatio = (background, foreground) => {
 
 export const colorContrast = fn(([background], t) => {
   const foregrounds = [
-    t['color-contrast-light'],
-    t['color-contrast-dark'],
-    t.white,
-    t.black,
+    t['color-contrast-light'] as string,
+    t['color-contrast-dark'] as string,
+    t.white as string,
+    t.black as string,
   ];
   let maxRatio = 0;
   let maxRatioColor = null;
 
   const result = foregrounds.find((color) => {
-    const ratio = contrastRatio(background, color);
+    const ratio = contrastRatio(background as string, color);
 
-    if (ratio > t['min-contrast-ratio']) {
+    if (ratio > (t['min-contrast-ratio'] as number)) {
       return true;
     }
 
@@ -155,11 +158,11 @@ export const subtract = fn(([value1, value2]) => {
 });
 
 export const divide = fn(([dividend, divisor]) => {
-  if (Math.abs(parseFloat(dividend)) === 0) {
+  if (Math.abs(parseFloat(dividend as string)) === 0) {
     return 0;
   }
 
-  if (Math.abs(parseFloat(divisor)) === 0) {
+  if (Math.abs(parseFloat(divisor as string)) === 0) {
     throw new Error('Cannot divide by 0');
   }
 

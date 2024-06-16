@@ -1,8 +1,8 @@
 import React from 'react';
 
-export interface ButtonGroupContextType {
+export type ButtonGroupContextType = {
   size?: string;
-}
+};
 
 const ButtonGroupContext = React.createContext<ButtonGroupContextType | null>(
   null,

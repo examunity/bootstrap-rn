@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface ListContextProps {
+type ListContextProps = {
   nth: (value: number) => boolean;
   first: boolean;
   last: boolean;
   length: number;
-}
+};
 
 const ListContext = React.createContext<ListContextProps | null>(null);
 

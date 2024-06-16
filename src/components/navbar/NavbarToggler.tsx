@@ -1,7 +1,7 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable from '../Pressable';
+import Pressable, { PressableProps } from '../Pressable';
 import View from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
@@ -14,9 +14,8 @@ import useStyle from '../../hooks/useStyle';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
 import { ThemeVariables } from '../../types';
-import { ToggleType } from '../../hooks/useAction';
 
-export interface NavbarTogglerProps extends ViewProps {
+export interface NavbarTogglerProps extends PressableProps {
   iconStyle?: unknown;
 }
 
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     background-position: center;
     background-size: 100%;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-toggler`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         display: none;
@@ -116,7 +115,7 @@ const NavbarToggler = React.forwardRef<ViewRef, NavbarTogglerProps>(
       <Pressable
         {...elementProps}
         ref={ref}
-        toggle={useToggleNavbar as ToggleType}
+        toggle={useToggleNavbar}
         style={[classes, style]}
         textStyle={[textClasses, textStyle]}
       >

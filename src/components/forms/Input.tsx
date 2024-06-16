@@ -5,7 +5,7 @@ import TextInput from '../TextInput';
 import { getStyles, each } from '../../utils';
 import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
-import { ThemeData, ThemeVariables } from '../../types';
+import { FormValidationState, ThemeVariables } from '../../types';
 
 export type InputProps = {
   size?: 'sm' | 'lg';
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
       line-height: $input-font-size-sm * $line-height-base; // added for bootstrap-rn
     }
   `,
-  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
+  ...each(FORM_VALIDATION_STATES, (state, data: FormValidationState) => ({
     [`.form-control:${state}`]: css`
       border-color: ${(t: ThemeVariables) => data(t).color};
 

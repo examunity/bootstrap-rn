@@ -1,17 +1,23 @@
 import React from 'react';
+import { View as BaseView } from 'react-native';
+import type { StyleUtilities, Viewport, Modifier } from './types';
 
-export interface ContextType {
+export type BootstrapRNContextType = {
+  utilities: StyleUtilities;
+  modifiers: Record<string, Modifier>;
   scrollbars: {
     hide: () => void;
     show: () => void;
   };
-
+  fixed: React.RefObject<BaseView>[];
+  getViewport(): Viewport;
   addFixedElement: (ref: unknown) => {
     remove: () => void;
   };
-}
+  generateKey(prefix: string): string;
+};
 
-const Context = React.createContext<ContextType | null>(null);
+const Context = React.createContext<BootstrapRNContextType | null>(null);
 
 Context.displayName = 'BootstrapRNContext';
 

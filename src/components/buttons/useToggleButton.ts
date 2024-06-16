@@ -1,19 +1,20 @@
+import type { GestureResponderEvent } from 'react-native';
 import { useState } from 'react';
 
-export type ToggleButtonProps = {
+type ToggleButtonProps = {
   active?: boolean;
-  handlePress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onPress?: (event: GestureResponderEvent) => void;
 };
 
 export default function useToggleButton(props: ToggleButtonProps) {
-  const { active = false, handlePress, ...restProps } = props;
+  const { active = false, onPress: handlePress, ...restProps } = props;
 
   const [pressed, setPressed] = useState(active);
 
   return {
     ...restProps,
     active: pressed,
-    onPress: (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPress: (event: GestureResponderEvent) => {
       if (handlePress) handlePress(event);
 
       setPressed((value) => !value);

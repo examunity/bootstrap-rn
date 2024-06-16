@@ -1,16 +1,17 @@
 import { useCallback } from 'react';
+import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
 
-type useDismissDropdownProps = {
-  onPress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+type DismissDropdownProps = {
+  onPress?: (event: GestureResponderEvent) => void;
 };
 
-const useDismissDropdown = (props: useDismissDropdownProps) => {
+const useDismissDropdown = (props: DismissDropdownProps) => {
   const context = useForcedContext(DropdownContext);
 
   const handlePress = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
+    (event: GestureResponderEvent) => {
       if (props.onPress) props.onPress(event);
       context.setVisible(false);
     },

@@ -1,25 +1,27 @@
 import React, { useMemo, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { View as BaseView } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import useViewport from './hooks/useViewport';
 import useScrollbarEffects from './hooks/useScrollbarEffects';
 import Context from './Context';
+import type { StyleUtilities, Viewport, Modifier } from './types';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types,
-  utilities: PropTypes.object,
-  // eslint-disable-next-line react/forbid-prop-types,
-  modifiers: PropTypes.object,
-  ssrViewport: PropTypes.string,
+type ProviderProps = {
+  children: React.ReactNode;
+  utilities: StyleUtilities;
+  modifiers: Record<string, Modifier>;
+  ssrViewport: Viewport;
 };
 
-function Provider(props) {
-  const { children, utilities = {}, modifiers = {}, ssrViewport } = props;
-
+function Provider({
+  children,
+  utilities = {},
+  modifiers = {},
+  ssrViewport,
+}: ProviderProps) {
   const viewport = useViewport(ssrViewport);
 
-  const fixed = useMemo(() => [], []);
+  const fixed: React.RefObject<BaseView>[] = useMemo(() => [], []);
 
   const counter = useRef(0);
 
@@ -34,7 +36,7 @@ function Provider(props) {
       getViewport() {
         return viewport;
       },
-      addFixedElement(ref) {
+      addFixedElement(ref: React.RefObject<BaseView>) {
         fixed.push(ref);
 
         return {
@@ -45,7 +47,7 @@ function Provider(props) {
           },
         };
       },
-      generateKey(prefix) {
+      generateKey(prefix: string) {
         counter.current += 1;
 
         return `ui-${prefix}-${counter.current}`;
@@ -60,7 +62,5 @@ function Provider(props) {
     </Context.Provider>
   );
 }
-
-Provider.propTypes = propTypes;
 
 export default Provider;

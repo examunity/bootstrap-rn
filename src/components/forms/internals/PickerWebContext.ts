@@ -1,8 +1,9 @@
 import React from 'react';
 
 type PickerWebContextType = {
-  optionColor: unknown;
+  optionColor: string;
 };
+
 const PickerWebContext = React.createContext<PickerWebContextType | null>(null);
 
 PickerWebContext.displayName = 'PickerWebContext';

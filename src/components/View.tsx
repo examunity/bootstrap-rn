@@ -1,8 +1,15 @@
 import React, { ForwardedRef, useContext, useMemo } from 'react';
-import { View as BaseView } from 'react-native';
+import { View as BaseView, ViewProps as BaseViewProps } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
+import { TextStyle, StyleName, ViewStyle } from '../types';
+
+export interface ViewProps extends Omit<BaseViewProps, 'style'> {
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  styleName?: StyleName;
+}
 
 const View = React.forwardRef<BaseView, ViewProps>(
   (props, ref: ForwardedRef<BaseView>) => {

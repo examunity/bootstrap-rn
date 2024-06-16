@@ -3,18 +3,6 @@ import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
 import { DropDownDirection } from '../../types';
 
-// The type UseDropdownReturnType will be inferred as:
-export type UseDropdownReturnType = {
-  identifier: string;
-  visible: boolean;
-  setVisible: (visible: boolean) => void;
-  toggleRef: React.MutableRefObject<undefined>;
-  direction: DropDownDirection;
-  center: boolean;
-  display: string;
-  autoClose: string | boolean;
-};
-
 export default function useDropdown(
   defaultVisible: boolean,
   controlledVisible: boolean | undefined,
@@ -23,7 +11,7 @@ export default function useDropdown(
   center: boolean,
   display: string,
   autoClose: string | boolean,
-): UseDropdownReturnType {
+) {
   const identifier = useIdentifier('dropdown');
 
   const toggleRef = useRef();

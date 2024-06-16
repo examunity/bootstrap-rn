@@ -1,7 +1,8 @@
 import React from 'react';
+import type { TextStyle } from '../types';
 
 export type TextStyleContextType = {
-  style?: unknown;
+  style?: TextStyle;
   hasTextAncestor?: boolean;
 };
 

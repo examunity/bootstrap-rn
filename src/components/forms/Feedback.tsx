@@ -4,14 +4,14 @@ import css from '../../style/css';
 import Text from '../Text';
 import { each, getStyles } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
-import { ThemeData, ThemeVariables } from '../../types';
+import { FormValidationState, ThemeVariables } from '../../types';
 
 export interface FeedbackProps extends TextProps {
   type?: keyof typeof FORM_VALIDATION_STATES;
 }
 
 const styles = StyleSheet.create({
-  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
+  ...each(FORM_VALIDATION_STATES, (state, data: FormValidationState) => ({
     [`.${state}-feedback`]: css`
       // display: none;
       width: 100%;
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 const Feedback = React.forwardRef<TextRef, FeedbackProps>((props, ref) => {
   const { children, type, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, [`.${String(type)}-feedback`]);
+  const classes = getStyles(styles, [`.${type}-feedback`]);
 
   return (
     <Text {...elementProps} ref={ref} style={[classes, style]}>

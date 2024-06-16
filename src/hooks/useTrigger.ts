@@ -1,9 +1,10 @@
-import { useState, useRef, ForwardedRef, MouseEvent } from 'react';
+import { useState, useRef, ForwardedRef } from 'react';
 import {
   Platform,
   TextInputFocusEventData,
   NativeSyntheticEvent,
   GestureResponderEvent,
+  MouseEvent,
 } from 'react-native';
 import useIdentifier from './useIdentifier';
 import { optional, concatRefs } from '../utils';
@@ -40,8 +41,8 @@ interface ElementProps {
   onPress?: (event: GestureResponderEvent) => void;
   onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onMouseOver?: (event: MouseEvent<HTMLButtonElement>) => void;
-  onMouseLeave?: (event: MouseEvent<HTMLButtonElement>) => void;
+  onMouseOver?: (event: MouseEvent) => void;
+  onMouseLeave?: (event: MouseEvent) => void;
 }
 
 export default function useTrigger<T>(
@@ -117,7 +118,7 @@ export default function useTrigger<T>(
           onBlur(event);
         }
       },
-      onMouseOver: (event: MouseEvent<HTMLButtonElement>) => {
+      onMouseOver: (event: MouseEvent) => {
         if (trigger.includes('hover')) {
           setHovered(true);
 
@@ -130,7 +131,7 @@ export default function useTrigger<T>(
           onMouseOver(event);
         }
       },
-      onMouseLeave: (event: MouseEvent<HTMLButtonElement>) => {
+      onMouseLeave: (event: MouseEvent) => {
         if (trigger.includes('hover')) {
           setHovered(false);
 

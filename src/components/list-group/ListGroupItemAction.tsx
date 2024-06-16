@@ -62,7 +62,7 @@ const actionStyles = StyleSheet.create({
       color: $list-group-action-active-color;
     }
   `,
-  ...each(THEME_COLORS, (state: string, value: string) => ({
+  ...each(THEME_COLORS, (state, value) => ({
     [`.list-group-item-${state}-action`]: css`
       &:hover {
         background-color: ${shadeColor(

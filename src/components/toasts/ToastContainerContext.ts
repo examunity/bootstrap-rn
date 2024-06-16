@@ -1,6 +1,6 @@
 import React from 'react';
 
-type ToastContainerContextType = unknown;
+type ToastContainerContextType = true;
 
 const ToastContainerContext =
   React.createContext<ToastContainerContextType | null>(null);

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: $offcanvas-padding-y $offcanvas-padding-x;
   `,
   // Navbar styles
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .offcanvas-header`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         display: none;

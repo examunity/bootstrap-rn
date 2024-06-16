@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     padding-right: 0;
     padding-left: 0;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-nav .nav-link`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         padding-right: $navbar-nav-link-padding-x;

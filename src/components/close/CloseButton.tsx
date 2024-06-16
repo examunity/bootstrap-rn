@@ -7,9 +7,7 @@ import ModalContext from '../modal/ModalContext';
 import OffcanvasContext from '../offcanvas/OffcanvasContext';
 import useMedia from '../../hooks/useMedia';
 import useStyle from '../../hooks/useStyle';
-import useInteractionState, {
-  UseInteractionStateProps,
-} from '../../hooks/useInteractionState';
+import useInteractionState from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
 import { ThemeVariables } from '../../types';
@@ -115,9 +113,7 @@ const CloseButton = React.forwardRef<ViewRef, CloseButtonProps>(
 
     const resolveStyle = useStyle([classes, style], styleName);
 
-    const { interaction, interactionProps } = useInteractionState(
-      elementProps as UseInteractionStateProps,
-    );
+    const { interaction, interactionProps } = useInteractionState(elementProps);
 
     const background = useBackground(
       resolveStyle({

@@ -12,22 +12,19 @@ export type DisplayHeadingProps = {
 };
 
 const styles = StyleSheet.create({
-  ...each(
-    DISPLAY_FONT_SIZES,
-    (size: keyof typeof DISPLAY_FONT_SIZES, value: string) => ({
-      [`.display-${String(size)}`]: css`
-        font-size: ${value};
-        line-height: ${value} * $headings-line-height;
-      `,
-    }),
-  ),
+  ...each(DISPLAY_FONT_SIZES, (size, value) => ({
+    [`.display-${size}`]: css`
+      font-size: ${value};
+      line-height: ${value} * $headings-line-height;
+    `,
+  })),
 });
 
 const DisplayHeading = React.forwardRef<ViewRef, DisplayHeadingProps>(
   (props, ref) => {
     const { children, size, style, ...elementProps } = props;
 
-    const classes = getStyles(styles, [`.display-${String(size)}`]);
+    const classes = getStyles(styles, [`.display-${size}`]);
 
     return (
       <Heading {...elementProps} ref={ref} size={1} style={[classes, style]}>

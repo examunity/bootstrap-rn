@@ -11,7 +11,7 @@ type FormCheckInputNativeProps = {
   hitSlop?: number;
   disabled?: boolean;
   style?: React.CSSProperties;
-  id?: string | number;
+  id?: string;
 };
 
 const FormCheckInputNative = forwardRef<ViewRef, FormCheckInputNativeProps>(
@@ -43,7 +43,7 @@ const FormCheckInputNative = forwardRef<ViewRef, FormCheckInputNativeProps>(
         hitSlop={hitSlop}
         disabled={disabled}
         style={inputBackground.style}
-        id={id ? String(id) : undefined}
+        id={id}
       >
         {inputBackground.element}
       </Pressable>

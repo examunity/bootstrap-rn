@@ -1,5 +1,8 @@
 import React from 'react';
-import { Picker as WebPicker } from 'react-native';
+import {
+  // @ts-expect-error web only import
+  Picker as WebPicker,
+} from 'react-native';
 import useForcedContext from '../../../hooks/useForcedContext';
 import PickerWebContext from './PickerWebContext';
 

@@ -7,28 +7,35 @@ import {
 } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useModifier from '../hooks/useModifier';
-import useAction, { UseActionProps } from '../hooks/useAction';
+import useAction, { ActionProps } from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
 import Caret, { CaretProps } from './Caret';
+import type { ViewStyle, TextStyle, StyleName } from '../types';
 
 type CaretTypes = boolean | CaretProps;
 
-export interface PressableProps extends UseActionProps, BasePressableProps {
+export interface PressableProps
+  extends ActionProps,
+    Omit<BasePressableProps, 'children' | 'style'> {
+  children?: React.ReactNode;
   caret?: CaretTypes;
   active?: boolean;
-  activeStyle?: unknown;
-  textStyle?: unknown;
-  activeTextStyle?: unknown;
-  styleName?: unknown;
+  style?: ViewStyle;
+  activeStyle?: ViewStyle;
+  textStyle?: TextStyle;
+  activeTextStyle?: TextStyle;
+  styleName?: StyleName;
 }
 
 // One of the following should be set for aria support:
 // 1) role
 // 2) aria-label + aria-hint
 // 3) accessibilityActions + onAccessibilityAction
-export const getRole = (props: PressableProps): string | null => {
+export const getRole = (
+  props: Pick<PressableProps, 'role' | 'accessibilityActions' | 'aria-label'>,
+) => {
   const { role, accessibilityActions } = props;
 
   if (role) {
@@ -36,7 +43,7 @@ export const getRole = (props: PressableProps): string | null => {
   }
 
   if (props['aria-label'] || accessibilityActions) {
-    return null;
+    return undefined;
   }
 
   return 'button';

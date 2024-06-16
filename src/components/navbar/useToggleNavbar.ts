@@ -1,40 +1,26 @@
-import { useState } from 'react';
+import type { GestureResponderEvent } from 'react-native';
+import useForcedContext from '../../hooks/useForcedContext';
+import NavbarContext from './NavbarContext';
 
-// Define the type for the handleChange function
-type HandleChange<T> = (value: T) => void;
+type ToggleButtonProps = {
+  onPress?: (event: GestureResponderEvent) => void;
+};
 
-// Define the type for the setValue function
-type SetValue<T> = (value: T | ((prevValue: T) => T)) => void;
+export default function useToggleNavbar(props: ToggleButtonProps) {
+  const context = useForcedContext(NavbarContext);
 
-// Define the type for the useControlledState hook
-function useControlledState<T>(
-  defaultValue: T,
-  controlledValue?: T | undefined,
-  handleChange: HandleChange<T> = () => {},
-): [T, SetValue<T>] {
-  const [stateValue, setStateValue] = useState<T>(defaultValue);
+  const { onPress: handlePress, ...restProps } = props;
 
-  const isControlled =
-    controlledValue !== undefined && controlledValue !== null;
+  return {
+    ...restProps,
+    id: context.identifier,
+    onPress: (event: GestureResponderEvent) => {
+      if (handlePress) handlePress(event);
 
-  const value = isControlled ? controlledValue : stateValue;
-
-  const setValue: SetValue<T> = (next) => {
-    const nextValue =
-      typeof next === 'function' ? (next as (prevValue: T) => T)(value) : next;
-
-    if (value === nextValue) {
-      return;
-    }
-
-    if (!isControlled) {
-      setStateValue(nextValue);
-    }
-
-    handleChange(nextValue);
+      context.setExpanded((value) => !value);
+    },
+    accessibilitControls: context.identifier,
+    'aria-expanded': context.expanded,
+    'aria-label': 'Toggle navigation',
   };
-
-  return [value, setValue];
 }
-
-export default useControlledState;

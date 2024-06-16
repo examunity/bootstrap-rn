@@ -29,7 +29,7 @@ const ButtonGroup = React.forwardRef<ViewRef, ButtonGroupProps>(
     // Accessiblity role tabpanel is only supported on web.
     const role = Platform.OS === 'web' ? 'group' : undefined;
 
-    const contextValue = useMemo(() => ({ size: String(size) }), [size]);
+    const contextValue = useMemo(() => ({ size }), [size]);
 
     return (
       <View {...elementProps} ref={ref} role={role} style={[classes, style]}>

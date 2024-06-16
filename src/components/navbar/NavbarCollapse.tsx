@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     // properly vertically. Can be easily overridden with flex utilities.
     // align-items: center;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-collapse`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         flex-direction: row; // added for bootstrap-rn

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     margin-bottom: 0;
     // list-style: none;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-nav`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         flex-direction: row;

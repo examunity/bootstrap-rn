@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
   '.list-group-item-flush + .list-group-item-flush.active': css`
     border-top-width: $list-group-border-width; // added for bootstrap-rn
   `,
-  ...each(THEME_COLORS, (state: string, value: string) => ({
+  ...each(THEME_COLORS, (state, value) => ({
     [`.list-group-item-${state}`]: css`
       background-color: ${shiftColor(
         value,
@@ -120,14 +120,14 @@ const ListGroupItem = React.forwardRef<ViewRef, ListGroupItemProps>(
         flush &&
         active &&
         '.list-group-item-flush + .list-group-item-flush.active',
-      color && `.list-group-item-${String(color)}`,
+      color && `.list-group-item-${color}`,
     ]);
 
     const textClasses = getStyles(styles, [
       '.list-group-item --text',
       active && '.list-group-item.active --text',
       disabled && '.list-group-item.disabled --text',
-      color && `.list-group-item-${String(color)} --text`,
+      color && `.list-group-item-${color} --text`,
     ]);
 
     const role = Platform.OS === 'web' ? 'listitem' : undefined;

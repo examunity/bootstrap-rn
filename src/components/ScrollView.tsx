@@ -1,16 +1,20 @@
 import React, { useContext, useMemo } from 'react';
-import { ScrollView as BaseScrollView } from 'react-native';
+import {
+  ScrollView as BaseScrollView,
+  ScrollViewProps as BaseScrollViewProps,
+} from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
+import type { StyleName, TextStyle, ViewStyle } from '../types';
 
-export type ScrollViewProps = {
-  children?: React.ReactNode;
-  style?: unknown;
-  contentContainerStyle?: unknown;
-  textStyle?: unknown;
-  styleName?: string;
-};
+interface ScrollViewProps
+  extends Omit<BaseScrollViewProps, 'style' | 'contentContainerStyle'> {
+  style?: ViewStyle;
+  contentContainerStyle?: ViewStyle;
+  textStyle?: TextStyle;
+  styleName?: StyleName;
+}
 
 const ScrollView = React.forwardRef<BaseScrollView, ScrollViewProps>(
   (props, ref) => {

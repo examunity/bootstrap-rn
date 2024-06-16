@@ -1,16 +1,10 @@
-import { useContext } from 'react';
 import Context from '../Context';
 import StyleSheet from '../style/StyleSheet';
+import useForcedContext from './useForcedContext';
+import type { MediaHandler, Viewport } from '../types';
 
-export type useMediaProps = {
-  up: (point: string) => boolean;
-  down: (point: string) => boolean;
-  only: (point: string) => boolean;
-  between: (lower: string, upper: string) => boolean;
-};
-
-export default function useMedia(): useMediaProps {
-  const context = useContext(Context);
+export default function useMedia(): MediaHandler {
+  const context = useForcedContext(Context);
 
   const viewport = context.getViewport();
   const breakpoints = StyleSheet.value('grid-breakpoints');
@@ -18,16 +12,16 @@ export default function useMedia(): useMediaProps {
   const breakpointKeys = Object.keys(breakpoints);
 
   return {
-    up(point: string) {
+    up(point: Viewport) {
       return breakpointKeys.indexOf(viewport) >= breakpointKeys.indexOf(point);
     },
-    down(point: string) {
+    down(point: Viewport) {
       return breakpointKeys.indexOf(viewport) <= breakpointKeys.indexOf(point);
     },
-    only(point: string) {
+    only(point: Viewport) {
       return viewport === point;
     },
-    between(lower: string, upper: string) {
+    between(lower: Viewport, upper: Viewport) {
       return this.up(lower) && this.down(upper);
     },
   };

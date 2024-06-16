@@ -16,7 +16,7 @@ import PickerWeb from './internals/PickerWeb';
 import PickerNative from './internals/PickerNative';
 import PickerItem from './PickerItem';
 import PickerContext from './PickerContext';
-import { ThemeData, ThemeVariables } from '../../types';
+import { FormValidationState, ThemeVariables } from '../../types';
 
 export type PickerProps = {
   children: ReactNode;
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     font-size: $form-select-font-size-lg;
     border-radius: $form-select-border-radius-lg;
   `,
-  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
+  ...each(FORM_VALIDATION_STATES, (state, data: FormValidationState) => ({
     [`.form-select:${state}`]: css`
       border-color: ${(t: ThemeVariables) => data(t).color};
 

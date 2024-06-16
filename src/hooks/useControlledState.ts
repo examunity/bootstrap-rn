@@ -1,12 +1,12 @@
 import { useState, Dispatch, SetStateAction } from 'react';
 
-type UseControlledState<T> = [T, Dispatch<SetStateAction<T>>];
+type ControlledState<T> = [T, Dispatch<SetStateAction<T>>];
 
 export default function useControlledState<T>(
   defaultValue: T,
   controlledValue: T | undefined,
   handleChange: (value: T) => void = () => {},
-): UseControlledState<T> {
+): ControlledState<T> {
   const [stateValue, setStateValue] = useState<T>(defaultValue);
 
   const isControlled =

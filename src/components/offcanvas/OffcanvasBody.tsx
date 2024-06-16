@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     // overflow-y: auto;
   `,
   // Navbar styles
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .offcanvas-body`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         display: flex;

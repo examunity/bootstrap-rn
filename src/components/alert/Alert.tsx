@@ -3,12 +3,12 @@ import View from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, each } from '../../utils';
-import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
+import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
 import { ThemeVariables } from '../../types';
 
 export interface AlertProps extends ViewProps {
-  color?: ThemeColorsType;
+  color?: keyof typeof THEME_COLORS;
   dismissible?: boolean;
 }
 
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     border: $alert-border-width solid transparent;
     border-radius: $alert-border-radius;
   `,
-  ...each(THEME_COLORS, (state: string, value: string) => ({
+  ...each(THEME_COLORS, (state, value) => ({
     [`.alert-${state}`]: css`
       background-color: ${shiftColor(
         value,
@@ -56,11 +56,11 @@ const Alert = React.forwardRef<ViewRef, AlertProps>((props, ref) => {
 
   const classes = getStyles(styles, [
     '.alert',
-    `.alert-${String(color)}`,
+    `.alert-${color}`,
     dismissible && '.alert-dismissible',
   ]);
 
-  const textClasses = getStyles(styles, [`.alert-${String(color)} --text`]);
+  const textClasses = getStyles(styles, [`.alert-${color} --text`]);
 
   return (
     <View

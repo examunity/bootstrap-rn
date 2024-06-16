@@ -1,19 +1,19 @@
-import { MouseEvent } from 'react';
+import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from './NavbarContext';
 
-interface useDismissNavbarProps {
-  onPress?: (event: MouseEvent<HTMLButtonElement>) => void;
+interface DismissNavbarProps {
+  onPress?: (event: GestureResponderEvent) => void;
 }
 
-export default function useDismissNavbar(props: useDismissNavbarProps) {
+export default function useDismissNavbar(props: DismissNavbarProps) {
   const context = useForcedContext(NavbarContext);
 
   const { onPress: handlePress, ...restProps } = props;
 
   return {
     ...restProps,
-    onPress: (event: MouseEvent<HTMLButtonElement>) => {
+    onPress: (event: GestureResponderEvent) => {
       if (handlePress) handlePress(event);
 
       context.setExpanded(false);

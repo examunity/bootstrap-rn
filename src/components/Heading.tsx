@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     font-weight: $headings-font-weight;
     color: $headings-color;
   `,
-  ...each(FONT_SIZES, (size: number, value: number) => ({
+  ...each(FONT_SIZES, (size, value) => ({
     [`.h${size}`]: css`
       font-size: ${value};
       line-height: ${value} * $headings-line-height;
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 const Heading = React.forwardRef<TextRef, HeadingProps>((props, ref) => {
   const { children, size, style, ...elementProps } = props;
 
-  const classes = getStyles(styles, ['heading', `.h${String(size)}`]);
+  const classes = getStyles(styles, ['heading', `.h${size}`]);
 
   return (
     <Text

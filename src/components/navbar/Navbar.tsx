@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     padding-left: $navbar-padding-x; // default: null
     // @include gradient-bg();
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))}`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         flex-wrap: nowrap;

@@ -1,25 +1,15 @@
+import type { GestureResponderEvent } from 'react-native';
 import invariant from 'tiny-invariant';
 import useForcedContext from '../../hooks/useForcedContext';
 import TabContext from './TabContext';
 import { getElementId } from '../../utils';
 
-export type useToggleTabProps = {
+type ToggleTabProps = {
   target: string;
-  onPress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onPress?: (event: GestureResponderEvent) => void;
 };
 
-export type ToggleTabResult = {
-  id: string;
-  onPress: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  active: boolean;
-  role: string;
-  'aria-controls': string;
-  'aria-selected': boolean;
-};
-
-export default function useToggleTab(
-  props: useToggleTabProps,
-): ToggleTabResult {
+export default function useToggleTab(props: ToggleTabProps) {
   const context = useForcedContext(TabContext);
 
   const { target, onPress: handlePress, ...restProps } = props;
@@ -32,7 +22,7 @@ export default function useToggleTab(
   return {
     ...restProps,
     id: `${id}-tab`,
-    onPress: (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPress: (event: GestureResponderEvent) => {
       if (handlePress) handlePress(event);
 
       event.preventDefault();

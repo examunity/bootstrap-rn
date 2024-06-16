@@ -1,13 +1,13 @@
-import { MouseEvent } from 'react';
+import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
 
-export type UseToggleDropdownProps = {
-  onPress?: (event: MouseEvent<HTMLButtonElement>) => void;
+export type ToggleDropdownProps = {
+  onPress?: (event: GestureResponderEvent) => void;
   caret?: { direction?: string } | boolean;
 };
 
-export default function useToggleDropdown(props: UseToggleDropdownProps) {
+export default function useToggleDropdown(props: ToggleDropdownProps) {
   const context = useForcedContext(DropdownContext);
 
   const { onPress: handlePress, caret, ...restProps } = props;
@@ -16,7 +16,7 @@ export default function useToggleDropdown(props: UseToggleDropdownProps) {
     ...restProps,
     id: context.identifier,
     ref: context.toggleRef,
-    onPress: (event: MouseEvent<HTMLButtonElement>) => {
+    onPress: (event: GestureResponderEvent) => {
       if (handlePress) handlePress(event);
 
       context.setVisible(!context.visible);

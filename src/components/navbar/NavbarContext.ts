@@ -2,10 +2,13 @@ import { createContext } from 'react';
 import { NavbarExpand, NavbarVariant } from '../../types';
 
 export type NavbarContextType = {
-  expand?: NavbarExpand;
-  expanded?: boolean;
+  identifier: string;
   variant?: NavbarVariant;
-  setExpanded: (expand: boolean) => void;
+  expanded?: boolean;
+  setExpanded: (
+    expanded: boolean | ((currentState: boolean) => boolean),
+  ) => void;
+  expand?: NavbarExpand;
 };
 
 const NavbarContext = createContext<NavbarContextType | null>(null);

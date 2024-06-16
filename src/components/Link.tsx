@@ -1,18 +1,19 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
+import type { MouseEvent } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import Text from './Text';
 import { getStyles } from '../utils';
 import useModifier from '../hooks/useModifier';
-import useAction from '../hooks/useAction';
+import useAction, { ActionProps } from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
 import { getRole } from './Pressable';
 
-export interface LinkProps extends TextProps {
-  onMouseEnter?: (event?: MouseEvent<HTMLButtonElement>) => void;
-  onMouseLeave?: (event?: MouseEvent<HTMLButtonElement>) => void;
+export interface LinkProps extends ActionProps, TextProps {
+  onMouseEnter?: (event?: MouseEvent) => void;
+  onMouseLeave?: (event?: MouseEvent) => void;
 }
 
 const styles = StyleSheet.create({
@@ -37,8 +38,10 @@ const Link = React.forwardRef<TextRef, LinkProps>((props, ref) => {
     children,
     // Filter hover handlers, because Text component does not have hover
     // handlers. Instead we use mouse enter/leave handlers.
+    // @ts-expect-error see comment above
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onHoverIn,
+    // @ts-expect-error see comment above
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onHoverOut,
     onMouseEnter: handleMouseEnter = () => {},
@@ -66,11 +69,12 @@ const Link = React.forwardRef<TextRef, LinkProps>((props, ref) => {
     <Text
       {...elementProps}
       {...interactionProps}
-      onMouseEnter={(event: MouseEvent<HTMLButtonElement>) => {
+      // @ts-expect-error web only event
+      onMouseEnter={(event: MouseEvent) => {
         handleMouseEnter(event);
         handleMouseEnterInteraction(event);
       }}
-      onMouseLeave={(event: MouseEvent<HTMLButtonElement>) => {
+      onMouseLeave={(event: MouseEvent) => {
         handleMouseLeave(event);
         handleMouseLeaveInteraction(event);
       }}

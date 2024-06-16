@@ -6,7 +6,7 @@ import Label from '../Label';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import useForcedContext from '../../hooks/useForcedContext';
 import FormCheckContext from './FormCheckContext';
-import { ThemeData, ThemeVariables } from '../../types';
+import { FormValidationState, ThemeVariables } from '../../types';
 
 export type FormCheckLabelProps = {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   '.form-check-label --text': css`
     color: $form-check-label-color;
   `,
-  ...each(FORM_VALIDATION_STATES, (state: string, data: ThemeData) => ({
+  ...each(FORM_VALIDATION_STATES, (state, data: FormValidationState) => ({
     [`.form-check-input:${state} ~ .form-check-label --text`]: css`
       color: ${(t: ThemeVariables) => data(t).color};
     `,

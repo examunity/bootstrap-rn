@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     left: 0;
     margin-top: $dropdown-spacer;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.dropdown-menu${infix(breakpoint)}-start[data-bs-popper]`]: css`
       @include media-breakpoint-up(${breakpoint}) {
         right: auto;
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   '.navbar-nav .dropdown-menu': css`
     position: relative; // static;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .navbar-nav .dropdown-menu`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         position: absolute;
@@ -110,10 +110,10 @@ const getAlignment = (
   start?: AlignmentBreakpoints,
   end?: AlignmentBreakpoints,
 ): 'start' | 'end' => {
-  const tempStart = start ? media.up(String(start)) : false;
+  const tempStart = start ? media.up(start) : false;
   const alignStart = typeof start === 'boolean' ? start : tempStart;
 
-  const tempEnd = end ? media.up(String(end)) : false;
+  const tempEnd = end ? media.up(end) : false;
   const alignEnd = typeof end === 'boolean' ? end : tempEnd;
 
   if (!alignEnd) {

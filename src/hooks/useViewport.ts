@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Dimensions, Platform, ScaledSize } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
+import type { Viewport } from '../types';
 
 interface Breakpoints {
   sm: number;
@@ -9,8 +10,6 @@ interface Breakpoints {
   xl: number;
   xxl: number;
 }
-
-type Viewport = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 type DimensionType = { window: ScaledSize };
 

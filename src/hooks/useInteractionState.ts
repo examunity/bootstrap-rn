@@ -1,80 +1,81 @@
 import { useState, useMemo } from 'react';
+import type {
+  TextInputFocusEventData,
+  NativeSyntheticEvent,
+  MouseEvent,
+  GestureResponderEvent,
+  TargetedEvent,
+} from 'react-native';
 import { useFocusRing } from '@react-native-aria/focus';
 
-export type UseInteractionStateProps = {
-  onFocus?: (event: unknown) => void;
-  onBlur?: (event: unknown) => void;
-  onHoverIn?: (event: unknown) => void;
-  onHoverOut?: (event: unknown) => void;
-  onPressIn?: (event: unknown) => void;
-  onPressOut?: (event: unknown) => void;
+type InteractionProps = {
+  onFocus?:
+    | null
+    | ((event: NativeSyntheticEvent<TargetedEvent>) => void)
+    | undefined;
+  onBlur?:
+    | null
+    | ((event: NativeSyntheticEvent<TargetedEvent>) => void)
+    | undefined;
+  onHoverIn?: null | ((event: MouseEvent) => void) | undefined;
+  onHoverOut?: null | ((event: MouseEvent) => void) | undefined;
+  onPressIn?: null | ((event: GestureResponderEvent) => void) | undefined;
+  onPressOut?: null | ((event: GestureResponderEvent) => void) | undefined;
   autoFocus?: boolean;
 };
 
-interface InteractionState {
-  hover: boolean;
-  focus: boolean;
-  focusVisible: boolean;
-  active: boolean;
-}
-
-interface FocusRingOutput {
-  isFocused: boolean;
-  isFocusVisible: boolean;
-  focusProps: {
-    onFocus: (event: unknown) => void;
-    onBlur: (event: unknown) => void;
-  };
-}
-
 export default function useInteractionState({
-  onFocus = () => {},
-  onBlur = () => {},
-  onHoverIn = () => {},
-  onHoverOut = () => {},
-  onPressIn = () => {},
-  onPressOut = () => {},
-  // autoFocus, To confirm: is this still needed
-}: UseInteractionStateProps) {
+  onFocus,
+  onBlur,
+  onHoverIn,
+  onHoverOut,
+  onPressIn,
+  onPressOut,
+  autoFocus,
+}: InteractionProps) {
   const [active, setActive] = useState(false);
   const [hover, setHovered] = useState(false);
+
+  // @ts-expect-error definition is on @react-aria/focus but not on @react-native-aria/focus
+  const focusRingProps = useFocusRing({ autoFocus }) as unresolved;
+
   const {
     isFocused: focus,
     isFocusVisible: focusVisible,
     focusProps,
-  } = useFocusRing() as FocusRingOutput; // { autoFocus } useFocusRing does not accept arguments
+  } = focusRingProps;
 
   const interactionProps = useMemo(
     () => ({
-      onHoverIn(event: unknown) {
+      onHoverIn(event: MouseEvent) {
         setHovered(true);
-        onHoverIn(event);
+        if (onHoverIn) onHoverIn(event);
       },
-      onHoverOut(event: unknown) {
+      onHoverOut(event: MouseEvent) {
         setHovered(false);
-        onHoverOut(event);
+        if (onHoverOut) onHoverOut(event);
       },
-      onFocus(event: unknown) {
+      onFocus(event: NativeSyntheticEvent<TextInputFocusEventData>) {
         focusProps.onFocus(event);
-        onFocus(event);
+        if (onFocus) onFocus(event);
       },
-      onBlur(event: unknown) {
+      onBlur(event: NativeSyntheticEvent<TextInputFocusEventData>) {
         focusProps.onBlur(event);
-        onBlur(event);
+        if (onBlur) onBlur(event);
       },
-      onPressIn(event: unknown) {
+      onPressIn(event: GestureResponderEvent) {
         setActive(true);
-        onPressIn(event);
+        if (onPressIn) onPressIn(event);
       },
-      onPressOut(event: unknown) {
+      onPressOut(event: GestureResponderEvent) {
         setActive(false);
-        onPressOut(event);
+        if (onPressOut) onPressOut(event);
       },
     }),
     [onFocus, onBlur, onHoverIn, onHoverOut, onPressIn, onPressOut, focusProps],
   );
 
-  const interaction: InteractionState = { hover, focus, focusVisible, active };
+  const interaction = { hover, focus, focusVisible, active };
 
   return { interaction, interactionProps };
 }

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     padding-left: $grid-gutter-width * 0.5;
     margin-top: 0;
   `,
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.col${infix(breakpoint)}`]: css`
       @include media-breakpoint-up(${breakpoint}) {
         flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4

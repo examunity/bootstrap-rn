@@ -1,10 +1,10 @@
+import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import CollapseContext from './CollapseContext';
 
-// Define the props expected by the hook
-interface ToggleCollapseProps {
-  onPress?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
+type ToggleCollapseProps = {
+  onPress?: (event: GestureResponderEvent) => void;
+};
 
 export default function useToggleCollapse(props: ToggleCollapseProps) {
   const context = useForcedContext(CollapseContext);
@@ -13,7 +13,7 @@ export default function useToggleCollapse(props: ToggleCollapseProps) {
 
   return {
     ...restProps,
-    onPress: (event: React.MouseEvent<HTMLButtonElement>) => {
+    onPress: (event: GestureResponderEvent) => {
       handlePress?.(event);
 
       context.setVisible((value: boolean) => !value);

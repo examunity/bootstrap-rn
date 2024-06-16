@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     height: $offcanvas-vertical-height;
   `,
   // Navbar styles
-  ...each(GRID_BREAKPOINTS, (breakpoint: keyof typeof GRID_BREAKPOINTS) => ({
+  ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .offcanvas`]: css`
       @include media-breakpoint-up(${next(breakpoint)}) {
         position: relative; // inherit;

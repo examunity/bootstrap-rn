@@ -3,7 +3,7 @@ import { Animated, Easing, Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
-import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
+import { THEME_COLORS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
 import { SpinnerVariant } from '../../types';
 
@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     border-radius: $spinner-width * 50%;
     // animation: $spinner-animation-speed linear infinite spinner-border;
   `,
-  ...each(THEME_COLORS, (color: ThemeColorsType, value: string) => ({
-    [`.spinner-border-${String(color)}`]: css`
+  ...each(THEME_COLORS, (color, value) => ({
+    [`.spinner-border-${color}`]: css`
       border-top-color: ${value};
       border-bottom-color: ${value};
       border-left-color: ${value};
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     opacity: 0;
     // animation: $spinner-animation-speed linear infinite spinner-grow;
   `,
-  ...each(THEME_COLORS, (color: ThemeColorsType, value: string) => ({
-    [`.spinner-grow-${String(color)}`]: css`
+  ...each(THEME_COLORS, (color, value) => ({
+    [`.spinner-grow-${color}`]: css`
       background-color: ${value};
     `,
   })),
@@ -118,7 +118,7 @@ const Spinner = React.forwardRef<ViewRef, SpinnerProps>((props, ref) => {
 
   const classes = getStyles(styles, [
     `.spinner-${variant}`,
-    color && `.spinner-${variant}-${String(color)}`,
+    color && `.spinner-${variant}-${color}`,
     size === 'sm' && `.spinner-${variant}-sm`,
   ]);
 

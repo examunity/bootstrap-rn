@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import invariant from 'tiny-invariant';
 import Pressable from '../Pressable';
-import { THEME_COLORS, ThemeColorsType } from '../../theme/proxies';
+import { THEME_COLORS } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
 import ButtonGroupContext, {
   ButtonGroupContextType,
@@ -13,11 +13,11 @@ import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
 import { ThemeVariables } from '../../types';
 
-type ThemeColors = ThemeColorsType | 'link';
+type ButtonThemeColors = keyof typeof THEME_COLORS | 'link';
 
 export type ButtonProps = {
   children: React.ReactNode;
-  color: ThemeColors;
+  color: ButtonThemeColors;
   size?: 'lg' | 'sm';
   outline?: boolean;
   active?: boolean;
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     opacity: $btn-disabled-opacity;
     // @include box-shadow(none);
   `,
-  ...each(THEME_COLORS, (color: ThemeColors, value: string) => ({
-    [`.btn-${String(color)}`]: css`
+  ...each(THEME_COLORS, (color, value) => ({
+    [`.btn-${color}`]: css`
       background-color: ${value};
       border-color: ${value};
       // @include box-shadow($btn-box-shadow);
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         )};
       }
     `,
-    [`.btn-${String(color)} --text`]: css`
+    [`.btn-${color} --text`]: css`
       color: ${colorContrast(value)};
 
       &:hover {
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         color: ${colorContrast(value)};
       }
     `,
-    [`.btn-${String(color)}.active`]: css`
+    [`.btn-${color}.active`]: css`
       background-color: ${shadeColor(
         value,
         (t: ThemeVariables) => t['btn-active-bg-shade-amount'],
@@ -152,10 +152,10 @@ const styles = StyleSheet.create({
         (t: ThemeVariables) => t['btn-active-border-shade-amount'],
       )};
     `,
-    [`.btn-${String(color)}.active --text`]: css`
+    [`.btn-${color}.active --text`]: css`
       color: ${colorContrast(value)};
     `,
-    [`.btn-${String(color)}.disabled`]: css`
+    [`.btn-${color}.disabled`]: css`
       $disabled-background: ${value};
       $disabled-border: ${value};
 
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
       // background-image: if($enable-gradients, none, null);
       border-color: $disabled-border;
     `,
-    [`.btn-${String(color)}.disabled --text`]: css`
+    [`.btn-${color}.disabled --text`]: css`
       $disabled-color: ${colorContrast(value)};
 
       color: $disabled-color;
     `,
-    [`.btn-outline-${String(color)}`]: css`
+    [`.btn-outline-${color}`]: css`
       border-color: ${value};
 
       &:hover {
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
         } */
       }
     `,
-    [`.btn-outline-${String(color)} --text`]: css`
+    [`.btn-outline-${color} --text`]: css`
       color: ${value};
 
       &:hover {
@@ -209,10 +209,10 @@ const styles = StyleSheet.create({
         color: ${colorContrast(value)};
       }
     `,
-    [`.btn-outline-${String(color)}.disabled`]: css`
+    [`.btn-outline-${color}.disabled`]: css`
       background-color: transparent;
     `,
-    [`.btn-outline-${String(color)}.disabled --text`]: css`
+    [`.btn-outline-${color}.disabled --text`]: css`
       color: ${value};
     `,
   })),
@@ -283,16 +283,16 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getVariant = (color: ThemeColors, outline?: boolean) => {
+const getVariant = (color: ButtonThemeColors, outline?: boolean) => {
   if (color === 'link') {
     return null;
   }
 
   if (outline) {
-    return `.btn-outline-${String(color)}`;
+    return `.btn-outline-${color}`;
   }
 
-  return `.btn-${String(color)}`;
+  return `.btn-${color}`;
 };
 
 const hasSize = (
@@ -310,7 +310,7 @@ const hasSize = (
 const Button = React.forwardRef<ViewRef, ButtonProps>((props, ref) => {
   const {
     children,
-    color = 'prmary',
+    color = 'primary',
     size,
     outline = false,
     active = false,
@@ -339,8 +339,8 @@ const Button = React.forwardRef<ViewRef, ButtonProps>((props, ref) => {
     hasSize('sm', group, size) && '.btn-sm',
     group && '.btn-group > .btn',
     group && active && '.btn-group > .btn.active',
-    group && !listItem.first && '.btn-group > .btn:not(:first-child)',
-    group && !listItem.last && '.btn-group > .btn:not(:last-child)',
+    group && !listItem?.first && '.btn-group > .btn:not(:first-child)',
+    group && !listItem?.last && '.btn-group > .btn:not(:last-child)',
   ]);
 
   const activeClasses = getStyles(styles, [

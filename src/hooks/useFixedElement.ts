@@ -1,15 +1,16 @@
-import { useContext, useRef, useEffect } from 'react';
-import Context, { ContextType } from '../Context';
+import { useRef, useEffect } from 'react';
+import Context from '../Context';
+import useForcedContext from './useForcedContext';
 
 export default function useFixedElement() {
-  const context = useContext<ContextType | null>(Context);
+  const context = useForcedContext(Context);
   const ref = useRef(null);
 
   useEffect(() => {
-    const link = context?.addFixedElement(ref);
+    const link = context.addFixedElement(ref);
 
     return () => {
-      link?.remove();
+      link.remove();
     };
   }, [context]);
 

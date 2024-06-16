@@ -6,7 +6,6 @@ import { makeProxy } from '../utils';
 
 // Color system
 
-
 export const GRAYS = makeProxy('grays', [
   '100',
   '200',
@@ -17,7 +16,7 @@ export const GRAYS = makeProxy('grays', [
   '700',
   '800',
   '900',
-]);
+] as const);
 
 export const COLORS = makeProxy('colors', [
   'blue',
@@ -30,7 +29,7 @@ export const COLORS = makeProxy('colors', [
   'green',
   'teal',
   'cyan',
-]);
+] as const);
 
 export const THEME_COLORS = makeProxy('theme-colors', [
   'primary',
@@ -41,7 +40,7 @@ export const THEME_COLORS = makeProxy('theme-colors', [
   'danger',
   'light',
   'dark',
-]);
+] as const);
 
 export const BLUES = makeProxy('blues', [
   'blue-100',
@@ -53,7 +52,7 @@ export const BLUES = makeProxy('blues', [
   'blue-700',
   'blue-800',
   'blue-900',
-]);
+] as const);
 
 export const INDIGOS = makeProxy('indigos', [
   'indigo-100',
@@ -65,7 +64,7 @@ export const INDIGOS = makeProxy('indigos', [
   'indigo-700',
   'indigo-800',
   'indigo-900',
-]);
+] as const);
 
 export const PURPLES = makeProxy('purples', [
   'purple-100',
@@ -77,7 +76,7 @@ export const PURPLES = makeProxy('purples', [
   'purple-700',
   'purple-800',
   'purple-900',
-]);
+] as const);
 
 export const PINKS = makeProxy('pinks', [
   'pink-100',
@@ -89,7 +88,7 @@ export const PINKS = makeProxy('pinks', [
   'pink-700',
   'pink-800',
   'pink-900',
-]);
+] as const);
 
 export const REDS = makeProxy('reds', [
   'red-100',
@@ -101,7 +100,7 @@ export const REDS = makeProxy('reds', [
   'red-700',
   'red-800',
   'red-900',
-]);
+] as const);
 
 export const ORANGES = makeProxy('oranges', [
   'orange-100',
@@ -113,7 +112,7 @@ export const ORANGES = makeProxy('oranges', [
   'orange-700',
   'orange-800',
   'orange-900',
-]);
+] as const);
 
 export const YELLOWS = makeProxy('yellows', [
   'yellow-100',
@@ -125,7 +124,7 @@ export const YELLOWS = makeProxy('yellows', [
   'yellow-700',
   'yellow-800',
   'yellow-900',
-]);
+] as const);
 
 export const GREENS = makeProxy('greens', [
   'green-100',
@@ -137,7 +136,7 @@ export const GREENS = makeProxy('greens', [
   'green-700',
   'green-800',
   'green-900',
-]);
+] as const);
 
 export const TEALS = makeProxy('teals', [
   'teal-100',
@@ -149,7 +148,7 @@ export const TEALS = makeProxy('teals', [
   'teal-700',
   'teal-800',
   'teal-900',
-]);
+] as const);
 
 export const CYANS = makeProxy('cyans', [
   'cyan-100',
@@ -161,7 +160,7 @@ export const CYANS = makeProxy('cyans', [
   'cyan-700',
   'cyan-800',
   'cyan-900',
-]);
+] as const);
 
 // Spacing
 //
@@ -169,13 +168,15 @@ export const CYANS = makeProxy('cyans', [
 // variables. Mostly focused on spacing.
 // You can add more entries to the $spacers map, should you need more variation.
 
-export const SPACERS = makeProxy('spacers', [0, 1, 2, 3, 4, 5]);
+export const SPACERS = makeProxy('spacers', [0, 1, 2, 3, 4, 5] as const);
 
 // Position
 //
 // Define the edge positioning anchors of the position utilities.
 
-export const POSITION_VALUES = makeProxy('position-values', [0, 50, 100]);
+export const POSITION_VALUES = makeProxy('position-values', [
+  0, 50, 100,
+] as const);
 
 // Grid breakpoints
 //
@@ -189,7 +190,7 @@ export const GRID_BREAKPOINTS = makeProxy('grid-breakpoints', [
   'lg',
   'xl',
   'xxl',
-]);
+] as const);
 
 // Grid containers
 //
@@ -201,7 +202,7 @@ export const CONTAINER_MAX_WIDTHS = makeProxy('container-max-widths', [
   'lg',
   'xl',
   'xxl',
-]);
+] as const);
 
 // Grid columns
 //
@@ -222,29 +223,24 @@ export const ASPECT_RATIOS = makeProxy('aspect-ratios', [
   '4x3',
   '16x9',
   '21x9',
-]);
+] as const);
 
 // Typography
 //
 // Font, line-height, and color for body text, headings, and more.
 
-export const FONT_SIZES = makeProxy('font-sizes', [1, 2, 3, 4, 5, 6]);
+export const FONT_SIZES = makeProxy('font-sizes', [1, 2, 3, 4, 5, 6] as const);
 
 export const DISPLAY_FONT_SIZES = makeProxy('display-font-sizes', [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-]);
+  1, 2, 3, 4, 5, 6,
+] as const);
 
 // Forms
 
 export const FORM_VALIDATION_STATES = makeProxy('form-validation-states', [
   'valid',
   'invalid',
-]);
+] as const);
 
 const proxies = {
   GRAYS,
@@ -272,8 +268,5 @@ const proxies = {
   DISPLAY_FONT_SIZES,
   FORM_VALIDATION_STATES,
 };
-
-
-export type ThemeColorsType = keyof typeof THEME_COLORS;
 
 export default proxies;

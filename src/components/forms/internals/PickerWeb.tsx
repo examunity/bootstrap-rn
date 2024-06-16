@@ -1,5 +1,6 @@
 import React, { useMemo, forwardRef } from 'react';
 import {
+  // @ts-expect-error web only import
   Picker as BasePicker,
   StyleSheet as StyleUtils,
   ViewStyle,
@@ -27,14 +28,14 @@ const PLACEHOLDER = '__PLACEHOLDER__';
 const getOptionStyle = (
   style: ViewStyle | TextStyle,
   showPlaceholder: boolean,
-): string | null => {
+) => {
   if (!showPlaceholder) {
     return null;
   }
 
   const flattenedStyle = StyleUtils.flatten(style);
 
-  return String((flattenedStyle as TextStyle).color) || null;
+  return flattenedStyle.color || null;
 };
 
 const PickerWeb = forwardRef<BasePicker, PickerWebProps>((props, ref) => {

@@ -5,7 +5,7 @@ type Cache = {
   count: number;
 };
 
-const wrapChildren = (children: ReactNode, cache: Cache): ReactNode =>
+const wrapChildren = (children: ReactNode, cache: Cache) =>
   React.Children.map(children, (child) => {
     if (child === null) {
       return null;
@@ -51,6 +51,6 @@ const wrapChildren = (children: ReactNode, cache: Cache): ReactNode =>
     return null;
   });
 
-export default function useList(children: ReactNode): ReactNode {
+export default function useList(children: ReactNode) {
   return wrapChildren(children, { count: 0 });
 }

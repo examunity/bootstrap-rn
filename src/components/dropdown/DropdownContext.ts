@@ -1,11 +1,10 @@
 import { createContext } from 'react';
-import { UseDropdownReturnType } from './useDropdown';
 
-interface DropdownContextProps extends UseDropdownReturnType {
+type DropdownContextProps = {
   visible: boolean;
   toggle?: () => void;
-  setVisible: (visible: boolean) => void;
-}
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const DropdownContext = createContext<DropdownContextProps | null>(null);
 

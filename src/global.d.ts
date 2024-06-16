@@ -1,27 +1,13 @@
 import type { View as BaseView, Text as BaseText } from 'react-native';
-import {
-  ViewProps as BaseViewProps,
-  TextProps as BaseTextProps,
-} from 'react-native';
+import type { ViewProps as ComponentViewProps } from './components/View';
+import type { TextProps as ComponentTextProps } from './components/Text';
 
 declare global {
   type ViewRef = BaseView;
 
   type TextRef = BaseText;
 
-  interface ViewProps extends BaseViewProps {
-    textStyle?: unknown;
-    styleName?: string;
-  }
+  interface ViewProps extends ComponentViewProps {}
 
-  interface TextProps extends BaseTextProps {
-    color?: ThemeColors;
-    small?: boolean;
-    mark?: boolean;
-    bold?: boolean;
-    italic?: boolean;
-    styleName?: string;
-  }
+  interface TextProps extends ComponentTextProps {}
 }
-
-export {};
