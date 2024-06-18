@@ -1,7 +1,7 @@
 import { I18nManager } from 'react-native';
 import { UniversalStyle, ThemeVariables } from './types';
 
-type ResolveTheme = (t: ThemeVariables) => string | number | object;
+type ResolveTheme = (t: ThemeVariables) => string;
 
 export function each<T extends Record<string, ResolveTheme | string>>(
   source: T,
@@ -26,7 +26,6 @@ export function makeProxy<T extends (string | number)[]>(
   return keys.reduce(
     (result, key) => ({
       ...result,
-      // @ts-expect-error ThemeVariables type is incompatible with makeProxy
       [key]: (t: ThemeVariables) => t[name][key],
     }),
     {} as { [key in T[number]]: ResolveTheme },

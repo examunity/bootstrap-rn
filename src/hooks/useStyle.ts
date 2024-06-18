@@ -1,17 +1,19 @@
 import { useMemo } from 'react';
-import type { StyleProp, ViewStyle, ImageStyle, TextStyle } from 'react-native';
+import type {
+  ViewStyle as BaseViewStyle,
+  ImageStyle as BaseImageStyle,
+  TextStyle as BaseTextStyle,
+} from 'react-native';
 import { BOOTSTRAP_RN_STYLE } from '../style/createStyle';
 import Context from '../Context';
-import type { UniversalStyle, StyleName, InteractionState } from '../types';
+import type { StyleProp, StyleName, InteractionState } from '../types';
 import useForcedContext from './useForcedContext';
-
-type BaseStyle = StyleProp<ViewStyle | ImageStyle | TextStyle>;
 
 type FalsyValue = false | undefined | null | '' | 0;
 
-const normalize = <T extends UniversalStyle>(
-  style: T | (T | FalsyValue)[],
-): UniversalStyle[] => {
+const normalize = <T>(
+  style: StyleProp<T> | (StyleProp<T> | FalsyValue)[],
+): StyleProp<T>[] => {
   if (!Array.isArray(style)) {
     return [style];
   }
@@ -21,7 +23,9 @@ const normalize = <T extends UniversalStyle>(
     .reduce((res, val) => [...res, ...normalize(val)], []);
 };
 
-export default function useStyle(style: UniversalStyle, styleName?: StyleName) {
+export default function useStyle<
+  T extends BaseViewStyle | BaseImageStyle | BaseTextStyle,
+>(style: StyleProp<T>, styleName?: StyleName) {
   const { utilities: utilitiesStyles } = useForcedContext(Context);
 
   const utilities = useMemo(() => {
@@ -46,22 +50,24 @@ export default function useStyle(style: UniversalStyle, styleName?: StyleName) {
   const styles = normalize(utilities ? [style, ...utilities] : style);
 
   return (state: InteractionState) => {
-    const basicStyles: BaseStyle[] = [];
-    const interactionStyles: BaseStyle[] = [];
+    const basicStyles: T[] = [];
+    const interactionStyles: T[] = [];
 
     styles.forEach((value) => {
+      // @ts-expect-error $$typeof is defined on InteractionStyle<T> but somehow leads to this error.
       if (value && value.$$typeof === BOOTSTRAP_RN_STYLE) {
         // Style is a bootstrap style that contains basic and interaction styles.
+        // @ts-expect-error $$typeof is defined on InteractionStyle<T> but somehow leads to this error.
         const [resolvedBasicStyles, resolvedInteractionStyles] = value(state);
 
-        basicStyles.push(...resolvedBasicStyles);
-        interactionStyles.push(...resolvedInteractionStyles);
+        basicStyles.push(...(resolvedBasicStyles as T[]));
+        interactionStyles.push(...(resolvedInteractionStyles as T[]));
       } else if (typeof value === 'function') {
         // Style is some other custom function type style.
-        basicStyles.push(value(state) as BaseStyle);
+        basicStyles.push(value(state) as T);
       } else {
         // Style is basic object style.
-        basicStyles.push(value as BaseStyle);
+        basicStyles.push(value as T);
       }
     });
 

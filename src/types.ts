@@ -9,6 +9,8 @@ import type {
 } from '@react-types/overlays';
 import { BOOTSTRAP_RN_STYLE } from './style/createStyle';
 
+export type UniversalBaseStyle = BaseViewStyle | BaseImageStyle | BaseTextStyle;
+
 export type Viewport = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 export type MediaHandler = {
@@ -20,25 +22,27 @@ export type MediaHandler = {
 
 export type InteractionState = {
   interaction?: {
-    hover: boolean;
+    hover?: boolean;
     focus: boolean;
     focusVisible: boolean;
-    active: boolean;
+    active?: boolean;
   };
   media: MediaHandler;
 };
 
 // Ref: https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/StyleSheet/StyleSheet.d.ts
-type Falsy = undefined | null | false | '';
+type Falsy = undefined | null | undefined | false | '';
 interface RecursiveArray<T>
   extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> {}
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 
+export type SpecialInteractionStyle<T> = {
+  (state: InteractionState): [T[], T[]];
+  $$typeof: typeof BOOTSTRAP_RN_STYLE;
+};
+
 type InteractionStyle<T> =
-  | {
-      (state: InteractionState): [T[], T[]];
-      $$typeof: typeof BOOTSTRAP_RN_STYLE;
-    }
+  | SpecialInteractionStyle<T>
   | ((state: InteractionState) => T);
 
 export type StyleProp<T> =
@@ -54,14 +58,17 @@ export type ImageStyle = StyleProp<BaseImageStyle>;
 
 export type TextStyle = StyleProp<BaseTextStyle>;
 
-export type UniversalStyle = StyleProp<ViewStyle | ImageStyle | TextStyle>;
+export type UniversalStyle = StyleProp<
+  BaseViewStyle | BaseImageStyle | BaseTextStyle
+>;
 
 export type StyleUtilities = Record<string, UniversalStyle>;
 
 export type StyleName = string;
 
 export type ThemeVariables = {
-  [key: string]: string | number | ThemeVariables;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 };
 
 export type FormValidationState = (t: ThemeVariables) => {

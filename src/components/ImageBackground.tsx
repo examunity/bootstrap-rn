@@ -5,26 +5,31 @@ import {
 } from 'react-native';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
+import type { ViewStyle, ImageStyle, StyleName } from '../types';
 
-export type ImageBackgroundProps = {
-  style?: React.CSSProperties;
-  styleName?: unknown;
-} & Omit<BaseImageBackgroundProps, 'style'>;
+interface ImageBackgroundProps
+  extends Omit<BaseImageBackgroundProps, 'style' | 'imageStyle'> {
+  style?: ViewStyle;
+  imageStyle?: ImageStyle;
+  styleName?: StyleName;
+}
 
 const ImageBackground = React.forwardRef<
   BaseImageBackground,
   ImageBackgroundProps
 >((props, ref) => {
-  const { style, styleName, ...elementProps } = props;
+  const { style, imageStyle, styleName, ...elementProps } = props;
 
   const media = useMedia();
   const resolveStyle = useStyle(style, styleName);
+  const resolveImageStyle = useStyle(imageStyle);
 
   return (
     <BaseImageBackground
       {...elementProps}
       ref={ref}
       style={resolveStyle({ media })}
+      imageStyle={resolveImageStyle({ media })}
     />
   );
 });

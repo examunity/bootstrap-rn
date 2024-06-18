@@ -1,0 +1,21 @@
+import parse from './parse';
+import transform from './transform';
+import createStyle from './createStyle';
+import { ThemeVariables } from '../types';
+
+export default function css(
+  fragments: TemplateStringsArray,
+  ...tags: ((t: ThemeVariables) => string | string)[]
+) {
+  const ast = parse(fragments, ...tags);
+
+  const result = (theme: object, key: string) => {
+    const transformed = transform(ast.children, theme, { key });
+
+    return createStyle(transformed);
+  };
+
+  result.ast = ast;
+
+  return result;
+}

@@ -200,7 +200,7 @@ const variables = css`
     'blue-900': t['blue-900'],
   })};
 
-  $indigos: ${(t) => ({
+  $indigos: ${(t: ThemeVariables) => ({
     'indigo-100': t['indigo-100'],
     'indigo-200': t['indigo-200'],
     'indigo-300': t['indigo-300'],
