@@ -1,9 +1,9 @@
 import Context from '../Context';
 import StyleSheet from '../style/StyleSheet';
 import useForcedContext from './useForcedContext';
-import type { MediaHandler, Viewport } from '../types';
+import type { MediaHandler } from '../types';
 
-export default function useMedia(): MediaHandler {
+export default function useMedia() {
   const context = useForcedContext(Context);
 
   const viewport = context.getViewport();
@@ -12,17 +12,17 @@ export default function useMedia(): MediaHandler {
   const breakpointKeys = Object.keys(breakpoints);
 
   return {
-    up(point: Viewport) {
+    up(point) {
       return breakpointKeys.indexOf(viewport) >= breakpointKeys.indexOf(point);
     },
-    down(point: Viewport) {
+    down(point) {
       return breakpointKeys.indexOf(viewport) <= breakpointKeys.indexOf(point);
     },
-    only(point: Viewport) {
+    only(point) {
       return viewport === point;
     },
-    between(lower: Viewport, upper: Viewport) {
+    between(lower, upper) {
       return this.up(lower) && this.down(upper);
     },
-  };
+  } as MediaHandler;
 }

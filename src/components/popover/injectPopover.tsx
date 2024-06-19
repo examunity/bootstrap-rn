@@ -1,24 +1,31 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { OverlayContainer } from '@react-native-aria/overlays';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
-import useTrigger, { TriggerProps } from '../../hooks/useTrigger';
+import useTrigger, {
+  Trigger,
+  Placement,
+  TriggerProps,
+} from '../../hooks/useTrigger';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Popover from './Popover';
+import Pressable, { PressableProps } from '../Pressable';
 
-export type PopoverProps = {
+type PopoverProps = {
   title?: React.ReactNode;
   content: React.ReactNode;
   autoClose?: boolean | 'inside' | 'outside';
+  trigger?: Trigger;
+  placement?: Placement;
 } & TriggerProps;
 
-export type InjectPopoverProps = {
+export interface InjectPopoverProps extends PressableProps {
   popover: PopoverProps;
-};
+}
 
-export default function injectPopover<T extends ComponentType<T>>(Target: T) {
-  const OverlayPopover = React.forwardRef<PopoverProps, InjectPopoverProps>(
+export default function injectPopover(Target: typeof Pressable) {
+  const OverlayPopover = React.forwardRef<ViewRef, InjectPopoverProps>(
     (props, ref) => {
       const {
         popover: {
@@ -27,13 +34,13 @@ export default function injectPopover<T extends ComponentType<T>>(Target: T) {
           autoClose = 'outside',
           trigger = 'press',
           placement = 'right',
-          ...tooltipProps
+          ...popoverProps
         },
         ...elementProps
       } = props;
 
       const { visible, setVisible, targetProps, targetRef, templateProps } =
-        useTrigger(trigger, tooltipProps as TriggerProps, elementProps, ref);
+        useTrigger(trigger, popoverProps, elementProps, ref);
 
       const offset = normalizeNumber(StyleSheet.value('popover-arrow-height'));
 
@@ -65,13 +72,13 @@ export default function injectPopover<T extends ComponentType<T>>(Target: T) {
                       placement={overlay.placement}
                       popper={overlay.rendered}
                       style={[
-                        overlay.overlayProps?.style,
+                        overlay.overlayProps.style,
                         {
                           maxHeight: 'auto',
                           opacity: overlay.rendered ? 1 : 0,
                         },
                       ]}
-                      arrowStyle={overlay.arrowProps?.style}
+                      arrowStyle={overlay.arrowProps.style}
                     >
                       <Popover.Arrow />
                       {title && <Popover.Header>{title}</Popover.Header>}

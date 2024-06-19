@@ -1,5 +1,8 @@
 import { createContext } from 'react';
-import type { NavbarExpand, NavbarVariant } from '../../types';
+
+export type NavbarExpand = true | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+export type NavbarVariant = 'light' | 'dark';
 
 export type NavbarContextType = {
   identifier: string;

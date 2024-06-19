@@ -1,5 +1,5 @@
 import { useRef, useMemo, RefObject } from 'react';
-import { Platform, View, findNodeHandle } from 'react-native';
+import { Platform, findNodeHandle } from 'react-native';
 
 type ScrollbarEffectsState = {
   counter: number;
@@ -13,7 +13,7 @@ const computeScrollbarWidth = () => {
   return Math.abs(window.innerWidth - documentWidth);
 };
 
-export default function useScrollbarEffects(elements: RefObject<View>[]) {
+export default function useScrollbarEffects(elements: RefObject<ViewRef>[]) {
   if (Platform.OS !== 'web') {
     return useMemo(
       () => ({

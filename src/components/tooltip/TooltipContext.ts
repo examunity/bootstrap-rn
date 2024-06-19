@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Placement } from '../../types';
+import type { Placement } from '@react-types/overlays';
 
 type TooltipContextType = {
   placement: Placement;

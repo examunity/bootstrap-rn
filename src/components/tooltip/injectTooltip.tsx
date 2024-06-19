@@ -1,22 +1,29 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { OverlayContainer } from '@react-native-aria/overlays';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
-import useTrigger, { TriggerProps } from '../../hooks/useTrigger';
+import useTrigger, {
+  Trigger,
+  Placement,
+  TriggerProps,
+} from '../../hooks/useTrigger';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
+import Pressable, { PressableProps } from '../Pressable';
 
-export type TooltipProps = {
+type TooltipProps = {
   title: React.ReactNode;
   autoClose?: boolean | 'inside' | 'outside';
+  trigger?: Trigger;
+  placement?: Placement;
 } & TriggerProps;
 
-export type InjectTooltipProps = {
+export interface InjectTooltipProps extends PressableProps {
   tooltip: TooltipProps;
-};
+}
 
-export default function injectTooltip<T extends ComponentType<T>>(Target: T) {
+export default function injectTooltip(Target: typeof Pressable) {
   const OverlayTooltip = React.forwardRef<ViewRef, InjectTooltipProps>(
     (props, ref) => {
       /* eslint-disable react/prop-types */
@@ -33,7 +40,7 @@ export default function injectTooltip<T extends ComponentType<T>>(Target: T) {
       /* eslint-enable */
 
       const { visible, setVisible, targetProps, targetRef, templateProps } =
-        useTrigger(trigger, tooltipProps as TriggerProps, elementProps, ref);
+        useTrigger(trigger, tooltipProps, elementProps, ref);
 
       const offset = normalizeNumber(StyleSheet.value('tooltip-arrow-height'));
 
@@ -64,13 +71,13 @@ export default function injectTooltip<T extends ComponentType<T>>(Target: T) {
                       placement={overlay.placement}
                       popper={overlay.rendered}
                       style={[
-                        overlay.overlayProps?.style,
+                        overlay.overlayProps.style,
                         {
                           maxHeight: 'auto',
                           opacity: overlay.rendered ? 1 : 0,
                         },
                       ]}
-                      arrowStyle={overlay.arrowProps?.style}
+                      arrowStyle={overlay.arrowProps.style}
                     >
                       <Tooltip.Arrow />
                       <Tooltip.Inner>{title}</Tooltip.Inner>

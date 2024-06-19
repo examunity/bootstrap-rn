@@ -120,7 +120,7 @@ const StyleSheet = {
       Object.assign(sheets[i].active, sheets[i].cache[key]);
     });
   },
-  value(key: string) {
+  value(key: keyof ThemeVariables) {
     if (activeKey === null) {
       throw new Error('Use of StyleSheet.value() before initializing.');
     }

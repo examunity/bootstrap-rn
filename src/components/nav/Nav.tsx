@@ -7,10 +7,9 @@ import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext, { NavbarContextType } from '../navbar/NavbarContext';
-import NavContext from './NavContext';
+import NavContext, { NavVariant } from './NavContext';
 import NavLink from './NavLink';
 import TabContext, { TabContextType } from './TabContext';
-import type { NavVariant } from '../../types';
 
 export interface NavProps extends ViewProps {
   variant?: NavVariant;

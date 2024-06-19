@@ -9,11 +9,10 @@ import NavbarText from './NavbarText';
 import NavbarBrand from './NavbarBrand';
 import NavbarCollapse from './NavbarCollapse';
 import NavbarToggler from './NavbarToggler';
-import NavbarContext from './NavbarContext';
+import NavbarContext, { NavbarExpand, NavbarVariant } from './NavbarContext';
 import useNavbar from './useNavbar';
 import useDismissNavbar from './useDismissNavbar';
 import useToggleNavbar from './useToggleNavbar';
-import type { NavbarExpand, NavbarVariant } from '../../types';
 
 export interface NavbarProps extends ViewProps {
   variant?: NavbarVariant;

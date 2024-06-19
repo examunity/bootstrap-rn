@@ -1,6 +1,11 @@
 import React from 'react';
 import { View as BaseView } from 'react-native';
-import type { ExtendedStyle, Viewport, Modifier } from './types';
+import type { ExtendedStyle, Viewport } from './types';
+
+export type Modifier = <T>(
+  props: T,
+  ref: React.Ref<unknown>,
+) => T & { ref?: React.Ref<unknown> };
 
 export type BootstrapRNContextType = {
   utilities: Record<string, ExtendedStyle>;

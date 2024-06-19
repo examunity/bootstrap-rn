@@ -3,15 +3,9 @@ import {
   ImageStyle as BaseImageStyle,
   TextStyle as BaseTextStyle,
 } from 'react-native';
-import type {
-  Placement as BasePlacement,
-  PlacementAxis as BasePlacementAxis,
-} from '@react-types/overlays';
 import { BOOTSTRAP_RN_STYLE } from './style/createStyle';
 
-// Styles
-
-export type BaseStyle = BaseViewStyle | BaseImageStyle | BaseTextStyle;
+// Media
 
 export type Viewport = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
@@ -21,6 +15,10 @@ export type MediaHandler = {
   only: (point: Viewport) => boolean;
   between: (lower: Viewport, upper: Viewport) => boolean;
 };
+
+// Styles
+
+export type BaseStyle = BaseViewStyle | BaseImageStyle | BaseTextStyle;
 
 export type InteractionState = {
   interaction?: {
@@ -89,34 +87,3 @@ export type FormValidationState = (t: ThemeVariables) => {
   color: string;
   icon: string;
 };
-
-export type Modifier = <T>(
-  props: T,
-  ref: React.Ref<unknown>,
-) => T & { ref?: React.Ref<unknown> };
-
-// Navbar
-
-export type NavbarExpand = true | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-export type NavbarVariant = 'light' | 'dark';
-export type NavVariant = 'tabs' | 'pills';
-export type SpinnerVariant = 'border' | 'grow';
-
-export type DropDownDirection =
-  | 'up'
-  | 'down'
-  | 'left'
-  | 'right'
-  | 'start'
-  | 'end';
-
-// Placement
-
-export type RnPlacement = BasePlacement;
-export type RnPlacementAxis = BasePlacementAxis;
-
-export type Placement =
-  | RnPlacement
-  | 'top center'
-  | 'bottom center'
-  | 'top center';

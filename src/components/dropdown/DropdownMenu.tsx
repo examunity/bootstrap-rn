@@ -1,23 +1,23 @@
 import React, { useContext, useRef } from 'react';
 import { Platform } from 'react-native';
 import { OverlayContainer } from '@react-native-aria/overlays';
+import type { Placement } from '@react-types/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
 import View from '../View';
-import useMedia, { useMediaProps } from '../../hooks/useMedia';
+import useMedia from '../../hooks/useMedia';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
 import { normalizeNumber } from '../../style/math';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
-import DropdownContext from './DropdownContext';
-import type { DropDownDirection, RnPlacement } from '../../types';
+import DropdownContext, { DropdownDirection } from './DropdownContext';
+import type { MediaHandler } from '../../types';
 
-type AlignmentBreakpointsSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-type AlignmentBreakpoints = boolean | AlignmentBreakpointsSize;
+type AlignmentBreakpoints = boolean | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 export interface DropdownProps extends ViewProps {
   start?: AlignmentBreakpoints;
@@ -25,14 +25,7 @@ export interface DropdownProps extends ViewProps {
   end?: AlignmentBreakpoints;
 }
 
-const ALIGNMENT_BREAKPOINTS: AlignmentBreakpoints[] = [
-  true,
-  'sm',
-  'md',
-  'lg',
-  'xl',
-  'xxl',
-];
+const ALIGNMENT_BREAKPOINTS = [true, 'sm', 'md', 'lg', 'xl', 'xxl'];
 
 const styles = StyleSheet.create({
   '.dropdown-menu': css`
@@ -106,47 +99,43 @@ const styles = StyleSheet.create({
 });
 
 const getAlignment = (
-  media: useMediaProps,
-  start?: AlignmentBreakpoints,
-  end?: AlignmentBreakpoints,
-): 'start' | 'end' => {
-  const tempStart = start ? media.up(start) : false;
-  const alignStart = typeof start === 'boolean' ? start : tempStart;
-
-  const tempEnd = end ? media.up(end) : false;
-  const alignEnd = typeof end === 'boolean' ? end : tempEnd;
+  media: MediaHandler,
+  start: AlignmentBreakpoints,
+  end: AlignmentBreakpoints,
+) => {
+  const alignEnd = typeof end === 'boolean' ? end : media.up(end);
 
   if (!alignEnd) {
     return 'start';
   }
 
+  const alignStart = typeof start === 'boolean' ? start : media.up(start);
+
   if (!alignStart) {
     return 'end';
   }
 
-  const startIndex = ALIGNMENT_BREAKPOINTS.indexOf(
-    start as AlignmentBreakpoints,
-  );
-  const endIndex = ALIGNMENT_BREAKPOINTS.indexOf(end as AlignmentBreakpoints);
+  const startIndex = ALIGNMENT_BREAKPOINTS.indexOf(start);
+  const endIndex = ALIGNMENT_BREAKPOINTS.indexOf(end);
 
   return startIndex > endIndex ? 'start' : 'end';
 };
 
 const transformPlacement = (
-  media: useMediaProps,
-  direction: DropDownDirection,
-  start?: AlignmentBreakpoints,
-  end?: AlignmentBreakpoints,
-): RnPlacement => {
+  media: MediaHandler,
+  direction: DropdownDirection,
+  start: AlignmentBreakpoints,
+  end: AlignmentBreakpoints,
+) => {
   if (direction === 'up') {
-    return `top ${getAlignment(media, start, end)}`;
+    return `top ${getAlignment(media, start, end)}` as Placement;
   }
 
   if (direction === 'down') {
-    return `bottom ${getAlignment(media, start, end)}`;
+    return `bottom ${getAlignment(media, start, end)}` as Placement;
   }
 
-  return `${direction} top`;
+  return `${direction} top` as Placement;
 };
 
 const DropdownMenu = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
@@ -167,7 +156,7 @@ const DropdownMenu = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
 
   const navbar = useContext(NavbarContext);
   const media = useMedia();
-  const dialogRef = useRef();
+  const dialogRef = useRef(null);
 
   const dropdown = useForcedContext(DropdownContext);
 
@@ -272,7 +261,7 @@ const DropdownMenu = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
               aria-labelledby={identifier}
               style={[
                 classes,
-                overlay.overlayProps?.style,
+                overlay.overlayProps.style,
                 { maxHeight: 'auto', opacity: overlay.rendered ? 1 : 0 },
                 style,
               ]}

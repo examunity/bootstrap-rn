@@ -3,7 +3,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View from '../View';
 import { getStyles } from '../../utils';
-import DropdownContext from './DropdownContext';
+import DropdownContext, { DropdownDirection } from './DropdownContext';
 import DropdownToggle from './DropdownToggle';
 import DropdownMenu from './DropdownMenu';
 import DropdownHeader from './DropdownHeader';
@@ -13,13 +13,12 @@ import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
 import useDismissDropdown from './useDismissDropdown';
 import useToggleDropdown from './useToggleDropdown';
-import type { DropDownDirection } from '../../types';
 
 export interface DropdownProps extends ViewProps {
   defaultVisible?: boolean;
   visible?: boolean;
   onToggle: () => void;
-  direction?: DropDownDirection;
+  direction?: DropdownDirection;
   center?: boolean;
   display?: 'dynamic' | 'static';
   autoClose?: boolean | 'inside' | 'outside';

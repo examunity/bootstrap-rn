@@ -25,30 +25,34 @@ const TRIGGERS = [
   'focus press',
 ] as const;
 
-type Placement = (typeof PLACEMENTS)[number];
-type Trigger = (typeof TRIGGERS)[number];
+export type Placement = (typeof PLACEMENTS)[number];
+export type Trigger = (typeof TRIGGERS)[number];
 
 export type TriggerProps = {
-  trigger: Trigger;
-  placement?: Placement;
   offset?: number;
   defaultVisible?: boolean;
   visible?: boolean;
   onToggle?: (visible: boolean) => void;
 };
 
-interface ElementProps {
-  onPress?: (event: GestureResponderEvent) => void;
-  onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onMouseOver?: (event: MouseEvent) => void;
-  onMouseLeave?: (event: MouseEvent) => void;
-}
+export type TriggerEventProps = {
+  onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
+  onFocus?:
+    | null
+    | ((event: NativeSyntheticEvent<TextInputFocusEventData>) => void)
+    | undefined;
+  onBlur?:
+    | null
+    | ((event: NativeSyntheticEvent<TextInputFocusEventData>) => void)
+    | undefined;
+  onMouseOver?: null | ((event: MouseEvent) => void) | undefined;
+  onMouseLeave?: null | ((event: MouseEvent) => void) | undefined;
+};
 
 export default function useTrigger<T>(
-  rawTrigger: string,
+  rawTrigger: Trigger,
   props: TriggerProps,
-  elementProps: ElementProps,
+  elementProps: TriggerEventProps,
   ref: ForwardedRef<T>,
 ) {
   const {
@@ -70,7 +74,7 @@ export default function useTrigger<T>(
   const [focused, setFocused] = useState<boolean>(false);
   const [hovered, setHovered] = useState<boolean>(false);
 
-  const targetRef = useRef();
+  const targetRef = useRef(null);
 
   return {
     visible,

@@ -157,7 +157,7 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
 
   const media = useMedia();
   const navbar = useContext(NavbarContext);
-  const offcanvasRef = useRef();
+  const offcanvasRef = useRef(null);
 
   const offcanvas = useOffcanvas(visible, scroll);
 

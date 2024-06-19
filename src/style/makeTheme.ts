@@ -1,12 +1,20 @@
-import transform from './transform';
+import transform, { RootNode } from './transform';
 import variables from '../theme/variables';
+import type { ExtendedStyle } from '../types';
+
+type SourceType =
+  | object
+  | {
+      (theme: object, key: string): ExtendedStyle;
+      ast: RootNode;
+    };
 
 const extractVariables = (
-  source: object,
+  source: SourceType,
   options?: object,
   baseVariables: object = {},
 ) => {
-  if (typeof source !== 'function') {
+  if (typeof source === 'object') {
     // TODO: Resolve t => ... functions on source object.
     return { ...source, ...baseVariables };
   }

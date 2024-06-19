@@ -1,42 +1,39 @@
 import React, { useRef, ReactNode } from 'react';
-import { Platform, StatusBar } from 'react-native';
+import { Platform, StatusBar, ViewStyle } from 'react-native';
 import { useOverlayPosition } from '@react-native-aria/overlays';
-import type { RnPlacement, RnPlacementAxis } from '../../types';
-
-type ChildOverlayProps = {
-  style?: unknown;
-};
-type ChildArrowProps = {
-  style?: unknown;
-};
+import type { Placement, PlacementAxis } from '@react-types/overlays';
 
 type OverlayReturnType = {
-  placement: RnPlacementAxis;
+  placement: PlacementAxis;
   rendered?: boolean;
-  overlayProps?: ChildOverlayProps;
-  arrowProps?: ChildArrowProps;
+  overlayProps: {
+    style: ViewStyle;
+  };
+  arrowProps: {
+    style: ViewStyle;
+  };
 };
 
 interface OverlayProps {
   children: (
     overlay: OverlayReturnType,
-    overlayRef: React.RefObject<unknown>,
+    overlayRef: React.RefObject<ViewRef>,
   ) => ReactNode;
-  placement: RnPlacement;
-  targetRef: React.RefObject<unknown>;
+  placement: Placement;
+  targetRef: React.RefObject<ViewRef>;
   offset?: number;
   arrowOffset?: number;
   visible: boolean;
 }
 
-const Overlay: React.FC<OverlayProps> = ({
+const Overlay = ({
   children,
   targetRef,
   placement,
   offset,
   arrowOffset = 0,
   visible,
-}) => {
+}: OverlayProps) => {
   const overlayRef = useRef(null);
 
   const overlay = useOverlayPosition({

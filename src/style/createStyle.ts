@@ -38,9 +38,15 @@ function createStyle(definitions: StyleDefinition[]) {
   );
 
   // Create style sheets.
-  const styles = StyleSheet.create({
-    ...platformDefinitions.map((item) => item.declarations),
-  });
+  const styles = StyleSheet.create(
+    platformDefinitions.reduce(
+      (acc, definition, index) => {
+        acc[index] = definition.declarations;
+        return acc;
+      },
+      {} as Record<number, BaseStyle>,
+    ),
+  );
 
   const resolve: SpecialInteractionStyle<BaseStyle> = (state) => {
     const { interaction } = state;

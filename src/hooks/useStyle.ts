@@ -5,7 +5,6 @@ import type {
   StyleProp,
   StyleName,
   InteractionState,
-  ExtendedStyle,
   ExtendedStyleType,
   BaseStyle,
 } from '../types';
@@ -13,9 +12,7 @@ import useForcedContext from './useForcedContext';
 
 type FalsyValue = false | undefined | null | '' | 0;
 
-const normalize = <T extends ExtendedStyle | ExtendedStyle[]>(
-  style: StyleProp<T> | (StyleProp<T> | FalsyValue)[],
-): StyleProp<T>[] => {
+const normalize = <T>(style: T | T[]): T[] => {
   if (!Array.isArray(style)) {
     return [style];
   }
@@ -50,9 +47,7 @@ export default function useStyle<T extends BaseStyle>(
     });
   }, [styleName]);
 
-  const styles = normalize<ExtendedStyleType<T> | ExtendedStyleType<T>[]>(
-    utilities ? [style, ...utilities] : style,
-  );
+  const styles = normalize(utilities ? [style, ...utilities] : style);
 
   return (state: InteractionState) => {
     const basicStyles: T[] = [];

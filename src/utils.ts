@@ -51,7 +51,9 @@ export function getStyles<T extends string>(
     .map((key) => styles[key]);
 }
 
-export function concatRefs(...refs: React.LegacyRef<unknown>[]) {
+export function concatRefs(
+  ...refs: React.LegacyRef<unknown>[]
+): React.RefCallback<unknown> {
   return (element: unknown) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {
