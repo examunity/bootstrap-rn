@@ -1,4 +1,4 @@
-import type { StyleScope } from '../createStyle';
+import type { StyleScope } from '../transform';
 import type { InteractionState, Viewport } from '../../types';
 
 const mediaBreakpointUp = {

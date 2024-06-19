@@ -9,6 +9,8 @@ import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import type { ViewStyle, StyleName } from '../types';
 
+export type TextInputRef = BaseTextInput;
+
 export interface TextInputProps extends Omit<BaseTextInputProps, 'style'> {
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;

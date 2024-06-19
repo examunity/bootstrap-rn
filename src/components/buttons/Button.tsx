@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import invariant from 'tiny-invariant';
-import Pressable from '../Pressable';
+import Pressable, { PressableProps } from '../Pressable';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
 import ButtonGroupContext, {
@@ -15,18 +15,13 @@ import { ThemeVariables } from '../../types';
 
 type ButtonThemeColors = keyof typeof THEME_COLORS | 'link';
 
-export type ButtonProps = {
-  children: React.ReactNode;
+export interface ButtonProps extends PressableProps {
   color: ButtonThemeColors;
   size?: 'lg' | 'sm';
   outline?: boolean;
   active?: boolean;
   disabled?: boolean;
-  style?: React.CSSProperties;
-  activeStyle?: unknown;
-  textStyle?: unknown;
-  activeTextStyle?: unknown;
-};
+}
 
 const styles = StyleSheet.create({
   '.btn': css`

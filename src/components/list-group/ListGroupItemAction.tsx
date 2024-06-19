@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable from '../Pressable';
+import Pressable, { PressableProps } from '../Pressable';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor, shadeColor } from '../../theme/functions';
@@ -13,16 +13,11 @@ import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
 import { ThemeVariables } from '../../types';
 
-export type ListGroupItemActionProps = {
-  children: React.ReactNode;
+export interface ListGroupItemActionProps extends PressableProps {
   color?: keyof typeof THEME_COLORS;
   active?: boolean;
   disabled?: boolean;
-  style?: React.CSSProperties;
-  activeStyle?: unknown;
-  textStyle?: unknown;
-  activeTextStyle?: unknown;
-};
+}
 
 const actionStyles = StyleSheet.create({
   '.list-group-item-action': css`
@@ -115,7 +110,7 @@ const actionStyles = StyleSheet.create({
   })),
 });
 
-const ListGroupItemAction = React.forwardRef<unknown, ListGroupItemActionProps>(
+const ListGroupItemAction = React.forwardRef<ViewRef, ListGroupItemActionProps>(
   (props, ref) => {
     const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
 
@@ -172,7 +167,7 @@ const ListGroupItemAction = React.forwardRef<unknown, ListGroupItemActionProps>(
       color && `.list-group-item-${color}-action.active --text`,
     ]);
 
-    const role = Platform.OS === 'web' ? 'listitem' : null;
+    const role = Platform.OS === 'web' ? 'listitem' : undefined;
 
     return (
       <Pressable

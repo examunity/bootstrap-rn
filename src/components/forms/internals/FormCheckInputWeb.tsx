@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  // @ts-expect-error import is available
   unstable_createElement as createElement,
   StyleSheet,
 } from 'react-native';

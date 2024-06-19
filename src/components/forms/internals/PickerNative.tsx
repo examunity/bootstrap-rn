@@ -1,4 +1,4 @@
-import React, { useState, useMemo, FC } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   ViewStyle,
   TextInputFocusEventData,
@@ -29,7 +29,7 @@ export type PickerNativeProps = {
   placeholder?: string;
   placeholderTextColor?: string;
   disabled?: boolean;
-  MenuComponent?: FC<MenuComponentProps>;
+  MenuComponent?: React.FC<MenuComponentProps>;
   style?: ViewStyle;
 };
 
@@ -74,12 +74,12 @@ const extractTextStyles = (style: { [key: string]: string }) => {
   return textStyles;
 };
 
-type getTextProps = {
+type GetTextProps = {
   children: React.ReactNode;
   selectedValue?: boolean | number | string | object;
 };
 
-const getText = ({ children, selectedValue }: getTextProps) => {
+const getText = ({ children, selectedValue }: GetTextProps) => {
   const items = React.Children.map(children, (child) => ({
     label: child.props.label,
     value: child.props.value,

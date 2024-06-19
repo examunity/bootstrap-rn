@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import type { StyleScope } from '../createStyle';
+import type { StyleScope } from '../transform';
 
 const platform = {
   include(scope: StyleScope) {

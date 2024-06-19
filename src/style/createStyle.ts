@@ -1,16 +1,15 @@
-import {
-  StyleSheet,
-  ViewStyle as BaseViewStyle,
-  ImageStyle as BaseImageStyle,
-  TextStyle as BaseTextStyle,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import mediaBreakpointBetween from './mixins/mediaBreakpointBetween';
 import mediaBreakpointDown from './mixins/mediaBreakpointDown';
 import mediaBreakpointOnly from './mixins/mediaBreakpointOnly';
 import mediaBreakpointUp from './mixins/mediaBreakpointUp';
 import platform from './mixins/platform';
 import type { StyleDefinition } from './transform';
-import { SpecialInteractionStyle, UniversalStyle } from '../types';
+import {
+  SpecialInteractionStyle,
+  UniversalStyle,
+  UniversalBaseStyle,
+} from '../types';
 
 export const BOOTSTRAP_RN_STYLE = Symbol.for('bootstrap-rn.style');
 
@@ -45,16 +44,12 @@ function createStyle(definitions: StyleDefinition[]): UniversalStyle {
   // Create style sheets.
   const styles = StyleSheet.create({
     ...platformDefinitions.map((item) => item.declarations),
-  }) as BaseViewStyle | BaseImageStyle | BaseTextStyle;
+  }) as UniversalBaseStyle;
 
   const resolve: SpecialInteractionStyle<UniversalStyle> = (state) => {
     const { interaction } = state;
-    const basicStyles: (BaseViewStyle | BaseImageStyle | BaseTextStyle)[] = [];
-    const interactionStyles: (
-      | BaseViewStyle
-      | BaseImageStyle
-      | BaseTextStyle
-    )[] = [];
+    const basicStyles: UniversalBaseStyle[] = [];
+    const interactionStyles: UniversalBaseStyle[] = [];
 
     Object.values(styles).forEach((style, key) => {
       const active = platformDefinitions[key].scopes.every((scope) => {

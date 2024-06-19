@@ -2,11 +2,11 @@ import { rgba, opacity, mix } from '../style/functions';
 import { calculate } from '../style/math';
 import RgbaValue from '../style/types/RgbaValue';
 import UnitValue from '../style/types/UnitValue';
-import type { ThemeVariables } from '../types';
+import type { ThemeVariables, StyleValue } from '../types';
 
 export const fn =
-  <T extends string | number | object>(
-    handle: (input: T[], t: ThemeVariables) => string | null,
+  <T extends string | number | null>(
+    handle: (input: T[], t: ThemeVariables) => StyleValue,
   ) =>
   (...args: (T | ((t: ThemeVariables) => T))[]) =>
   (t: ThemeVariables) => {
@@ -70,15 +70,15 @@ const contrastRatio = (background: string, foreground: string) => {
   return l1 > l2 ? (l1 + 0.05) / (l2 + 0.05) : (l2 + 0.05) / (l1 + 0.05);
 };
 
-export const colorContrast = fn(([background], t) => {
+export const colorContrast = fn(([background]: [background: string], t) => {
   const foregrounds = [
     t['color-contrast-light'] as string,
     t['color-contrast-dark'] as string,
     t.white as string,
     t.black as string,
   ];
-  let maxRatio = 0;
-  let maxRatioColor = null;
+  let maxRatio: number = 0;
+  let maxRatioColor: string | null = null;
 
   const result = foregrounds.find((color) => {
     const ratio = contrastRatio(background as string, color);
@@ -108,65 +108,83 @@ export const colorContrast = fn(([background], t) => {
 });
 
 // Tint a color: mix a color with white
-export const tintColor = fn(([color, weight], t) => {
-  return mix(t.white, color, weight);
-});
+export const tintColor = fn(
+  ([color, weight]: [color: string, weight: number], t) => {
+    return mix(t.white, color, weight);
+  },
+);
 
 // Shade a color: mix a color with black
-export const shadeColor = fn(([color, weight], t) => {
-  return mix(t.black, color, weight);
-});
+export const shadeColor = fn(
+  ([color, weight]: [color: string, weight: number], t) => {
+    return mix(t.black, color, weight);
+  },
+);
 
 // Shade the color if the weight is positive, else tint it
-export const shiftColor = fn(([color, weight], t) => {
-  const percentage = UnitValue.parse(weight).toNumber();
+export const shiftColor = fn(
+  ([color, weight]: [color: string, weight: number], t) => {
+    const percentage = UnitValue.parse(weight).toNumber();
 
-  const handle =
-    percentage > 0
-      ? shadeColor(color, percentage)
-      : tintColor(color, -percentage);
+    const handle =
+      percentage > 0
+        ? shadeColor(color, percentage)
+        : tintColor(color, -percentage);
 
-  return handle(t);
-});
+    return handle(t);
+  },
+);
 
-export const add = fn(([value1, value2]) => {
-  if (value1 === null) {
-    return value2;
-  }
+export const add = fn(
+  ([value1, value2]: [
+    value1: string | number | null,
+    value2: string | number | null,
+  ]) => {
+    if (value1 === null) {
+      return value2;
+    }
 
-  if (value2 === null) {
-    return value1;
-  }
+    if (value2 === null) {
+      return value1;
+    }
 
-  return calculate(value1, '+', value2);
-});
+    return calculate(value1, '+', value2);
+  },
+);
 
-export const subtract = fn(([value1, value2]) => {
-  if (value1 === null && value2 === null) {
-    return null;
-  }
+export const subtract = fn(
+  ([value1, value2]: [
+    value1: string | number | null,
+    value2: string | number | null,
+  ]) => {
+    if (value1 === null && value2 === null) {
+      return null;
+    }
 
-  if (value1 === null) {
-    return `-${value2}`;
-  }
+    if (value1 === null) {
+      return `-${value2}`;
+    }
 
-  if (value2 === null) {
-    return value1;
-  }
+    if (value2 === null) {
+      return value1;
+    }
 
-  return calculate(value1, '-', value2);
-});
+    return calculate(value1, '-', value2);
+  },
+);
 
-export const divide = fn(([dividend, divisor]) => {
-  if (Math.abs(parseFloat(dividend as string)) === 0) {
-    return 0;
-  }
+export const divide = fn(
+  ([dividend, divisor]: [color: string | number, weight: string | number]) => {
+    if (Math.abs(parseFloat(dividend as string)) === 0) {
+      return 0;
+    }
 
-  if (Math.abs(parseFloat(divisor as string)) === 0) {
-    throw new Error('Cannot divide by 0');
-  }
+    if (Math.abs(parseFloat(divisor as string)) === 0) {
+      throw new Error('Cannot divide by 0');
+    }
 
-  return calculate(dividend, '/', divisor);
-});
+    return calculate(dividend, '/', divisor);
+  },
+);
 
 /* eslint-enable */

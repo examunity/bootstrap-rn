@@ -1,11 +1,11 @@
 import parse from './parse';
 import transform from './transform';
 import createStyle from './createStyle';
-import { ThemeVariables } from '../types';
+import { ThemeVariables, StyleValue } from '../types';
 
 export default function css(
   fragments: TemplateStringsArray,
-  ...tags: ((t: ThemeVariables) => string | string)[]
+  ...tags: (string | ((t: ThemeVariables) => StyleValue))[]
 ) {
   const ast = parse(fragments, ...tags);
 

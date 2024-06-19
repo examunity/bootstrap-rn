@@ -1,11 +1,11 @@
 import { I18nManager } from 'react-native';
-import { UniversalStyle, ThemeVariables } from './types';
+import { UniversalStyle, ThemeVariables, StyleValue } from './types';
 
-type ResolveTheme = (t: ThemeVariables) => string;
-
-export function each<T extends Record<string, ResolveTheme | string>>(
+export function each<
+  T extends Record<string, string | ((t: ThemeVariables) => StyleValue)>,
+>(
   source: T,
-  apply: (key: keyof T, resolve: ResolveTheme) => object,
+  apply: (key: keyof T, resolve: (t: ThemeVariables) => StyleValue) => object,
 ) {
   return Object.entries(source)
     .map(([key, value]) => {
@@ -28,7 +28,7 @@ export function makeProxy<T extends (string | number)[]>(
       ...result,
       [key]: (t: ThemeVariables) => t[name][key],
     }),
-    {} as { [key in T[number]]: ResolveTheme },
+    {} as { [key in T[number]]: (t: ThemeVariables) => StyleValue },
   );
 }
 

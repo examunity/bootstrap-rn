@@ -1,6 +1,6 @@
-import { ThemeVariables } from '../../types';
+import { ThemeVariables, StyleValue } from '../../types';
 
-export type Char = string | ((t: ThemeVariables) => string);
+export type Char = string | ((t: ThemeVariables) => StyleValue);
 
 const checkFunction = (char: Char, silent: boolean) => {
   if (typeof char !== 'function') {

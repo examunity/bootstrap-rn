@@ -16,7 +16,11 @@ import backgroundPositionY from './properties/backgroundPositionY';
 type Value = string | ((v: object, k: string | undefined) => string);
 
 export type StyleScope =
-  | { type: 'selector'; name: 'hover' | 'focus' | 'focus-visible' | 'active' }
+  | {
+      type: 'selector';
+      name: 'hover' | 'focus' | 'focus-visible' | 'active';
+      args: string[];
+    }
   | {
       type: 'mixin';
       name:
@@ -25,6 +29,7 @@ export type StyleScope =
         | 'media-breakpoint-only'
         | 'media-breakpoint-up'
         | 'platform';
+      args: string[];
     };
 
 type Node = {

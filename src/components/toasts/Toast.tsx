@@ -39,7 +39,7 @@ const Toast = React.forwardRef<ViewRef, ToastProps>((props, ref) => {
 
   const classes = getStyles(styles, [
     '.toast',
-    container && !listItem.last && '.toast-container > :not(:last-child)',
+    container && !listItem?.last && '.toast-container > :not(:last-child)',
   ]);
 
   const textClasses = getStyles(styles, ['.toast --text']);

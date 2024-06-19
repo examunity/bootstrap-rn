@@ -1,13 +1,13 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import TextInput from '../TextInput';
+import TextInput, { TextInputProps, TextInputRef } from '../TextInput';
 import { getStyles, each } from '../../utils';
 import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import { FormValidationState, ThemeVariables } from '../../types';
 
-export type InputProps = {
+export interface InputProps extends TextInputProps {
   size?: 'sm' | 'lg';
   placeholderTextColor?: string;
   multiline?: boolean;
@@ -16,8 +16,7 @@ export type InputProps = {
   invalid?: boolean;
   readOnly?: boolean;
   selectTextOnFocus?: boolean;
-  style?: React.CSSProperties;
-};
+}
 
 // Known issues:
 //
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Input = React.forwardRef((props, ref) => {
+const Input = React.forwardRef<TextInputRef, InputProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
 
   const {

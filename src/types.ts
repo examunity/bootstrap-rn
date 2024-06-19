@@ -9,6 +9,8 @@ import type {
 } from '@react-types/overlays';
 import { BOOTSTRAP_RN_STYLE } from './style/createStyle';
 
+// Styles
+
 export type UniversalBaseStyle = BaseViewStyle | BaseImageStyle | BaseTextStyle;
 
 export type Viewport = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
@@ -66,9 +68,13 @@ export type StyleUtilities = Record<string, UniversalStyle>;
 
 export type StyleName = string;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type StyleValue = any;
+
+// Theme
+
 export type ThemeVariables = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
+  [key: string]: StyleValue;
 };
 
 export type FormValidationState = (t: ThemeVariables) => {
@@ -80,6 +86,8 @@ export type Modifier = <T>(
   props: T,
   ref: React.Ref<unknown>,
 ) => T & { ref?: React.Ref<unknown> };
+
+// Navbar
 
 export type NavbarExpand = true | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type NavbarVariant = 'light' | 'dark';
@@ -93,6 +101,8 @@ export type DropDownDirection =
   | 'right'
   | 'start'
   | 'end';
+
+// Placement
 
 export type RnPlacement = BasePlacement;
 export type RnPlacementAxis = BasePlacementAxis;
