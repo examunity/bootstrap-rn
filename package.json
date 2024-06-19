@@ -21,7 +21,8 @@
   "react-native": "src/index.js",
   "scripts": {
     "build": "bob build",
-    "prepare": "packsy validate && bob build"
+    "prepare": "packsy validate && bob build",
+    "lint": "packsy pre-commit && tsc --noEmit"
   },
   "files": [
     "src",
