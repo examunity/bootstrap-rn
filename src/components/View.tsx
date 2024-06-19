@@ -10,13 +10,15 @@ import type {
   ExtendedViewStyle,
 } from '../types';
 
+export type ViewRef = BaseView;
+
 export interface ViewProps extends Omit<BaseViewProps, 'style'> {
   style?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;
 }
 
-const View = React.forwardRef<BaseView, ViewProps>(
+const View = React.forwardRef<ViewRef, ViewProps>(
   (props, ref: ForwardedRef<BaseView>) => {
     const { children, style, textStyle, styleName, ...elementProps } = props;
 

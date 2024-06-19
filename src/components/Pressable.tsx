@@ -4,6 +4,7 @@ import {
   I18nManager,
   Pressable as BasePressable,
   PressableProps as BasePressableProps,
+  View as BaseView,
 } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useModifier from '../hooks/useModifier';
@@ -18,6 +19,8 @@ import type {
   StyleProp,
   StyleName,
 } from '../types';
+
+export type PressableRef = BaseView;
 
 type CaretTypes = boolean | CaretProps;
 
@@ -89,67 +92,73 @@ const applyCaret = (
   );
 };
 
-const Pressable = React.forwardRef<ViewRef, PressableProps>((props, ref) => {
-  const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
-  const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
+const Pressable = React.forwardRef<PressableRef, PressableProps>(
+  (props, ref) => {
+    const [modifierProps, modifierRef] = useModifier(
+      'useActionable',
+      props,
+      ref,
+    );
+    const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
 
-  const {
-    children,
-    caret = false,
-    active = false,
-    style,
-    activeStyle,
-    textStyle,
-    activeTextStyle,
-    styleName,
-    ...elementProps
-  } = actionProps;
+    const {
+      children,
+      caret = false,
+      active = false,
+      style,
+      activeStyle,
+      textStyle,
+      activeTextStyle,
+      styleName,
+      ...elementProps
+    } = actionProps;
 
-  const media = useMedia();
-  const context = useContext(TextStyleContext);
+    const media = useMedia();
+    const context = useContext(TextStyleContext);
 
-  const resolveStyle = useStyle(style, styleName);
-  const resolveActiveStyle = useStyle(active && activeStyle);
-  const resolveTextStyle = useStyle([context && context.style, textStyle]);
-  const resolveActiveTextStyle = useStyle(active && activeTextStyle);
+    const resolveStyle = useStyle(style, styleName);
+    const resolveActiveStyle = useStyle(active && activeStyle);
+    const resolveTextStyle = useStyle([context && context.style, textStyle]);
+    const resolveActiveTextStyle = useStyle(active && activeTextStyle);
 
-  const { interaction, interactionProps } = useInteractionState(elementProps);
+    const { interaction, interactionProps } = useInteractionState(elementProps);
 
-  const hasTextStyle = (context && context.style) || textStyle;
-  const wrappedChildren = applyCaret(children, caret);
+    const hasTextStyle = (context && context.style) || textStyle;
+    const wrappedChildren = applyCaret(children, caret);
 
-  const contextValue = useMemo(
-    () => ({
-      style: [
-        resolveTextStyle({ media, interaction }),
-        resolveActiveTextStyle({ media, interaction }),
-      ],
-      hasAncestor: context && context.hasTextAncestor,
-    }),
-    [resolveTextStyle, resolveActiveTextStyle, media, interaction],
-  );
+    const contextValue = useMemo(
+      () => ({
+        style: [
+          resolveTextStyle({ media, interaction }),
+          resolveActiveTextStyle({ media, interaction }),
+        ],
+        hasAncestor: context && context.hasTextAncestor,
+      }),
+      [resolveTextStyle, resolveActiveTextStyle, media, interaction],
+    );
 
-  return (
-    <BasePressable
-      {...elementProps}
-      {...interactionProps}
-      ref={actionRef}
-      role={getRole(actionProps)}
-      style={[
-        resolveStyle({ media, interaction }),
-        resolveActiveStyle({ media, interaction }),
-      ]}
-    >
-      {hasTextStyle ? (
-        <TextStyleContext.Provider value={contextValue}>
-          {wrappedChildren}
-        </TextStyleContext.Provider>
-      ) : (
-        wrappedChildren
-      )}
-    </BasePressable>
-  );
-});
+    return (
+      <BasePressable
+        {...elementProps}
+        {...interactionProps}
+        ref={actionRef}
+        role={getRole(actionProps)}
+        style={[
+          resolveStyle({ media, interaction }),
+          resolveActiveStyle({ media, interaction }),
+        ]}
+      >
+        {hasTextStyle ? (
+          <TextStyleContext.Provider value={contextValue}>
+            {wrappedChildren}
+          </TextStyleContext.Provider>
+        ) : (
+          wrappedChildren
+        )}
+      </BasePressable>
+    );
+  },
+);
 
 Pressable.displayName = 'Pressable';
 

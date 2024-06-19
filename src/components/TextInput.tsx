@@ -19,7 +19,7 @@ export interface TextInputProps extends Omit<BaseTextInputProps, 'style'> {
   styleName?: StyleName;
 }
 
-const TextInput = React.forwardRef<BaseTextInput, TextInputProps>(
+const TextInput = React.forwardRef<TextInputRef, TextInputProps>(
   (props, ref) => {
     const {
       onFocus = () => {},

@@ -13,6 +13,8 @@ import type {
   ExtendedViewStyle,
 } from '../types';
 
+export type ScrollViewRef = BaseScrollView;
+
 interface ScrollViewProps
   extends Omit<BaseScrollViewProps, 'style' | 'contentContainerStyle'> {
   style?: StyleProp<ExtendedViewStyle>;
@@ -21,7 +23,7 @@ interface ScrollViewProps
   styleName?: StyleName;
 }
 
-const ScrollView = React.forwardRef<BaseScrollView, ScrollViewProps>(
+const ScrollView = React.forwardRef<ScrollViewRef, ScrollViewProps>(
   (props, ref) => {
     const {
       children,

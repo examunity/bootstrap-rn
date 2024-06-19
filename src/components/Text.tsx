@@ -9,6 +9,8 @@ import { THEME_COLORS } from '../theme/proxies';
 import useStyle from '../hooks/useStyle';
 import type { ExtendedTextStyle, StyleProp, StyleName } from '../types';
 
+export type TextRef = BaseText;
+
 type ThemeColors =
   | keyof typeof THEME_COLORS
   | 'muted'

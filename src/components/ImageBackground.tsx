@@ -12,7 +12,9 @@ import type {
   StyleName,
 } from '../types';
 
-interface ImageBackgroundProps
+export type ImageBackgroundRef = BaseImageBackground;
+
+export interface ImageBackgroundProps
   extends Omit<BaseImageBackgroundProps, 'style' | 'imageStyle'> {
   style?: StyleProp<ExtendedViewStyle>;
   imageStyle?: StyleProp<ExtendedImageStyle>;
@@ -20,7 +22,7 @@ interface ImageBackgroundProps
 }
 
 const ImageBackground = React.forwardRef<
-  BaseImageBackground,
+  ImageBackgroundRef,
   ImageBackgroundProps
 >((props, ref) => {
   const { style, imageStyle, styleName, ...elementProps } = props;
