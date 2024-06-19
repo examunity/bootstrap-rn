@@ -10,9 +10,9 @@ import {
   UTILITIES_BG_COLORS,
   NEGATIVE_SPACERS,
 } from './maps';
-import { ThemeVariables } from '../types';
+import type { ThemeVariables, StyleUtility } from '../types';
 
-const utilities = {
+const utilities: Record<string, StyleUtility> = {
   align: {
     property: 'vertical-align',
     class: 'align',

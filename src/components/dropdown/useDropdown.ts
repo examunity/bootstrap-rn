@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react';
 import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
-import { DropDownDirection } from '../../types';
+import type { DropDownDirection } from '../../types';
 
 export default function useDropdown(
   defaultVisible: boolean,

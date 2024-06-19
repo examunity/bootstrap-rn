@@ -1,3 +1,4 @@
+import type { RootNode } from '../transform';
 import InputStream, { Char } from './InputStream';
 import parseBlock from './parseBlock';
 
@@ -17,7 +18,7 @@ function parse(fragments: TemplateStringsArray, ...tags: Char[]) {
   return {
     type: 'root',
     children,
-  };
+  } as RootNode;
 }
 
 export default parse;

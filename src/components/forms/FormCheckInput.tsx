@@ -11,7 +11,7 @@ import { escapeSvg } from '../../theme/functions';
 import FormCheckContext from './FormCheckContext';
 import FormCheckInputWeb from './internals/FormCheckInputWeb';
 import FormCheckInputNative from './internals/FormCheckInputNative';
-import { FormValidationState, ThemeVariables } from '../../types';
+import type { FormValidationState, ThemeVariables } from '../../types';
 
 export type FormCheckInputProps = {
   type: 'checkbox' | 'radio' | 'switch';

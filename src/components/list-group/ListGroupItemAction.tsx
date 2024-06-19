@@ -11,7 +11,7 @@ import useForcedContext from '../../hooks/useForcedContext';
 import { styles as baseStyles } from './ListGroupItem';
 import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export interface ListGroupItemActionProps extends PressableProps {
   color?: keyof typeof THEME_COLORS;

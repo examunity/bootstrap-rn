@@ -2,10 +2,10 @@ import React from 'react';
 import { Image as BaseImage, ImageProps as BaseImageProps } from 'react-native';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import type { ImageStyle, StyleName } from '../types';
+import type { ImageStyle, StyleProp, StyleName } from '../types';
 
 interface ImageProps extends Omit<BaseImageProps, 'style'> {
-  style?: ImageStyle;
+  style?: StyleProp<ImageStyle>;
   styleName?: StyleName;
 }
 

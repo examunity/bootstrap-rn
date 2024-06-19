@@ -1,9 +1,9 @@
 import React from 'react';
-import type { TextStyle } from '../types';
+import type { ExtendedTextStyle, StyleProp } from '../types';
 
 export type TextStyleContextType = {
-  style: TextStyle;
-  hasTextAncestor: boolean;
+  style: StyleProp<ExtendedTextStyle>;
+  hasTextAncestor?: boolean;
 };
 
 const TextStyleContext = React.createContext<TextStyleContextType | null>(null);

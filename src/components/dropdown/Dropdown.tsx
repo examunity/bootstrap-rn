@@ -13,7 +13,7 @@ import DropdownDivider from './DropdownDivider';
 import useDropdown from './useDropdown';
 import useDismissDropdown from './useDismissDropdown';
 import useToggleDropdown from './useToggleDropdown';
-import { DropDownDirection } from '../../types';
+import type { DropDownDirection } from '../../types';
 
 export interface DropdownProps extends ViewProps {
   defaultVisible?: boolean;

@@ -11,7 +11,7 @@ import css from '../../style/css';
 import { getStyles, each } from '../../utils';
 import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 type ButtonThemeColors = keyof typeof THEME_COLORS | 'link';
 

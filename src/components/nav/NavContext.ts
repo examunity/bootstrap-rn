@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { NavVariant } from '../../types';
+import type { NavVariant } from '../../types';
 
 type NavContextType = {
   variant?: NavVariant;

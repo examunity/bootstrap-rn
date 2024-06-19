@@ -12,7 +12,12 @@ import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
 import Caret, { CaretProps } from './Caret';
-import type { ViewStyle, TextStyle, StyleName } from '../types';
+import type {
+  ExtendedViewStyle,
+  ExtendedTextStyle,
+  StyleProp,
+  StyleName,
+} from '../types';
 
 type CaretTypes = boolean | CaretProps;
 
@@ -22,10 +27,10 @@ export interface PressableProps
   children?: React.ReactNode;
   caret?: CaretTypes;
   active?: boolean;
-  style?: ViewStyle;
-  activeStyle?: ViewStyle;
-  textStyle?: TextStyle;
-  activeTextStyle?: TextStyle;
+  style?: StyleProp<ExtendedViewStyle>;
+  activeStyle?: StyleProp<ExtendedViewStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
+  activeTextStyle?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;
 }
 

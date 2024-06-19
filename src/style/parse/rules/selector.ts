@@ -1,3 +1,4 @@
+import type { BlockNode, SelectorStyleScope } from '../../transform';
 import InputStream from '../InputStream';
 import isIdent from '../isIdent';
 import isWhitespace from '../isWhitespace';
@@ -33,15 +34,15 @@ const selector = {
     input.read('}');
 
     return {
-      type: 'block',
+      type: 'block' as const,
       scopes: [
         {
           type: 'selector',
           name,
-        },
+        } as SelectorStyleScope,
       ],
       children,
-    };
+    } as BlockNode;
   },
 };
 

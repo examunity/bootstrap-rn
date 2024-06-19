@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 import css from '../style/css';
 import { calculate } from '../style/math';
 import { shadeColor, tintColor, shiftColor, add, subtract } from './functions';
-import { ThemeVariables } from '../types';
+import type { ThemeVariables } from '../types';
 
 const url =
   (val: string) =>
@@ -25,15 +25,15 @@ const variables = css`
   $black: #000;
 
   $grays: ${(t: ThemeVariables) => ({
-    '100': t['gray-100'],
-    '200': t['gray-200'],
-    '300': t['gray-300'],
-    '400': t['gray-400'],
-    '500': t['gray-500'],
-    '600': t['gray-600'],
-    '700': t['gray-700'],
-    '800': t['gray-800'],
-    '900': t['gray-900'],
+    100: t['gray-100'],
+    200: t['gray-200'],
+    300: t['gray-300'],
+    400: t['gray-400'],
+    500: t['gray-500'],
+    600: t['gray-600'],
+    700: t['gray-700'],
+    800: t['gray-800'],
+    900: t['gray-900'],
   })};
 
   $blue: #0d6efd;

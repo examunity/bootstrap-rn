@@ -3,11 +3,16 @@ import { View as BaseView, ViewProps as BaseViewProps } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import { TextStyle, StyleName, ViewStyle } from '../types';
+import type {
+  ExtendedTextStyle,
+  StyleName,
+  StyleProp,
+  ExtendedViewStyle,
+} from '../types';
 
 export interface ViewProps extends Omit<BaseViewProps, 'style'> {
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: StyleProp<ExtendedViewStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;
 }
 

@@ -5,11 +5,7 @@ import mediaBreakpointOnly from './mixins/mediaBreakpointOnly';
 import mediaBreakpointUp from './mixins/mediaBreakpointUp';
 import platform from './mixins/platform';
 import type { StyleDefinition } from './transform';
-import {
-  SpecialInteractionStyle,
-  UniversalStyle,
-  UniversalBaseStyle,
-} from '../types';
+import type { SpecialInteractionStyle, BaseStyle } from '../types';
 
 export const BOOTSTRAP_RN_STYLE = Symbol.for('bootstrap-rn.style');
 
@@ -24,7 +20,7 @@ const mixins = {
 const hasInteraction = ({ scopes }: StyleDefinition) =>
   scopes.some((scope) => scope.type === 'selector');
 
-function createStyle(definitions: StyleDefinition[]): UniversalStyle {
+function createStyle(definitions: StyleDefinition[]) {
   // If there is only one definition without conditions, return.
   if (definitions.length === 1 && definitions[0].scopes.length === 0) {
     return definitions[0].declarations;
@@ -44,12 +40,12 @@ function createStyle(definitions: StyleDefinition[]): UniversalStyle {
   // Create style sheets.
   const styles = StyleSheet.create({
     ...platformDefinitions.map((item) => item.declarations),
-  }) as UniversalBaseStyle;
+  });
 
-  const resolve: SpecialInteractionStyle<UniversalStyle> = (state) => {
+  const resolve: SpecialInteractionStyle<BaseStyle> = (state) => {
     const { interaction } = state;
-    const basicStyles: UniversalBaseStyle[] = [];
-    const interactionStyles: UniversalBaseStyle[] = [];
+    const basicStyles: BaseStyle[] = [];
+    const interactionStyles: BaseStyle[] = [];
 
     Object.values(styles).forEach((style, key) => {
       const active = platformDefinitions[key].scopes.every((scope) => {

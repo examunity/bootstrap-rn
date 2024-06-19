@@ -2,15 +2,18 @@ import css from './css';
 import { GRID_BREAKPOINTS } from '../theme/proxies';
 import utilities from '../theme/utilities';
 import { each } from '../utils';
+import type { StyleUtility } from '../types';
 
-export function makeUtility(options) {
+export function makeUtility(options: StyleUtility) {
   return each(options.values, (key, value) => {
     const name = options.class || options.property;
     const suffix = key === 'null' ? '' : `-${key}`;
 
+    const rule = `${options.property}: ${value};`;
+
     const styles = {
       [`${name}${suffix}`]: css`
-        ${options.property}: ${value};
+        ${rule}
       `,
     };
 
@@ -22,13 +25,13 @@ export function makeUtility(options) {
       ...styles,
       ...each(GRID_BREAKPOINTS, (breakpoint) => {
         if (breakpoint === 'xs') {
-          return null;
+          return {};
         }
 
         return {
           [`${name}-${breakpoint}${suffix}`]: css`
             @include media-breakpoint-up(${breakpoint}) {
-              ${options.property}: ${value};
+              ${rule}
             }
           `,
         };
@@ -37,7 +40,11 @@ export function makeUtility(options) {
   });
 }
 
-export default function makeUtilities(resolve) {
+export default function makeUtilities(
+  resolve:
+    | Record<string, StyleUtility>
+    | ((u: Record<string, StyleUtility>) => StyleUtility),
+) {
   const customUtilities =
     typeof resolve === 'function' ? resolve(utilities) : resolve;
 

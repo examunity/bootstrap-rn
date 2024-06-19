@@ -1,7 +1,7 @@
 import parse from './parse';
 import transform from './transform';
 import createStyle from './createStyle';
-import { ThemeVariables, StyleValue } from '../types';
+import type { ThemeVariables, StyleValue } from '../types';
 
 export default function css(
   fragments: TemplateStringsArray,

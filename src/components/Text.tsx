@@ -7,7 +7,7 @@ import TextStyleContext from '../style/TextStyleContext';
 import { getStyles } from '../utils';
 import { THEME_COLORS } from '../theme/proxies';
 import useStyle from '../hooks/useStyle';
-import type { TextStyle, StyleName } from '../types';
+import type { ExtendedTextStyle, StyleProp, StyleName } from '../types';
 
 type ThemeColors =
   | keyof typeof THEME_COLORS
@@ -21,7 +21,7 @@ export interface TextProps extends Omit<BaseTextProps, 'style'> {
   mark?: boolean;
   bold?: boolean;
   italic?: boolean;
-  style?: TextStyle;
+  style?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;
 }
 

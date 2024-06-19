@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import useIdentifier from '../../hooks/useIdentifier';
 import useControlledState from '../../hooks/useControlledState';
-import { NavbarExpand, NavbarVariant } from '../../types';
+import type { NavbarExpand, NavbarVariant } from '../../types';
 
 export default function useNavbar(
   variant: NavbarVariant,

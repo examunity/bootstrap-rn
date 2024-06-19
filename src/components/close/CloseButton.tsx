@@ -10,7 +10,7 @@ import useStyle from '../../hooks/useStyle';
 import useInteractionState from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export type CloseButtonProps = {
   children: React.ReactNode;

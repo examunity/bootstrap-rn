@@ -1,5 +1,5 @@
 import React, { useContext, forwardRef } from 'react';
-import { I18nManager, StyleSheet as StyleUtils, ViewStyle } from 'react-native';
+import { I18nManager, StyleSheet as StyleUtils } from 'react-native';
 import View from './View';
 import StyleSheet from '../style/StyleSheet';
 import { getStyles } from '../utils';
@@ -29,10 +29,7 @@ const getColor = (context: TextStyleContextType | null): string => {
   return StyleSheet.value('body-color');
 };
 
-const getBorderColorStyle = (
-  color: string,
-  direction: CaretDirectionTypes,
-): ViewStyle => {
+const getBorderColorStyle = (color: string, direction: CaretDirectionTypes) => {
   switch (direction) {
     case 'down':
       return { borderTopColor: color };

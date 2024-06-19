@@ -1,9 +1,4 @@
-import {
-  Platform,
-  ViewStyle as BaseViewStyle,
-  ImageStyle as BaseImageStyle,
-  TextStyle as BaseTextStyle,
-} from 'react-native';
+import { Platform } from 'react-native';
 import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 import rem from './rem';
 import formula from './formula';
@@ -12,37 +7,54 @@ import backgroundSize from './properties/backgroundSize';
 import backgroundPosition from './properties/backgroundPosition';
 import backgroundPositionX from './properties/backgroundPositionX';
 import backgroundPositionY from './properties/backgroundPositionY';
+import type { BaseStyle } from '../../types';
 
 type Value = string | ((v: object, k: string | undefined) => string);
 
-export type StyleScope =
-  | {
-      type: 'selector';
-      name: 'hover' | 'focus' | 'focus-visible' | 'active';
-      args: string[];
-    }
-  | {
-      type: 'mixin';
-      name:
-        | 'media-breakpoint-between'
-        | 'media-breakpoint-down'
-        | 'media-breakpoint-only'
-        | 'media-breakpoint-up'
-        | 'platform';
-      args: string[];
-    };
+export type SelectorStyleScope = {
+  type: 'selector';
+  name: 'hover' | 'focus' | 'focus-visible' | 'active';
+};
 
-type Node = {
-  type: string;
-  name: string;
-  value: Value[];
-  scopes: StyleScope[];
+export type MixinStyleScope = {
+  type: 'mixin';
+  name:
+    | 'media-breakpoint-between'
+    | 'media-breakpoint-down'
+    | 'media-breakpoint-only'
+    | 'media-breakpoint-up'
+    | 'platform';
+  args: string[];
+};
+
+export type StyleScope = SelectorStyleScope | MixinStyleScope;
+
+export type RootNode = {
+  type: 'root';
+  // eslint-disable-next-line no-use-before-define
   children: Node[];
 };
 
+export type VariableNode = { type: 'variable'; name: string; value: Value[] };
+
+export type DeclarationNode = {
+  type: 'declaration';
+  name: string;
+  value: Value[];
+};
+
+export type BlockNode = {
+  type: 'block';
+  scopes: StyleScope[];
+  // eslint-disable-next-line no-use-before-define
+  children: Node[];
+};
+
+export type Node = RootNode | VariableNode | DeclarationNode | BlockNode;
+
 export type StyleDefinition = {
   scopes: StyleScope[];
-  declarations: BaseViewStyle | BaseImageStyle | BaseTextStyle;
+  declarations: BaseStyle;
   variables: Record<string, string>;
 };
 

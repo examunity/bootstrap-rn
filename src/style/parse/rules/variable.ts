@@ -1,3 +1,4 @@
+import type { VariableNode } from '../../transform';
 import InputStream from '../InputStream';
 import declaration from './declaration';
 
@@ -18,7 +19,7 @@ const variable = {
       type: 'variable',
       name,
       value,
-    };
+    } as VariableNode;
   },
 };
 

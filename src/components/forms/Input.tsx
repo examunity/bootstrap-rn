@@ -5,7 +5,7 @@ import TextInput, { TextInputProps, TextInputRef } from '../TextInput';
 import { getStyles, each } from '../../utils';
 import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
-import { FormValidationState, ThemeVariables } from '../../types';
+import type { FormValidationState, ThemeVariables } from '../../types';
 
 export interface InputProps extends TextInputProps {
   size?: 'sm' | 'lg';

@@ -5,7 +5,7 @@ import css from '../../style/css';
 import { getStyles, each } from '../../utils';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shiftColor } from '../../theme/functions';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export interface AlertProps extends ViewProps {
   color?: keyof typeof THEME_COLORS;
@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
       )};
     `,
   })),
-  '.alert-dismissible': {
+  /* '.alert-dismissible': {
     // TODO
-  },
+  }, */
 });
 
 const Alert = React.forwardRef<ViewRef, AlertProps>((props, ref) => {

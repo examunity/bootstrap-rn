@@ -14,7 +14,7 @@ import { normalizeNumber } from '../../style/math';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import DropdownContext from './DropdownContext';
-import { DropDownDirection, RnPlacement } from '../../types';
+import type { DropDownDirection, RnPlacement } from '../../types';
 
 type AlignmentBreakpointsSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 type AlignmentBreakpoints = boolean | AlignmentBreakpointsSize;

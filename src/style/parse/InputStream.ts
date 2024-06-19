@@ -1,4 +1,4 @@
-import { ThemeVariables, StyleValue } from '../../types';
+import type { ThemeVariables, StyleValue } from '../../types';
 
 export type Char = string | ((t: ThemeVariables) => StyleValue);
 
@@ -33,7 +33,7 @@ class InputStream {
       }
 
       return [...result, ...tag.split(''), ...value];
-    });
+    }, [] as Char[]);
     this.cursor = 0;
   }
 

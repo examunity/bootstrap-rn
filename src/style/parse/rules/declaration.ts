@@ -1,3 +1,4 @@
+import type { DeclarationNode } from '../../transform';
 import InputStream, { Char } from '../InputStream';
 import isIdent from '../isIdent';
 import isWhitespace from '../isWhitespace';
@@ -68,7 +69,7 @@ const declaration = {
       type: 'declaration',
       name,
       value,
-    };
+    } as DeclarationNode;
   },
 };
 

@@ -16,7 +16,7 @@ import PickerWeb from './internals/PickerWeb';
 import PickerNative from './internals/PickerNative';
 import PickerItem from './PickerItem';
 import PickerContext from './PickerContext';
-import { FormValidationState, ThemeVariables } from '../../types';
+import type { FormValidationState, ThemeVariables } from '../../types';
 
 export type PickerProps = {
   children: ReactNode;

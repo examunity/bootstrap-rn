@@ -1,11 +1,15 @@
 import { I18nManager } from 'react-native';
-import { UniversalStyle, ThemeVariables, StyleValue } from './types';
+import type { ExtendedStyle, ThemeVariables, StyleValue } from './types';
 
 export function each<
   T extends Record<string, string | ((t: ThemeVariables) => StyleValue)>,
 >(
   source: T,
-  apply: (key: keyof T, resolve: (t: ThemeVariables) => StyleValue) => object,
+  apply: (
+    key: keyof T,
+    resolve: (t: ThemeVariables) => StyleValue,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) => Record<string, any>,
 ) {
   return Object.entries(source)
     .map(([key, value]) => {
@@ -39,7 +43,7 @@ export function makeArray(length: number, callback: (index: number) => object) {
 type FalsyValue = false | undefined | null | '' | 0;
 
 export function getStyles<T extends string>(
-  styles: Record<string, UniversalStyle>,
+  styles: Record<string, ExtendedStyle>,
   keys: (T | FalsyValue)[],
 ) {
   return keys

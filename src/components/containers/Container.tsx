@@ -6,7 +6,7 @@ import { CONTAINER_MAX_WIDTHS, GRID_BREAKPOINTS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
 import { infix, next } from '../../theme/breakpoints';
 import NavbarContext from '../navbar/NavbarContext';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export interface ContainerProps extends ViewProps {
   fluid: true | keyof typeof CONTAINER_MAX_WIDTHS;

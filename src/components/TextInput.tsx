@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import type { ViewStyle, StyleName } from '../types';
+import type { ExtendedViewStyle, StyleProp, StyleName } from '../types';
 
 export type TextInputRef = BaseTextInput;
 
@@ -15,7 +15,7 @@ export interface TextInputProps extends Omit<BaseTextInputProps, 'style'> {
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   autoFocus?: boolean;
-  style?: ViewStyle;
+  style?: StyleProp<ExtendedViewStyle>;
   styleName?: StyleName;
 }
 

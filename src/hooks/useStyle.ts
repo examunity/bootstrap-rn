@@ -1,17 +1,19 @@
 import { useMemo } from 'react';
-import type {
-  ViewStyle as BaseViewStyle,
-  ImageStyle as BaseImageStyle,
-  TextStyle as BaseTextStyle,
-} from 'react-native';
 import { BOOTSTRAP_RN_STYLE } from '../style/createStyle';
 import Context from '../Context';
-import type { StyleProp, StyleName, InteractionState } from '../types';
+import type {
+  StyleProp,
+  StyleName,
+  InteractionState,
+  ExtendedStyle,
+  ExtendedStyleType,
+  BaseStyle,
+} from '../types';
 import useForcedContext from './useForcedContext';
 
 type FalsyValue = false | undefined | null | '' | 0;
 
-const normalize = <T>(
+const normalize = <T extends ExtendedStyle | ExtendedStyle[]>(
   style: StyleProp<T> | (StyleProp<T> | FalsyValue)[],
 ): StyleProp<T>[] => {
   if (!Array.isArray(style)) {
@@ -23,9 +25,10 @@ const normalize = <T>(
     .reduce((res, val) => [...res, ...normalize(val)], []);
 };
 
-export default function useStyle<
-  T extends BaseViewStyle | BaseImageStyle | BaseTextStyle,
->(style: StyleProp<T>, styleName?: StyleName) {
+export default function useStyle<T extends BaseStyle>(
+  style: StyleProp<ExtendedStyleType<T>>,
+  styleName?: StyleName,
+) {
   const { utilities: utilitiesStyles } = useForcedContext(Context);
 
   const utilities = useMemo(() => {
@@ -47,7 +50,9 @@ export default function useStyle<
     });
   }, [styleName]);
 
-  const styles = normalize(utilities ? [style, ...utilities] : style);
+  const styles = normalize<ExtendedStyleType<T> | ExtendedStyleType<T>[]>(
+    utilities ? [style, ...utilities] : style,
+  );
 
   return (state: InteractionState) => {
     const basicStyles: T[] = [];

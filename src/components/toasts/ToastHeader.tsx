@@ -4,7 +4,7 @@ import css from '../../style/css';
 import View from '../View';
 import { subtract } from '../../theme/functions';
 import { getStyles } from '../../utils';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export interface ToastHeaderProps extends ViewProps {}
 

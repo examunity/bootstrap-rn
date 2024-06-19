@@ -1,3 +1,4 @@
+import type { BlockNode, MixinStyleScope } from '../../transform';
 import InputStream from '../InputStream';
 import isIdent from '../isIdent';
 import isWhitespace from '../isWhitespace';
@@ -65,10 +66,10 @@ const directive = {
           type: 'mixin',
           name,
           args,
-        },
+        } as MixinStyleScope,
       ],
       children,
-    };
+    } as BlockNode;
   },
 };
 

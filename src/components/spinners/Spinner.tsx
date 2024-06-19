@@ -5,7 +5,7 @@ import css from '../../style/css';
 import View from '../View';
 import { THEME_COLORS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
-import { SpinnerVariant } from '../../types';
+import type { SpinnerVariant } from '../../types';
 
 export type SpinnerProps = {
   variant?: SpinnerVariant;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View as BaseView } from 'react-native';
-import type { StyleUtilities, Viewport, Modifier } from './types';
+import type { ExtendedStyle, Viewport, Modifier } from './types';
 
 export type BootstrapRNContextType = {
-  utilities: StyleUtilities;
+  utilities: Record<string, ExtendedStyle>;
   modifiers: Record<string, Modifier>;
   scrollbars: {
     hide: () => void;

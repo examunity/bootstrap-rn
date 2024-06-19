@@ -5,12 +5,17 @@ import {
 } from 'react-native';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import type { ViewStyle, ImageStyle, StyleName } from '../types';
+import type {
+  ExtendedViewStyle,
+  ExtendedImageStyle,
+  StyleProp,
+  StyleName,
+} from '../types';
 
 interface ImageBackgroundProps
   extends Omit<BaseImageBackgroundProps, 'style' | 'imageStyle'> {
-  style?: ViewStyle;
-  imageStyle?: ImageStyle;
+  style?: StyleProp<ExtendedViewStyle>;
+  imageStyle?: StyleProp<ExtendedImageStyle>;
   styleName?: StyleName;
 }
 

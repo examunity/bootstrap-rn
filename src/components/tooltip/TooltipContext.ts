@@ -1,5 +1,5 @@
 import React from 'react';
-import { Placement } from '../../types';
+import type { Placement } from '../../types';
 
 type TooltipContextType = {
   placement: Placement;

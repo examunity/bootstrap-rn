@@ -6,13 +6,18 @@ import {
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import type { StyleName, TextStyle, ViewStyle } from '../types';
+import type {
+  StyleName,
+  StyleProp,
+  ExtendedTextStyle,
+  ExtendedViewStyle,
+} from '../types';
 
 interface ScrollViewProps
   extends Omit<BaseScrollViewProps, 'style' | 'contentContainerStyle'> {
-  style?: ViewStyle;
-  contentContainerStyle?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: StyleProp<ExtendedViewStyle>;
+  contentContainerStyle?: StyleProp<ExtendedViewStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;
 }
 

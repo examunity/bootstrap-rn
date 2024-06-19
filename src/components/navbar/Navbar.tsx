@@ -13,7 +13,7 @@ import NavbarContext from './NavbarContext';
 import useNavbar from './useNavbar';
 import useDismissNavbar from './useDismissNavbar';
 import useToggleNavbar from './useToggleNavbar';
-import { NavbarExpand, NavbarVariant } from '../../types';
+import type { NavbarExpand, NavbarVariant } from '../../types';
 
 export interface NavbarProps extends ViewProps {
   variant?: NavbarVariant;

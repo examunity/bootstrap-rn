@@ -4,7 +4,7 @@ import css from '../../style/css';
 import Text from '../Text';
 import { each, getStyles } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
-import { FormValidationState, ThemeVariables } from '../../types';
+import type { FormValidationState, ThemeVariables } from '../../types';
 
 export interface FeedbackProps extends TextProps {
   type?: keyof typeof FORM_VALIDATION_STATES;

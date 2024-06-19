@@ -13,7 +13,7 @@ import useToggleNavbar from './useToggleNavbar';
 import useStyle from '../../hooks/useStyle';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export interface NavbarTogglerProps extends PressableProps {
   iconStyle?: unknown;

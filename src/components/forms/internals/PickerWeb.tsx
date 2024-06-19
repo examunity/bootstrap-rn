@@ -3,10 +3,9 @@ import {
   // @ts-expect-error web only import
   Picker as BasePicker,
   StyleSheet as StyleUtils,
-  ViewStyle,
-  TextStyle,
   NativeSyntheticEvent,
   TargetedEvent,
+  ViewStyle,
 } from 'react-native';
 import useBackground from '../../../hooks/useBackground';
 import PickerWebContext from './PickerWebContext';
@@ -20,15 +19,12 @@ interface PickerWebProps {
   placeholder?: string;
   placeholderTextColor?: string;
   disabled?: boolean;
-  style?: ViewStyle | TextStyle;
+  style?: ViewStyle;
 }
 
 const PLACEHOLDER = '__PLACEHOLDER__';
 
-const getOptionStyle = (
-  style: ViewStyle | TextStyle,
-  showPlaceholder: boolean,
-) => {
+const getOptionStyle = (style: ViewStyle, showPlaceholder: boolean) => {
   if (!showPlaceholder) {
     return null;
   }

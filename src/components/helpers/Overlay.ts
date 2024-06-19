@@ -1,7 +1,7 @@
 import React, { useRef, ReactNode } from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { useOverlayPosition } from '@react-native-aria/overlays';
-import { RnPlacement, RnPlacementAxis } from '../../types';
+import type { RnPlacement, RnPlacementAxis } from '../../types';
 
 type ChildOverlayProps = {
   style?: unknown;

@@ -10,7 +10,7 @@ import NavbarContext, { NavbarContextType } from '../navbar/NavbarContext';
 import NavContext from './NavContext';
 import NavLink from './NavLink';
 import TabContext, { TabContextType } from './TabContext';
-import { NavVariant } from '../../types';
+import type { NavVariant } from '../../types';
 
 export interface NavProps extends ViewProps {
   variant?: NavVariant;

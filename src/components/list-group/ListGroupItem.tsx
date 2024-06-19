@@ -9,7 +9,7 @@ import { shiftColor } from '../../theme/functions';
 import useForcedContext from '../../hooks/useForcedContext';
 import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export interface ListGroupItemProps extends ViewProps {
   color?: keyof typeof THEME_COLORS;

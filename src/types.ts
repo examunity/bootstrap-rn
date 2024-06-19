@@ -11,7 +11,7 @@ import { BOOTSTRAP_RN_STYLE } from './style/createStyle';
 
 // Styles
 
-export type UniversalBaseStyle = BaseViewStyle | BaseImageStyle | BaseTextStyle;
+export type BaseStyle = BaseViewStyle | BaseImageStyle | BaseTextStyle;
 
 export type Viewport = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
@@ -43,38 +43,46 @@ export type SpecialInteractionStyle<T> = {
   $$typeof: typeof BOOTSTRAP_RN_STYLE;
 };
 
-type InteractionStyle<T> =
+export type ExtendedStyleType<T> =
+  | T
   | SpecialInteractionStyle<T>
   | ((state: InteractionState) => T);
 
 export type StyleProp<T> =
-  | T
-  | InteractionStyle<T>
+  | ExtendedStyleType<T>
   | RegisteredStyle<T>
-  | RecursiveArray<T | RegisteredStyle<T> | InteractionStyle<T> | Falsy>
+  | RecursiveArray<ExtendedStyleType<T> | RegisteredStyle<T> | Falsy>
   | Falsy;
 
-export type ViewStyle = StyleProp<BaseViewStyle>;
+export type ExtendedViewStyle = ExtendedStyleType<BaseViewStyle>;
 
-export type ImageStyle = StyleProp<BaseImageStyle>;
+export type ExtendedImageStyle = ExtendedStyleType<BaseImageStyle>;
 
-export type TextStyle = StyleProp<BaseTextStyle>;
+export type ExtendedTextStyle = ExtendedStyleType<BaseTextStyle>;
 
-export type UniversalStyle = StyleProp<
-  BaseViewStyle | BaseImageStyle | BaseTextStyle
->;
-
-export type StyleUtilities = Record<string, UniversalStyle>;
+export type ExtendedStyle =
+  | ExtendedViewStyle
+  | ExtendedImageStyle
+  | ExtendedTextStyle;
 
 export type StyleName = string;
+
+// Theme
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type StyleValue = any;
 
-// Theme
-
 export type ThemeVariables = {
   [key: string]: StyleValue;
+};
+
+export type StyleUtility = {
+  responsive?: boolean;
+  print?: boolean;
+  rfs?: boolean;
+  property: string;
+  class?: string;
+  values: Record<string, string | ((t: ThemeVariables) => StyleValue)>;
 };
 
 export type FormValidationState = (t: ThemeVariables) => {

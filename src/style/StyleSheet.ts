@@ -1,15 +1,18 @@
 import { StyleSheet as BaseStyleSheet } from 'react-native';
-import { UniversalStyle, UniversalBaseStyle, ThemeVariables } from '../types';
+import type { ExtendedStyle, BaseStyle, ThemeVariables } from '../types';
 
 type StyleSource = Record<
   string,
-  (theme: object, key: string) => UniversalStyle | UniversalStyle
+  (theme: object, key: string) => ExtendedStyle | ExtendedStyle
 >;
+
+type NamedExtendedStyles = Record<string, ExtendedStyle>;
+type NamedStyles = Record<string, BaseStyle>;
 
 type StyleSheetDefinition = {
   source: StyleSource;
-  cache: Record<string, Record<string, UniversalStyle>>;
-  active: Record<string, UniversalStyle> | null;
+  cache: Record<string, NamedExtendedStyles>;
+  active: NamedExtendedStyles;
 };
 
 let activeKey: string | null = null;
@@ -17,13 +20,11 @@ let activeKey: string | null = null;
 const themes: Record<string, ThemeVariables> = {};
 const sheets: StyleSheetDefinition[] = [];
 
-const createSheet = (
-  sheet: StyleSheetDefinition,
-): Record<string, UniversalStyle> => {
+const createSheet = (sheet: StyleSheetDefinition): NamedExtendedStyles => {
   const theme = themes[activeKey as string];
 
-  const statelessSource: Record<string, UniversalBaseStyle> = {};
-  const statefulSource: Record<string, UniversalStyle> = {};
+  const statelessSource: NamedStyles = {};
+  const statefulSource: NamedExtendedStyles = {};
 
   // Apply theme to themeable styles.
   Object.entries(sheet.source).forEach(([key, style]) => {
@@ -34,14 +35,14 @@ const createSheet = (
     if (typeof value === 'function') {
       statefulSource[key] = value;
     } else {
-      statelessSource[key] = value as UniversalBaseStyle;
+      statelessSource[key] = value as BaseStyle;
     }
   });
 
   // Wrap stateful and stateless in a proxy, so that we can update the styles on theme change.
   // For using Object.assign below we need some additional methods on the proxy that are mentioned here:
   // https://stackoverflow.com/questions/43185453/object-assign-and-proxies
-  // @ts-expect-error proxy is equivalent to Record<string, UniversalStyle>
+  // @ts-expect-error proxy is equivalent to NamedExtendedStyles
   return new Proxy(
     {
       keys: Object.keys(sheet.source),
@@ -78,16 +79,14 @@ const StyleSheet = {
     const sheet: StyleSheetDefinition = {
       source,
       cache: {},
-      active: null,
+      // Placeholder until build method is called.
+      active: {},
     };
 
     // If initialized, set active sheet based by active theme.
     if (activeKey !== null) {
       sheet.cache[activeKey] = createSheet(sheet);
       sheet.active = sheet.cache[activeKey];
-    } else {
-      // Placeholder until build method is called.
-      sheet.active = {};
     }
 
     sheets.push(sheet);

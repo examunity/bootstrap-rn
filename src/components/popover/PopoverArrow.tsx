@@ -6,7 +6,7 @@ import { getStyles } from '../../utils';
 import css from '../../style/css';
 import useForcedContext from '../../hooks/useForcedContext';
 import PopoverContext from './PopoverContext';
-import { ThemeVariables } from '../../types';
+import type { ThemeVariables } from '../../types';
 
 export interface PopoverArrowProps extends ViewProps {}
 

@@ -1,10 +1,10 @@
 import React, { useContext, useMemo } from 'react';
 import TextStyleContext from './TextStyleContext';
-import type { TextStyle } from '../types';
+import type { StyleProp, ExtendedTextStyle } from '../types';
 
 type TextStyleProviderProps = {
   children: React.ReactNode;
-  style?: TextStyle;
+  style?: StyleProp<ExtendedTextStyle>;
 };
 
 function TextStyleProvider(props: TextStyleProviderProps) {
