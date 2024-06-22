@@ -1,5 +1,5 @@
 import React from 'react';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { subtract } from '../../theme/functions';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';

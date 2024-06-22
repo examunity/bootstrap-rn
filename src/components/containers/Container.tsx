@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { CONTAINER_MAX_WIDTHS, GRID_BREAKPOINTS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
 import { infix, next } from '../../theme/breakpoints';

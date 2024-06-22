@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { ViewRef } from '../View';
 
 export type DropdownDirection =
   | 'up'

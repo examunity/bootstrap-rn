@@ -1,5 +1,5 @@
 import React from 'react';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import Heading from '../Heading';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';

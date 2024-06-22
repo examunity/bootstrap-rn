@@ -1,7 +1,7 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Text from '../Text';
+import Text, { TextProps, TextRef } from '../Text';
 import { each, getStyles } from '../../utils';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import type { FormValidationState, ThemeVariables } from '../../types';

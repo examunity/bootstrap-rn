@@ -8,6 +8,7 @@ import { getStyles } from '../../../utils';
 import useStyle from '../../../hooks/useStyle';
 import useForcedContext from '../../../hooks/useForcedContext';
 import PickerNativeContext from './PickerNativeContext';
+import { ViewRef } from '../../View';
 
 export type PickerNativeItemProps = {
   label: string;

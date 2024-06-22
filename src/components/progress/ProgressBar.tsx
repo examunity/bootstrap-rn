@@ -2,7 +2,7 @@ import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Text from '../Text';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import ProgressContext from './ProgressContext';

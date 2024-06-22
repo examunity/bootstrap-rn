@@ -1,7 +1,7 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { subtract } from '../../theme/functions';
 import { getStyles } from '../../utils';
 import type { ThemeVariables } from '../../types';

@@ -4,7 +4,7 @@ import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import BackdropHandler from '../helpers/BackdropHandler';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
@@ -15,6 +15,7 @@ import OffcanvasContext from './OffcanvasContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
 import OffcanvasBody from './OffcanvasBody';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export const PLACEMENTS = ['top', 'bottom', 'start', 'end'];
 
@@ -24,8 +25,8 @@ export interface OffcanvasProps extends ViewProps {
   backdrop?: boolean | 'static';
   scroll?: boolean;
   onToggle?: () => void;
-  dialogStyle?: unknown;
-  dialogTextStyle?: unknown;
+  dialogStyle?: StyleProp<ExtendedTextStyle>;
+  dialogTextStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({

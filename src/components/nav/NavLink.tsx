@@ -9,15 +9,17 @@ import useModifier from '../../hooks/useModifier';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
+import { ViewRef } from '../View';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export type NavLinkProps = {
   children: React.ReactNode;
   active?: boolean;
   disabled?: boolean;
-  style?: React.CSSProperties;
-  activeStyle?: unknown;
-  textStyle?: unknown;
-  activeTextStyle?: unknown;
+  style?: StyleProp<ExtendedTextStyle>;
+  activeStyle?: StyleProp<ExtendedTextStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
+  activeTextStyle?: StyleProp<ExtendedTextStyle>;
 };
 
 const styles = StyleSheet.create({

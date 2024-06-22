@@ -12,6 +12,7 @@ import { styles as baseStyles } from './ListGroupItem';
 import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
 import type { ThemeVariables } from '../../types';
+import { ViewRef } from '../View';
 
 export interface ListGroupItemActionProps extends PressableProps {
   color?: keyof typeof THEME_COLORS;

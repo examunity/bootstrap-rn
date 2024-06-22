@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Text from '../Text';
+import Text, { TextProps, TextRef } from '../Text';
 import { getStyles } from '../../utils';
 
 export interface CodeProps extends TextProps {}

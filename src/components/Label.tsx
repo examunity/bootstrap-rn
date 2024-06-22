@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import View from './View';
+import View, { ViewProps, ViewRef } from './View';
 import { concatRefs } from '../utils';
 
 export interface LabelProps extends ViewProps {

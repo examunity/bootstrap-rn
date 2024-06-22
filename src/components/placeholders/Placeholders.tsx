@@ -2,7 +2,7 @@ import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 
 export interface PlaceholdersProps extends ViewProps {}
 

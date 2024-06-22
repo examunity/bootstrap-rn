@@ -1,7 +1,7 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { getStyles } from '../../utils';
 import DropdownContext, { DropdownDirection } from './DropdownContext';
 import DropdownToggle from './DropdownToggle';

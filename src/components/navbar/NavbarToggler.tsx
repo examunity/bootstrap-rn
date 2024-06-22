@@ -2,7 +2,7 @@ import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable, { PressableProps } from '../Pressable';
-import View from '../View';
+import View, { ViewRef } from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
@@ -13,10 +13,10 @@ import useToggleNavbar from './useToggleNavbar';
 import useStyle from '../../hooks/useStyle';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import type { ThemeVariables } from '../../types';
+import type { ExtendedTextStyle, StyleProp, ThemeVariables } from '../../types';
 
 export interface NavbarTogglerProps extends PressableProps {
-  iconStyle?: unknown;
+  iconStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({

@@ -17,6 +17,8 @@ export interface TextInputProps extends Omit<BaseTextInputProps, 'style'> {
   autoFocus?: boolean;
   style?: StyleProp<ExtendedViewStyle>;
   styleName?: StyleName;
+  disabled?: boolean | undefined;
+  readOnly?: boolean | undefined;
 }
 
 const TextInput = React.forwardRef<TextInputRef, TextInputProps>(

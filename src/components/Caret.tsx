@@ -1,6 +1,6 @@
 import React, { useContext, forwardRef } from 'react';
 import { I18nManager, StyleSheet as StyleUtils } from 'react-native';
-import View from './View';
+import View, { ViewProps, ViewRef } from './View';
 import StyleSheet from '../style/StyleSheet';
 import { getStyles } from '../utils';
 import css from '../style/css';

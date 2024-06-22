@@ -1,5 +1,5 @@
 import React from 'react';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import Text from '../Text';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';

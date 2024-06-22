@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { getStyles, getElementId } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import TabContext from './TabContext';

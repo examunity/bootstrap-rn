@@ -11,6 +11,7 @@ import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
 import Pressable, { PressableProps } from '../Pressable';
+import { ViewRef } from '../View';
 
 type TooltipProps = {
   title: React.ReactNode;

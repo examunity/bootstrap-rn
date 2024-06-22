@@ -1,4 +1,4 @@
-import React, { useState, useMemo, ReactNode, CSSProperties } from 'react';
+import React, { useState, useMemo, ReactNode } from 'react';
 import {
   Platform,
   TextInputFocusEventData,
@@ -16,7 +16,12 @@ import PickerWeb from './internals/PickerWeb';
 import PickerNative from './internals/PickerNative';
 import PickerItem from './PickerItem';
 import PickerContext from './PickerContext';
-import type { FormValidationState, ThemeVariables } from '../../types';
+import type {
+  ExtendedTextStyle,
+  FormValidationState,
+  StyleProp,
+  ThemeVariables,
+} from '../../types';
 
 export type PickerProps = {
   children: ReactNode;
@@ -29,8 +34,8 @@ export type PickerProps = {
   invalid?: boolean;
   useNativeComponent?: boolean;
   autoFocus?: boolean;
-  style?: CSSProperties;
-  styleName?: unknown;
+  style?: StyleProp<ExtendedTextStyle>;
+  styleName?: string;
 };
 
 const styles = StyleSheet.create({

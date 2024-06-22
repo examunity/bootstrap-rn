@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import type { Role } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { getStyles } from '../../utils';
 import useList from '../../hooks/useList';
 import ListGroupContext from './ListGroupContext';

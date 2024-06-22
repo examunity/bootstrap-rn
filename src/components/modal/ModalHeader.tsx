@@ -1,6 +1,6 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 

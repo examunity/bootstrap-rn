@@ -4,6 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Text from '../Text';
 import { getStyles } from '../../utils';
+import { ViewRef } from '../View';
 
 export type ParagraphProps = {
   children: React.ReactNode;

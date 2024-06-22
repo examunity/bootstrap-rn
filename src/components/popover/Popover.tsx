@@ -1,18 +1,20 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
+import type { Placement } from '@react-types/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles, transformPlacement } from '../../utils';
 import css from '../../style/css';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import PopoverArrow from './PopoverArrow';
 import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
 import PopoverContext from './PopoverContext';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export interface PopoverProps extends ViewProps {
-  placement?: string;
+  placement?: Placement;
   popper?: boolean;
-  arrowStyle?: unknown;
+  arrowStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({

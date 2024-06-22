@@ -5,7 +5,7 @@ import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
 import ScrollView from '../ScrollView';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import BackdropHandler from '../helpers/BackdropHandler';
 import useModal from './useModal';
 import ModalContext from './ModalContext';
@@ -13,6 +13,7 @@ import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 const MODAL_SIZES = ['sm', 'lg', 'xl'] as const;
 
@@ -23,11 +24,11 @@ export interface ModalProps extends ViewProps {
   scrollable?: boolean;
   centered?: boolean;
   onToggle: () => void;
-  contentContainerStyle?: unknown;
-  dialogStyle?: unknown;
-  contentStyle?: unknown;
-  dialogTextStyle?: unknown;
-  contentTextStyle?: unknown;
+  contentContainerStyle?: StyleProp<ExtendedTextStyle>;
+  dialogStyle?: StyleProp<ExtendedTextStyle>;
+  contentStyle?: StyleProp<ExtendedTextStyle>;
+  dialogTextStyle?: StyleProp<ExtendedTextStyle>;
+  contentTextStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({
@@ -183,7 +184,11 @@ const Modal = React.forwardRef<ViewRef, ModalProps>((props, ref) => {
         contentContainerStyle={
           scrollable
             ? undefined
-            : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
+            : ([
+                { flexGrow: 1 },
+                centeredStyle,
+                contentContainerStyle,
+              ] as StyleProp<ExtendedTextStyle>)
         }
       >
         <BackdropHandler

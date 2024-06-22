@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import useForcedContext from '../../hooks/useForcedContext';
 import ListContext from '../helpers/ListContext';
 

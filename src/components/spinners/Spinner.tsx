@@ -2,7 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import { Animated, Easing, Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View from '../View';
+import View, { ViewRef } from '../View';
 import { THEME_COLORS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
 

@@ -11,7 +11,12 @@ import { escapeSvg } from '../../theme/functions';
 import FormCheckContext from './FormCheckContext';
 import FormCheckInputWeb from './internals/FormCheckInputWeb';
 import FormCheckInputNative from './internals/FormCheckInputNative';
-import type { FormValidationState, ThemeVariables } from '../../types';
+import type {
+  ExtendedTextStyle,
+  FormValidationState,
+  StyleProp,
+  ThemeVariables,
+} from '../../types';
 
 export type FormCheckInputProps = {
   type: 'checkbox' | 'radio' | 'switch';
@@ -23,7 +28,7 @@ export type FormCheckInputProps = {
   valid?: boolean;
   invalid?: boolean;
   useNativeComponent?: boolean;
-  style?: React.CSSProperties;
+  style?: StyleProp<ExtendedTextStyle>;
 };
 /* eslint-enable */
 

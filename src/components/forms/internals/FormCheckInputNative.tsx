@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import Pressable from '../../Pressable';
 import useBackground from '../../../hooks/useBackground';
+import { ViewRef } from '../../View';
 
 type FormCheckInputNativeProps = {
   type: 'checkbox' | 'radio' | 'switch';

@@ -6,7 +6,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import useMedia from '../../hooks/useMedia';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';

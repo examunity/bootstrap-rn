@@ -6,12 +6,14 @@ import { getStyles } from '../utils';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
+import { ViewRef } from './View';
+import { ExtendedTextStyle, StyleProp } from '../types';
 
 export type BodyProps = {
   children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-  styleName?: unknown;
+  style?: StyleProp<ExtendedTextStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
+  styleName?: string;
 };
 
 const styles = StyleSheet.create({

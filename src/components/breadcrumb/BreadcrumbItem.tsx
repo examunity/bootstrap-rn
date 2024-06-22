@@ -1,16 +1,17 @@
 import React from 'react';
 import { Platform, I18nManager } from 'react-native';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import Text from '../Text';
 import useForcedContext from '../../hooks/useForcedContext';
 import ListContext from '../helpers/ListContext';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, optional } from '../../utils';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export interface BreadcrumbItemProps extends ViewProps {
   active: boolean;
-  dividerStyle?: unknown;
+  dividerStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({

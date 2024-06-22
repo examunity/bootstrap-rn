@@ -7,11 +7,12 @@ import StyleSheet from '../../style/StyleSheet';
 import View from '../View';
 import ScrollView from '../ScrollView';
 import ModalContext from './ModalContext';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export type ModalBodyProps = {
   children: React.ReactNode;
-  style?: React.CSSProperties;
-  contentContainerStyle?: unknown;
+  style?: StyleProp<ExtendedTextStyle>;
+  contentContainerStyle?: StyleProp<ExtendedTextStyle>;
 };
 
 const styles = StyleSheet.create({

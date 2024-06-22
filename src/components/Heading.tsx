@@ -1,7 +1,7 @@
 import React from 'react';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
-import Text from './Text';
+import Text, { TextProps, TextRef } from './Text';
 import { FONT_SIZES } from '../theme/proxies';
 import { getStyles, each } from '../utils';
 

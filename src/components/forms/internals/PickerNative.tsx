@@ -12,6 +12,7 @@ import Text from '../../Text';
 import Offcanvas from '../../offcanvas/Offcanvas';
 import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
+import { ViewRef } from '../../View';
 
 type MenuComponentProps = {
   children: React.ReactNode;
@@ -85,7 +86,7 @@ const getText = ({ children, selectedValue }: GetTextProps) => {
     value: child.props.value,
   }));
 
-  const selectedItem = items.find((item) => item.value === selectedValue);
+  const selectedItem = items?.find((item) => item.value === selectedValue);
 
   return selectedItem?.label;
 };

@@ -6,12 +6,18 @@ import Label from '../Label';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import useForcedContext from '../../hooks/useForcedContext';
 import FormCheckContext from './FormCheckContext';
-import type { FormValidationState, ThemeVariables } from '../../types';
+import type {
+  ExtendedTextStyle,
+  FormValidationState,
+  StyleProp,
+  ThemeVariables,
+} from '../../types';
+import { ViewRef } from '../View';
 
 export type FormCheckLabelProps = {
   children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
+  style?: StyleProp<ExtendedTextStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
 };
 
 const styles = StyleSheet.create({

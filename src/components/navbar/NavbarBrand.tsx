@@ -5,11 +5,13 @@ import Pressable from '../Pressable';
 import useForcedContext from '../../hooks/useForcedContext';
 import { getStyles } from '../../utils';
 import NavbarContext from './NavbarContext';
+import { ExtendedTextStyle, StyleProp } from '../../types';
+import { ViewRef } from '../View';
 
 export type NavbarBrand = {
   children: React.ReactNode;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
+  style?: StyleProp<ExtendedTextStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
 };
 
 const styles = StyleSheet.create({

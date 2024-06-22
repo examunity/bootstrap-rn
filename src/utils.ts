@@ -1,4 +1,5 @@
 import { I18nManager } from 'react-native';
+import type { Placement } from '@react-types/overlays';
 import type { ExtendedStyle, ThemeVariables, StyleValue } from './types';
 
 export function each<
@@ -75,7 +76,7 @@ export function getElementId(identifier: string, name: string) {
   return `${identifier}${name ? `-${name}` : ''}`;
 }
 
-export function transformPlacement(placement: string) {
+export function transformPlacement(placement: Placement) {
   switch (placement) {
     case 'left':
       return I18nManager.isRTL ? 'end' : 'start';

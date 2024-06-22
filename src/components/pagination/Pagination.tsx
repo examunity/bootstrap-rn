@@ -4,7 +4,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import useList from '../../hooks/useList';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import PaginationItem from './PaginationItem';
 
 export interface PaginationProps extends ViewProps {}

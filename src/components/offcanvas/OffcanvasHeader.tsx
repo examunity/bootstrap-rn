@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import css from '../../style/css';
 import StyleSheet from '../../style/StyleSheet';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';

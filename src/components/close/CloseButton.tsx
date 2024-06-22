@@ -10,14 +10,15 @@ import useStyle from '../../hooks/useStyle';
 import useInteractionState from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import type { ThemeVariables } from '../../types';
+import type { ExtendedTextStyle, StyleProp, ThemeVariables } from '../../types';
+import { ViewRef } from '../View';
 
 export type CloseButtonProps = {
   children: React.ReactNode;
   disabled?: boolean;
-  style?: React.CSSProperties;
-  textStyle?: unknown;
-  styleName?: unknown;
+  style?: StyleProp<ExtendedTextStyle>;
+  textStyle?: StyleProp<ExtendedTextStyle>;
+  styleName?: string;
 };
 
 const styles = StyleSheet.create({

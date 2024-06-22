@@ -12,6 +12,7 @@ import { getStyles, each } from '../../utils';
 import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
 import type { ThemeVariables } from '../../types';
+import { ViewRef } from '../View';
 
 type ButtonThemeColors = keyof typeof THEME_COLORS | 'link';
 
