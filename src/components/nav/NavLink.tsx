@@ -233,6 +233,7 @@ const NavLink = React.forwardRef<ViewRef, NavLinkProps>((props, ref) => {
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link.active`,
   ]);
 
+  const navbarExpand = navbar?.expand as 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   const textClasses = getStyles(styles, [
     '.nav-link --text',
     disabled && '.nav-link.disabled --text',
@@ -242,7 +243,7 @@ const NavLink = React.forwardRef<ViewRef, NavLinkProps>((props, ref) => {
     navbar && '.navbar-nav .nav-link --text',
     navbar &&
       navbar.expand &&
-      `.navbar-expand${infix(navbar.expand)} .navbar-nav .nav-link --text`,
+      `.navbar-expand${infix(navbarExpand)} .navbar-nav .nav-link --text`,
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link --text`,
     navbar &&
       disabled &&

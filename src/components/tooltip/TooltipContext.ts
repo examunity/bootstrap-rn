@@ -3,7 +3,7 @@ import type { Placement } from '@react-types/overlays';
 import { ExtendedTextStyle, StyleProp } from '../../types';
 
 type TooltipContextType = {
-  placement: Placement;
+  placement: Placement | undefined;
   popper?: boolean;
   arrowStyle?: StyleProp<ExtendedTextStyle>;
 };

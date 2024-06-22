@@ -21,7 +21,9 @@ const getColor = (context: TextStyleContextType | null): string => {
   if (context && context.style) {
     const flattenedStyle = StyleUtils.flatten(context.style);
 
+    // @ts-expect-error Property 'color' does not exist on type - StyleSheet in react-native
     if (flattenedStyle.color) {
+      // @ts-expect-error Property 'color' does not exist on type - StyleSheet in react-native
       return flattenedStyle.color;
     }
   }

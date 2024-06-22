@@ -31,6 +31,7 @@ const getOptionStyle = (style: ViewStyle, showPlaceholder: boolean) => {
 
   const flattenedStyle = StyleUtils.flatten(style);
 
+  // @ts-expect-error Property 'color' does not exist on type - StyleSheet in react-native
   return flattenedStyle.color || null;
 };
 

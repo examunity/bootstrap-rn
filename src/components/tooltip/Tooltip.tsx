@@ -8,11 +8,12 @@ import css from '../../style/css';
 import TooltipArrow from './TooltipArrow';
 import TooltipInner from './TooltipInner';
 import TooltipContext from './TooltipContext';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export interface TooltipProps extends ViewProps {
   placement?: Placement;
   popper?: boolean;
-  arrowStyle?: unknown;
+  arrowStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({

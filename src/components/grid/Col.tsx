@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
         [`.col${infix(breakpoint)}-${i + 1}`]: css`
           @include media-breakpoint-up(${breakpoint}) {
             flex: 0 0 auto;
-            width: ${((i + 1) / GRID_COLUMNS) * 100}%;
+            width: ${String(((i + 1) / GRID_COLUMNS) * 100)}%;
           }
         `,
         [`.offset${infix(breakpoint)}-${i}`]: css`
           @include media-breakpoint-up(${breakpoint}) {
-            margin-left: ${(i / GRID_COLUMNS) * 100}%;
+            margin-left: ${String((i / GRID_COLUMNS) * 100)}%;
           }
         `,
       })),

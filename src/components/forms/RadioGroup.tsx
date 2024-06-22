@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import View from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import RadioContext from './RadioContext';
 
 export interface RadioGroupProps extends ViewProps {

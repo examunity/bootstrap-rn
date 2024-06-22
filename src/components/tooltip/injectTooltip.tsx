@@ -69,7 +69,7 @@ export default function injectTooltip(Target: typeof Pressable) {
                     <Tooltip
                       {...templateProps}
                       ref={overlayRef}
-                      placement={overlay.placement}
+                      placement={overlay.placement as Placement}
                       popper={overlay.rendered}
                       style={[
                         overlay.overlayProps.style,

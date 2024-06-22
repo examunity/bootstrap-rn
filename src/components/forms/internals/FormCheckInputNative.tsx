@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import Pressable from '../../Pressable';
 import useBackground from '../../../hooks/useBackground';
 import { ViewRef } from '../../View';
+import { ExtendedTextStyle, StyleProp } from '../../../types';
 
 type FormCheckInputNativeProps = {
   type: 'checkbox' | 'radio' | 'switch';
@@ -11,7 +12,7 @@ type FormCheckInputNativeProps = {
   onBlur?: () => void;
   hitSlop?: number;
   disabled?: boolean;
-  style?: React.CSSProperties;
+  style?: StyleProp<ExtendedTextStyle>;
   id?: string;
 };
 

@@ -28,6 +28,7 @@ export type FormCheckInputProps = {
   valid?: boolean;
   invalid?: boolean;
   useNativeComponent?: boolean;
+  autoFocus?: boolean;
   style?: StyleProp<ExtendedTextStyle>;
 };
 /* eslint-enable */

@@ -5,11 +5,12 @@ import css from '../../style/css';
 import Text from '../Text';
 import { getStyles } from '../../utils';
 import { ViewRef } from '../View';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export type ParagraphProps = {
   children: React.ReactNode;
   lead?: boolean;
-  style?: React.CSSProperties;
+  style?: StyleProp<ExtendedTextStyle>;
 };
 
 const styles = StyleSheet.create({

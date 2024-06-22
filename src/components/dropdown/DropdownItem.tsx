@@ -14,7 +14,7 @@ export type DropdownItemProps = {
   active?: boolean;
   disabled?: boolean;
   style?: StyleProp<ExtendedTextStyle>;
-  textStyle?: unknown;
+  textStyle?: StyleProp<ExtendedTextStyle>;
 };
 
 const styles = StyleSheet.create({
