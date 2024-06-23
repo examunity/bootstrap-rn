@@ -10,10 +10,14 @@ type SourceType =
     };
 
 const extractVariables = (
-  source: SourceType,
+  source?: SourceType,
   options?: object,
   baseVariables: object = {},
 ) => {
+  if (!source) {
+    return { ...baseVariables };
+  }
+
   if (typeof source === 'object') {
     // TODO: Resolve t => ... functions on source object.
     return { ...source, ...baseVariables };

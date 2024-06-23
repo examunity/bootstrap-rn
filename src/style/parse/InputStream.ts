@@ -19,7 +19,7 @@ class InputStream {
 
   dictionary: Char[];
 
-  constructor(fragments: TemplateStringsArray, tags: Char[]) {
+  constructor(fragments: readonly string[], tags: Char[]) {
     this.dictionary = fragments.reduce((result, current, i) => {
       const value = current.split('');
       const tag = tags[i - 1];

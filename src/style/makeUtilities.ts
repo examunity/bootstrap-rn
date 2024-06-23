@@ -9,12 +9,15 @@ export function makeUtility(options: StyleUtility) {
     const name = options.class || options.property;
     const suffix = key === 'null' ? '' : `-${key}`;
 
-    const rule = `${options.property}: ${value};`;
+    // We use css as a function, because of ts-styled-plugin error.
+    //
+    // Equivalent code:
+    // css`
+    //   ${options.property}: ${value};
+    // `
 
     const styles = {
-      [`${name}${suffix}`]: css`
-        ${rule}
-      `,
+      [`${name}${suffix}`]: css(['', ': ', ';'], options.property, value),
     };
 
     if (!options.responsive) {
@@ -28,12 +31,22 @@ export function makeUtility(options: StyleUtility) {
           return {};
         }
 
+        // We use css as a function, because of ts-styled-plugin error.
+        //
+        // Equivalent code:
+        // css`
+        //   @include media-breakpoint-up(${breakpoint}) {
+        //     ${options.property}: ${value};
+        //   }
+        // `
+
         return {
-          [`${name}-${breakpoint}${suffix}`]: css`
-            @include media-breakpoint-up(${breakpoint}) {
-              ${rule}
-            }
-          `,
+          [`${name}-${breakpoint}${suffix}`]: css(
+            ['@include media-breakpoint-up(', ') {\n', ': ', ';\n}'],
+            breakpoint,
+            options.property,
+            value,
+          ),
         };
       }),
     };

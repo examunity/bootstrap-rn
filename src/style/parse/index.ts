@@ -2,7 +2,7 @@ import type { RootNode } from '../transform';
 import InputStream, { Char } from './InputStream';
 import parseBlock from './parseBlock';
 
-function parse(fragments: TemplateStringsArray, ...tags: Char[]) {
+function parse(fragments: readonly string[], tags: Char[]) {
   const input = new InputStream(fragments, tags);
 
   const children = [];
