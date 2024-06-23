@@ -28,7 +28,7 @@ const extractVariables = (
   return { ...result[0].variables, ...baseVariables };
 };
 
-export default function makeTheme(customVariables: object): object {
+export default function makeTheme(customVariables?: object): object {
   const customTheme = extractVariables(customVariables);
 
   return extractVariables(variables, { preferTheme: true }, customTheme);
