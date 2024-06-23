@@ -12,7 +12,7 @@ import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
 import type { ThemeVariables } from '../../types';
 
-export interface CloseButtonProps extends PressableProps {
+export interface CloseButtonProps extends Omit<PressableProps, 'children'> {
   disabled?: boolean;
 }
 

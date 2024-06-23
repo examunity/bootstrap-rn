@@ -15,7 +15,7 @@ import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
 import type { ExtendedViewStyle, StyleProp, ThemeVariables } from '../../types';
 
-export interface NavbarTogglerProps extends PressableProps {
+export interface NavbarTogglerProps extends Omit<PressableProps, 'children'> {
   iconStyle?: StyleProp<ExtendedViewStyle>;
 }
 
