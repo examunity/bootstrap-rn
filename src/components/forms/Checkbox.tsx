@@ -1,7 +1,8 @@
 import React from 'react';
+import type { PressableRef } from '../Pressable';
 import FormCheckInput, { FormCheckInputProps } from './FormCheckInput';
 
-const Checkbox = React.forwardRef<unknown, FormCheckInputProps>(
+const Checkbox = React.forwardRef<PressableRef, FormCheckInputProps>(
   (props, ref) => {
     const { ...elementProps } = props;
 

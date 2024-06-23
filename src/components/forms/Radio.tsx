@@ -1,6 +1,7 @@
 import React from 'react';
+import type { PressableRef } from '../Pressable';
 import useForcedContext from '../../hooks/useForcedContext';
-import FormCheckInput, { FormCheckInputProps } from './FormCheckInput';
+import FormCheckInput from './FormCheckInput';
 import RadioGroup from './RadioGroup';
 import RadioContext from './RadioContext';
 
@@ -8,27 +9,25 @@ export type RadioProps = {
   value?: boolean | number | string | object;
 };
 
-const Radio = React.forwardRef<FormCheckInputProps, RadioProps>(
-  (props, ref) => {
-    const { value, ...elementProps } = props;
+const Radio = React.forwardRef<PressableRef, RadioProps>((props, ref) => {
+  const { value, ...elementProps } = props;
 
-    const { selectedValue, onValueChange, disabled } =
-      useForcedContext(RadioContext);
+  const { selectedValue, onValueChange, disabled } =
+    useForcedContext(RadioContext);
 
-    return (
-      <FormCheckInput
-        {...elementProps}
-        ref={ref}
-        type="radio"
-        value={value === selectedValue}
-        onValueChange={() => {
-          onValueChange(value);
-        }}
-        disabled={disabled}
-      />
-    );
-  },
-);
+  return (
+    <FormCheckInput
+      {...elementProps}
+      ref={ref}
+      type="radio"
+      value={value === selectedValue}
+      onValueChange={() => {
+        onValueChange(value);
+      }}
+      disabled={disabled}
+    />
+  );
+});
 
 Radio.displayName = 'Radio';
 

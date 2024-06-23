@@ -3,12 +3,16 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Label from '../Label';
 import { getStyles } from '../../utils';
-import { ViewRef } from '../View';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import type { ViewRef } from '../View';
+import type {
+  ExtendedTextStyle,
+  ExtendedViewStyle,
+  StyleProp,
+} from '../../types';
 
 export type FormLabelProps = {
   children: React.ReactNode;
-  style?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
 };
 

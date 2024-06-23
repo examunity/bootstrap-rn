@@ -2,9 +2,8 @@ import React from 'react';
 import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Text from '../Text';
+import Text, { TextRef } from '../Text';
 import { getStyles } from '../../utils';
-import { ViewRef } from '../View';
 import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export type ParagraphProps = {
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Heading = React.forwardRef<ViewRef, ParagraphProps>((props, ref) => {
+const Heading = React.forwardRef<TextRef, ParagraphProps>((props, ref) => {
   const { children, lead, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['paragraph', lead && '.lead']);

@@ -17,13 +17,11 @@ export interface CaretProps extends ViewProps {
   direction?: CaretDirectionTypes;
 }
 
-const getColor = (context: TextStyleContextType | null): string => {
+const getColor = (context: TextStyleContextType | null) => {
   if (context && context.style) {
     const flattenedStyle = StyleUtils.flatten(context.style);
 
-    // @ts-expect-error Property 'color' does not exist on type - StyleSheet in react-native
     if (flattenedStyle.color) {
-      // @ts-expect-error Property 'color' does not exist on type - StyleSheet in react-native
       return flattenedStyle.color;
     }
   }
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
 const Caret = forwardRef<ViewRef, CaretProps>((props, ref) => {
   const { color, direction = 'down', style, ...elementProps } = props;
 
-  const context = useContext(TextStyleContext) as TextStyleContextType;
+  const context = useContext(TextStyleContext);
 
   const classes = getStyles(styles, ['caret', `caret-${direction}`]);
 

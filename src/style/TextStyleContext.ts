@@ -1,8 +1,8 @@
 import React from 'react';
-import type { ExtendedTextStyle, StyleProp } from '../types';
+import type { StyleProp, TextStyle } from 'react-native';
 
 export type TextStyleContextType = {
-  style: StyleProp<ExtendedTextStyle>;
+  style: StyleProp<TextStyle>;
   hasTextAncestor?: boolean;
 };
 

@@ -19,9 +19,11 @@ import PickerContext from './PickerContext';
 import type {
   ExtendedTextStyle,
   FormValidationState,
+  StyleName,
   StyleProp,
   ThemeVariables,
 } from '../../types';
+import type { PressableRef } from '../Pressable';
 
 export type PickerProps = {
   children: ReactNode;
@@ -35,7 +37,7 @@ export type PickerProps = {
   useNativeComponent?: boolean;
   autoFocus?: boolean;
   style?: StyleProp<ExtendedTextStyle>;
-  styleName?: string;
+  styleName?: StyleName;
 };
 
 const styles = StyleSheet.create({
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Picker = React.forwardRef<unknown, PickerProps>((props, ref) => {
+const Picker = React.forwardRef<PressableRef, PickerProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
 
   const {

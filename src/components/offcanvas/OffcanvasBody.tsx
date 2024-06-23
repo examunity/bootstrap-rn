@@ -7,12 +7,12 @@ import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext from '../navbar/NavbarContext';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import type { ExtendedViewStyle, StyleProp } from '../../types';
 
 export type OffcanvasBodyProps = {
   children: React.ReactNode;
-  style?: StyleProp<ExtendedTextStyle>;
-  contentContainerStyle?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
+  contentContainerStyle?: StyleProp<ExtendedViewStyle>;
 };
 
 const styles = StyleSheet.create({

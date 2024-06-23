@@ -11,7 +11,7 @@ import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
 import Pressable, { PressableProps } from '../Pressable';
-import { ViewRef } from '../View';
+import type { ViewRef } from '../View';
 
 type TooltipProps = {
   title: React.ReactNode;
@@ -69,7 +69,7 @@ export default function injectTooltip(Target: typeof Pressable) {
                     <Tooltip
                       {...templateProps}
                       ref={overlayRef}
-                      placement={overlay.placement as Placement}
+                      placement={overlay.placement}
                       popper={overlay.rendered}
                       style={[
                         overlay.overlayProps.style,

@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, each } from '../../utils';
+import type { PressableRef } from '../Pressable';
 import useMedia from '../../hooks/useMedia';
 import useStyle from '../../hooks/useStyle';
 import useModifier from '../../hooks/useModifier';
@@ -12,7 +13,7 @@ import FormCheckContext from './FormCheckContext';
 import FormCheckInputWeb from './internals/FormCheckInputWeb';
 import FormCheckInputNative from './internals/FormCheckInputNative';
 import type {
-  ExtendedTextStyle,
+  ExtendedViewStyle,
   FormValidationState,
   StyleProp,
   ThemeVariables,
@@ -29,7 +30,7 @@ export type FormCheckInputProps = {
   invalid?: boolean;
   useNativeComponent?: boolean;
   autoFocus?: boolean;
-  style?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
 };
 /* eslint-enable */
 
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormCheckInput = React.forwardRef<unknown, FormCheckInputProps>(
+const FormCheckInput = React.forwardRef<PressableRef, FormCheckInputProps>(
   (props, ref) => {
     const [modifierProps, modifierRef] = useModifier(
       'useFormField',

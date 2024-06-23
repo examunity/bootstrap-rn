@@ -1,7 +1,8 @@
 import React from 'react';
+import type { PressableRef } from '../Pressable';
 import FormCheckInput, { FormCheckInputProps } from './FormCheckInput';
 
-const Switch = React.forwardRef<HTMLInputElement, FormCheckInputProps>(
+const Switch = React.forwardRef<PressableRef, FormCheckInputProps>(
   (props, ref) => {
     const { ...elementProps } = props;
 

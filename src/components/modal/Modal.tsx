@@ -13,7 +13,7 @@ import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import { ExtendedTextStyle, ExtendedViewStyle, StyleProp } from '../../types';
 
 const MODAL_SIZES = ['sm', 'lg', 'xl'] as const;
 
@@ -24,12 +24,20 @@ export interface ModalProps extends ViewProps {
   scrollable?: boolean;
   centered?: boolean;
   onToggle: () => void;
-  contentContainerStyle?: StyleProp<ExtendedTextStyle>;
-  dialogStyle?: StyleProp<ExtendedTextStyle>;
-  contentStyle?: StyleProp<ExtendedTextStyle>;
+  contentContainerStyle?: StyleProp<ExtendedViewStyle>;
+  dialogStyle?: StyleProp<ExtendedViewStyle>;
+  contentStyle?: StyleProp<ExtendedViewStyle>;
   dialogTextStyle?: StyleProp<ExtendedTextStyle>;
   contentTextStyle?: StyleProp<ExtendedTextStyle>;
 }
+
+type JustifyContentValue =
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly';
 
 const styles = StyleSheet.create({
   '.modal': css`
@@ -171,7 +179,9 @@ const Modal = React.forwardRef<ViewRef, ModalProps>((props, ref) => {
   // If scrollable we use a ScrollView in ModalBody, so we can use a View here.
   const FlexView = scrollable ? View : ScrollView;
 
-  const centeredStyle = centered && { justifyContent: 'center' };
+  const centeredStyle = centered && {
+    justifyContent: 'center' as JustifyContentValue,
+  };
 
   return (
     <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
@@ -184,11 +194,7 @@ const Modal = React.forwardRef<ViewRef, ModalProps>((props, ref) => {
         contentContainerStyle={
           scrollable
             ? undefined
-            : ([
-                { flexGrow: 1 },
-                centeredStyle,
-                contentContainerStyle,
-              ] as StyleProp<ExtendedTextStyle>)
+            : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
         }
       >
         <BackdropHandler

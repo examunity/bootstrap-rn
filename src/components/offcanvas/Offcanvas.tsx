@@ -15,7 +15,11 @@ import OffcanvasContext from './OffcanvasContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
 import OffcanvasBody from './OffcanvasBody';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import type {
+  ExtendedTextStyle,
+  ExtendedViewStyle,
+  StyleProp,
+} from '../../types';
 
 export const PLACEMENTS = ['top', 'bottom', 'start', 'end'];
 
@@ -25,7 +29,7 @@ export interface OffcanvasProps extends ViewProps {
   backdrop?: boolean | 'static';
   scroll?: boolean;
   onToggle?: () => void;
-  dialogStyle?: StyleProp<ExtendedTextStyle>;
+  dialogStyle?: StyleProp<ExtendedViewStyle>;
   dialogTextStyle?: StyleProp<ExtendedTextStyle>;
 }
 

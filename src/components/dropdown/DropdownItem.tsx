@@ -6,14 +6,18 @@ import useForcedContext from '../../hooks/useForcedContext';
 import css from '../../style/css';
 import Pressable from '../Pressable';
 import DropdownContext from './DropdownContext';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import type {
+  ExtendedTextStyle,
+  ExtendedViewStyle,
+  StyleProp,
+} from '../../types';
 
 export type DropdownItemProps = {
   children: React.ReactNode;
   onPress: (event: GestureResponderEvent) => void;
   active?: boolean;
   disabled?: boolean;
-  style?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
 };
 

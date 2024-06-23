@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable from '../Pressable';
+import Pressable, { PressableRef } from '../Pressable';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
@@ -9,15 +9,18 @@ import useModifier from '../../hooks/useModifier';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
-import { ViewRef } from '../View';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import type {
+  ExtendedTextStyle,
+  ExtendedViewStyle,
+  StyleProp,
+} from '../../types';
 
 export type NavLinkProps = {
   children: React.ReactNode;
   active?: boolean;
   disabled?: boolean;
-  style?: StyleProp<ExtendedTextStyle>;
-  activeStyle?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
+  activeStyle?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
   activeTextStyle?: StyleProp<ExtendedTextStyle>;
 };
@@ -192,7 +195,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavLink = React.forwardRef<ViewRef, NavLinkProps>((props, ref) => {
+const NavLink = React.forwardRef<PressableRef, NavLinkProps>((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
 
   const {
@@ -233,7 +236,6 @@ const NavLink = React.forwardRef<ViewRef, NavLinkProps>((props, ref) => {
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link.active`,
   ]);
 
-  const navbarExpand = navbar?.expand as 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   const textClasses = getStyles(styles, [
     '.nav-link --text',
     disabled && '.nav-link.disabled --text',
@@ -243,7 +245,7 @@ const NavLink = React.forwardRef<ViewRef, NavLinkProps>((props, ref) => {
     navbar && '.navbar-nav .nav-link --text',
     navbar &&
       navbar.expand &&
-      `.navbar-expand${infix(navbarExpand)} .navbar-nav .nav-link --text`,
+      `.navbar-expand${infix(navbar.expand === true ? '' : navbar.expand)} .navbar-nav .nav-link --text`,
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link --text`,
     navbar &&
       disabled &&

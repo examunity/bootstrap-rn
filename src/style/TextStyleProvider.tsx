@@ -1,10 +1,10 @@
 import React, { useContext, useMemo } from 'react';
+import type { StyleProp, TextStyle } from 'react-native';
 import TextStyleContext from './TextStyleContext';
-import type { StyleProp, ExtendedTextStyle } from '../types';
 
 type TextStyleProviderProps = {
   children: React.ReactNode;
-  style?: StyleProp<ExtendedTextStyle>;
+  style: StyleProp<TextStyle>;
 };
 
 function TextStyleProvider(props: TextStyleProviderProps) {

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getStyleName = (styleName?: string, color?: ThemeColors) => {
+const getStyleName = (styleName?: StyleName, color?: ThemeColors) => {
   if (!color) {
     return styleName;
   }

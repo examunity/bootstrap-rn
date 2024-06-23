@@ -5,6 +5,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import useBackground from '../../../hooks/useBackground';
+import type { PressableRef } from '../../Pressable';
 
 export type FormCheckInputWebProps = {
   type: 'checkbox' | 'radio' | 'switch';
@@ -41,7 +42,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 );
 
 const FormCheckInputWeb = React.forwardRef<
-  HTMLInputElement,
+  PressableRef,
   FormCheckInputWebProps
 >((props, ref) => {
   const {
@@ -59,6 +60,7 @@ const FormCheckInputWeb = React.forwardRef<
 
   return (
     <Input
+      // @ts-expect-error We need to create a native ref here in the future.
       ref={ref}
       type={type === 'switch' ? 'checkbox' : type}
       checked={value}

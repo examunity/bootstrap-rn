@@ -1,18 +1,18 @@
 import React, { useState, useMemo } from 'react';
 import {
-  ViewStyle,
+  StyleProp,
+  TextStyle,
   TextInputFocusEventData,
   NativeSyntheticEvent,
   TargetedEvent,
 } from 'react-native';
 import StyleSheet from '../../../style/StyleSheet';
 import css from '../../../style/css';
-import Pressable from '../../Pressable';
+import Pressable, { PressableRef } from '../../Pressable';
 import Text from '../../Text';
 import Offcanvas from '../../offcanvas/Offcanvas';
 import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
-import { ViewRef } from '../../View';
 
 type MenuComponentProps = {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ export type PickerNativeProps = {
   placeholderTextColor?: string;
   disabled?: boolean;
   MenuComponent?: React.FC<MenuComponentProps>;
-  style?: ViewStyle;
+  style?: StyleProp<TextStyle>;
 };
 
 const styles = StyleSheet.create({
@@ -117,7 +117,7 @@ function DefaultMenuComponent({
 }
 /* eslint-enable */
 
-const PickerNative = React.forwardRef<ViewRef, PickerNativeProps>(
+const PickerNative = React.forwardRef<PressableRef, PickerNativeProps>(
   (props, ref) => {
     const {
       children,

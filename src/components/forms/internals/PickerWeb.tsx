@@ -5,10 +5,12 @@ import {
   StyleSheet as StyleUtils,
   NativeSyntheticEvent,
   TargetedEvent,
-  ViewStyle,
+  StyleProp,
+  TextStyle,
 } from 'react-native';
 import useBackground from '../../../hooks/useBackground';
 import PickerWebContext from './PickerWebContext';
+import type { PressableRef } from '../../Pressable';
 
 interface PickerWebProps {
   children: React.ReactNode;
@@ -19,23 +21,25 @@ interface PickerWebProps {
   placeholder?: string;
   placeholderTextColor?: string;
   disabled?: boolean;
-  style?: ViewStyle;
+  style?: StyleProp<TextStyle>;
 }
 
 const PLACEHOLDER = '__PLACEHOLDER__';
 
-const getOptionStyle = (style: ViewStyle, showPlaceholder: boolean) => {
+const getOptionStyle = (
+  style: StyleProp<TextStyle>,
+  showPlaceholder: boolean,
+) => {
   if (!showPlaceholder) {
     return null;
   }
 
   const flattenedStyle = StyleUtils.flatten(style);
 
-  // @ts-expect-error Property 'color' does not exist on type - StyleSheet in react-native
   return flattenedStyle.color || null;
 };
 
-const PickerWeb = forwardRef<BasePicker, PickerWebProps>((props, ref) => {
+const PickerWeb = forwardRef<PressableRef, PickerWebProps>((props, ref) => {
   const {
     children,
     selectedValue,

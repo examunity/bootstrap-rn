@@ -11,7 +11,7 @@ import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Popover from './Popover';
 import Pressable, { PressableProps } from '../Pressable';
-import { ViewRef } from '../View';
+import type { ViewRef } from '../View';
 
 type PopoverProps = {
   title?: React.ReactNode;
@@ -70,7 +70,7 @@ export default function injectPopover(Target: typeof Pressable) {
                     <Popover
                       {...templateProps}
                       ref={overlayRef}
-                      placement={overlay.placement as Placement}
+                      placement={overlay.placement}
                       popper={overlay.rendered}
                       style={[
                         overlay.overlayProps.style,

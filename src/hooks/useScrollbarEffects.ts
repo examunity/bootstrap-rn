@@ -1,6 +1,6 @@
 import { useRef, useMemo, RefObject } from 'react';
 import { Platform, findNodeHandle } from 'react-native';
-import { ViewRef } from '../components/View';
+import type { ViewRef } from '../components/View';
 
 type ScrollbarEffectsState = {
   counter: number;

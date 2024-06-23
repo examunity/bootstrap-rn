@@ -7,13 +7,18 @@ import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import { ViewRef } from './View';
-import { ExtendedTextStyle, StyleProp } from '../types';
+import {
+  ExtendedTextStyle,
+  ExtendedViewStyle,
+  StyleName,
+  StyleProp,
+} from '../types';
 
 export type BodyProps = {
   children: React.ReactNode;
-  style?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
-  styleName?: string;
+  styleName?: StyleName;
 };
 
 const styles = StyleSheet.create({

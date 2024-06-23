@@ -4,7 +4,7 @@ import css from '../../style/css';
 import Heading from '../Heading';
 import { DISPLAY_FONT_SIZES } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
-import { ViewRef } from '../View';
+import { TextRef } from '../Text';
 import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export type DisplayHeadingProps = {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const DisplayHeading = React.forwardRef<ViewRef, DisplayHeadingProps>(
+const DisplayHeading = React.forwardRef<TextRef, DisplayHeadingProps>(
   (props, ref) => {
     const { children, size, style, ...elementProps } = props;
 

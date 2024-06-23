@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import invariant from 'tiny-invariant';
-import Pressable, { PressableProps } from '../Pressable';
+import Pressable, { PressableRef, PressableProps } from '../Pressable';
 import { THEME_COLORS } from '../../theme/proxies';
 import { shadeColor, colorContrast } from '../../theme/functions';
 import ButtonGroupContext, {
@@ -12,7 +12,6 @@ import { getStyles, each } from '../../utils';
 import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
 import type { ThemeVariables } from '../../types';
-import { ViewRef } from '../View';
 
 type ButtonThemeColors = keyof typeof THEME_COLORS | 'link';
 
@@ -303,7 +302,7 @@ const hasSize = (
   return group.size === value;
 };
 
-const Button = React.forwardRef<ViewRef, ButtonProps>((props, ref) => {
+const Button = React.forwardRef<PressableRef, ButtonProps>((props, ref) => {
   const {
     children,
     color = 'primary',

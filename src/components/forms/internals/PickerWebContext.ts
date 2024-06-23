@@ -1,7 +1,8 @@
 import React from 'react';
+import type { ColorValue } from 'react-native';
 
 type PickerWebContextType = {
-  optionColor: string;
+  optionColor: ColorValue | null;
 };
 
 const PickerWebContext = React.createContext<PickerWebContextType | null>(null);

@@ -4,7 +4,7 @@ import PickerContext from './PickerContext';
 import useForcedContext from '../../hooks/useForcedContext';
 import PickerWebItem from './internals/PickerWebItem';
 import PickerNativeItem from './internals/PickerNativeItem';
-import { ViewRef } from '../View';
+import type { ViewRef } from '../View';
 
 export type PickerItemProps = {
   label: string;

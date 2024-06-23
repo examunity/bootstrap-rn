@@ -9,12 +9,12 @@ import PopoverArrow from './PopoverArrow';
 import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
 import PopoverContext from './PopoverContext';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import { ExtendedViewStyle, StyleProp } from '../../types';
 
 export interface PopoverProps extends ViewProps {
   placement?: Placement;
   popper?: boolean;
-  arrowStyle?: StyleProp<ExtendedTextStyle>;
+  arrowStyle?: StyleProp<ExtendedViewStyle>;
 }
 
 const styles = StyleSheet.create({

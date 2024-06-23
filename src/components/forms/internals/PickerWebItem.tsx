@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import useForcedContext from '../../../hooks/useForcedContext';
 import PickerWebContext from './PickerWebContext';
-import { ViewRef } from '../../View';
+import type { ViewRef } from '../../View';
 
 export type PickerWebItemProps = {
   label: string;

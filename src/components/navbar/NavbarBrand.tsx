@@ -1,16 +1,19 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable from '../Pressable';
+import Pressable, { PressableRef } from '../Pressable';
 import useForcedContext from '../../hooks/useForcedContext';
 import { getStyles } from '../../utils';
 import NavbarContext from './NavbarContext';
-import { ExtendedTextStyle, StyleProp } from '../../types';
-import { ViewRef } from '../View';
+import type {
+  ExtendedTextStyle,
+  ExtendedViewStyle,
+  StyleProp,
+} from '../../types';
 
 export type NavbarBrand = {
   children: React.ReactNode;
-  style?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
 };
 
@@ -55,29 +58,31 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarBrand = React.forwardRef<ViewRef, NavbarBrand>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+const NavbarBrand = React.forwardRef<PressableRef, NavbarBrand>(
+  (props, ref) => {
+    const { children, style, textStyle, ...elementProps } = props;
 
-  const { variant } = useForcedContext(NavbarContext);
+    const { variant } = useForcedContext(NavbarContext);
 
-  const classes = getStyles(styles, ['.navbar-brand']);
+    const classes = getStyles(styles, ['.navbar-brand']);
 
-  const textClasses = getStyles(styles, [
-    '.navbar-brand --text',
-    `.navbar-${variant} .navbar-brand --text`,
-  ]);
+    const textClasses = getStyles(styles, [
+      '.navbar-brand --text',
+      `.navbar-${variant} .navbar-brand --text`,
+    ]);
 
-  return (
-    <Pressable
-      {...elementProps}
-      ref={ref}
-      style={[classes, style]}
-      textStyle={[textClasses, textStyle]}
-    >
-      {children}
-    </Pressable>
-  );
-});
+    return (
+      <Pressable
+        {...elementProps}
+        ref={ref}
+        style={[classes, style]}
+        textStyle={[textClasses, textStyle]}
+      >
+        {children}
+      </Pressable>
+    );
+  },
+);
 
 NavbarBrand.displayName = 'NavbarBrand';
 

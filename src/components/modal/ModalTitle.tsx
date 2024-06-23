@@ -3,7 +3,7 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Heading from '../Heading';
 import { getStyles } from '../../utils';
-import { TextProps, TextRef } from '../Text';
+import type { TextProps, TextRef } from '../Text';
 
 export interface ModalTitleProps extends TextProps {}
 

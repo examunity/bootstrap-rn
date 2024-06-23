@@ -13,10 +13,10 @@ import useToggleNavbar from './useToggleNavbar';
 import useStyle from '../../hooks/useStyle';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import type { ExtendedTextStyle, StyleProp, ThemeVariables } from '../../types';
+import type { ExtendedViewStyle, StyleProp, ThemeVariables } from '../../types';
 
 export interface NavbarTogglerProps extends PressableProps {
-  iconStyle?: StyleProp<ExtendedTextStyle>;
+  iconStyle?: StyleProp<ExtendedViewStyle>;
 }
 
 const styles = StyleSheet.create({

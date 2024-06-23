@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
-import Pressable from '../Pressable';
+import Pressable, { PressableRef } from '../Pressable';
 import ModalContext from '../modal/ModalContext';
 import OffcanvasContext from '../offcanvas/OffcanvasContext';
 import useMedia from '../../hooks/useMedia';
@@ -10,15 +10,20 @@ import useStyle from '../../hooks/useStyle';
 import useInteractionState from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import type { ExtendedTextStyle, StyleProp, ThemeVariables } from '../../types';
-import { ViewRef } from '../View';
+import type {
+  ExtendedViewStyle,
+  ExtendedTextStyle,
+  StyleProp,
+  ThemeVariables,
+  StyleName,
+} from '../../types';
 
 export type CloseButtonProps = {
   children: React.ReactNode;
   disabled?: boolean;
-  style?: StyleProp<ExtendedTextStyle>;
+  style?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
-  styleName?: string;
+  styleName?: StyleName;
 };
 
 const styles = StyleSheet.create({
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CloseButton = React.forwardRef<ViewRef, CloseButtonProps>(
+const CloseButton = React.forwardRef<PressableRef, CloseButtonProps>(
   (props, ref) => {
     const {
       disabled = false,
