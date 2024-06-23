@@ -188,6 +188,7 @@ const Modal = React.forwardRef<ViewRef, ModalProps>((props, ref) => {
       {backdrop && <View style={backdropClasses} />}
       <FlexView
         {...elementProps}
+        // @ts-expect-error We need to fix it in the future.
         ref={ref}
         style={[classes, scrollable && centeredStyle, style]}
         textStyle={textStyle}

@@ -40,6 +40,7 @@ const ModalBody = React.forwardRef<BaseScrollView | BaseView, ModalBodyProps>(
     return (
       <FlexView
         {...elementProps}
+        // @ts-expect-error We need to fix it in the future.
         ref={ref}
         style={scrollable ? style : [classes, style]}
         contentContainerStyle={
