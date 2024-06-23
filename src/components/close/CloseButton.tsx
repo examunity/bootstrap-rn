@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import StyleSheet from '../../style/StyleSheet';
-import Pressable, { PressableRef } from '../Pressable';
+import Pressable, { PressableProps, PressableRef } from '../Pressable';
 import ModalContext from '../modal/ModalContext';
 import OffcanvasContext from '../offcanvas/OffcanvasContext';
 import useMedia from '../../hooks/useMedia';
@@ -10,21 +10,11 @@ import useStyle from '../../hooks/useStyle';
 import useInteractionState from '../../hooks/useInteractionState';
 import useBackground from '../../hooks/useBackground';
 import { escapeSvg } from '../../theme/functions';
-import type {
-  ExtendedViewStyle,
-  ExtendedTextStyle,
-  StyleProp,
-  ThemeVariables,
-  StyleName,
-} from '../../types';
+import type { ThemeVariables } from '../../types';
 
-export type CloseButtonProps = {
-  children: React.ReactNode;
+export interface CloseButtonProps extends PressableProps {
   disabled?: boolean;
-  style?: StyleProp<ExtendedViewStyle>;
-  textStyle?: StyleProp<ExtendedTextStyle>;
-  styleName?: StyleName;
-};
+}
 
 const styles = StyleSheet.create({
   '.btn-close': css`
