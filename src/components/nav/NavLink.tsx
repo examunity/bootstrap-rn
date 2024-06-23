@@ -222,7 +222,7 @@ const NavLink = React.forwardRef<PressableRef, NavLinkProps>((props, ref) => {
     navbar &&
       navbar.expand &&
       `.navbar-expand${
-        navbar.expand === true ? '' : `-${navbar.expand}`
+        navbar.expand === true ? '' : infix(navbar.expand)
       } .navbar-nav .nav-link`,
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link`,
     navbar &&
@@ -245,7 +245,7 @@ const NavLink = React.forwardRef<PressableRef, NavLinkProps>((props, ref) => {
     navbar && '.navbar-nav .nav-link --text',
     navbar &&
       navbar.expand &&
-      `.navbar-expand${infix(navbar.expand === true ? '' : navbar.expand)} .navbar-nav .nav-link --text`,
+      `.navbar-expand${navbar.expand === true ? '' : infix(navbar.expand)} .navbar-nav .nav-link --text`,
     navbar && `.navbar-${navbar.variant} .navbar-nav .nav-link --text`,
     navbar &&
       disabled &&
