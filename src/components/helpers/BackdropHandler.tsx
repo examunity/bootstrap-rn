@@ -1,20 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, RefObject } from 'react';
 import { Platform, findNodeHandle } from 'react-native';
-import PropTypes from 'prop-types';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
+import { ViewRef } from '../View';
 
-const propTypes = {
-  toggleRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  dialogRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  onClose: PropTypes.func,
-  autoClose: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.oneOf(['inside', 'outside']),
-  ]),
-  backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['static'])]),
-};
+type BackdropType = boolean | 'static';
+type AutoCloseType = boolean | string;
 
 const styles = StyleSheet.create({
   handler: css`
@@ -32,7 +24,15 @@ const initialState = {
   ignoreBackdropClick: false,
 };
 
-function BackdropHandler(props) {
+interface BackdropHandlerProps {
+  toggleRef?: RefObject<ViewRef>;
+  dialogRef: RefObject<ViewRef>;
+  onClose?: () => void;
+  autoClose?: AutoCloseType;
+  backdrop?: BackdropType;
+}
+
+function BackdropHandler(props: BackdropHandlerProps) {
   const {
     toggleRef,
     dialogRef,
@@ -45,8 +45,12 @@ function BackdropHandler(props) {
     const state = useMemo(() => initialState, []);
 
     useEffect(() => {
-      const toggle = toggleRef ? findNodeHandle(toggleRef.current) : undefined;
-      const dialog = findNodeHandle(dialogRef.current);
+      const toggle = toggleRef
+        ? // @ts-expect-error web only method for converting to HTMLElement
+          (findNodeHandle(toggleRef.current) as HTMLElement)
+        : undefined;
+      // @ts-expect-error web only method for converting to HTMLElement
+      const dialog = findNodeHandle(dialogRef.current) as HTMLElement;
 
       const handleDialogMouseDown = () => {
         state.waitingForMouseUp = true;
@@ -58,9 +62,10 @@ function BackdropHandler(props) {
         state.ignoreBackdropClick = true;
       };
 
-      const handleDocumentClick = ({ target }) => {
+      const handleDocumentClick = ({ target }: MouseEvent) => {
         const isDialogClick =
-          state.ignoreBackdropClick || dialog.contains(target);
+          state.ignoreBackdropClick ||
+          (dialog && dialog.contains(target as Node));
 
         if (backdrop === 'static' || autoClose === false) {
           return;
@@ -81,11 +86,11 @@ function BackdropHandler(props) {
         }
 
         // Click on toggle -> return always.
-        if (toggle && (target === toggle || toggle.contains(target))) {
+        if (toggle && (target === toggle || toggle.contains(target as Node))) {
           return;
         }
 
-        handleClose();
+        handleClose?.();
       };
 
       const handleDocumentMouseUp = () => {
@@ -96,15 +101,19 @@ function BackdropHandler(props) {
         state.waitingForMouseUp = false;
       };
 
-      dialog.addEventListener('mousedown', handleDialogMouseDown);
-      dialog.addEventListener('mouseup', handleDialogMouseUp);
+      if (dialog) {
+        dialog.addEventListener('mousedown', handleDialogMouseDown);
+        dialog.addEventListener('mouseup', handleDialogMouseUp);
+      }
       // See https://github.com/necolas/react-native-web/issues/2115
       document.addEventListener('click', handleDocumentClick, true);
       document.addEventListener('mouseup', handleDocumentMouseUp, true);
 
       return () => {
-        dialog.addEventListener('mousedown', handleDialogMouseDown);
-        dialog.addEventListener('mouseup', handleDialogMouseUp);
+        if (dialog) {
+          dialog.removeEventListener('mousedown', handleDialogMouseDown);
+          dialog.removeEventListener('mouseup', handleDialogMouseUp);
+        }
         document.removeEventListener('click', handleDocumentClick, true);
         document.removeEventListener('mouseup', handleDocumentMouseUp, true);
       };
@@ -121,7 +130,7 @@ function BackdropHandler(props) {
     <Pressable
       style={styles.handler}
       onPress={() => {
-        handleClose();
+        handleClose?.();
       }}
       accessible={false}
       importantForAccessibility="no"
@@ -130,6 +139,5 @@ function BackdropHandler(props) {
 }
 
 BackdropHandler.displayName = 'BackdropHandler';
-BackdropHandler.propTypes = propTypes;
 
 export default BackdropHandler;
