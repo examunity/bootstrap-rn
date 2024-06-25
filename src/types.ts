@@ -3,6 +3,7 @@ import {
   ImageStyle as BaseImageStyle,
   TextStyle as BaseTextStyle,
 } from 'react-native';
+import type { Placement, Axis, PlacementAxis } from '@react-types/overlays';
 import { BOOTSTRAP_RN_STYLE } from './style/createStyle';
 
 // Media
@@ -87,3 +88,26 @@ export type FormValidationState = (t: ThemeVariables) => {
   color: string;
   icon: string;
 };
+
+// Overlay
+
+export type Trigger =
+  | 'press'
+  | 'hover'
+  | 'focus'
+  | 'manual'
+  | 'press hover'
+  | 'hover press'
+  | 'hover focus'
+  | 'focus hover'
+  | 'press focus'
+  | 'focus press';
+
+export { Placement, Axis, PlacementAxis };
+
+export type TransformedPlacementAxis =
+  | 'top'
+  | 'bottom'
+  | 'end'
+  | 'start'
+  | 'center';

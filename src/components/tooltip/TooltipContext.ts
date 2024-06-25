@@ -1,9 +1,12 @@
 import React from 'react';
-import type { Placement } from '@react-types/overlays';
-import { ExtendedViewStyle, StyleProp } from '../../types';
+import {
+  ExtendedViewStyle,
+  StyleProp,
+  TransformedPlacementAxis,
+} from '../../types';
 
 type TooltipContextType = {
-  placement: Placement;
+  placement: TransformedPlacementAxis;
   popper?: boolean;
   arrowStyle?: StyleProp<ExtendedViewStyle>;
 };

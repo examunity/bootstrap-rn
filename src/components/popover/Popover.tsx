@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
-import type { Placement } from '@react-types/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles, transformPlacement } from '../../utils';
 import css from '../../style/css';
@@ -9,10 +8,10 @@ import PopoverArrow from './PopoverArrow';
 import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
 import PopoverContext from './PopoverContext';
-import { ExtendedViewStyle, StyleProp } from '../../types';
+import { ExtendedViewStyle, StyleProp, PlacementAxis } from '../../types';
 
 export interface PopoverProps extends ViewProps {
-  placement?: Placement;
+  placement?: PlacementAxis;
   popper?: boolean;
   arrowStyle?: StyleProp<ExtendedViewStyle>;
 }

@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
-import type { Placement } from '@react-types/overlays';
 import View, { ViewProps, ViewRef } from '../View';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles, transformPlacement } from '../../utils';
@@ -8,10 +7,10 @@ import css from '../../style/css';
 import TooltipArrow from './TooltipArrow';
 import TooltipInner from './TooltipInner';
 import TooltipContext from './TooltipContext';
-import { ExtendedViewStyle, StyleProp } from '../../types';
+import { ExtendedViewStyle, StyleProp, PlacementAxis } from '../../types';
 
 export interface TooltipProps extends ViewProps {
-  placement?: Placement;
+  placement?: PlacementAxis;
   popper?: boolean;
   arrowStyle?: StyleProp<ExtendedViewStyle>;
 }

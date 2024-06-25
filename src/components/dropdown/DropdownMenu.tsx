@@ -1,7 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { Platform } from 'react-native';
 import { OverlayContainer } from '@react-native-aria/overlays';
-import type { Placement } from '@react-types/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Overlay from '../helpers/Overlay';
@@ -15,7 +14,7 @@ import { normalizeNumber } from '../../style/math';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import DropdownContext, { DropdownDirection } from './DropdownContext';
-import type { MediaHandler } from '../../types';
+import type { MediaHandler, Placement } from '../../types';
 
 type AlignmentBreakpoints = boolean | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
@@ -126,16 +125,16 @@ const transformPlacement = (
   direction: DropdownDirection,
   start: AlignmentBreakpoints,
   end: AlignmentBreakpoints,
-) => {
+): Placement => {
   if (direction === 'up') {
-    return `top ${getAlignment(media, start, end)}` as Placement;
+    return `top ${getAlignment(media, start, end)}`;
   }
 
   if (direction === 'down') {
-    return `bottom ${getAlignment(media, start, end)}` as Placement;
+    return `bottom ${getAlignment(media, start, end)}`;
   }
 
-  return `${direction} top` as Placement;
+  return `${direction} top`;
 };
 
 const DropdownMenu = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {

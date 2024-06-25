@@ -9,24 +9,7 @@ import {
 import useIdentifier from './useIdentifier';
 import { optional, concatRefs } from '../utils';
 import useControlledState from './useControlledState';
-
-const PLACEMENTS = ['top', 'bottom', 'left', 'right'] as const;
-
-const TRIGGERS = [
-  'press',
-  'hover',
-  'focus',
-  'manual',
-  'press hover',
-  'hover press',
-  'hover focus',
-  'focus hover',
-  'press focus',
-  'focus press',
-] as const;
-
-export type Placement = (typeof PLACEMENTS)[number];
-export type Trigger = (typeof TRIGGERS)[number];
+import type { Trigger } from '../types';
 
 export type TriggerProps = {
   offset?: number;

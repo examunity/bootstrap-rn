@@ -1,6 +1,11 @@
 import { I18nManager } from 'react-native';
-import type { Placement } from '@react-types/overlays';
-import type { ExtendedStyle, ThemeVariables, StyleValue } from './types';
+import type {
+  ExtendedStyle,
+  ThemeVariables,
+  StyleValue,
+  PlacementAxis,
+  TransformedPlacementAxis,
+} from './types';
 
 export function each<
   T extends Record<string, string | ((t: ThemeVariables) => StyleValue)>,
@@ -76,7 +81,9 @@ export function getElementId(identifier: string, name: string) {
   return `${identifier}${name ? `-${name}` : ''}`;
 }
 
-export function transformPlacement(placement: Placement) {
+export function transformPlacement(
+  placement: PlacementAxis,
+): TransformedPlacementAxis {
   switch (placement) {
     case 'left':
       return I18nManager.isRTL ? 'end' : 'start';

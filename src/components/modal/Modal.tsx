@@ -15,11 +15,9 @@ import ModalBody from './ModalBody';
 import ModalFooter from './ModalFooter';
 import { ExtendedTextStyle, ExtendedViewStyle, StyleProp } from '../../types';
 
-const MODAL_SIZES = ['sm', 'lg', 'xl'] as const;
-
 export interface ModalProps extends ViewProps {
   visible: boolean;
-  size?: (typeof MODAL_SIZES)[number];
+  size?: 'sm' | 'lg' | 'xl';
   backdrop?: boolean | 'static';
   scrollable?: boolean;
   centered?: boolean;

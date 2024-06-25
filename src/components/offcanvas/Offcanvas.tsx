@@ -21,11 +21,9 @@ import type {
   StyleProp,
 } from '../../types';
 
-export const PLACEMENTS = ['top', 'bottom', 'start', 'end'];
-
 export interface OffcanvasProps extends ViewProps {
   visible?: boolean;
-  placement?: (typeof PLACEMENTS)[number];
+  placement?: 'top' | 'bottom' | 'start' | 'end';
   backdrop?: boolean | 'static';
   scroll?: boolean;
   onToggle?: () => void;

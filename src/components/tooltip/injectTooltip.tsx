@@ -2,22 +2,19 @@ import React from 'react';
 import { OverlayContainer } from '@react-native-aria/overlays';
 import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
-import useTrigger, {
-  Trigger,
-  Placement,
-  TriggerProps,
-} from '../../hooks/useTrigger';
+import useTrigger, { TriggerProps } from '../../hooks/useTrigger';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
 import Pressable, { PressableProps } from '../Pressable';
 import type { ViewRef } from '../View';
+import type { Trigger, Axis } from '../../types';
 
 type TooltipProps = {
   title: React.ReactNode;
   autoClose?: boolean | 'inside' | 'outside';
   trigger?: Trigger;
-  placement?: Placement;
+  placement?: Axis;
 } & TriggerProps;
 
 export interface InjectTooltipProps extends PressableProps {

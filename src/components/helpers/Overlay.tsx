@@ -1,8 +1,8 @@
 import React, { useRef, ReactNode } from 'react';
 import { Platform, StatusBar, ViewStyle } from 'react-native';
 import { useOverlayPosition } from '@react-native-aria/overlays';
-import type { Placement, PlacementAxis } from '@react-types/overlays';
 import type { ViewRef } from '../View';
+import type { Placement, PlacementAxis } from '../../types';
 
 type OverlayReturnType = {
   placement: PlacementAxis;
