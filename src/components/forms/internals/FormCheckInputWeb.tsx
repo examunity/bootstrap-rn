@@ -10,12 +10,13 @@ import type { PressableRef } from '../../Pressable';
 export type FormCheckInputWebProps = {
   type: 'checkbox' | 'radio' | 'switch';
   value: boolean;
-  onValueChange: (value?: boolean) => void;
+  onValueChange?: (value?: boolean) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   disabled?: boolean;
   style?: unknown;
   id?: string;
+  autoFocus?: boolean;
 };
 
 const styles = StyleSheet.create({
@@ -54,6 +55,7 @@ const FormCheckInputWeb = React.forwardRef<
     disabled = false,
     style,
     id,
+    autoFocus,
   } = props;
 
   const inputBackground = useBackground(style);
@@ -65,13 +67,14 @@ const FormCheckInputWeb = React.forwardRef<
       type={type === 'switch' ? 'checkbox' : type}
       checked={value}
       onChange={() => {
-        handleValueChange(!value);
+        if (handleValueChange) handleValueChange(!value);
       }}
       onFocus={onFocus}
       onBlur={onBlur}
       disabled={disabled}
       style={inputBackground.style}
       id={id}
+      autoFocus={autoFocus}
     />
   );
 });

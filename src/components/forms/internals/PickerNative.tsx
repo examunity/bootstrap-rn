@@ -13,6 +13,7 @@ import Text from '../../Text';
 import Offcanvas from '../../offcanvas/Offcanvas';
 import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
+import { BaseStyle } from '../../../types';
 
 type MenuComponentProps = {
   children: React.ReactNode;
@@ -24,13 +25,14 @@ type MenuComponentProps = {
 export type PickerNativeProps = {
   children: React.ReactNode;
   selectedValue?: boolean | number | string | object;
-  onValueChange: (value?: boolean | number | string | object) => void;
+  onValueChange?: (value?: boolean | number | string | object) => void;
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   placeholder?: string;
   placeholderTextColor?: string;
   disabled?: boolean;
   MenuComponent?: React.FC<MenuComponentProps>;
+  autoFocus?: boolean;
   style?: StyleProp<TextStyle>;
 };
 
@@ -63,7 +65,7 @@ const textStyleKeys = [
   'writingDirection',
 ];
 
-const extractTextStyles = (style: { [key: string]: string }) => {
+const extractTextStyles = (style: BaseStyle) => {
   const textStyles: { [key: string]: string } = {};
 
   Object.entries(style).forEach(([key, value]) => {

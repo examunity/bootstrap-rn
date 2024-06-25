@@ -14,13 +14,14 @@ import type { PressableRef } from '../../Pressable';
 
 interface PickerWebProps {
   children: React.ReactNode;
-  selectedValue: boolean | number | string | object | null | undefined;
+  selectedValue?: boolean | number | string | object | null | undefined;
   onValueChange?: (value: boolean | number | string | object) => void;
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   placeholder?: string;
   placeholderTextColor?: string;
   disabled?: boolean;
+  autoFocus?: boolean;
   style?: StyleProp<TextStyle>;
 }
 
