@@ -1,34 +1,33 @@
 import { StyleSheet } from 'react-native';
+import { BaseStyle } from '../types';
 
-// The assumed background styles are typed as followed:
-//
-// type Position = 'center' | 'left' | 'right' | 'top' | 'bottom';
-// type PositionX = 'center' | 'left' | 'right';
-// type PositionY = 'center' | 'top' | 'bottom';
-//
-// type BackgroundStyles = {
-//   backgroundImage: string,
-//   backgroundSize: 'contain' | 'cover' | string | number,
-//   backgroundPosition: Position,
-//   backgroundPositionX:
-//     | PositionX
-//     | { position: PositionX, offset: string | number },
-//   backgroundPositionY:
-//     | PositionY
-//     | { position: PositionY, offset: string | number },
-// };
+type Position = 'center' | 'left' | 'right' | 'top' | 'bottom';
+type PositionX = 'center' | 'left' | 'right';
+type PositionY = 'center' | 'top' | 'bottom';
+
+type BackgroundStyleType = BaseStyle & {
+  backgroundSize?: 'contain' | 'cover' | string | number;
+  backgroundPosition?: Position;
+  backgroundPositionX?:
+    | PositionX
+    | { position: PositionX; offset: string | number };
+  backgroundPositionY?:
+    | PositionY
+    | { position: PositionY; offset: string | number };
+};
 
 const styles = StyleSheet.create({
   reset: {
     // Background repeat is not supported on native yet.
+    // @ts-expect-error 'backgroundRepeat' does not exist in type 'ViewStyle | ImageStyle | TextStyl
     backgroundRepeat: 'no-repeat',
   },
 });
 
-const normalizeValue = (value) =>
-  typeof value === 'number' && value !== 0 ? `${value}px` : value;
+const normalizeValue = (value: number | string): string =>
+  typeof value === 'number' && value !== 0 ? `${value}px` : String(value);
 
-const resolveBackgroundSize = (style) => {
+const resolveBackgroundSize = (style: BackgroundStyleType) => {
   const { backgroundSize } = style;
 
   if (typeof backgroundSize !== 'object') {
@@ -40,12 +39,9 @@ const resolveBackgroundSize = (style) => {
   return `${normalizeValue(width)} ${normalizeValue(height)}`;
 };
 
-const resolveBackgroundPosition = (style) => {
-  const {
-    backgroundPosition,
-    backgroundPositionX,
-    backgroundPositionY,
-  } = style;
+const resolveBackgroundPosition = (style: BackgroundStyleType) => {
+  const { backgroundPosition, backgroundPositionX, backgroundPositionY } =
+    style;
 
   if (!backgroundPosition && !backgroundPositionX && !backgroundPositionY) {
     return null;
@@ -53,9 +49,9 @@ const resolveBackgroundPosition = (style) => {
 
   const value = {
     positionX: backgroundPosition || 'left',
-    offsetX: 0,
+    offsetX: '0',
     positionY: backgroundPosition || 'top',
-    offsetY: 0,
+    offsetY: '0',
   };
 
   if (backgroundPositionX) {
@@ -88,7 +84,7 @@ const resolveBackgroundPosition = (style) => {
   return `${valueX} ${valueY}`;
 };
 
-export default function useBackground(style) {
+export default function useBackground(style: BaseStyle[]) {
   const flattenedStyle = StyleSheet.flatten(style);
 
   return {
