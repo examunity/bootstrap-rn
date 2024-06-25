@@ -5,7 +5,6 @@ import {
   StyleSheet as StyleUtils,
   NativeSyntheticEvent,
   TargetedEvent,
-  StyleProp,
   TextStyle,
 } from 'react-native';
 import useBackground from '../../../hooks/useBackground';
@@ -13,7 +12,7 @@ import PickerWebContext from './PickerWebContext';
 import type { PressableRef } from '../../Pressable';
 
 interface PickerWebProps {
-  children: React.ReactNode;
+  children: React.ReactElement;
   selectedValue?: boolean | number | string | object | null | undefined;
   onValueChange?: (value: boolean | number | string | object) => void;
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
@@ -22,15 +21,12 @@ interface PickerWebProps {
   placeholderTextColor?: string;
   disabled?: boolean;
   autoFocus?: boolean;
-  style?: StyleProp<TextStyle>;
+  style: TextStyle[];
 }
 
 const PLACEHOLDER = '__PLACEHOLDER__';
 
-const getOptionStyle = (
-  style: StyleProp<TextStyle>,
-  showPlaceholder: boolean,
-) => {
+const getOptionStyle = (style: TextStyle[], showPlaceholder: boolean) => {
   if (!showPlaceholder) {
     return null;
   }

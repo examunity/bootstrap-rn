@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import ListContext from '../components/helpers/ListContext';
 
 type Cache = {
   count: number;
 };
 
-const wrapChildren = (children: ReactNode, cache: Cache) =>
+const wrapChildren = (children: React.ReactNode, cache: Cache) =>
   React.Children.map(children, (child) => {
     if (child === null) {
       return null;
@@ -51,6 +51,6 @@ const wrapChildren = (children: ReactNode, cache: Cache) =>
     return null;
   });
 
-export default function useList(children: ReactNode) {
+export default function useList(children: React.ReactNode) {
   return wrapChildren(children, { count: 0 });
 }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, ReactNode } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Platform,
   TextInputFocusEventData,
@@ -26,7 +26,7 @@ import type {
 import type { PressableRef } from '../Pressable';
 
 export type PickerProps = {
-  children: ReactNode;
+  children: React.ReactElement;
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   placeholderTextColor?: string;

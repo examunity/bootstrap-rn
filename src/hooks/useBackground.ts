@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { BaseStyle } from '../types';
+import type { BaseStyle } from '../types';
 
 type Position = 'center' | 'left' | 'right' | 'top' | 'bottom';
 type PositionX = 'center' | 'left' | 'right';
 type PositionY = 'center' | 'top' | 'bottom';
 
-type BackgroundStyleType = BaseStyle & {
+export type BackgroundStyle = BaseStyle & {
   backgroundSize?: 'contain' | 'cover' | string | number;
   backgroundPosition?: Position;
   backgroundPositionX?:
@@ -19,7 +19,7 @@ type BackgroundStyleType = BaseStyle & {
 const styles = StyleSheet.create({
   reset: {
     // Background repeat is not supported on native yet.
-    // @ts-expect-error 'backgroundRepeat' does not exist in type 'ViewStyle | ImageStyle | TextStyl
+    // @ts-expect-error web only style
     backgroundRepeat: 'no-repeat',
   },
 });
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 const normalizeValue = (value: number | string): string =>
   typeof value === 'number' && value !== 0 ? `${value}px` : String(value);
 
-const resolveBackgroundSize = (style: BackgroundStyleType) => {
+const resolveBackgroundSize = (style: BackgroundStyle) => {
   const { backgroundSize } = style;
 
   if (typeof backgroundSize !== 'object') {
@@ -39,7 +39,7 @@ const resolveBackgroundSize = (style: BackgroundStyleType) => {
   return `${normalizeValue(width)} ${normalizeValue(height)}`;
 };
 
-const resolveBackgroundPosition = (style: BackgroundStyleType) => {
+const resolveBackgroundPosition = (style: BackgroundStyle) => {
   const { backgroundPosition, backgroundPositionX, backgroundPositionY } =
     style;
 
@@ -87,20 +87,19 @@ const resolveBackgroundPosition = (style: BackgroundStyleType) => {
 export default function useBackground(style: BaseStyle[]) {
   const flattenedStyle = StyleSheet.flatten(style);
 
+  const backgroundStyle: BaseStyle = {
+    // Transform background size
+    // @ts-expect-error web only style
+    backgroundSize: resolveBackgroundSize(flattenedStyle),
+    // Workaround, because some browsers do not support two-value syntax:
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/background-position-x#browser_compatibility
+    backgroundPositionX: null,
+    backgroundPositionY: null,
+    backgroundPosition: resolveBackgroundPosition(flattenedStyle),
+  };
+
   return {
-    style: [
-      flattenedStyle,
-      styles.reset,
-      {
-        // Transform background size
-        backgroundSize: resolveBackgroundSize(flattenedStyle),
-        // Workaround, because some browsers do not support two-value syntax:
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/background-position-x#browser_compatibility
-        backgroundPositionX: null,
-        backgroundPositionY: null,
-        backgroundPosition: resolveBackgroundPosition(flattenedStyle),
-      },
-    ],
+    style: [flattenedStyle, styles.reset, backgroundStyle],
     element: null,
   };
 }

@@ -1,24 +1,15 @@
 import React from 'react';
 import { I18nManager, StyleSheet, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
+import type { BaseStyle, PlacementAxis } from '../types';
 
-// The assumed background styles are typed as followed:
-//
-// type Position = 'center' | 'left' | 'right' | 'top' | 'bottom';
-// type PositionX = 'center' | 'left' | 'right';
-// type PositionY = 'center' | 'top' | 'bottom';
-//
-// type BackgroundStyles = {
-//   backgroundImage: string,
-//   backgroundSize: 'contain' | 'cover' | string | number,
-//   backgroundPosition: Position,
-//   backgroundPositionX:
-//     | PositionX
-//     | { position: PositionX, offset: string | number },
-//   backgroundPositionY:
-//     | PositionY
-//     | { position: PositionY, offset: string | number },
-// };
+type BackgroundSize = 'cover' | 'contain' | { width: number; height: number };
+
+type BackgroundResult = {
+  containerStyle: BaseStyle;
+  objectStyle: BaseStyle;
+  xml: string | null;
+};
 
 const styles = StyleSheet.create({
   container: { overflow: 'hidden' },
@@ -26,15 +17,15 @@ const styles = StyleSheet.create({
 });
 
 const horizontalPositions = {
-  left: (offset = 0) => ({
+  left: (offset: number = 0) => ({
     alignItems: I18nManager.isRTL ? 'flex-end' : 'flex-start',
     paddingLeft: offset,
   }),
-  right: (offset = 0) => ({
+  right: (offset: number = 0) => ({
     alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
     paddingRight: offset,
   }),
-  center: (offset) => {
+  center: (offset?: number) => {
     if (offset !== undefined) {
       return null;
     }
@@ -43,18 +34,20 @@ const horizontalPositions = {
       alignItems: 'center',
     };
   },
+  top: undefined,
+  bottom: undefined,
 };
 
 const verticalPositions = {
-  top: (offset = 0) => ({
+  top: (offset: number = 0) => ({
     justifyContent: 'flex-start',
     paddingTop: offset,
   }),
-  bottom: (offset = 0) => ({
+  bottom: (offset: number = 0) => ({
     justifyContent: 'flex-end',
     paddingBottom: offset,
   }),
-  center: (offset) => {
+  center: (offset?: number) => {
     if (offset !== undefined) {
       return null;
     }
@@ -63,9 +56,11 @@ const verticalPositions = {
       justifyContent: 'center',
     };
   },
+  left: undefined,
+  right: undefined,
 };
 
-const getXml = (value) => {
+const getXml = (value: string) => {
   const match = value.match(/^url\("data:image\/svg\+xml,(.*?)"\)$/);
 
   if (!match) {
@@ -76,7 +71,7 @@ const getXml = (value) => {
 };
 
 const transforms = {
-  backgroundSize(value) {
+  backgroundSize(value: BackgroundSize) {
     if (value === 'cover') {
       return {
         width: '100%',
@@ -99,7 +94,7 @@ const transforms = {
       height,
     };
   },
-  backgroundPosition(value) {
+  backgroundPosition(value: PlacementAxis) {
     if (value === 'center') {
       return {
         alignItems: 'center',
@@ -107,48 +102,64 @@ const transforms = {
       };
     }
 
-    if (horizontalPositions[value]) {
+    const horizontalPosition = horizontalPositions[value];
+
+    if (horizontalPosition !== undefined) {
       return {
-        ...horizontalPositions[value](),
+        ...horizontalPosition(),
         justifyContent: 'center',
       };
     }
 
-    if (verticalPositions[value]) {
+    const verticalPosition = verticalPositions[value];
+
+    if (verticalPosition) {
       return {
         alignItems: 'center',
-        ...verticalPositions[value](),
+        ...verticalPosition(),
       };
     }
 
     return null;
   },
-  backgroundPositionX(value) {
+  backgroundPositionX(
+    value: PlacementAxis | { position: PlacementAxis; offset: number },
+  ) {
     const { position = 'left', offset } =
-      typeof value === 'object' ? value : { position: value };
+      typeof value === 'object'
+        ? value
+        : { position: value, offset: undefined };
 
-    if (!horizontalPositions[position]) {
+    const horizontalPosition = horizontalPositions[position];
+
+    if (!horizontalPosition) {
       return null;
     }
 
-    return horizontalPositions[position](offset);
+    return horizontalPosition(offset);
   },
-  backgroundPositionY(value) {
+  backgroundPositionY(
+    value: PlacementAxis | { position: PlacementAxis; offset: number },
+  ) {
     const { position = 'top', offset } =
-      typeof value === 'object' ? value : { position: value };
+      typeof value === 'object'
+        ? value
+        : { position: value, offset: undefined };
 
-    if (!verticalPositions[position]) {
+    const verticalPosition = horizontalPositions[position];
+
+    if (!verticalPosition) {
       return null;
     }
 
-    return verticalPositions[position](offset);
+    return verticalPosition(offset);
   },
 };
 
-export default function useBackground(style) {
+export default function useBackground(style: BaseStyle[]) {
   const flattenedStyle = StyleSheet.flatten(style);
 
-  const background = {
+  const background: BackgroundResult = {
     containerStyle: {},
     objectStyle: {},
     xml: null,

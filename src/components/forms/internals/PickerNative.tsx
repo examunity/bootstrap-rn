@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import {
-  StyleProp,
   TextStyle,
   TextInputFocusEventData,
   NativeSyntheticEvent,
   TargetedEvent,
+  StyleSheet as StyleUtils,
 } from 'react-native';
 import StyleSheet from '../../../style/StyleSheet';
 import css from '../../../style/css';
@@ -16,14 +16,14 @@ import PickerNativeContext from './PickerNativeContext';
 import { BaseStyle } from '../../../types';
 
 type MenuComponentProps = {
-  children: React.ReactNode;
+  children: React.ReactElement;
   selectedValue?: boolean | number | string | object;
   onValueChange: (value?: boolean | number | string | object) => void;
   onClose: () => void;
 };
 
 export type PickerNativeProps = {
-  children: React.ReactNode;
+  children: React.ReactElement;
   selectedValue?: boolean | number | string | object;
   onValueChange?: (value?: boolean | number | string | object) => void;
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
@@ -33,7 +33,7 @@ export type PickerNativeProps = {
   disabled?: boolean;
   MenuComponent?: React.FC<MenuComponentProps>;
   autoFocus?: boolean;
-  style?: StyleProp<TextStyle>;
+  style: TextStyle[];
 };
 
 const styles = StyleSheet.create({
@@ -65,10 +65,11 @@ const textStyleKeys = [
   'writingDirection',
 ];
 
-const extractTextStyles = (style: BaseStyle) => {
+const extractTextStyles = (style: BaseStyle[]) => {
+  const flattenedStyle = StyleUtils.flatten(style);
   const textStyles: { [key: string]: string } = {};
 
-  Object.entries(style).forEach(([key, value]) => {
+  Object.entries(flattenedStyle).forEach(([key, value]) => {
     if (textStyleKeys.includes(key)) {
       textStyles[key] = value;
     }
@@ -78,7 +79,7 @@ const extractTextStyles = (style: BaseStyle) => {
 };
 
 type GetTextProps = {
-  children: React.ReactNode;
+  children: React.ReactElement;
   selectedValue?: boolean | number | string | object;
 };
 
