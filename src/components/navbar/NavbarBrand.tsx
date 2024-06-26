@@ -1,21 +1,12 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable, { PressableRef } from '../Pressable';
+import Pressable, { PressableProps, PressableRef } from '../Pressable';
 import useForcedContext from '../../hooks/useForcedContext';
 import { getStyles } from '../../utils';
 import NavbarContext from './NavbarContext';
-import type {
-  ExtendedTextStyle,
-  ExtendedViewStyle,
-  StyleProp,
-} from '../../types';
 
-export type NavbarBrand = {
-  children: React.ReactNode;
-  style?: StyleProp<ExtendedViewStyle>;
-  textStyle?: StyleProp<ExtendedTextStyle>;
-};
+export interface NavbarBrand extends PressableProps {}
 
 const styles = StyleSheet.create({
   '.navbar-brand': css`
