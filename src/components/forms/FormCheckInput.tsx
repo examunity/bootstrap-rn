@@ -19,7 +19,7 @@ import type {
   ThemeVariables,
 } from '../../types';
 
-export type FormCheckInputProps = {
+export interface FormCheckInputProps {
   type: 'checkbox' | 'radio' | 'switch';
   value: boolean;
   onFocus?: () => void;
@@ -31,7 +31,7 @@ export type FormCheckInputProps = {
   useNativeComponent?: boolean;
   autoFocus?: boolean;
   style?: StyleProp<ExtendedViewStyle>;
-};
+}
 /* eslint-enable */
 
 const styles = StyleSheet.create({

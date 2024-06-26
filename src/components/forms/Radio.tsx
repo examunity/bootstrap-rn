@@ -1,11 +1,11 @@
 import React from 'react';
 import type { PressableRef } from '../Pressable';
 import useForcedContext from '../../hooks/useForcedContext';
-import FormCheckInput from './FormCheckInput';
+import FormCheckInput, { FormCheckInputProps } from './FormCheckInput';
 import RadioGroup from './RadioGroup';
 import RadioContext from './RadioContext';
 
-export interface RadioProps {
+export interface RadioProps extends Omit<FormCheckInputProps, 'value'> {
   value?: boolean | number | string | object;
 }
 
