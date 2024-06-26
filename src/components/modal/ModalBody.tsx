@@ -4,16 +4,14 @@ import css from '../../style/css';
 import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import StyleSheet from '../../style/StyleSheet';
-import View from '../View';
+import View, { ViewProps } from '../View';
 import ScrollView from '../ScrollView';
 import ModalContext from './ModalContext';
-import { ExtendedTextStyle, ExtendedViewStyle, StyleProp } from '../../types';
+import { ExtendedTextStyle, StyleProp } from '../../types';
 
-export type ModalBodyProps = {
-  children: React.ReactNode;
-  style?: StyleProp<ExtendedViewStyle>;
+export interface ModalBodyProps extends ViewProps {
   contentContainerStyle?: StyleProp<ExtendedTextStyle>;
-};
+}
 
 const styles = StyleSheet.create({
   '.modal-body': css`

@@ -4,14 +4,11 @@ import css from '../../style/css';
 import Heading from '../Heading';
 import { DISPLAY_FONT_SIZES } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
-import { TextRef } from '../Text';
-import { ExtendedTextStyle, StyleProp } from '../../types';
+import { TextProps, TextRef } from '../Text';
 
-export type DisplayHeadingProps = {
-  children: React.ReactNode;
+export interface DisplayHeadingProps extends TextProps {
   size: keyof typeof DISPLAY_FONT_SIZES;
-  style?: StyleProp<ExtendedTextStyle>;
-};
+}
 
 const styles = StyleSheet.create({
   ...each(DISPLAY_FONT_SIZES, (size, value) => ({

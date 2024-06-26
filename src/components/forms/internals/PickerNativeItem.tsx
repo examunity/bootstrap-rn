@@ -8,13 +8,13 @@ import { getStyles } from '../../../utils';
 import useStyle from '../../../hooks/useStyle';
 import useForcedContext from '../../../hooks/useForcedContext';
 import PickerNativeContext from './PickerNativeContext';
-import { ViewRef } from '../../View';
+import { ViewProps, ViewRef } from '../../View';
 
-export type PickerNativeItemProps = {
+export interface PickerNativeItemProps extends ViewProps {
   label: string;
   value?: boolean | number | string | object;
   disabled?: boolean;
-};
+}
 
 const styles = StyleSheet.create({
   item: css`

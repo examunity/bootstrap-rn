@@ -6,20 +6,9 @@ import { getStyles } from '../utils';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import { ViewRef } from './View';
-import {
-  ExtendedTextStyle,
-  ExtendedViewStyle,
-  StyleName,
-  StyleProp,
-} from '../types';
+import { ViewProps, ViewRef } from './View';
 
-export type BodyProps = {
-  children: React.ReactNode;
-  style?: StyleProp<ExtendedViewStyle>;
-  textStyle?: StyleProp<ExtendedTextStyle>;
-  styleName?: StyleName;
-};
+export interface BodyProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   body: css`

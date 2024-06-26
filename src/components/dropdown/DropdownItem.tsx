@@ -4,22 +4,10 @@ import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import css from '../../style/css';
-import Pressable from '../Pressable';
+import Pressable, { PressableProps } from '../Pressable';
 import DropdownContext from './DropdownContext';
-import type {
-  ExtendedTextStyle,
-  ExtendedViewStyle,
-  StyleProp,
-} from '../../types';
 
-export type DropdownItemProps = {
-  children: React.ReactNode;
-  onPress: (event: GestureResponderEvent) => void;
-  active?: boolean;
-  disabled?: boolean;
-  style?: StyleProp<ExtendedViewStyle>;
-  textStyle?: StyleProp<ExtendedTextStyle>;
-};
+export interface DropdownItemProps extends PressableProps {}
 
 const styles = StyleSheet.create({
   '.dropdown-item': css`

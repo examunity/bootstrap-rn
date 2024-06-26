@@ -16,16 +16,10 @@ import PickerWeb from './internals/PickerWeb';
 import PickerNative from './internals/PickerNative';
 import PickerItem from './PickerItem';
 import PickerContext from './PickerContext';
-import type {
-  ExtendedTextStyle,
-  FormValidationState,
-  StyleName,
-  StyleProp,
-  ThemeVariables,
-} from '../../types';
-import type { PressableRef } from '../Pressable';
+import type { FormValidationState, ThemeVariables } from '../../types';
+import type { PressableProps, PressableRef } from '../Pressable';
 
-export type PickerProps = {
+export interface PickerProps extends PressableProps {
   children: React.ReactElement;
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
@@ -36,9 +30,7 @@ export type PickerProps = {
   invalid?: boolean;
   useNativeComponent?: boolean;
   autoFocus?: boolean;
-  style?: StyleProp<ExtendedTextStyle>;
-  styleName?: StyleName;
-};
+}
 
 const styles = StyleSheet.create({
   select: css`

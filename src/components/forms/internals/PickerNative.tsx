@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import StyleSheet from '../../../style/StyleSheet';
 import css from '../../../style/css';
-import Pressable, { PressableRef } from '../../Pressable';
+import Pressable, { PressableProps, PressableRef } from '../../Pressable';
 import Text from '../../Text';
 import Offcanvas from '../../offcanvas/Offcanvas';
 import useBackground from '../../../hooks/useBackground';
@@ -22,7 +22,7 @@ type MenuComponentProps = {
   onClose: () => void;
 };
 
-export type PickerNativeProps = {
+export interface PickerNativeProps extends PressableProps {
   children: React.ReactElement;
   selectedValue?: boolean | number | string | object;
   onValueChange?: (value?: boolean | number | string | object) => void;
@@ -34,7 +34,7 @@ export type PickerNativeProps = {
   MenuComponent?: React.FC<MenuComponentProps>;
   autoFocus?: boolean;
   style: TextStyle[];
-};
+}
 
 const styles = StyleSheet.create({
   menu: css`

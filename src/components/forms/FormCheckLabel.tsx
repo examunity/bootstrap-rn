@@ -6,20 +6,10 @@ import Label from '../Label';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import useForcedContext from '../../hooks/useForcedContext';
 import FormCheckContext from './FormCheckContext';
-import type {
-  ExtendedViewStyle,
-  ExtendedTextStyle,
-  FormValidationState,
-  StyleProp,
-  ThemeVariables,
-} from '../../types';
-import type { ViewRef } from '../View';
+import type { FormValidationState, ThemeVariables } from '../../types';
+import type { ViewProps, ViewRef } from '../View';
 
-export type FormCheckLabelProps = {
-  children: React.ReactNode;
-  style?: StyleProp<ExtendedViewStyle>;
-  textStyle?: StyleProp<ExtendedTextStyle>;
-};
+export interface FormCheckLabelProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.form-check-input:disabled ~ .form-check-label': css`

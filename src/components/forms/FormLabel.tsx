@@ -3,18 +3,9 @@ import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Label from '../Label';
 import { getStyles } from '../../utils';
-import type { ViewRef } from '../View';
-import type {
-  ExtendedTextStyle,
-  ExtendedViewStyle,
-  StyleProp,
-} from '../../types';
+import type { ViewProps, ViewRef } from '../View';
 
-export type FormLabelProps = {
-  children: React.ReactNode;
-  style?: StyleProp<ExtendedViewStyle>;
-  textStyle?: StyleProp<ExtendedTextStyle>;
-};
+export interface FormLabelProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.form-label': css`

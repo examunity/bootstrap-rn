@@ -4,13 +4,13 @@ import PickerContext from './PickerContext';
 import useForcedContext from '../../hooks/useForcedContext';
 import PickerWebItem from './internals/PickerWebItem';
 import PickerNativeItem from './internals/PickerNativeItem';
-import type { ViewRef } from '../View';
+import type { ViewProps, ViewRef } from '../View';
 
-export type PickerItemProps = {
+export interface PickerItemProps extends ViewProps {
   label: string;
   value?: boolean | number | string | object;
   disabled?: boolean;
-};
+}
 
 const PickerItem = React.forwardRef<ViewRef, PickerItemProps>((props, ref) => {
   const { label, value, disabled = false } = props;

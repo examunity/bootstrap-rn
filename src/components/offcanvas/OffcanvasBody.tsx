@@ -8,12 +8,11 @@ import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext from '../navbar/NavbarContext';
 import type { ExtendedViewStyle, StyleProp } from '../../types';
+import { ViewProps } from '../View';
 
-export type OffcanvasBodyProps = {
-  children: React.ReactNode;
-  style?: StyleProp<ExtendedViewStyle>;
+export interface OffcanvasBodyProps extends ViewProps {
   contentContainerStyle?: StyleProp<ExtendedViewStyle>;
-};
+}
 
 const styles = StyleSheet.create({
   '.offcanvas-body': css`

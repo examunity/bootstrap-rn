@@ -2,12 +2,12 @@ import React from 'react';
 import TabContext from './TabContext';
 import useTabbable from './useTabbable';
 
-export type TabProviderProps = {
+export interface TabProviderProps {
   children: React.ReactNode;
   defaultActiveTarget: string;
   activeTarget: string;
   onChange: () => void;
-};
+}
 
 function TabProvider(props: TabProviderProps) {
   const { children, defaultActiveTarget, activeTarget, onChange } = props;

@@ -5,9 +5,9 @@ import FormCheckInput from './FormCheckInput';
 import RadioGroup from './RadioGroup';
 import RadioContext from './RadioContext';
 
-export type RadioProps = {
+export interface RadioProps {
   value?: boolean | number | string | object;
-};
+}
 
 const Radio = React.forwardRef<PressableRef, RadioProps>((props, ref) => {
   const { value, ...elementProps } = props;

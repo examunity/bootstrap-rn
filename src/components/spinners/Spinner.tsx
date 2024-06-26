@@ -2,19 +2,19 @@ import React, { useMemo, useEffect } from 'react';
 import { Animated, Easing, Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import View, { ViewRef } from '../View';
+import View, { ViewProps, ViewRef } from '../View';
 import { THEME_COLORS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
 import { ExtendedTextStyle, StyleProp } from '../../types';
 
 type SpinnerVariant = 'border' | 'grow';
 
-export type SpinnerProps = {
+export interface SpinnerProps extends ViewProps {
   variant?: SpinnerVariant;
   color?: keyof typeof THEME_COLORS;
   size?: 'sm';
   style?: StyleProp<ExtendedTextStyle>;
-};
+}
 
 const styles = StyleSheet.create({
   '.spinner-border': css`

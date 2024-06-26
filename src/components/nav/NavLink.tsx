@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Pressable, { PressableRef } from '../Pressable';
+import Pressable, { PressableProps, PressableRef } from '../Pressable';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
@@ -9,21 +9,8 @@ import useModifier from '../../hooks/useModifier';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
-import type {
-  ExtendedTextStyle,
-  ExtendedViewStyle,
-  StyleProp,
-} from '../../types';
 
-export type NavLinkProps = {
-  children: React.ReactNode;
-  active?: boolean;
-  disabled?: boolean;
-  style?: StyleProp<ExtendedViewStyle>;
-  activeStyle?: StyleProp<ExtendedViewStyle>;
-  textStyle?: StyleProp<ExtendedTextStyle>;
-  activeTextStyle?: StyleProp<ExtendedTextStyle>;
-};
+export interface NavLinkProps extends PressableProps {}
 
 const styles = StyleSheet.create({
   '.nav-link': css`

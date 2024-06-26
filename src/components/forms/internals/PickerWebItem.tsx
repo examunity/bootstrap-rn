@@ -5,13 +5,13 @@ import {
 } from 'react-native';
 import useForcedContext from '../../../hooks/useForcedContext';
 import PickerWebContext from './PickerWebContext';
-import type { ViewRef } from '../../View';
+import type { ViewProps, ViewRef } from '../../View';
 
-export type PickerWebItemProps = {
+export interface PickerWebItemProps extends ViewProps {
   label: string;
   value?: boolean | number | string | object;
   disabled?: boolean;
-};
+}
 
 const PickerWebItem = React.forwardRef<ViewRef, PickerWebItemProps>(
   (props, ref) => {
