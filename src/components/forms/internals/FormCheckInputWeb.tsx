@@ -3,6 +3,7 @@ import {
   // @ts-expect-error import is available
   unstable_createElement as createElement,
   StyleSheet,
+  ViewStyle,
 } from 'react-native';
 import useBackground from '../../../hooks/useBackground';
 import type { PressableRef } from '../../Pressable';
@@ -10,11 +11,11 @@ import type { PressableRef } from '../../Pressable';
 export type FormCheckInputWebProps = {
   type: 'checkbox' | 'radio' | 'switch';
   value: boolean;
-  onValueChange?: (value?: boolean) => void;
+  onValueChange?: (value: boolean) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   disabled?: boolean;
-  style?: unknown;
+  style: ViewStyle[];
   id?: string;
   autoFocus?: boolean;
 };
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
 });
 
 type InputProps = {
-  style?: unknown;
+  style?: ViewStyle[];
   type: 'checkbox' | 'radio';
   checked: boolean;
   onChange: () => void;

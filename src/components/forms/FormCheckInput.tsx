@@ -24,7 +24,7 @@ export type FormCheckInputProps = {
   value: boolean;
   onFocus?: () => void;
   onBlur?: () => void;
-  onValueChange?: (value?: boolean) => void;
+  onValueChange?: (value: boolean) => void;
   disabled?: boolean;
   valid?: boolean;
   invalid?: boolean;
