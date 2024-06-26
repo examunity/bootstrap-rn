@@ -32,7 +32,6 @@ export interface FormCheckInputProps {
   autoFocus?: boolean;
   style?: StyleProp<ExtendedViewStyle>;
 }
-/* eslint-enable */
 
 const styles = StyleSheet.create({
   '.form-check .form-check-input': css`

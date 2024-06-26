@@ -9,7 +9,7 @@ type ToggleTabProps = {
   onPress?: (event: GestureResponderEvent) => void;
 };
 
-export default function useToggleTab(props: ToggleTabProps) {
+export default function useToggleTab<T>(props: ToggleTabProps & T) {
   const context = useForcedContext(TabContext);
 
   const { target, onPress: handlePress, ...restProps } = props;

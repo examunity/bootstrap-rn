@@ -6,7 +6,7 @@ type ToggleCollapseProps = {
   onPress?: (event: GestureResponderEvent) => void;
 };
 
-export default function useToggleCollapse(props: ToggleCollapseProps) {
+export default function useToggleCollapse<T>(props: ToggleCollapseProps & T) {
   const context = useForcedContext(CollapseContext);
 
   const { onPress: handlePress, ...restProps } = props;

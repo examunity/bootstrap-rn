@@ -6,7 +6,7 @@ type ToggleButtonProps = {
   onPress?: (event: GestureResponderEvent) => void;
 };
 
-export default function useToggleButton(props: ToggleButtonProps) {
+export default function useToggleButton<T>(props: ToggleButtonProps & T) {
   const { active = false, onPress: handlePress, ...restProps } = props;
 
   const [pressed, setPressed] = useState(active);

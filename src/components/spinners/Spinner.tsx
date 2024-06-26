@@ -5,7 +5,6 @@ import css from '../../style/css';
 import View, { ViewProps, ViewRef } from '../View';
 import { THEME_COLORS } from '../../theme/proxies';
 import { getStyles, each } from '../../utils';
-import { ExtendedTextStyle, StyleProp } from '../../types';
 
 type SpinnerVariant = 'border' | 'grow';
 
@@ -13,7 +12,6 @@ export interface SpinnerProps extends ViewProps {
   variant?: SpinnerVariant;
   color?: keyof typeof THEME_COLORS;
   size?: 'sm';
-  style?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({

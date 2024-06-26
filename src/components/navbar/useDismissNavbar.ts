@@ -6,7 +6,7 @@ interface DismissNavbarProps {
   onPress?: (event: GestureResponderEvent) => void;
 }
 
-export default function useDismissNavbar(props: DismissNavbarProps) {
+export default function useDismissNavbar<T>(props: DismissNavbarProps & T) {
   const context = useForcedContext(NavbarContext);
 
   const { onPress: handlePress, ...restProps } = props;

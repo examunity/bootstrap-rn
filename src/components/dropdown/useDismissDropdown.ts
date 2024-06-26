@@ -7,7 +7,7 @@ type DismissDropdownProps = {
   onPress?: (event: GestureResponderEvent) => void;
 };
 
-const useDismissDropdown = (props: DismissDropdownProps) => {
+export default function useDismissDropdown<T>(props: DismissDropdownProps & T) {
   const context = useForcedContext(DropdownContext);
 
   const handlePress = useCallback(
@@ -24,6 +24,4 @@ const useDismissDropdown = (props: DismissDropdownProps) => {
     ...restProps,
     onPress: handlePress,
   };
-};
-
-export default useDismissDropdown;
+}

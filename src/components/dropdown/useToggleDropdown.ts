@@ -7,7 +7,7 @@ export type ToggleDropdownProps = {
   caret?: { direction?: string } | boolean;
 };
 
-export default function useToggleDropdown(props: ToggleDropdownProps) {
+export default function useToggleDropdown<T>(props: ToggleDropdownProps & T) {
   const context = useForcedContext(DropdownContext);
 
   const { onPress: handlePress, caret, ...restProps } = props;

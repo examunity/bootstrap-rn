@@ -1,23 +1,18 @@
 import { concatRefs } from '../utils';
 
-type ToggleFunction = <T>(
-  props: Omit<T, 'toggle' | 'dismiss'>,
-) => T & { ref?: React.LegacyRef<unknown> };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ActionFunction = <P>(props: P) => any;
 
 type ToggleType =
-  | ToggleFunction
+  | ActionFunction
   | {
-      useToggle: ToggleFunction;
+      useToggle: ActionFunction;
     };
 
-type DismissFunction = <T>(
-  props: Omit<T, 'toggle' | 'dismiss'>,
-) => T & { ref?: React.LegacyRef<unknown> };
-
 type DismissType =
-  | DismissFunction
+  | ActionFunction
   | {
-      useDismiss: DismissFunction;
+      useDismiss: ActionFunction;
     };
 
 export type ActionProps = {
@@ -38,25 +33,25 @@ function getActionHook(toggle?: ToggleType, dismiss?: DismissType) {
 }
 
 export default function useAction<T, P>(
-  props: {
-    toggle?: ToggleType;
-    dismiss?: DismissType;
-  } & P,
+  props: ActionProps & P,
   ref: React.LegacyRef<T>,
-): [Omit<P, 'ref'>, React.LegacyRef<T>] {
+) {
   const { toggle, dismiss, ...restProps } = props;
 
   const useActionHook = getActionHook(toggle, dismiss);
 
   if (!useActionHook) {
-    return [props, ref];
+    return [restProps, ref] as const;
   }
 
   if (typeof useActionHook !== 'function') {
     throw new Error('Action hook must be of type function.');
   }
 
-  const { ref: actionRef, ...actionProps } = useActionHook(restProps);
+  // TODO: Remove as and define return type on ActionFunction
+  const { ref: actionRef, ...actionProps } = useActionHook(restProps) as P & {
+    ref?: React.LegacyRef<T>;
+  };
 
-  return [actionProps, actionRef ? concatRefs(actionRef, ref) : ref];
+  return [actionProps, actionRef ? concatRefs(actionRef, ref) : ref] as const;
 }
