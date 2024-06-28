@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { StatusBar } from 'react-native';
+import { FormikContext } from 'formik';
 import {
   makeTheme,
   makeUtilities,
@@ -8,7 +9,6 @@ import {
   Provider,
   Body,
 } from 'bootstrap-rn';
-import { FormikContext } from 'formik';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
 import Content from './components/Content';
@@ -45,7 +45,6 @@ StyleSheet.build(
     $primary: blue;
   ` */),
 );
-
 const utilities = StyleSheet.create(
   makeUtilities((u) => ({
     // Test overwrite utility styles.
@@ -109,14 +108,15 @@ const modifiers = {
     return {
       ...props,
       ref,
-      onKeyPress(event) {
+      onKeyPress(event: React.KeyboardEvent) {
         if (props.onKeyPress) props.onKeyPress(event);
 
         // Submit form on enter
         if (formik && event.keyCode === 13) {
           event.preventDefault();
 
-          event.target.blur();
+          const eventTarget = event.target as HTMLElement;
+          eventTarget.blur();
 
           formik.submitForm();
         }
@@ -139,6 +139,7 @@ function App() {
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
         <Body>
           <StatusBar />
+
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Content />} />
