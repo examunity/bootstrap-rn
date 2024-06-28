@@ -10,7 +10,7 @@ import { getStyles, optional } from '../../utils';
 import { ExtendedTextStyle, StyleProp } from '../../types';
 
 export interface BreadcrumbItemProps extends ViewProps {
-  active: boolean;
+  active?: boolean;
   dividerStyle?: StyleProp<ExtendedTextStyle>;
 }
 

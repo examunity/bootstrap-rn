@@ -17,6 +17,7 @@ export interface ListGroupItemActionProps extends PressableProps {
   color?: keyof typeof THEME_COLORS;
   active?: boolean;
   disabled?: boolean;
+  to?: string;
 }
 
 const actionStyles = StyleSheet.create({

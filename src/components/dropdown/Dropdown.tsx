@@ -17,7 +17,7 @@ import useToggleDropdown from './useToggleDropdown';
 export interface DropdownProps extends ViewProps {
   defaultVisible?: boolean;
   visible?: boolean;
-  onToggle: () => void;
+  onToggle?: () => void;
   direction?: DropdownDirection;
   center?: boolean;
   display?: 'dynamic' | 'static';
@@ -35,7 +35,7 @@ const Dropdown = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
     children,
     defaultVisible = false,
     visible,
-    onToggle,
+    onToggle = () => {},
     direction = 'down',
     center = false,
     display = 'dynamic',

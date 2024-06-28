@@ -9,7 +9,7 @@ import NavbarContext from '../navbar/NavbarContext';
 import type { ThemeVariables } from '../../types';
 
 export interface ContainerProps extends ViewProps {
-  fluid: true | keyof typeof CONTAINER_MAX_WIDTHS;
+  fluid?: true | keyof typeof CONTAINER_MAX_WIDTHS;
 }
 
 const styles = StyleSheet.create({

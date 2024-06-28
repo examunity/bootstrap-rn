@@ -1,10 +1,11 @@
 import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
+import { CaretProps } from '../Caret';
 
 export type ToggleDropdownProps = {
   onPress?: (event: GestureResponderEvent) => void;
-  caret?: { direction?: string } | boolean;
+  caret?: boolean | CaretProps;
 };
 
 export default function useToggleDropdown<T>(props: ToggleDropdownProps & T) {

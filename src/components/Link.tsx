@@ -14,6 +14,7 @@ import { getRole } from './Pressable';
 export interface LinkProps extends ActionProps, TextProps {
   onMouseEnter?: (event?: MouseEvent) => void;
   onMouseLeave?: (event?: MouseEvent) => void;
+  to?: string;
 }
 
 const styles = StyleSheet.create({

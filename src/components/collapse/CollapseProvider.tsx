@@ -6,7 +6,7 @@ export interface CollapseProviderProps {
   children: React.ReactNode;
   defaultVisible?: boolean; // Make defaultVisible optional
   visible?: boolean;
-  onToggle: () => void;
+  onToggle?: () => void;
 }
 
 function CollapseProvider(props: CollapseProviderProps) {
