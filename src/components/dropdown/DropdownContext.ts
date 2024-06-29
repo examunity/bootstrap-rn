@@ -1,13 +1,7 @@
 import { createContext } from 'react';
 import type { ViewRef } from '../View';
 
-export type DropdownDirection =
-  | 'up'
-  | 'down'
-  | 'left'
-  | 'right'
-  | 'start'
-  | 'end';
+export type DropdownDirection = 'up' | 'down' | 'start' | 'end';
 
 type DropdownContextProps = {
   identifier: string;

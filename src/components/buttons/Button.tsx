@@ -12,13 +12,10 @@ import { getStyles, each } from '../../utils';
 import useToggleButton from './useToggleButton';
 import ListContext from '../helpers/ListContext';
 import type { ThemeVariables } from '../../types';
-import { ToggleDropdownProps } from '../dropdown/useToggleDropdown';
 
 type ButtonThemeColors = keyof typeof THEME_COLORS | 'link';
 
-export interface ButtonProps
-  extends PressableProps,
-    Omit<ToggleDropdownProps, 'onPress'> {
+export interface ButtonProps extends PressableProps {
   color?: ButtonThemeColors;
   size?: 'lg' | 'sm';
   outline?: boolean;

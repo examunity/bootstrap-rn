@@ -8,7 +8,7 @@ import TextStyleContext, {
   TextStyleContextType,
 } from '../style/TextStyleContext';
 
-type CaretDirectionTypes = 'up' | 'down' | 'start' | 'end' | 'left' | 'right';
+type CaretDirectionTypes = 'up' | 'down' | 'start' | 'end';
 
 export interface CaretProps extends ViewProps {
   color?: string;
