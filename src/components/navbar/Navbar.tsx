@@ -18,8 +18,8 @@ export interface NavbarProps extends ViewProps {
   variant?: NavbarVariant;
   defaultExpanded?: boolean;
   expanded?: boolean;
-  onToggle: () => void;
-  expand: NavbarExpand;
+  onToggle?: () => void;
+  expand?: NavbarExpand;
 }
 
 const styles = StyleSheet.create({

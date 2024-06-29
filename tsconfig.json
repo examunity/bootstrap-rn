@@ -1,8 +1,9 @@
 {
-  "include": ["./src"],
   "compilerOptions": {
+    "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "declaration": true,
+    "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
@@ -18,6 +19,9 @@
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": false,
-    "target": "esnext"
-  }
+    "target": "esnext",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

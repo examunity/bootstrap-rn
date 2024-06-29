@@ -10,8 +10,8 @@ type UseTabbableReturnType = {
 
 export default function useTabbable(
   defaultActiveTarget: string,
-  controlledActiveTarget: string,
-  onChange: () => void,
+  controlledActiveTarget?: string,
+  onChange?: () => void,
 ): UseTabbableReturnType {
   const identifier = useIdentifier('tabbable');
 

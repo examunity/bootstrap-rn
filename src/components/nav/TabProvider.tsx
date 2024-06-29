@@ -5,8 +5,8 @@ import useTabbable from './useTabbable';
 export interface TabProviderProps {
   children: React.ReactNode;
   defaultActiveTarget: string;
-  activeTarget: string;
-  onChange: () => void;
+  activeTarget?: string;
+  onChange?: () => void;
 }
 
 function TabProvider(props: TabProviderProps) {
