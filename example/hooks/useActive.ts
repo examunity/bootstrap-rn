@@ -1,6 +1,12 @@
 import { useResolvedPath, useMatch } from '../libs/react-router';
 
-export default function useActive(props) {
+interface UseActiveProps {
+  to?: string;
+  external?: boolean;
+  active?: boolean;
+}
+
+export default function useActive(props: UseActiveProps) {
   const { to, external, active } = props;
 
   if (!to || external) {
