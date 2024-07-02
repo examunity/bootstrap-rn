@@ -1,23 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { View, Feedback, FormText, css, StyleSheet } from 'bootstrap-rn';
+import { ViewRef } from '../../src/components/View';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-  error: PropTypes.node,
-  touched: PropTypes.bool.isRequired,
-  info: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  elementProps: PropTypes.object.isRequired,
-};
-
+interface FieldProps {
+  children: React.ReactNode;
+  error?: React.ReactNode;
+  touched: boolean;
+  info?: string;
+  style?: React.CSSProperties;
+  elementProps: {
+    [key: string]: unknown;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    style?: any;
+  };
+}
 const styles = StyleSheet.create({
   formGroup: css`
     margin-bottom: 1rem;
   `,
 });
 
-function Field(props) {
+const Field = React.forwardRef<ViewRef, FieldProps>((props) => {
   const { children, error, touched = false, info, elementProps } = props;
 
   return (
@@ -27,8 +30,6 @@ function Field(props) {
       {info && <FormText styleName="text-muted">{info}</FormText>}
     </View>
   );
-}
-
-Field.propTypes = propTypes;
+});
 
 export default Field;

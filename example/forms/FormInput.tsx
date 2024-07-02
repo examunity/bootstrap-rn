@@ -1,33 +1,31 @@
 import React, { useId } from 'react';
-import PropTypes from 'prop-types';
 import { Text, Input, FormLabel } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
+import { ViewRef } from '../../src/components/View';
 
-const propTypes = {
-  ...FieldPropTypes,
-  placeholder: PropTypes.string,
-  type: PropTypes.oneOf([
-    'color',
-    'email',
-    'number',
-    'password',
-    'range',
-    'tel',
-    'text',
-    'url',
-  ]),
-  size: PropTypes.oneOf(['sm', 'lg']),
-  multiline: PropTypes.bool,
-  rows: PropTypes.number,
-  autoComplete: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  trimValue: PropTypes.bool,
-  convertEmptyValueToNull: PropTypes.bool,
-};
+export interface FormInputProps extends FieldPropTypes {
+  placeholder?: string;
+  type?:
+    | 'color'
+    | 'email'
+    | 'number'
+    | 'password'
+    | 'range'
+    | 'tel'
+    | 'text'
+    | 'url';
+  size?: 'sm' | 'lg';
+  multiline?: boolean;
+  rows?: number;
+  autoComplete?: string;
+  autoFocus?: boolean;
+  trimValue?: boolean;
+  convertEmptyValueToNull?: boolean;
+}
 
-const FormInput = React.forwardRef((props, ref) => {
+const FormInput = React.forwardRef<ViewRef, FormInputProps>((props, ref) => {
   const {
     name,
     title,
@@ -50,7 +48,7 @@ const FormInput = React.forwardRef((props, ref) => {
   const field = useFormField(name);
   const id = useId();
 
-  const sanitizeValue = (rawValue) => {
+  const sanitizeValue = (rawValue: string) => {
     // Trim value if type is not password
     const trimmedValue =
       trimValue && type !== 'password' ? rawValue.trim() : rawValue;
@@ -99,6 +97,5 @@ const FormInput = React.forwardRef((props, ref) => {
 });
 
 FormInput.displayName = 'FormInput';
-FormInput.propTypes = propTypes;
 
 export default FormInput;

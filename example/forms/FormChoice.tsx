@@ -1,23 +1,21 @@
 import React, { useId } from 'react';
-import PropTypes from 'prop-types';
 import { Radio, Checkbox, FormCheck, Text, View } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
+import { ViewRef } from '../../src/components/View';
 
-const propTypes = {
-  ...FieldPropTypes,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      // eslint-disable-next-line react/forbid-prop-types
-      value: PropTypes.any,
-      label: PropTypes.node,
-    }),
-  ).isRequired,
-  multiple: PropTypes.bool,
+type Options = {
+  value: string;
+  label: string;
 };
 
-const FormChoice = React.forwardRef((props, ref) => {
+export interface FormChoiceProps extends FieldPropTypes {
+  options: Options[];
+  multiple?: boolean;
+}
+
+const FormChoice = React.forwardRef<ViewRef, FormChoiceProps>((props, ref) => {
   const {
     name,
     title,
@@ -86,8 +84,10 @@ const FormChoice = React.forwardRef((props, ref) => {
                 <Checkbox
                   ref={ref}
                   name={`${name}[${key}]`}
-                  value={field.value.indexOf(option.value) !== -1}
+                  value={field?.value?.indexOf(option.value) !== -1}
                   onValueChange={(checked) => {
+                    // Type 'string | undefined' must have a '[Symbol.iterator]()' method that returns an iterator
+                    // @ts-expect-error see error above
                     const nextValue = [...field.value];
 
                     if (checked) {
@@ -116,6 +116,5 @@ const FormChoice = React.forwardRef((props, ref) => {
 });
 
 FormChoice.displayName = 'FormChoice';
-FormChoice.propTypes = propTypes;
 
 export default FormChoice;

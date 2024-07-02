@@ -1,23 +1,21 @@
 import React, { useId } from 'react';
-import PropTypes from 'prop-types';
 import { Picker, Text, FormLabel } from 'bootstrap-rn';
 import Field from './Field';
 import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
+import { ViewRef } from '../../src/components/View';
 
-const propTypes = {
-  ...FieldPropTypes,
-  placeholder: PropTypes.string,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      // eslint-disable-next-line react/forbid-prop-types
-      value: PropTypes.any,
-      label: PropTypes.node,
-    }),
-  ).isRequired,
+type Options = {
+  value: string;
+  label: string;
 };
 
-const FormPicker = React.forwardRef((props, ref) => {
+export interface FormPickerProps extends FieldPropTypes {
+  options: Options[];
+  placeholder: string;
+}
+
+const FormPicker = React.forwardRef<ViewRef, FormPickerProps>((props, ref) => {
   const {
     name,
     title,
@@ -51,7 +49,7 @@ const FormPicker = React.forwardRef((props, ref) => {
         ref={ref}
         name={name}
         selectedValue={field.value}
-        onValueChange={(nextValue) => {
+        onValueChange={(nextValue: unknown) => {
           field.setValue(nextValue, onValueChange);
         }}
         onBlur={() => {
@@ -62,19 +60,20 @@ const FormPicker = React.forwardRef((props, ref) => {
         disabled={disabled}
         id={id}
       >
-        {options.map((option) => (
-          <Picker.Item
-            label={option.label}
-            value={option.value}
-            key={option.value}
-          />
-        ))}
+        <>
+          {options.map((option: Options) => (
+            <Picker.Item
+              label={option.label}
+              value={option.value}
+              key={option.value}
+            />
+          ))}
+        </>
       </Picker>
     </Field>
   );
 });
 
 FormPicker.displayName = 'FormPicker';
-FormPicker.propTypes = propTypes;
 
 export default FormPicker;

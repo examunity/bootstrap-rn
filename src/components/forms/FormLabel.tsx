@@ -1,11 +1,11 @@
 import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Label from '../Label';
+import Label, { LabelProps } from '../Label';
 import { getStyles } from '../../utils';
-import type { ViewProps, ViewRef } from '../View';
+import type { ViewRef } from '../View';
 
-export interface FormLabelProps extends ViewProps {}
+export interface FormLabelProps extends LabelProps {}
 
 const styles = StyleSheet.create({
   '.form-label': css`

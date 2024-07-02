@@ -2,14 +2,14 @@ import React from 'react';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, each } from '../../utils';
-import Label from '../Label';
+import Label, { LabelProps } from '../Label';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import useForcedContext from '../../hooks/useForcedContext';
 import FormCheckContext from './FormCheckContext';
 import type { FormValidationState, ThemeVariables } from '../../types';
-import type { ViewProps, ViewRef } from '../View';
+import type { ViewRef } from '../View';
 
-export interface FormCheckLabelProps extends ViewProps {}
+export interface FormCheckLabelProps extends LabelProps {}
 
 const styles = StyleSheet.create({
   '.form-check-input:disabled ~ .form-check-label': css`
