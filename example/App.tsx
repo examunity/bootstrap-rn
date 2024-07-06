@@ -101,8 +101,11 @@ const utilities = StyleSheet.create(
   }),
 }; */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ModifierProps = any;
+
 const modifiers = {
-  useFormField(props, ref) {
+  useFormField(props: ModifierProps, ref: React.Ref<unknown>) {
     const formik = useContext(FormikContext);
 
     return {
@@ -115,7 +118,9 @@ const modifiers = {
         if (formik && event.keyCode === 13) {
           event.preventDefault();
 
-          const eventTarget = event.target as HTMLElement;
+          const eventTarget = event.target;
+
+          // @ts-expect-error event has a blur function, maybe KeyboardEvent is wrong here.
           eventTarget.blur();
 
           formik.submitForm();
@@ -123,11 +128,11 @@ const modifiers = {
       },
     };
   },
-  useTabbable(props, ref) {
+  useTabbable(props: ModifierProps, ref: React.Ref<unknown>) {
     const active = useActive(props);
     return { ...props, active, ref };
   },
-  useActionable(props, ref) {
+  useActionable(props: ModifierProps, ref: React.Ref<unknown>) {
     const linkProps = useLink(props);
     return { ...linkProps, ref };
   },

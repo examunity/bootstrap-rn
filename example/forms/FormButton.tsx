@@ -1,9 +1,9 @@
 import React from 'react';
+import type { View as FormButtonRef } from 'react-native';
 import { GestureResponderEvent } from 'react-native';
 import { useFormikContext } from 'formik';
 import { Button } from 'bootstrap-rn';
 import { ButtonProps } from '../../src/components/buttons/Button';
-import { PressableRef } from '../../src/components/Pressable';
 
 export interface FormButtonProps extends ButtonProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ export interface FormButtonProps extends ButtonProps {
   disabled?: boolean;
 }
 
-const FormButton = React.forwardRef<PressableRef, FormButtonProps>(
+const FormButton = React.forwardRef<FormButtonRef, FormButtonProps>(
   (props, ref) => {
     const {
       type,
@@ -29,7 +29,7 @@ const FormButton = React.forwardRef<PressableRef, FormButtonProps>(
       <Button
         {...elementProps}
         ref={ref}
-        onPress={(event: GestureResponderEvent) => {
+        onPress={(event) => {
           if (handlePress) handlePress(event);
 
           if (event.defaultPrevented) {

@@ -1,28 +1,20 @@
 import { FormikContextType, useFormikContext } from 'formik';
 
-// interface UseFormFieldReturn {
-//   error: string | undefined;
-//   touched: boolean;
-//   value?: string; // Replace 'any' with a more specific type if needed
-//   setTouched: () => void;
-//   setValue: (value: unknown, handleChange?: (e: unknown) => void) => void; // Replace 'any' with a more specific type if needed
-// }
-
-export default function useFormField(name: string) {
+export default function useFormField<T>(name: string) {
   const form = useFormikContext<FormikContextType<unknown>>();
 
-  const meta = form.getFieldMeta(name);
+  const meta = form.getFieldMeta<T>(name);
 
   return {
     // values
     error: meta.error,
     touched: meta.touched,
-    value: meta.value as string | undefined,
+    value: meta.value,
     // functions
     setTouched() {
       form.setFieldTouched(name, true);
     },
-    setValue(value, handleChange) {
+    setValue(value: unknown, handleChange?: (e: unknown) => void) {
       if (handleChange) {
         handleChange(value);
       }

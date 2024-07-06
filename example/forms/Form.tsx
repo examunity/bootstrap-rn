@@ -1,4 +1,5 @@
 import React from 'react';
+import type { View as FormRef } from 'react-native';
 import { Platform } from 'react-native';
 import { View } from 'bootstrap-rn';
 import { Formik, FormikProps } from 'formik';
@@ -7,7 +8,6 @@ import FormCheckbox from './FormCheckbox';
 import FormChoice from './FormChoice';
 import FormInput from './FormInput';
 import FormPicker from './FormPicker';
-import { ViewRef } from '../../src/components/View';
 
 interface FormProps {
   children: ((form: FormikProps<unknown>) => React.ReactNode) | React.ReactNode;
@@ -21,7 +21,7 @@ interface FormProps {
   inline?: boolean;
 }
 
-const Form = React.forwardRef<ViewRef, FormProps>((props, ref) => {
+const Form = React.forwardRef<FormRef, FormProps>((props, ref) => {
   const { children, initialValues, validate, onSubmit, ...elementProps } =
     props;
 

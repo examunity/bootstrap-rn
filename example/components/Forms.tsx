@@ -63,7 +63,6 @@ function Forms() {
         <Card.Body>
           <FormCheck invalid={error}>
             <Checkbox
-              type="checkbox"
               value={value}
               onValueChange={() => {
                 setValue((prev) => !prev);
@@ -75,7 +74,6 @@ function Forms() {
           </FormCheck>
           <FormCheck invalid={error} disabled>
             <Checkbox
-              type="checkbox"
               value={value}
               onValueChange={() => {
                 setValue((prev) => !prev);

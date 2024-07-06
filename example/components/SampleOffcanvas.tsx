@@ -50,9 +50,12 @@ const exampleCode =
   '</Offcanvas>\n' +
   '</>';
 
+type Placement = 'top' | 'bottom' | 'start' | 'end';
+
 function SampleOffcanvas() {
   const [offcanvasVisible, setOffcanvasVisible] = useState(false);
-  const [offcanvasPlacement, setOffcanvasPlacement] = useState('top');
+  const [offcanvasPlacement, setOffcanvasPlacement] =
+    useState<Placement>('top');
 
   return (
     <>

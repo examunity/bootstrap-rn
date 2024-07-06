@@ -49,9 +49,9 @@ function FormikForms() {
               info="This is an info text to describe the form element"
             />
             <Form.Input
-              type="password"
               name="passwordInput"
               title="Test <Form.Input /> (type -> password)"
+              secureTextEntry
             />
             <Form.Input
               name="multilineInput"

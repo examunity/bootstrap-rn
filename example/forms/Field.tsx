@@ -7,9 +7,9 @@ interface FieldProps {
   error?: React.ReactNode;
   touched: boolean;
   info?: string;
-  style?: React.CSSProperties;
   elementProps: ViewProps;
 }
+
 const styles = StyleSheet.create({
   formGroup: css`
     margin-bottom: 1rem;
