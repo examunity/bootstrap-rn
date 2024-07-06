@@ -30,7 +30,7 @@ const FormCheckbox = React.forwardRef<ViewRef, FormCheckboxProps>(
         error={formatError(field.error)}
         touched={field.touched}
         info={info}
-        elementProps={elementProps}
+        {...elementProps}
       >
         {title && (
           <Text small styleName="fw-bold mb-2">

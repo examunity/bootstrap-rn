@@ -7,9 +7,7 @@ import useList from '../../hooks/useList';
 import View, { ViewProps, ViewRef } from '../View';
 import PaginationItem from './PaginationItem';
 
-export interface PaginationProps extends ViewProps {
-  size?: 'lg' | 'sm';
-}
+export interface PaginationProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   '.pagination': css`

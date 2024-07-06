@@ -36,7 +36,7 @@ const FormPicker = React.forwardRef<ViewRef, FormPickerProps>((props, ref) => {
       error={formatError(field.error)}
       touched={field.touched}
       info={info}
-      elementProps={elementProps}
+      {...elementProps}
     >
       {title && (
         <FormLabel htmlFor={id}>
@@ -60,15 +60,13 @@ const FormPicker = React.forwardRef<ViewRef, FormPickerProps>((props, ref) => {
         disabled={disabled}
         id={id}
       >
-        <>
-          {options.map((option: Options) => (
-            <Picker.Item
-              label={option.label}
-              value={option.value}
-              key={option.value}
-            />
-          ))}
-        </>
+        {options.map((option: Options) => (
+          <Picker.Item
+            label={option.label}
+            value={option.value}
+            key={option.value}
+          />
+        ))}
       </Picker>
     </Field>
   );

@@ -1,30 +1,25 @@
 import { useHref, useLinkClickHandler } from 'react-router-dom';
 import type { RelativeRoutingType } from 'react-router';
-
-interface UseLinkProps {
-  to?: string;
-  external?: boolean;
-  relative?: RelativeRoutingType;
-  replace?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  state?: any;
-  onPress?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-  role?: string;
-}
+import { GestureResponderEvent } from 'react-native';
 
 const defaultHrefAttrs = {
   download: false,
   target: '_blank',
   rel: 'noopener noreferrer',
-  external: false,
 };
 
-export default function useLink(props: UseLinkProps): {
+interface UseLinkProps {
+  to?: string;
+  external?: boolean | typeof defaultHrefAttrs;
+  relative?: RelativeRoutingType;
+  replace?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  state?: any;
+  onPress?: (event: GestureResponderEvent) => void;
   role?: string;
-  href?: string;
-  hrefAttrs?: typeof defaultHrefAttrs;
-  onPress?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-} {
+}
+
+export default function useLink(props: UseLinkProps) {
   const {
     to,
     external,
@@ -42,7 +37,10 @@ export default function useLink(props: UseLinkProps): {
     return {
       role: 'link',
       href: to,
-      hrefAttrs: { ...defaultHrefAttrs, external },
+      hrefAttrs:
+        typeof external === 'object'
+          ? { ...defaultHrefAttrs, ...external }
+          : defaultHrefAttrs,
       onPress: handlePress,
       ...restProps,
     };
@@ -54,14 +52,16 @@ export default function useLink(props: UseLinkProps): {
   return {
     role: 'link',
     href,
-    onPress: (event) => {
+    onPress: (event: GestureResponderEvent) => {
       if (handlePress) handlePress(event);
 
       if (event.defaultPrevented) {
         return;
       }
 
-      internalOnClick(event);
+      // Argument of type 'NativeTouchEvent' is not assignable to parameter of type 'MouseEvent<HTMLAnchorElement, MouseEvent>'.
+      // @ts-expect-error web native event has expected type.
+      internalOnClick(event.nativeEvent);
     },
     ...restProps,
   };

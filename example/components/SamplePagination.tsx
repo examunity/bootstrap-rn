@@ -161,7 +161,7 @@ function SamplePagination() {
           <Container>
             <Row>
               <Col size={6}>
-                <Pagination size="sm">
+                <Pagination>
                   <Pagination.Item>
                     <Text>0</Text>
                   </Pagination.Item>
@@ -180,7 +180,7 @@ function SamplePagination() {
                 </Pagination>
               </Col>
               <Col size={6}>
-                <Pagination size="lg">
+                <Pagination>
                   <Pagination.Item>
                     <Text>0</Text>
                   </Pagination.Item>

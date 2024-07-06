@@ -36,7 +36,7 @@ const FormChoice = React.forwardRef<ViewRef, FormChoiceProps>((props, ref) => {
       error={formatError(field.error)}
       touched={field.touched}
       info={info}
-      elementProps={elementProps}
+      {...elementProps}
     >
       {title && (
         <Text small styleName="fw-bold mb-2">
@@ -84,7 +84,7 @@ const FormChoice = React.forwardRef<ViewRef, FormChoiceProps>((props, ref) => {
                 <Checkbox
                   ref={ref}
                   name={`${name}[${key}]`}
-                  value={field?.value?.indexOf(option.value) !== -1}
+                  value={field.value?.indexOf(option.value) !== -1}
                   onValueChange={(checked) => {
                     // Type 'string | undefined' must have a '[Symbol.iterator]()' method that returns an iterator
                     // @ts-expect-error see error above
