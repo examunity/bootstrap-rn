@@ -2,10 +2,13 @@ import React from 'react';
 import { View as BaseView } from 'react-native';
 import type { ExtendedStyle, Viewport } from './types';
 
-export type Modifier = <T>(
-  props: T,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ModifierProps = any;
+
+export type Modifier = (
+  props: ModifierProps,
   ref: React.Ref<unknown>,
-) => T & { ref?: React.Ref<unknown> };
+) => ModifierProps & { ref?: React.Ref<unknown> };
 
 export type BootstrapRNContextType = {
   utilities: Record<string, ExtendedStyle>;
