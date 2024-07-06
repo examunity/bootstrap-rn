@@ -36,7 +36,7 @@ const FormPicker = React.forwardRef<ViewRef, FormPickerProps>((props, ref) => {
       error={formatError(field.error)}
       touched={field.touched}
       info={info}
-      {...elementProps}
+      elementProps={elementProps}
     >
       {title && (
         <FormLabel htmlFor={id}>

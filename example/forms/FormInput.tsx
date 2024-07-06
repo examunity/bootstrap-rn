@@ -62,7 +62,7 @@ const FormInput = React.forwardRef<ViewRef, FormInputProps>((props, ref) => {
       error={formatError(field.error)}
       touched={field.touched}
       info={info}
-      {...elementProps}
+      elementProps={elementProps}
     >
       {title && (
         <FormLabel htmlFor={id}>

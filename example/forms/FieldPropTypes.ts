@@ -1,6 +1,7 @@
 import React from 'react';
+import { ViewProps } from '../../src/components/View';
 
-export interface FieldPropTypes {
+export interface FieldPropTypes extends ViewProps {
   name: string;
   title?: string;
   info?: string;

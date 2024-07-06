@@ -36,7 +36,7 @@ const FormChoice = React.forwardRef<ViewRef, FormChoiceProps>((props, ref) => {
       error={formatError(field.error)}
       touched={field.touched}
       info={info}
-      {...elementProps}
+      elementProps={elementProps}
     >
       {title && (
         <Text small styleName="fw-bold mb-2">
