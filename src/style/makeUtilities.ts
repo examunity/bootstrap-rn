@@ -56,7 +56,7 @@ export function makeUtility(options: StyleUtility) {
 export default function makeUtilities(
   resolve:
     | Record<string, StyleUtility>
-    | ((u: Record<string, StyleUtility>) => StyleUtility),
+    | ((u: Record<string, StyleUtility>) => Record<string, StyleUtility>),
 ) {
   const customUtilities =
     typeof resolve === 'function' ? resolve(utilities) : resolve;
