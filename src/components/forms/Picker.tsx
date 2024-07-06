@@ -1,9 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import {
-  Platform,
-  TextInputFocusEventData,
-  NativeSyntheticEvent,
-} from 'react-native';
+import { Platform, NativeSyntheticEvent, TargetedEvent } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import useMedia from '../../hooks/useMedia';
@@ -19,10 +15,20 @@ import PickerContext from './PickerContext';
 import type { FormValidationState, ThemeVariables } from '../../types';
 import type { PressableProps, PressableRef } from '../Pressable';
 
+export interface MenuComponentProps {
+  children: React.ReactElement | React.ReactElement[];
+  selectedValue?: boolean | number | string | object;
+  onValueChange: (value?: boolean | number | string | object) => void;
+  onClose: () => void;
+}
+
 export interface PickerProps extends PressableProps {
-  children: React.ReactElement;
-  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  children: React.ReactElement | React.ReactElement[];
+  selectedValue?: boolean | number | string | object;
+  onValueChange?: (value?: boolean | number | string | object) => void;
+  onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+  onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+  placeholder?: string;
   placeholderTextColor?: string;
   size?: 'sm' | 'lg';
   disabled?: boolean;
@@ -30,6 +36,7 @@ export interface PickerProps extends PressableProps {
   invalid?: boolean;
   useNativeComponent?: boolean;
   autoFocus?: boolean;
+  MenuComponent?: React.FC<MenuComponentProps>;
 }
 
 const styles = StyleSheet.create({
@@ -152,11 +159,11 @@ const Picker = React.forwardRef<PressableRef, PickerProps>((props, ref) => {
         {...elementProps}
         ref={modifierRef}
         placeholderTextColor={placeholderTextColor}
-        onFocus={(event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        onFocus={(event) => {
           setFocused(true);
           onFocus(event);
         }}
-        onBlur={(event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+        onBlur={(event) => {
           setFocused(false);
           onBlur(event);
         }}

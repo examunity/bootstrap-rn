@@ -30,7 +30,9 @@ export interface FormCheckInputProps {
   invalid?: boolean;
   useNativeComponent?: boolean;
   autoFocus?: boolean;
+  hitSlop?: number;
   style?: StyleProp<ExtendedViewStyle>;
+  id?: string;
 }
 
 const styles = StyleSheet.create({

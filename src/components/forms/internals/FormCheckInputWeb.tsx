@@ -7,18 +7,11 @@ import {
 } from 'react-native';
 import useBackground from '../../../hooks/useBackground';
 import type { PressableRef } from '../../Pressable';
+import type { FormCheckInputProps } from '../FormCheckInput';
 
-export type FormCheckInputWebProps = {
-  type: 'checkbox' | 'radio' | 'switch';
-  value: boolean;
-  onValueChange?: (value: boolean) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  disabled?: boolean;
+export interface FormCheckInputWebProps extends FormCheckInputProps {
   style: ViewStyle[];
-  id?: string;
-  autoFocus?: boolean;
-};
+}
 
 const styles = StyleSheet.create({
   reboot: {

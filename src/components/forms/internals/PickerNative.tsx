@@ -8,31 +8,15 @@ import {
 } from 'react-native';
 import StyleSheet from '../../../style/StyleSheet';
 import css from '../../../style/css';
-import Pressable, { PressableProps, PressableRef } from '../../Pressable';
+import Pressable, { PressableRef } from '../../Pressable';
 import Text from '../../Text';
 import Offcanvas from '../../offcanvas/Offcanvas';
 import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
-import { BaseStyle } from '../../../types';
+import type { PickerProps, MenuComponentProps } from '../Picker';
+import type { BaseStyle } from '../../../types';
 
-type MenuComponentProps = {
-  children: React.ReactElement;
-  selectedValue?: boolean | number | string | object;
-  onValueChange: (value?: boolean | number | string | object) => void;
-  onClose: () => void;
-};
-
-export interface PickerNativeProps extends PressableProps {
-  children: React.ReactElement;
-  selectedValue?: boolean | number | string | object;
-  onValueChange?: (value?: boolean | number | string | object) => void;
-  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  placeholder?: string;
-  placeholderTextColor?: string;
-  disabled?: boolean;
-  MenuComponent?: React.FC<MenuComponentProps>;
-  autoFocus?: boolean;
+export interface PickerNativeProps extends PickerProps {
   style: TextStyle[];
 }
 
@@ -79,7 +63,7 @@ const extractTextStyles = (style: BaseStyle[]) => {
 };
 
 type GetTextProps = {
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
   selectedValue?: boolean | number | string | object;
 };
 

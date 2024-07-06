@@ -3,24 +3,14 @@ import {
   // @ts-expect-error web only import
   Picker as BasePicker,
   StyleSheet as StyleUtils,
-  NativeSyntheticEvent,
-  TargetedEvent,
   TextStyle,
 } from 'react-native';
 import useBackground from '../../../hooks/useBackground';
 import PickerWebContext from './PickerWebContext';
+import type { PickerProps } from '../Picker';
 import type { PressableRef } from '../../Pressable';
 
-interface PickerWebProps {
-  children: React.ReactElement;
-  selectedValue?: boolean | number | string | object | null | undefined;
-  onValueChange?: (value: boolean | number | string | object) => void;
-  onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
-  onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
-  placeholder?: string;
-  placeholderTextColor?: string;
-  disabled?: boolean;
-  autoFocus?: boolean;
+interface PickerWebProps extends PickerProps {
   style: TextStyle[];
 }
 

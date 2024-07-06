@@ -2,18 +2,11 @@ import React, { forwardRef } from 'react';
 import type { ViewStyle } from 'react-native';
 import Pressable, { PressableRef } from '../../Pressable';
 import useBackground from '../../../hooks/useBackground';
+import type { FormCheckInputProps } from '../FormCheckInput';
 
-type FormCheckInputNativeProps = {
-  type: 'checkbox' | 'radio' | 'switch';
-  value: boolean;
-  onValueChange?: (value: boolean) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  hitSlop?: number;
-  disabled?: boolean;
+export interface FormCheckInputNativeProps extends FormCheckInputProps {
   style: ViewStyle[];
-  id?: string;
-};
+}
 
 const FormCheckInputNative = forwardRef<
   PressableRef,

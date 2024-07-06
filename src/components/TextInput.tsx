@@ -19,6 +19,8 @@ export interface TextInputProps extends Omit<BaseTextInputProps, 'style'> {
   styleName?: StyleName;
   disabled?: boolean;
   readOnly?: boolean;
+  // Info: Property is not on BaseTextInputProps yet.
+  rows?: number;
 }
 
 const TextInput = React.forwardRef<TextInputRef, TextInputProps>(

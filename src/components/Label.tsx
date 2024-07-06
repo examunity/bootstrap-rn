@@ -5,7 +5,6 @@ import { concatRefs } from '../utils';
 
 export interface LabelProps extends ViewProps {
   htmlFor?: string;
-  disabled?: boolean;
 }
 
 const Label = React.forwardRef<ViewRef, LabelProps>((props, ref) => {

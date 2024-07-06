@@ -57,7 +57,6 @@ const FormCheckLabel = React.forwardRef<ViewRef, FormCheckLabelProps>(
       <Label
         {...elementProps}
         ref={ref}
-        disabled={disabled}
         style={[classes, style]}
         textStyle={[textClasses, textStyle]}
       >
