@@ -53,7 +53,7 @@ const FormChoice = React.forwardRef<ViewRef, FormChoiceProps>((props, ref) => {
           >
             {options.map((option, key) => (
               <FormCheck
-                invalid={field.touched && field.error}
+                invalid={field.touched && !!field.error}
                 disabled={disabled}
                 key={option.value}
               >
@@ -77,7 +77,7 @@ const FormChoice = React.forwardRef<ViewRef, FormChoiceProps>((props, ref) => {
           <View>
             {options.map((option, key) => (
               <FormCheck
-                invalid={field.touched && field.error}
+                invalid={field.touched && !!field.error}
                 disabled={disabled}
                 key={option.value}
               >

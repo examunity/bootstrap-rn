@@ -56,7 +56,7 @@ const FormPicker = React.forwardRef<ViewRef, FormPickerProps>((props, ref) => {
           field.setTouched();
         }}
         placeholder={placeholder}
-        invalid={field.touched && field.error}
+        invalid={field.touched && !!field.error}
         disabled={disabled}
         id={id}
       >

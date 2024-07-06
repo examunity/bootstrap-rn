@@ -88,7 +88,7 @@ const FormInput = React.forwardRef<ViewRef, FormInputProps>((props, ref) => {
         rows={rows || (multiline ? 7 : null)}
         autoComplete={autoComplete === 'on' ? null : autoComplete}
         autoFocus={autoFocus}
-        invalid={field.touched && field.error}
+        invalid={field.touched && !!field.error}
         disabled={disabled}
         id={id}
       />

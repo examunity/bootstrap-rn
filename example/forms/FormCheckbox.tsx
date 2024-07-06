@@ -37,7 +37,7 @@ const FormCheckbox = React.forwardRef<ViewRef, FormCheckboxProps>(
             {title}
           </Text>
         )}
-        <FormCheck invalid={field.touched && field.error}>
+        <FormCheck invalid={field.touched && !!field.error}>
           <Checkbox
             ref={ref}
             name={name}
