@@ -13,7 +13,11 @@ interface FormProps {
   children: ((form: FormikProps<unknown>) => React.ReactNode) | React.ReactNode;
   initialValues: Record<string, unknown>;
   validate?: () => void;
-  onSubmit: () => void;
+  onSubmit: (
+    values: unknown,
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
+  ) => void;
+
   inline?: boolean;
 }
 

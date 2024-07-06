@@ -23,7 +23,9 @@ function Forms() {
   const [error, setError] = useState(false);
   const [value, setValue] = useState(false);
   const [slider, setSlider] = useState(false);
-  const [radioValue, setRadioValue] = useState(1);
+  const [radioValue, setRadioValue] = useState<
+    boolean | number | string | object | undefined
+  >(1);
   const [text, onChangeText] = useState('Form input text');
   const [selectedValue, onValueChange] = useState();
 
@@ -61,6 +63,7 @@ function Forms() {
         <Card.Body>
           <FormCheck invalid={error}>
             <Checkbox
+              type="checkbox"
               value={value}
               onValueChange={() => {
                 setValue((prev) => !prev);
@@ -72,6 +75,7 @@ function Forms() {
           </FormCheck>
           <FormCheck invalid={error} disabled>
             <Checkbox
+              type="checkbox"
               value={value}
               onValueChange={() => {
                 setValue((prev) => !prev);
