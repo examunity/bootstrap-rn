@@ -16,10 +16,8 @@
   "bugs": {
     "url": "https://github.com/examunity/bootstrap-rn/issues"
   },
-  "source": "src/index.js",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
-  "react-native": "src/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
     "check-types": "tsc --noEmit",
@@ -36,28 +34,31 @@
   "dependencies": {
     "@react-native-aria/focus": "^0.2.7",
     "@react-native-aria/overlays": "^0.3.5",
-    "@types/node": "^20.12.12",
-    "@types/react": "^18.3.2",
-    "@types/react-dom": "^18.3.0",
     "css-to-react-native": "^3.2.0",
-    "prop-types": "^15.7.2",
-    "tiny-invariant": "^1.3.1",
-    "typescript": "^5.4.5"
+    "tiny-invariant": "^1.3.1"
   },
   "devDependencies": {
+    "@types/react": "18.3.2",
     "cpy-cli": "^5.0.0",
     "packsy": "^0.2.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-native": "0.72.5",
     "react-native-builder-bob": "^0.23.1",
-    "react-native-svg": "13.9.0"
+    "react-native-svg": "13.9.0",
+    "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "react": ">=16.13.1",
-    "react-dom": ">=16.13.1",
+    "@types/react": ">=17",
+    "react": ">=17",
+    "react-dom": ">=17",
     "react-native": ">=0.63.0",
     "react-native-svg": ">=12.3.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   },
   "husky": {
     "hooks": {
