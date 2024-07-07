@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-rn",
   "version": "0.3.3",
-  "description": "Bootstrap RN is a design framework for React Native. The library is inspired by Bootstrap and tries to bring best practices from the Sass/Css world to JavaScript.",
+  "description": "Bootstrap RN provides Bootstrap components for React Native.",
   "author": "Markus Wetzel <markuswetzel@gmx.net>",
   "license": "MIT",
   "keywords": [
@@ -16,13 +16,18 @@
   "bugs": {
     "url": "https://github.com/examunity/bootstrap-rn/issues"
   },
+  "source": "src/index.js",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "src/index.js",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "bob build",
-    "prepare": "packsy validate && bob build",
-    "lint": "packsy pre-commit && tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "build-types": "rm -rf lib/types && tsc -d --emitDeclarationOnly --outDir lib/types",
+    "copy-types": "cpy lib/types/*.d.ts lib/commonjs && cpy lib/types/*.d.ts lib/module",
+    "build": "yarn build-types && bob build && yarn copy-types",
+    "prepare": "packsy validate && yarn build",
+    "lint": "packsy pre-commit && yarn check-types"
   },
   "files": [
     "src",
@@ -40,6 +45,7 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "cpy-cli": "^5.0.0",
     "packsy": "^0.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -69,6 +75,5 @@
   "engines": {
     "node": ">= 8",
     "npm": ">= 5"
-  },
-  "source": "src/index.js"
+  }
 }
