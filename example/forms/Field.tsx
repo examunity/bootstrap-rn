@@ -1,6 +1,12 @@
 import React from 'react';
-import { View, Feedback, FormText, css, StyleSheet } from 'bootstrap-rn';
-import { ViewProps } from '../../src/components/View';
+import {
+  View,
+  ViewProps,
+  Feedback,
+  FormText,
+  css,
+  StyleSheet,
+} from 'bootstrap-rn';
 
 interface FieldProps {
   children: React.ReactNode;

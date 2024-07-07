@@ -2,8 +2,7 @@ import React from 'react';
 import type { View as FormButtonRef } from 'react-native';
 import { GestureResponderEvent } from 'react-native';
 import { useFormikContext } from 'formik';
-import { Button } from 'bootstrap-rn';
-import { ButtonProps } from '../../src/components/buttons/Button';
+import { Button, ButtonProps } from 'bootstrap-rn';
 
 export interface FormButtonProps extends ButtonProps {
   children: React.ReactNode;

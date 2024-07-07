@@ -15,7 +15,7 @@ import type {
 
 export type ScrollViewRef = BaseScrollView;
 
-interface ScrollViewProps
+export interface ScrollViewProps
   extends Omit<BaseScrollViewProps, 'style' | 'contentContainerStyle'> {
   style?: StyleProp<ExtendedViewStyle>;
   contentContainerStyle?: StyleProp<ExtendedViewStyle>;

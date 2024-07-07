@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewProps } from '../../src/components/View';
+import { ViewProps } from 'bootstrap-rn';
 
 export interface FieldPropTypes extends ViewProps {
   name: string;
