@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const normalizeValue = (value: number | string): string =>
-  typeof value === 'number' && value !== 0 ? `${value}px` : String(value);
+const normalizeValue = (value: number | string): number | string =>
+  typeof value === 'number' && value !== 0 ? `${value}px` : value;
 
 const resolveBackgroundSize = (style: BackgroundStyle) => {
   const { backgroundSize } = style;
