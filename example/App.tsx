@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
-import { StatusBar } from 'react-native';
+import {
+  NativeSyntheticEvent,
+  StatusBar,
+  TextInputKeyPressEventData,
+} from 'react-native';
 import { FormikContext } from 'formik';
 import {
   makeTheme,
@@ -8,6 +12,9 @@ import {
   StyleSheet,
   Provider,
   Body,
+  UseActionableProps,
+  UseFormFieldProps,
+  UseTabbableProps,
 } from 'bootstrap-rn';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
@@ -101,26 +108,24 @@ const utilities = StyleSheet.create(
   }),
 }; */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ModifierProps = any;
-
 const modifiers = {
-  useFormField(props: ModifierProps, ref: React.Ref<unknown>) {
+  useFormField<T>(props: T & UseFormFieldProps, ref: React.Ref<unknown>) {
     const formik = useContext(FormikContext);
 
     return {
       ...props,
       ref,
-      onKeyPress(event: React.KeyboardEvent) {
+      onKeyPress(event: NativeSyntheticEvent<TextInputKeyPressEventData>) {
         if (props.onKeyPress) props.onKeyPress(event);
 
         // Submit form on enter
+        // @ts-expect-error web only property
         if (formik && event.keyCode === 13) {
           event.preventDefault();
 
           const eventTarget = event.target;
 
-          // @ts-expect-error event has a blur function, maybe KeyboardEvent is wrong here.
+          // @ts-expect-error function blur() exists
           eventTarget.blur();
 
           formik.submitForm();
@@ -128,11 +133,11 @@ const modifiers = {
       },
     };
   },
-  useTabbable(props: ModifierProps, ref: React.Ref<unknown>) {
+  useTabbable<T>(props: T & UseTabbableProps, ref: React.Ref<unknown>) {
     const active = useActive(props);
     return { ...props, active, ref };
   },
-  useActionable(props: ModifierProps, ref: React.Ref<unknown>) {
+  useActionable<T>(props: T & UseActionableProps, ref: React.Ref<unknown>) {
     const linkProps = useLink(props);
     return { ...linkProps, ref };
   },

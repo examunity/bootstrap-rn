@@ -3,13 +3,13 @@ import { View as BaseView } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import useViewport from './hooks/useViewport';
 import useScrollbarEffects from './hooks/useScrollbarEffects';
-import Context, { Modifier } from './Context';
+import Context, { Modifiers } from './Context';
 import type { ExtendedStyle, Viewport } from './types';
 
 type ProviderProps = {
   children: React.ReactNode;
-  utilities: Record<string, ExtendedStyle>;
-  modifiers: Record<string, Modifier>;
+  utilities?: Record<string, ExtendedStyle>;
+  modifiers?: Modifiers;
   ssrViewport: Viewport;
 };
 

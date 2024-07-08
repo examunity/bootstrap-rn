@@ -1,12 +1,7 @@
+import type { UseTabbableProps } from 'bootstrap-rn';
 import { useResolvedPath, useMatch } from '../libs/react-router';
 
-interface UseActiveProps {
-  to?: string;
-  external?: boolean;
-  active?: boolean;
-}
-
-export default function useActive(props: UseActiveProps) {
+export default function useActive<T>(props: T & UseTabbableProps) {
   const { to, external, active } = props;
 
   if (!to || external) {

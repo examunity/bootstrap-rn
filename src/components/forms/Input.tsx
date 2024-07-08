@@ -5,9 +5,13 @@ import TextInput, { TextInputProps, TextInputRef } from '../TextInput';
 import { getStyles, each } from '../../utils';
 import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
-import type { FormValidationState, ThemeVariables } from '../../types';
+import type {
+  FormValidationState,
+  ThemeVariables,
+  UseFormFieldProps,
+} from '../../types';
 
-export interface InputProps extends TextInputProps {
+export interface InputProps extends UseFormFieldProps, TextInputProps {
   size?: 'sm' | 'lg';
   placeholderTextColor?: string;
   multiline?: boolean;

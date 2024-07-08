@@ -17,9 +17,10 @@ import type {
   FormValidationState,
   StyleProp,
   ThemeVariables,
+  UseFormFieldProps,
 } from '../../types';
 
-export interface FormCheckInputProps {
+export interface FormCheckInputProps extends UseFormFieldProps {
   type: 'checkbox' | 'radio' | 'switch';
   value: boolean;
   onFocus?: () => void;

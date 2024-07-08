@@ -2,6 +2,10 @@ import {
   ViewStyle as BaseViewStyle,
   ImageStyle as BaseImageStyle,
   TextStyle as BaseTextStyle,
+  GestureResponderEvent,
+  Role,
+  NativeSyntheticEvent,
+  TextInputKeyPressEventData,
 } from 'react-native';
 import type { Placement, Axis, PlacementAxis } from '@react-types/overlays';
 import { BOOTSTRAP_RN_STYLE } from './style/createStyle';
@@ -111,3 +115,48 @@ export type TransformedPlacementAxis =
   | 'end'
   | 'start'
   | 'center';
+
+// Modifiers
+
+// TODO: Modifiers can have different props based on the implementation. It would be better to define modifiers on the application.
+
+type To =
+  | string
+  | Partial<{
+      pathname: string;
+      search: string;
+      hash: string;
+    }>;
+
+type External =
+  | boolean
+  | {
+      download: boolean;
+      target: string;
+      rel: string;
+    };
+
+export type UseTabbableProps = {
+  to?: To;
+  external?: External;
+  end?: boolean;
+  caseSensitive?: boolean;
+  active?: boolean;
+};
+
+export type UseActionableProps = {
+  to?: To;
+  external?: External;
+  relative?: 'path' | 'route';
+  replace?: boolean;
+  preventScrollReset?: boolean;
+  reloadDocument?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  state?: any;
+  onPress?: null | ((event: GestureResponderEvent) => void);
+  role?: Role;
+};
+
+export type UseFormFieldProps = {
+  onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
+};

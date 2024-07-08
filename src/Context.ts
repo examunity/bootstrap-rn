@@ -10,9 +10,15 @@ export type Modifier = (
   ref: React.Ref<unknown>,
 ) => ModifierProps & { ref?: React.Ref<unknown> };
 
+export type Modifiers = {
+  useFormField?: Modifier;
+  useTabbable?: Modifier;
+  useActionable?: Modifier;
+};
+
 export type BootstrapRNContextType = {
   utilities: Record<string, ExtendedStyle>;
-  modifiers: Record<string, Modifier>;
+  modifiers: Modifiers;
   scrollbars: {
     hide: () => void;
     show: () => void;

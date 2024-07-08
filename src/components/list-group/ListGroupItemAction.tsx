@@ -11,12 +11,12 @@ import useForcedContext from '../../hooks/useForcedContext';
 import { styles as baseStyles } from './ListGroupItem';
 import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
-import type { ThemeVariables } from '../../types';
+import type { ThemeVariables, UseTabbableProps } from '../../types';
 
-export interface ListGroupItemActionProps extends PressableProps {
+export interface ListGroupItemActionProps
+  extends UseTabbableProps,
+    PressableProps {
   color?: keyof typeof THEME_COLORS;
-  active?: boolean;
-  disabled?: boolean;
 }
 
 const actionStyles = StyleSheet.create({

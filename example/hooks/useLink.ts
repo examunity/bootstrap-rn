@@ -1,6 +1,6 @@
 import { useHref, useLinkClickHandler } from 'react-router-dom';
-import type { RelativeRoutingType } from 'react-router';
-import { GestureResponderEvent } from 'react-native';
+import type { UseActionableProps } from 'bootstrap-rn';
+import type { GestureResponderEvent } from 'react-native';
 
 const defaultHrefAttrs = {
   download: false,
@@ -8,18 +8,7 @@ const defaultHrefAttrs = {
   rel: 'noopener noreferrer',
 };
 
-interface UseLinkProps {
-  to?: string;
-  external?: boolean | typeof defaultHrefAttrs;
-  relative?: RelativeRoutingType;
-  replace?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  state?: any;
-  onPress?: (event: GestureResponderEvent) => void;
-  role?: string;
-}
-
-export default function useLink(props: UseLinkProps) {
+export default function useLink<T>(props: T & UseActionableProps) {
   const {
     to,
     external,

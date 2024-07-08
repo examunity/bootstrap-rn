@@ -1,9 +1,9 @@
-import Context from '../Context';
+import Context, { Modifiers } from '../Context';
 import { concatRefs } from '../utils';
 import useForcedContext from './useForcedContext';
 
 export default function useModifier<R, T>(
-  name: string,
+  name: keyof Modifiers,
   props: T,
   ref: React.Ref<R>,
 ): [Omit<T, 'ref'>, React.Ref<R>] {
@@ -11,7 +11,7 @@ export default function useModifier<R, T>(
 
   const useModifierHook = context.modifiers[name];
 
-  if (!useModifier) {
+  if (!useModifierHook) {
     return [props, ref];
   }
 

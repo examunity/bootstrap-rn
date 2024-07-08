@@ -10,8 +10,13 @@ import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
 import { getRole } from './Pressable';
+import { UseActionableProps } from '../types';
 
-export interface LinkProps extends ActionProps, TextProps {
+export interface LinkProps
+  extends ActionProps,
+    // We need to omit onPress here, because onPress can be null on UseActionableProps, but cannot be null on TextProps.
+    Omit<UseActionableProps, 'onPress'>,
+    TextProps {
   onMouseEnter?: (event?: MouseEvent) => void;
   onMouseLeave?: (event?: MouseEvent) => void;
 }

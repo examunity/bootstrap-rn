@@ -12,7 +12,11 @@ import PickerWeb from './internals/PickerWeb';
 import PickerNative from './internals/PickerNative';
 import PickerItem from './PickerItem';
 import PickerContext from './PickerContext';
-import type { FormValidationState, ThemeVariables } from '../../types';
+import type {
+  FormValidationState,
+  ThemeVariables,
+  UseFormFieldProps,
+} from '../../types';
 import type { PressableProps, PressableRef } from '../Pressable';
 
 export interface MenuComponentProps {
@@ -22,7 +26,7 @@ export interface MenuComponentProps {
   onClose: () => void;
 }
 
-export interface PickerProps extends PressableProps {
+export interface PickerProps extends UseFormFieldProps, PressableProps {
   children: React.ReactElement | React.ReactElement[];
   selectedValue?: boolean | number | string | object;
   onValueChange?: (value?: boolean | number | string | object) => void;

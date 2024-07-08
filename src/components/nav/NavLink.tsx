@@ -9,8 +9,9 @@ import useModifier from '../../hooks/useModifier';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import NavContext from './NavContext';
+import type { UseTabbableProps } from '../../types';
 
-export interface NavLinkProps extends PressableProps {}
+export interface NavLinkProps extends UseTabbableProps, PressableProps {}
 
 const styles = StyleSheet.create({
   '.nav-link': css`

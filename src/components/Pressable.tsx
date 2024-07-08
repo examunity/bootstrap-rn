@@ -18,6 +18,7 @@ import type {
   ExtendedTextStyle,
   StyleProp,
   StyleName,
+  UseActionableProps,
 } from '../types';
 
 export type PressableRef = BaseView;
@@ -26,6 +27,7 @@ type CaretTypes = boolean | CaretProps;
 
 export interface PressableProps
   extends ActionProps,
+    UseActionableProps,
     Omit<BasePressableProps, 'children' | 'style'> {
   children?: React.ReactNode;
   caret?: CaretTypes;
@@ -35,7 +37,6 @@ export interface PressableProps
   textStyle?: StyleProp<ExtendedTextStyle>;
   activeTextStyle?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;
-  to?: string;
 }
 
 // One of the following should be set for aria support:

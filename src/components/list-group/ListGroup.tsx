@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import { Platform } from 'react-native';
-import type { Role } from 'react-native';
+import { Platform, Role } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import View, { ViewProps, ViewRef } from '../View';
