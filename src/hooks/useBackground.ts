@@ -5,7 +5,7 @@ type Position = 'center' | 'left' | 'right' | 'top' | 'bottom';
 type PositionX = 'center' | 'left' | 'right';
 type PositionY = 'center' | 'top' | 'bottom';
 
-export type BackgroundStyle = BaseStyle & {
+type BackgroundStyle = BaseStyle & {
   backgroundSize?: 'contain' | 'cover' | string | number;
   backgroundPosition?: Position;
   backgroundPositionX?:
@@ -16,6 +16,13 @@ export type BackgroundStyle = BaseStyle & {
     | { position: PositionY; offset: string | number };
 };
 
+type PositionValue = {
+  positionX: PositionX;
+  offsetX: string | number;
+  positionY: PositionY;
+  offsetY: string | number;
+};
+
 const styles = StyleSheet.create({
   reset: {
     // Background repeat is not supported on native yet.
@@ -24,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const normalizeValue = (value: number | string): number | string =>
+const normalizeValue = <T>(value: T) =>
   typeof value === 'number' && value !== 0 ? `${value}px` : value;
 
 const resolveBackgroundSize = (style: BackgroundStyle) => {
@@ -47,11 +54,17 @@ const resolveBackgroundPosition = (style: BackgroundStyle) => {
     return null;
   }
 
-  const value = {
-    positionX: backgroundPosition || 'left',
-    offsetX: '0',
-    positionY: backgroundPosition || 'top',
-    offsetY: '0',
+  const value: PositionValue = {
+    positionX:
+      backgroundPosition === 'center' || backgroundPosition === 'right'
+        ? backgroundPosition
+        : 'left',
+    offsetX: 0,
+    positionY:
+      backgroundPosition === 'center' || backgroundPosition === 'bottom'
+        ? backgroundPosition
+        : 'top',
+    offsetY: 0,
   };
 
   if (backgroundPositionX) {
