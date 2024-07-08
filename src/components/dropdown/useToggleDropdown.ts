@@ -3,12 +3,14 @@ import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
 import { CaretProps } from '../Caret';
 
-export type ToggleDropdownProps = {
-  onPress?: (event: GestureResponderEvent) => void;
+export interface UseToggleDropdownProps {
+  onPress?: null | ((event: GestureResponderEvent) => void);
   caret?: boolean | CaretProps;
-};
+}
 
-export default function useToggleDropdown<T>(props: ToggleDropdownProps & T) {
+export default function useToggleDropdown<T>(
+  props: UseToggleDropdownProps & T,
+) {
   const context = useForcedContext(DropdownContext);
 
   const { onPress: handlePress, caret, ...restProps } = props;

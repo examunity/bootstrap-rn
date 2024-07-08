@@ -13,7 +13,7 @@ import ListContext from '../helpers/ListContext';
 import ListGroupContext from './ListGroupContext';
 import type { ThemeVariables, UseTabbableProps } from '../../types';
 
-export interface ListGroupItemActionProps
+export interface ListGroupItemUseActionProps
   extends UseTabbableProps,
     PressableProps {
   color?: keyof typeof THEME_COLORS;
@@ -112,7 +112,7 @@ const actionStyles = StyleSheet.create({
 
 const ListGroupItemAction = React.forwardRef<
   PressableRef,
-  ListGroupItemActionProps
+  ListGroupItemUseActionProps
 >((props, ref) => {
   const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
 

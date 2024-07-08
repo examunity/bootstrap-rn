@@ -4,12 +4,12 @@ import useForcedContext from '../../hooks/useForcedContext';
 import TabContext from './TabContext';
 import { getElementId } from '../../utils';
 
-type ToggleTabProps = {
-  target: string;
-  onPress?: (event: GestureResponderEvent) => void;
-};
+export interface UseToggleTabProps {
+  target?: string;
+  onPress?: null | ((event: GestureResponderEvent) => void);
+}
 
-export default function useToggleTab<T>(props: ToggleTabProps & T) {
+export default function useToggleTab<T>(props: UseToggleTabProps & T) {
   const context = useForcedContext(TabContext);
 
   const { target, onPress: handlePress, ...restProps } = props;

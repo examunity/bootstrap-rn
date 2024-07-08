@@ -2,11 +2,11 @@ import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from './NavbarContext';
 
-type ToggleNavbarProps = {
-  onPress?: (event: GestureResponderEvent) => void;
-};
+export interface UseToggleNavbarProps {
+  onPress?: null | ((event: GestureResponderEvent) => void);
+}
 
-export default function useToggleNavbar<T>(props: ToggleNavbarProps & T) {
+export default function useToggleNavbar<T>(props: UseToggleNavbarProps & T) {
   const context = useForcedContext(NavbarContext);
 
   const { onPress: handlePress, ...restProps } = props;

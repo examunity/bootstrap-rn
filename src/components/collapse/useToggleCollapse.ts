@@ -2,11 +2,13 @@ import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import CollapseContext from './CollapseContext';
 
-type ToggleCollapseProps = {
-  onPress?: (event: GestureResponderEvent) => void;
-};
+export interface UseToggleCollapseProps {
+  onPress?: null | ((event: GestureResponderEvent) => void);
+}
 
-export default function useToggleCollapse<T>(props: ToggleCollapseProps & T) {
+export default function useToggleCollapse<T>(
+  props: UseToggleCollapseProps & T,
+) {
   const context = useForcedContext(CollapseContext);
 
   const { onPress: handlePress, ...restProps } = props;

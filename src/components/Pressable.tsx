@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useModifier from '../hooks/useModifier';
-import useAction, { ActionProps } from '../hooks/useAction';
+import useAction, { UseActionProps } from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
@@ -26,7 +26,7 @@ export type PressableRef = BaseView;
 type CaretTypes = boolean | CaretProps;
 
 export interface PressableProps
-  extends ActionProps,
+  extends UseActionProps,
     UseActionableProps,
     Omit<BasePressableProps, 'children' | 'style'> {
   children?: React.ReactNode;

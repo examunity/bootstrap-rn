@@ -3,11 +3,13 @@ import type { GestureResponderEvent } from 'react-native';
 import useForcedContext from '../../hooks/useForcedContext';
 import DropdownContext from './DropdownContext';
 
-type DismissDropdownProps = {
-  onPress?: (event: GestureResponderEvent) => void;
-};
+export interface UseDismissDropdownProps {
+  onPress?: null | ((event: GestureResponderEvent) => void);
+}
 
-export default function useDismissDropdown<T>(props: DismissDropdownProps & T) {
+export default function useDismissDropdown<T>(
+  props: UseDismissDropdownProps & T,
+) {
   const context = useForcedContext(DropdownContext);
 
   const handlePress = useCallback(

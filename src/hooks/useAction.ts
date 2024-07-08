@@ -1,24 +1,45 @@
+import type { UseToggleButtonProps } from '../components/buttons/useToggleButton';
+import type { UseToggleCollapseProps } from '../components/collapse/useToggleCollapse';
+import type { UseDismissDropdownProps } from '../components/dropdown/useDismissDropdown';
+import type { UseToggleDropdownProps } from '../components/dropdown/useToggleDropdown';
+import type { UseToggleTabProps } from '../components/nav/useToggleTab';
+import type { UseDismissNavbarProps } from '../components/navbar/useDismissNavbar';
+import type { UseToggleNavbarProps } from '../components/navbar/useToggleNavbar';
 import { concatRefs } from '../utils';
 
+interface UseToggleProps
+  extends UseToggleTabProps,
+    UseToggleNavbarProps,
+    UseToggleButtonProps,
+    UseToggleCollapseProps,
+    UseToggleDropdownProps {}
+
+interface UseDismissProps
+  extends UseDismissDropdownProps,
+    UseDismissNavbarProps {}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ActionFunction = <P>(props: P) => any;
+type ToggleFunction = <T>(props: T & UseToggleProps) => any;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DismissFunction = <T>(props: T & UseDismissProps) => any;
 
 type ToggleType =
-  | ActionFunction
+  | ToggleFunction
   | {
-      useToggle: ActionFunction;
+      useToggle: ToggleFunction;
     };
 
 type DismissType =
-  | ActionFunction
+  | DismissFunction
   | {
-      useDismiss: ActionFunction;
+      useDismiss: DismissFunction;
     };
 
-export type ActionProps = {
+export interface UseActionProps extends UseToggleProps, UseDismissProps {
   toggle?: ToggleType;
   dismiss?: DismissType;
-};
+}
 
 function getActionHook(toggle?: ToggleType, dismiss?: DismissType) {
   if (toggle) {
@@ -33,7 +54,7 @@ function getActionHook(toggle?: ToggleType, dismiss?: DismissType) {
 }
 
 export default function useAction<T, P>(
-  props: ActionProps & P,
+  props: UseActionProps & P,
   ref: React.LegacyRef<T>,
 ) {
   const { toggle, dismiss, ...restProps } = props;

@@ -5,16 +5,16 @@ import css from '../style/css';
 import Text, { TextProps, TextRef } from './Text';
 import { getStyles } from '../utils';
 import useModifier from '../hooks/useModifier';
-import useAction, { ActionProps } from '../hooks/useAction';
+import useAction, { UseActionProps } from '../hooks/useAction';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
 import useInteractionState from '../hooks/useInteractionState';
 import { getRole } from './Pressable';
 import { UseActionableProps } from '../types';
 
+// We need to omit onPress here, because onPress can be null on UseActionableProps, but cannot be null on TextProps.
 export interface LinkProps
-  extends ActionProps,
-    // We need to omit onPress here, because onPress can be null on UseActionableProps, but cannot be null on TextProps.
+  extends Omit<UseActionProps, 'onPress'>,
     Omit<UseActionableProps, 'onPress'>,
     TextProps {
   onMouseEnter?: (event?: MouseEvent) => void;

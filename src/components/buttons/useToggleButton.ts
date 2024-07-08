@@ -1,12 +1,12 @@
 import type { GestureResponderEvent } from 'react-native';
 import { useState } from 'react';
 
-type ToggleButtonProps = {
+export interface UseToggleButtonProps {
   active?: boolean;
-  onPress?: (event: GestureResponderEvent) => void;
-};
+  onPress?: null | ((event: GestureResponderEvent) => void);
+}
 
-export default function useToggleButton<T>(props: ToggleButtonProps & T) {
+export default function useToggleButton<T>(props: UseToggleButtonProps & T) {
   const { active = false, onPress: handlePress, ...restProps } = props;
 
   const [pressed, setPressed] = useState(active);
