@@ -21,7 +21,7 @@
   "types": "./lib/types/index.d.ts",
   "scripts": {
     "check-types": "tsc --noEmit",
-    "build-types": "rm -rf lib/types && tsc -d --emitDeclarationOnly --outDir lib/types",
+    "build-types": "rm -rf lib/types && tsc -d --emitDeclarationOnly",
     "copy-types": "cpy lib/types/*.d.ts lib/commonjs && cpy lib/types/*.d.ts lib/module",
     "build": "yarn build-types && bob build && yarn copy-types",
     "prepare": "packsy validate && yarn build",
