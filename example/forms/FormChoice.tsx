@@ -1,0 +1,121 @@
+import React, { useId } from 'react';
+import type { View as FormChoiceRef } from 'react-native';
+import { Radio, Checkbox, FormCheck, Text, View } from 'bootstrap-rn';
+import Field from './Field';
+import useFormField from './useFormField';
+import FieldPropTypes from './FieldPropTypes';
+
+type Options = {
+  value: string;
+  label: string;
+};
+
+export interface FormChoiceProps extends FieldPropTypes {
+  options: Options[];
+  multiple?: boolean;
+}
+
+type Value = string | number | boolean | object | undefined;
+
+const FormChoice = React.forwardRef<FormChoiceRef, FormChoiceProps>(
+  (props, ref) => {
+    const {
+      name,
+      title,
+      options,
+      info,
+      multiple = false,
+      disabled = false,
+      onValueChange,
+      formatError = (error) => error,
+      ...elementProps
+    } = props;
+
+    // For multiple === false the type is Value, but this leads to errors.
+    const field = useFormField<Value[]>(name);
+    const id = useId();
+
+    return (
+      <Field
+        error={formatError(field.error)}
+        touched={field.touched}
+        info={info}
+        elementProps={elementProps}
+      >
+        {title && (
+          <Text small styleName="fw-bold mb-2">
+            {title}
+          </Text>
+        )}
+        <View>
+          {!multiple && (
+            <Radio.Group
+              selectedValue={field.value}
+              onValueChange={(nextValue) => {
+                field.setValue(nextValue, onValueChange);
+              }}
+            >
+              {options.map((option, key) => (
+                <FormCheck
+                  invalid={field.touched && !!field.error}
+                  disabled={disabled}
+                  key={option.value}
+                >
+                  <Radio
+                    ref={ref}
+                    value={option.value}
+                    onBlur={() => {
+                      field.setTouched();
+                    }}
+                    id={`${id}-${key}`}
+                  />
+                  <FormCheck.Label htmlFor={`${id}-${key}`}>
+                    <Text>{option.label}</Text>
+                  </FormCheck.Label>
+                </FormCheck>
+              ))}
+            </Radio.Group>
+          )}
+          {multiple && (
+            <View>
+              {options.map((option, key) => (
+                <FormCheck
+                  invalid={field.touched && !!field.error}
+                  disabled={disabled}
+                  key={option.value}
+                >
+                  <Checkbox
+                    ref={ref}
+                    value={field.value?.indexOf(option.value) !== -1}
+                    onValueChange={(checked) => {
+                      const nextValue = [...field.value];
+
+                      if (checked) {
+                        nextValue.push(option.value);
+                      } else {
+                        nextValue.splice(nextValue.indexOf(option.value), 1);
+                      }
+
+                      field.setValue(nextValue, onValueChange);
+                    }}
+                    onBlur={() => {
+                      field.setTouched();
+                    }}
+                    id={`${id}-${key}`}
+                  />
+                  <FormCheck.Label htmlFor={`${id}-${key}`}>
+                    <Text>{option.label}</Text>
+                  </FormCheck.Label>
+                </FormCheck>
+              ))}
+            </View>
+          )}
+        </View>
+      </Field>
+    );
+  },
+);
+
+FormChoice.displayName = 'FormChoice';
+
+export default FormChoice;
