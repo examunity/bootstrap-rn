@@ -8,8 +8,24 @@ import Provider from './Provider';
 import useFixedElement from './hooks/useFixedElement';
 import useMedia from './hooks/useMedia';
 import useStyle from './hooks/useStyle';
-// import View from './components/View';
+
+export {
+  css,
+  Context,
+  makeUtilities,
+  makeTheme,
+  PortalProvider,
+  Provider,
+  StyleSheet,
+  useFixedElement,
+  useMedia,
+  useStyle,
+};
+
 export * from './theme/functions';
+
+export * from './types';
+
 // components
 
 export { default as Alert } from './components/alert/Alert';
@@ -175,7 +191,6 @@ export { default as ScrollView } from './components/ScrollView';
 export type { ScrollViewProps } from './components/ScrollView';
 
 export { default as Tab } from './components/nav/Tab';
-// export type { TabProps } from './components/nav/Tab';
 
 export { default as Toast } from './components/toasts/Toast';
 export type { ToastProps } from './components/toasts/Toast';
@@ -194,16 +209,3 @@ export type { TextInputProps } from './components/TextInput';
 
 export { default as View } from './components/View';
 export type { ViewProps } from './components/View';
-
-export {
-  css,
-  Context,
-  makeUtilities,
-  makeTheme,
-  PortalProvider,
-  Provider,
-  StyleSheet,
-  useFixedElement,
-  useMedia,
-  useStyle,
-};
