@@ -18,7 +18,7 @@ import type { MediaHandler, Placement } from '../../types';
 
 type AlignmentBreakpoints = boolean | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
-export interface DropdownProps extends ViewProps {
+export interface DropdownMenuProps extends ViewProps {
   start?: AlignmentBreakpoints;
   right?: AlignmentBreakpoints;
   end?: AlignmentBreakpoints;
@@ -137,145 +137,147 @@ const transformPlacement = (
   return `${direction} top`;
 };
 
-const DropdownMenu = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
-  const {
-    children,
-    start = true,
-    right,
-    end = false,
-    style,
-    textStyle,
-    ...elementProps
-  } = props;
+const DropdownMenu = React.forwardRef<ViewRef, DropdownMenuProps>(
+  (props, ref) => {
+    const {
+      children,
+      start = true,
+      right,
+      end = false,
+      style,
+      textStyle,
+      ...elementProps
+    } = props;
 
-  if (right !== undefined) {
-    // eslint-disable-next-line no-console
-    console.warn('Prop "right" is deprecated, please use "end" instead.');
-  }
+    if (right !== undefined) {
+      // eslint-disable-next-line no-console
+      console.warn('Prop "right" is deprecated, please use "end" instead.');
+    }
 
-  const navbar = useContext(NavbarContext);
-  const media = useMedia();
-  const dialogRef = useRef(null);
+    const navbar = useContext(NavbarContext);
+    const media = useMedia();
+    const dialogRef = useRef(null);
 
-  const dropdown = useForcedContext(DropdownContext);
+    const dropdown = useForcedContext(DropdownContext);
 
-  const {
-    identifier,
-    toggleRef,
-    visible,
-    setVisible,
-    direction,
-    display,
-    autoClose,
-  } = dropdown;
+    const {
+      identifier,
+      toggleRef,
+      visible,
+      setVisible,
+      direction,
+      display,
+      autoClose,
+    } = dropdown;
 
-  if (!visible) {
-    return null;
-  }
+    if (!visible) {
+      return null;
+    }
 
-  const isStatic = Platform.OS === 'web' && display === 'static';
-  const isCollapsedNavbar =
-    navbar &&
-    !(navbar.expand && (navbar.expand === true || media.up(navbar.expand)));
-  const hasStaticStyle = isStatic && !isCollapsedNavbar;
+    const isStatic = Platform.OS === 'web' && display === 'static';
+    const isCollapsedNavbar =
+      navbar &&
+      !(navbar.expand && (navbar.expand === true || media.up(navbar.expand)));
+    const hasStaticStyle = isStatic && !isCollapsedNavbar;
 
-  const classes = getStyles(styles, [
-    '.dropdown-menu',
-    // Non-Popper styles
-    hasStaticStyle && '.dropdown-menu[data-bs-popper]',
-    hasStaticStyle &&
-      start &&
-      `.dropdown-menu${
-        start === true ? '' : `-${start}`
-      }-start[data-bs-popper]`,
-    hasStaticStyle &&
-      end &&
-      `.dropdown-menu${end === true ? '' : `-${end}`}-end[data-bs-popper]`,
-    hasStaticStyle &&
-      direction === 'up' &&
-      '.dropup .dropdown-menu[data-bs-popper]',
-    hasStaticStyle &&
-      direction === 'end' &&
-      '.dropend .dropdown-menu[data-bs-popper]',
-    hasStaticStyle &&
-      direction === 'start' &&
-      '.dropstart .dropdown-menu[data-bs-popper]',
-    // Navbar styles
-    navbar && '.navbar-nav .dropdown-menu',
-    navbar &&
-      navbar.expand &&
-      `.navbar-expand${
-        navbar.expand === true ? '' : `-${navbar.expand}`
-      } .navbar-nav .dropdown-menu`,
-  ]);
-  const textClasses = getStyles(styles, ['.dropdown-menu --text']);
+    const classes = getStyles(styles, [
+      '.dropdown-menu',
+      // Non-Popper styles
+      hasStaticStyle && '.dropdown-menu[data-bs-popper]',
+      hasStaticStyle &&
+        start &&
+        `.dropdown-menu${
+          start === true ? '' : `-${start}`
+        }-start[data-bs-popper]`,
+      hasStaticStyle &&
+        end &&
+        `.dropdown-menu${end === true ? '' : `-${end}`}-end[data-bs-popper]`,
+      hasStaticStyle &&
+        direction === 'up' &&
+        '.dropup .dropdown-menu[data-bs-popper]',
+      hasStaticStyle &&
+        direction === 'end' &&
+        '.dropend .dropdown-menu[data-bs-popper]',
+      hasStaticStyle &&
+        direction === 'start' &&
+        '.dropstart .dropdown-menu[data-bs-popper]',
+      // Navbar styles
+      navbar && '.navbar-nav .dropdown-menu',
+      navbar &&
+        navbar.expand &&
+        `.navbar-expand${
+          navbar.expand === true ? '' : `-${navbar.expand}`
+        } .navbar-nav .dropdown-menu`,
+    ]);
+    const textClasses = getStyles(styles, ['.dropdown-menu --text']);
 
-  if (isStatic || isCollapsedNavbar) {
-    return (
-      <>
-        {!isCollapsedNavbar && (
-          <BackdropHandler
-            toggleRef={toggleRef}
-            dialogRef={dialogRef}
-            onClose={() => {
-              setVisible(false);
-            }}
-            autoClose={autoClose}
-          />
-        )}
-        <View
-          {...elementProps}
-          ref={concatRefs(dialogRef, ref)}
-          aria-labelledby={identifier}
-          style={[classes, style]}
-          textStyle={[textClasses, textStyle]}
-        >
-          {children}
-        </View>
-      </>
-    );
-  }
-
-  return (
-    <OverlayContainer>
-      <Overlay
-        placement={transformPlacement(media, direction, start, end)}
-        targetRef={toggleRef}
-        offset={normalizeNumber(StyleSheet.value('dropdown-spacer'))}
-        visible={visible}
-      >
-        {(overlay, overlayRef) => (
-          <>
+    if (isStatic || isCollapsedNavbar) {
+      return (
+        <>
+          {!isCollapsedNavbar && (
             <BackdropHandler
               toggleRef={toggleRef}
-              dialogRef={overlayRef}
+              dialogRef={dialogRef}
               onClose={() => {
                 setVisible(false);
               }}
               autoClose={autoClose}
             />
-            <View
-              {...elementProps}
-              ref={concatRefs(overlayRef, ref)}
-              aria-labelledby={identifier}
-              style={[
-                classes,
-                overlay.overlayProps.style,
-                { maxHeight: 'auto', opacity: overlay.rendered ? 1 : 0 },
-                style,
-              ]}
-              textStyle={[textClasses, textStyle]}
-            >
-              <DropdownContext.Provider value={dropdown}>
-                {children}
-              </DropdownContext.Provider>
-            </View>
-          </>
-        )}
-      </Overlay>
-    </OverlayContainer>
-  );
-});
+          )}
+          <View
+            {...elementProps}
+            ref={concatRefs(dialogRef, ref)}
+            aria-labelledby={identifier}
+            style={[classes, style]}
+            textStyle={[textClasses, textStyle]}
+          >
+            {children}
+          </View>
+        </>
+      );
+    }
+
+    return (
+      <OverlayContainer>
+        <Overlay
+          placement={transformPlacement(media, direction, start, end)}
+          targetRef={toggleRef}
+          offset={normalizeNumber(StyleSheet.value('dropdown-spacer'))}
+          visible={visible}
+        >
+          {(overlay, overlayRef) => (
+            <>
+              <BackdropHandler
+                toggleRef={toggleRef}
+                dialogRef={overlayRef}
+                onClose={() => {
+                  setVisible(false);
+                }}
+                autoClose={autoClose}
+              />
+              <View
+                {...elementProps}
+                ref={concatRefs(overlayRef, ref)}
+                aria-labelledby={identifier}
+                style={[
+                  classes,
+                  overlay.overlayProps.style,
+                  { maxHeight: 'auto', opacity: overlay.rendered ? 1 : 0 },
+                  style,
+                ]}
+                textStyle={[textClasses, textStyle]}
+              >
+                <DropdownContext.Provider value={dropdown}>
+                  {children}
+                </DropdownContext.Provider>
+              </View>
+            </>
+          )}
+        </Overlay>
+      </OverlayContainer>
+    );
+  },
+);
 
 DropdownMenu.displayName = 'DropdownMenu';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import useToggleDropdown, { UseToggleDropdownProps } from './useToggleDropdown';
 
-type DropdownToggleProps = {
+export interface DropdownToggleProps {
   children: (args: UseToggleDropdownProps) => React.ReactNode;
-};
+}
 
 function DropdownToggle(props: DropdownToggleProps) {
   const { children } = props;

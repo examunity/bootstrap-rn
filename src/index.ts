@@ -37,6 +37,9 @@ export type { BadgeProps } from './components/badge/Badge';
 export { default as Breadcrumb } from './components/breadcrumb/Breadcrumb';
 export type { BreadcrumbProps } from './components/breadcrumb/Breadcrumb';
 
+export { default as BreadcrumbItem } from './components/breadcrumb/BreadcrumbItem';
+export type { BreadcrumbItemProps } from './components/breadcrumb/BreadcrumbItem';
+
 export { default as ButtonGroup } from './components/button-group/ButtonGroup';
 export type { ButtonGroupProps } from './components/button-group/ButtonGroup';
 
@@ -45,6 +48,9 @@ export type { ButtonToolbarProps } from './components/button-group/ButtonToolbar
 
 export { default as Button } from './components/buttons/Button';
 export type { ButtonProps } from './components/buttons/Button';
+
+export { default as useToggleButton } from './components/buttons/useToggleButton';
+export type { UseToggleButtonProps } from './components/buttons/useToggleButton';
 
 export { default as Blockquote } from './components/type/Blockquote';
 export type { BlockquoteProps } from './components/type/Blockquote';
@@ -70,8 +76,16 @@ export type { CaretProps } from './components/Caret';
 export { default as CloseButton } from './components/close/CloseButton';
 export type { CloseButtonProps } from './components/close/CloseButton';
 
+/** Collapse */
 export { default as Collapse } from './components/collapse/Collapse';
 export type { CollapseProps } from './components/collapse/Collapse';
+
+export { default as CollapseProvider } from './components/collapse/CollapseProvider';
+export type { CollapseProviderProps } from './components/collapse/CollapseProvider';
+
+export { default as useToggleCollapse } from './components/collapse/useToggleCollapse';
+export type { UseToggleCollapseProps } from './components/collapse/useToggleCollapse';
+/** End Collapse */
 
 export { default as Container } from './components/containers/Container';
 export type { ContainerProps } from './components/containers/Container';
@@ -85,8 +99,37 @@ export type { ColProps } from './components/grid/Col';
 export { default as Code } from './components/type/Code';
 export type { CodeProps } from './components/type/Code';
 
+/** Dropdown */
 export { default as Dropdown } from './components/dropdown/Dropdown';
 export type { DropdownProps } from './components/dropdown/Dropdown';
+
+export { default as DropdownContext } from './components/dropdown/DropdownContext';
+export type { DropdownContextProps } from './components/dropdown/DropdownContext';
+
+export { default as DropdownToggle } from './components/dropdown/DropdownToggle';
+export type { DropdownToggleProps } from './components/dropdown/DropdownToggle';
+
+export { default as DropdownMenu } from './components/dropdown/DropdownMenu';
+export type { DropdownMenuProps } from './components/dropdown/DropdownMenu';
+
+export { default as DropdownHeader } from './components/dropdown/DropdownHeader';
+export type { DropdownHeaderProps } from './components/dropdown/DropdownHeader';
+
+export { default as DropdownItem } from './components/dropdown/DropdownItem';
+export type { DropdownItemProps } from './components/dropdown/DropdownItem';
+
+export { default as DropdownItemText } from './components/dropdown/DropdownItemText';
+export type { DropdownItemTextProps } from './components/dropdown/DropdownItemText';
+
+export { default as DropdownDivider } from './components/dropdown/DropdownDivider';
+export type { DropdownDividerProps } from './components/dropdown/DropdownDivider';
+
+export { default as useDismissDropdown } from './components/dropdown/useDismissDropdown';
+export type { UseDismissDropdownProps } from './components/dropdown/useDismissDropdown';
+
+export { default as useToggleDropdown } from './components/dropdown/useToggleDropdown';
+export type { UseToggleDropdownProps } from './components/dropdown/useToggleDropdown';
+/** End Dropdown */
 
 export { default as DisplayHeading } from './components/type/DisplayHeading';
 export type { DisplayHeadingProps } from './components/type/DisplayHeading';

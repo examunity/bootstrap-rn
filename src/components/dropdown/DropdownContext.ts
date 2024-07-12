@@ -3,7 +3,7 @@ import type { ViewRef } from '../View';
 
 export type DropdownDirection = 'up' | 'down' | 'start' | 'end';
 
-type DropdownContextProps = {
+export interface DropdownContextProps {
   identifier: string;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,7 +12,7 @@ type DropdownContextProps = {
   center: boolean;
   display: string;
   autoClose: string | boolean;
-};
+}
 
 const DropdownContext = createContext<DropdownContextProps | null>(null);
 
