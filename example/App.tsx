@@ -28,6 +28,7 @@ import SampleButtonGroup from './components/SampleButtonGroup';
 import SampleBreadcrumb from './components/SampleBreadcrumb';
 import SampleCards from './components/SampleCards';
 import SampleGrid from './components/SampleGrid';
+import SampleImages from './components/SampleImages';
 import SampleListGroup from './components/SampleListGroup';
 import SampleModal from './components/SampleModal';
 import SampleNav from './components/SampleNav';
@@ -163,6 +164,7 @@ function App() {
               <Route path="collapse" element={<SampleCollapse />} />
               <Route path="dropdown" element={<SampleDropdown />} />
               <Route path="grid" element={<SampleGrid />} />
+              <Route path="images" element={<SampleImages />} />
               <Route path="list-group" element={<SampleListGroup />} />
               <Route path="modal" element={<SampleModal />} />
               <Route path="nav" element={<SampleNav />} />

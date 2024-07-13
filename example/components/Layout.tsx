@@ -58,6 +58,9 @@ function Layout() {
               <ListGroup.ItemAction to="/grid">
                 <Text>Grid</Text>
               </ListGroup.ItemAction>
+              <ListGroup.ItemAction to="/images">
+                <Text>Images</Text>
+              </ListGroup.ItemAction>
               <ListGroup.ItemAction to="/list-group">
                 <Text>List group</Text>
               </ListGroup.ItemAction>
