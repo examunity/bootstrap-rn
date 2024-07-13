@@ -226,6 +226,9 @@ export type { NavbarProps } from './components/navbar/Navbar';
 export { default as NavbarBrand } from './components/navbar/NavbarBrand';
 export type { NavbarBrandProps } from './components/navbar/NavbarBrand';
 
+export { default as NavbarContext } from './components/navbar/NavbarContext';
+export type { NavbarContextProps } from './components/navbar/NavbarContext';
+
 export { default as NavbarText } from './components/navbar/NavbarText';
 export type { NavbarTextProps } from './components/navbar/NavbarText';
 

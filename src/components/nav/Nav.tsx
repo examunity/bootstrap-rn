@@ -6,10 +6,10 @@ import View, { ViewProps, ViewRef } from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
-import NavbarContext, { NavbarContextType } from '../navbar/NavbarContext';
+import NavbarContext, { NavbarContextProps } from '../navbar/NavbarContext';
 import NavContext, { NavVariant } from './NavContext';
 import NavLink from './NavLink';
-import TabContext, { TabContextType } from './TabContext';
+import TabContext, { TabContextProps } from './TabContext';
 
 export interface NavProps extends ViewProps {
   variant?: NavVariant;
@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
 });
 
 const getRole = (
-  tabbable: TabContextType | null,
-  navbar: NavbarContextType | null,
+  tabbable: TabContextProps | null,
+  navbar: NavbarContextProps | null,
 ) => {
   if (tabbable) {
     return 'tablist';
