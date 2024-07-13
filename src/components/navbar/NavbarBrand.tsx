@@ -6,7 +6,7 @@ import useForcedContext from '../../hooks/useForcedContext';
 import { getStyles } from '../../utils';
 import NavbarContext from './NavbarContext';
 
-export interface NavbarBrand extends PressableProps {}
+export interface NavbarBrandProps extends PressableProps {}
 
 const styles = StyleSheet.create({
   '.navbar-brand': css`
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarBrand = React.forwardRef<PressableRef, NavbarBrand>(
+const NavbarBrand = React.forwardRef<PressableRef, NavbarBrandProps>(
   (props, ref) => {
     const { children, style, textStyle, ...elementProps } = props;
 

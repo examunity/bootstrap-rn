@@ -1,10 +1,10 @@
 import React from 'react';
 
-type ModalContextType = {
+export interface ModalContextProps {
   scrollable: boolean;
-};
+}
 
-const ModalContext = React.createContext<ModalContextType | null>(null);
+const ModalContext = React.createContext<ModalContextProps | null>(null);
 
 ModalContext.displayName = 'ModalContext';
 

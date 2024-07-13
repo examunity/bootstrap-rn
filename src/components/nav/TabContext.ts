@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 
-export type TabContextType = {
+export interface TabContextProps {
   identifier: string;
   activeTarget: string;
   setActiveTarget: (target: string) => void;
-};
+}
 
-const TabContext = createContext<TabContextType | null>(null);
+const TabContext = createContext<TabContextProps | null>(null);
 
 TabContext.displayName = 'TabContext';
 

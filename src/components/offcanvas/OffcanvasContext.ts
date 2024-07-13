@@ -1,8 +1,10 @@
 import React from 'react';
 
-type OffcanvasContextType = Record<string, never>;
+export type OffcanvasContextProps = Record<string, never>;
 
-const OffcanvasContext = React.createContext<OffcanvasContextType | null>(null);
+const OffcanvasContext = React.createContext<OffcanvasContextProps | null>(
+  null,
+);
 
 OffcanvasContext.displayName = 'OffcanvasContext';
 

@@ -2,11 +2,11 @@ import { createContext } from 'react';
 
 export type NavVariant = 'tabs' | 'pills';
 
-type NavContextType = {
+export interface NavContextProps {
   variant?: NavVariant;
-};
+}
 
-const NavContext = createContext<NavContextType | null>(null);
+const NavContext = createContext<NavContextProps | null>(null);
 
 NavContext.displayName = 'NavContext';
 
