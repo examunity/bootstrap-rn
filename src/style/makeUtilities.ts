@@ -2,7 +2,7 @@ import css from './css';
 import { GRID_BREAKPOINTS } from '../theme/proxies';
 import utilities from '../theme/utilities';
 import { each } from '../utils';
-import type { StyleUtility } from '../types';
+import type { ExtendedStyle, StyleUtility } from '../types';
 
 export function makeUtility(options: StyleUtility) {
   return each(options.values, (key, value) => {
@@ -53,10 +53,10 @@ export function makeUtility(options: StyleUtility) {
   });
 }
 
-export default function makeUtilities(
+export default function makeUtilities<T extends string>(
   resolve:
-    | Record<string, StyleUtility>
-    | ((u: Record<string, StyleUtility>) => Record<string, StyleUtility>),
+    | { [K in T]: StyleUtility }
+    | ((u: Record<string, StyleUtility>) => { [K in T]: StyleUtility }),
 ) {
   const customUtilities =
     typeof resolve === 'function' ? resolve(utilities) : resolve;
@@ -64,13 +64,16 @@ export default function makeUtilities(
   const definitions = Object.values({
     ...utilities,
     ...customUtilities,
-  }).reduce((result, utility) => {
-    if (!utility) {
-      return result;
-    }
+  }).reduce(
+    (result, utility) => {
+      if (!utility) {
+        return result;
+      }
 
-    return Object.assign(result, makeUtility(utility));
-  }, {});
+      return Object.assign(result, makeUtility(utility));
+    },
+    {} as { [K in T]: ExtendedStyle },
+  );
 
   return definitions;
 }
