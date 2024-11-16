@@ -36,4 +36,6 @@ const ToastContainer = React.forwardRef<ViewRef, ToastContainerProps>(
 
 ToastContainer.displayName = 'ToastContainer';
 
-export default ToastContainer;
+export default Object.assign(ToastContainer, {
+  Context: ToastContainerContext,
+});
