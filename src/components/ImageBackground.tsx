@@ -36,7 +36,9 @@ const ImageBackground = React.forwardRef<
       {...elementProps}
       ref={ref}
       style={resolveStyle({ media })}
-      imageStyle={resolveImageStyle({ media })}
+      imageStyle={
+        resolveImageStyle({ media }) as BaseImageBackgroundProps['imageStyle']
+      }
     />
   );
 });

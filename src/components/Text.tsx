@@ -13,7 +13,9 @@ export type TextRef = BaseText;
 
 type ThemeColors =
   | keyof typeof THEME_COLORS
+  | 'body'
   | 'muted'
+  | 'white'
   | 'black-50'
   | 'white-50';
 

@@ -1,6 +1,6 @@
 import {
   ViewStyle as BaseViewStyle,
-  ImageStyle as BaseImageStyle,
+  ImageStyle as TempImageStyle,
   TextStyle as BaseTextStyle,
   GestureResponderEvent,
   Role,
@@ -22,6 +22,12 @@ export type MediaHandler = {
 };
 
 // Styles
+
+// Workaround: Add scroll to possible overflow values of ImageStyle to resolve conflict between
+// ImageStyle and ViewStyle.
+type BaseImageStyle = Omit<TempImageStyle, 'overflow'> & {
+  overflow?: 'visible' | 'hidden' | 'scroll';
+};
 
 export type BaseStyle = BaseViewStyle | BaseImageStyle | BaseTextStyle;
 
@@ -130,11 +136,11 @@ type To =
 
 type External =
   | boolean
-  | {
+  | Partial<{
       download: boolean;
       target: string;
       rel: string;
-    };
+    }>;
 
 export type UseTabbableProps = {
   to?: To;

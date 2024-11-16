@@ -1,56 +1,65 @@
 import { StyleSheet as BaseStyleSheet } from 'react-native';
 import type { ExtendedStyle, BaseStyle, ThemeVariables } from '../types';
 
-type StyleSource = Record<
-  string,
-  (theme: object, key: string) => ExtendedStyle | ExtendedStyle
->;
+type StyleSourceEntry =
+  | ((theme: object, key: string) => ExtendedStyle)
+  | ExtendedStyle;
 
-type NamedExtendedStyles = Record<string, ExtendedStyle>;
-type NamedStyles = Record<string, BaseStyle>;
+type NamedExtendedStyles<T extends string> = {
+  [K in T]: ExtendedStyle;
+};
+type NamedStyles<T extends string> = {
+  [K in T]: BaseStyle;
+};
 
-type StyleSheetDefinition = {
-  source: StyleSource;
-  cache: Record<string, NamedExtendedStyles>;
-  active: NamedExtendedStyles;
+type StyleSheetDefinition<T extends string> = {
+  source: {
+    [K in T]: StyleSourceEntry;
+  };
+  cache: Record<string, NamedExtendedStyles<T>>;
+  active: NamedExtendedStyles<T>;
 };
 
 let activeKey: string | null = null;
 
 const themes: Record<string, ThemeVariables> = {};
-const sheets: StyleSheetDefinition[] = [];
+const sheets: StyleSheetDefinition<string>[] = [];
 
-const createSheet = (sheet: StyleSheetDefinition): NamedExtendedStyles => {
-  const theme = themes[activeKey as string];
+const createSheet = <T extends string>(
+  sheet: StyleSheetDefinition<T>,
+): NamedExtendedStyles<T> => {
+  if (!activeKey) {
+    throw new Error('No active theme key.');
+  }
 
-  const statelessSource: NamedStyles = {};
-  const statefulSource: NamedExtendedStyles = {};
+  const theme = themes[activeKey];
+
+  const statelessSource: Partial<NamedStyles<T>> = {};
+  const statefulSource: Partial<NamedExtendedStyles<T>> = {};
 
   // Apply theme to themeable styles.
   Object.entries(sheet.source).forEach(([key, style]) => {
     // Resolve theme.
-    const value =
-      typeof style === 'function' ? style(theme, activeKey as string) : style;
+    const value = typeof style === 'function' ? style(theme, activeKey) : style;
 
     if (typeof value === 'function') {
-      statefulSource[key] = value;
+      statefulSource[key as T] = value;
     } else {
-      statelessSource[key] = value as BaseStyle;
+      statelessSource[key as T] = value as BaseStyle;
     }
   });
 
   // Wrap stateful and stateless in a proxy, so that we can update the styles on theme change.
   // For using Object.assign below we need some additional methods on the proxy that are mentioned here:
   // https://stackoverflow.com/questions/43185453/object-assign-and-proxies
-  // @ts-expect-error proxy is equivalent to NamedExtendedStyles
   return new Proxy(
     {
       keys: Object.keys(sheet.source),
-      stateless: BaseStyleSheet.create(statelessSource),
+      stateless: BaseStyleSheet.create(statelessSource as NamedStyles<string>),
       stateful: statefulSource,
     },
     {
-      get(target, prop: string) {
+      get(target, prop: T) {
         return target.stateless[prop] || target.stateful[prop] || undefined;
       },
       ownKeys: (target) => target.keys,
@@ -68,18 +77,20 @@ const createSheet = (sheet: StyleSheetDefinition): NamedExtendedStyles => {
       },
       has: (target, name: string) => target.keys.indexOf(name) >= 0,
     },
-  );
+  ) as NamedExtendedStyles<T>;
 };
 
 const { absoluteFill, absoluteFillObject, hairlineWidth } = BaseStyleSheet;
 
 const StyleSheet = {
-  create(source: StyleSource) {
+  create<T extends string>(source: { [K in T]: StyleSourceEntry }): {
+    [K in T]: ExtendedStyle;
+  } {
     // Create sheet object.
-    const sheet: StyleSheetDefinition = {
+    const sheet: StyleSheetDefinition<T> = {
       source,
       cache: {},
-      // Placeholder until build method is called.
+      // @ts-expect-error Placeholder until build method is called.
       active: {},
     };
 

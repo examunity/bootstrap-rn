@@ -18,7 +18,11 @@ const Image = React.forwardRef<BaseImage, ImageProps>((props, ref) => {
   const resolveStyle = useStyle(style, styleName);
 
   return (
-    <BaseImage {...elementProps} ref={ref} style={resolveStyle({ media })} />
+    <BaseImage
+      {...elementProps}
+      ref={ref}
+      style={resolveStyle({ media }) as BaseImageProps['style']}
+    />
   );
 });
 

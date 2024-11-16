@@ -6,25 +6,23 @@ import useTrigger, { TriggerProps } from '../../hooks/useTrigger';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
-import Pressable, { PressableProps } from '../Pressable';
 import type { ViewRef } from '../View';
 import type { Trigger, Axis } from '../../types';
 
-type TooltipProps = {
-  title: React.ReactNode;
-  autoClose?: boolean | 'inside' | 'outside';
-  trigger?: Trigger;
-  placement?: Axis;
-} & TriggerProps;
-
-export interface InjectTooltipProps extends PressableProps {
-  tooltip: TooltipProps;
+export interface InjectTooltipProps {
+  tooltip: {
+    title: React.ReactNode;
+    autoClose?: boolean | 'inside' | 'outside';
+    trigger?: Trigger;
+    placement?: Axis;
+  } & TriggerProps;
 }
 
-export default function injectTooltip(Target: typeof Pressable) {
-  const OverlayTooltip = React.forwardRef<ViewRef, InjectTooltipProps>(
+export default function injectTooltip<Props>(
+  Target: React.ComponentType<Props>,
+) {
+  const OverlayTooltip = React.forwardRef<ViewRef, Props & InjectTooltipProps>(
     (props, ref) => {
-      /* eslint-disable react/prop-types */
       const {
         tooltip: {
           title,
@@ -35,7 +33,6 @@ export default function injectTooltip(Target: typeof Pressable) {
         },
         ...elementProps
       } = props;
-      /* eslint-enable */
 
       const { visible, setVisible, targetProps, targetRef, templateProps } =
         useTrigger(trigger, tooltipProps, elementProps, ref);
@@ -44,7 +41,7 @@ export default function injectTooltip(Target: typeof Pressable) {
 
       return (
         <>
-          <Target {...elementProps} {...targetProps} />
+          <Target {...(elementProps as Props)} {...targetProps} />
           {visible && (
             <OverlayContainer>
               <Overlay

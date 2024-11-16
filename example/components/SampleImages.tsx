@@ -1,11 +1,11 @@
 import React from 'react';
-import { Heading, View, Image, css, StyleSheet } from 'bootstrap-rn';
+import { Heading, View, Image, StyleSheet, css } from 'bootstrap-rn';
 
 const styles = StyleSheet.create({
-  photo: css`
-    width: 12.5rem;
-    height: 12.5rem;
-  `,
+  photo: {
+    width: 200,
+    height: 200,
+  },
   name: css`
     text-align: center;
     padding-vertical: 0.5rem;
@@ -23,7 +23,7 @@ function SampleImages() {
     <View styleName="ai-center jc-center">
       <Image
         source={imageSource}
-        label="Our team of authors"
+        accessibilityLabel="Our team of authors"
         style={styles.photo}
       />
       <Heading size={3} style={styles.name}>

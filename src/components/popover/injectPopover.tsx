@@ -6,24 +6,23 @@ import useTrigger, { TriggerProps } from '../../hooks/useTrigger';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Popover from './Popover';
-import Pressable, { PressableProps } from '../Pressable';
 import type { ViewRef } from '../View';
 import type { Trigger, Axis } from '../../types';
 
-type PopoverProps = {
-  title?: React.ReactNode;
-  content: React.ReactNode;
-  autoClose?: boolean | 'inside' | 'outside';
-  trigger?: Trigger;
-  placement?: Axis;
-} & TriggerProps;
-
-export interface InjectPopoverProps extends PressableProps {
-  popover: PopoverProps;
+export interface InjectPopoverProps {
+  popover: {
+    title?: React.ReactNode;
+    content: React.ReactNode;
+    autoClose?: boolean | 'inside' | 'outside';
+    trigger?: Trigger;
+    placement?: Axis;
+  } & TriggerProps;
 }
 
-export default function injectPopover(Target: typeof Pressable) {
-  const OverlayPopover = React.forwardRef<ViewRef, InjectPopoverProps>(
+export default function injectPopover<Props>(
+  Target: React.ComponentType<Props>,
+) {
+  const OverlayPopover = React.forwardRef<ViewRef, Props & InjectPopoverProps>(
     (props, ref) => {
       const {
         popover: {
@@ -44,7 +43,7 @@ export default function injectPopover(Target: typeof Pressable) {
 
       return (
         <>
-          <Target {...elementProps} {...targetProps} />
+          <Target {...(elementProps as Props)} {...targetProps} />
           {visible && (
             <OverlayContainer>
               <Overlay
