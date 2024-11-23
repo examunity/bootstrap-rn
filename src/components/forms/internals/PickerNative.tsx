@@ -64,7 +64,7 @@ const extractTextStyles = (style: BaseStyle[]) => {
 
 type GetTextProps = {
   children: React.ReactElement | React.ReactElement[];
-  selectedValue?: boolean | number | string | object;
+  selectedValue?: string | null | undefined;
 };
 
 const getText = ({ children, selectedValue }: GetTextProps) => {
@@ -129,9 +129,7 @@ const PickerNative = React.forwardRef<PressableRef, PickerNativeProps>(
     const showPlaceholder =
       selectedValue === undefined || selectedValue === null;
 
-    const handleValueChange = (
-      nextValue?: boolean | number | string | object,
-    ) => {
+    const handleValueChange = (nextValue: string) => {
       onValueChange(nextValue);
       setVisible(false);
     };

@@ -1,8 +1,8 @@
 import React from 'react';
 
 type PickerNativeContextType = {
-  selectedValue?: boolean | number | string | object;
-  handleValueChange: (value?: boolean | number | string | object) => void;
+  selectedValue?: string | null | undefined;
+  handleValueChange: (value: string) => void;
 };
 
 const PickerNativeContext = React.createContext<PickerNativeContextType | null>(

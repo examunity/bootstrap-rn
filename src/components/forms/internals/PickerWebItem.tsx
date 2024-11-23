@@ -9,7 +9,7 @@ import type { ViewProps, ViewRef } from '../../View';
 
 export interface PickerWebItemProps extends ViewProps {
   label: string;
-  value?: boolean | number | string | object;
+  value: string;
   disabled?: boolean;
 }
 

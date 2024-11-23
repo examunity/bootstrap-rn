@@ -15,7 +15,7 @@ export interface FormPickerProps extends FieldPropTypes {
   placeholder: string;
 }
 
-type Value = string | number | boolean | object | undefined;
+type Value = string | null | undefined;
 
 const FormPicker = React.forwardRef<FormPickerRef, FormPickerProps>(
   (props, ref) => {
@@ -51,7 +51,7 @@ const FormPicker = React.forwardRef<FormPickerRef, FormPickerProps>(
         <Picker
           ref={ref}
           selectedValue={field.value}
-          onValueChange={(nextValue: unknown) => {
+          onValueChange={(nextValue) => {
             field.setValue(nextValue, onValueChange);
           }}
           onBlur={() => {

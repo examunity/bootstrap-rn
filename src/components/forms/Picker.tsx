@@ -21,15 +21,15 @@ import type { PressableProps, PressableRef } from '../Pressable';
 
 export interface MenuComponentProps {
   children: React.ReactElement | React.ReactElement[];
-  selectedValue?: boolean | number | string | object;
-  onValueChange: (value?: boolean | number | string | object) => void;
+  selectedValue?: string | null | undefined;
+  onValueChange: (value: string) => void;
   onClose: () => void;
 }
 
 export interface PickerProps extends UseFormFieldProps, PressableProps {
   children: React.ReactElement | React.ReactElement[];
-  selectedValue?: boolean | number | string | object;
-  onValueChange?: (value?: boolean | number | string | object) => void;
+  selectedValue?: string | null | undefined;
+  onValueChange?: (value: string) => void;
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   placeholder?: string;

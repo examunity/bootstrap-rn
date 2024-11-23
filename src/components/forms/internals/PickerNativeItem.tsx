@@ -12,7 +12,7 @@ import { ViewProps, ViewRef } from '../../View';
 
 export interface PickerNativeItemProps extends ViewProps {
   label: string;
-  value?: boolean | number | string | object;
+  value: string;
   disabled?: boolean;
 }
 

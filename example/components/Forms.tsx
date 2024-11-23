@@ -27,7 +27,13 @@ function Forms() {
     boolean | number | string | object | undefined
   >(1);
   const [text, onChangeText] = useState('Form input text');
-  const [selectedValue, onValueChange] = useState();
+  const [selectedValue, setSelectedValue] = useState<string | null | undefined>(
+    null,
+  );
+
+  const onValueChange = (v: string) => {
+    setSelectedValue(v);
+  };
 
   const cardmargin = 'mb-3';
 
