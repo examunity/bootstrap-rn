@@ -23,13 +23,9 @@ function Forms() {
   const [error, setError] = useState(false);
   const [value, setValue] = useState(false);
   const [slider, setSlider] = useState(false);
-  const [radioValue, setRadioValue] = useState<
-    boolean | number | string | object | undefined
-  >(1);
+  const [radioValue, setRadioValue] = useState<number>(1);
   const [text, onChangeText] = useState('Form input text');
-  const [selectedValue, setSelectedValue] = useState<string | null | undefined>(
-    null,
-  );
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   const onValueChange = (v: string) => {
     setSelectedValue(v);

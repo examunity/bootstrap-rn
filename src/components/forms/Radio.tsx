@@ -7,7 +7,7 @@ import RadioContext from './RadioContext';
 
 export interface RadioProps
   extends Omit<FormCheckInputProps, 'value' | 'type'> {
-  value?: boolean | number | string | object;
+  value: boolean | number | string | object | null;
 }
 
 const Radio = React.forwardRef<PressableRef, RadioProps>((props, ref) => {

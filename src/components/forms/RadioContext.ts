@@ -1,8 +1,8 @@
 import React from 'react';
 
 type RadioContextType = {
-  selectedValue?: boolean | number | string | object;
-  onValueChange: (value?: boolean | number | string | object) => void;
+  selectedValue?: boolean | number | string | object | null | undefined;
+  onValueChange: (value: boolean | number | string | object | null) => void;
   disabled: boolean;
 };
 

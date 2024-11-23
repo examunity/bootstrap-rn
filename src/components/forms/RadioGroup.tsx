@@ -3,8 +3,10 @@ import View, { ViewProps, ViewRef } from '../View';
 import RadioContext from './RadioContext';
 
 export interface RadioGroupProps extends ViewProps {
-  selectedValue?: boolean | number | string | object;
-  onValueChange?: (value?: boolean | number | string | object) => void;
+  selectedValue?: boolean | number | string | object | null | undefined;
+  // We cannot determine the type used for value in Radio components.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onValueChange?: (value: any) => void;
   disabled?: boolean;
 }
 

@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { useId, useMemo } from 'react';
 import type { View as FormChoiceRef } from 'react-native';
 import { Radio, Checkbox, FormCheck, Text, View } from 'bootstrap-rn';
 import Field from './Field';
@@ -6,7 +6,7 @@ import useFormField from './useFormField';
 import FieldPropTypes from './FieldPropTypes';
 
 type Options = {
-  value: string;
+  value: string | number | boolean | object | null;
   label: string;
 };
 
@@ -15,7 +15,7 @@ export interface FormChoiceProps extends FieldPropTypes {
   multiple?: boolean;
 }
 
-type Value = string | number | boolean | object | undefined;
+type Value = string | number | boolean | object | null | undefined;
 
 const FormChoice = React.forwardRef<FormChoiceRef, FormChoiceProps>(
   (props, ref) => {
@@ -34,6 +34,20 @@ const FormChoice = React.forwardRef<FormChoiceRef, FormChoiceProps>(
     // For multiple === false the type is Value, but this leads to errors.
     const field = useFormField<Value[]>(name);
     const id = useId();
+
+    const optionKeys = useMemo(
+      () =>
+        options.map((option) => {
+          if (typeof option.value === 'object') {
+            return JSON.stringify(option.value);
+          }
+          if (typeof option.value === 'boolean') {
+            return Number(option.value);
+          }
+          return option.value;
+        }),
+      [options],
+    );
 
     return (
       <Field
@@ -59,7 +73,7 @@ const FormChoice = React.forwardRef<FormChoiceRef, FormChoiceProps>(
                 <FormCheck
                   invalid={field.touched && !!field.error}
                   disabled={disabled}
-                  key={option.value}
+                  key={optionKeys[key]}
                 >
                   <Radio
                     ref={ref}
@@ -82,7 +96,7 @@ const FormChoice = React.forwardRef<FormChoiceRef, FormChoiceProps>(
                 <FormCheck
                   invalid={field.touched && !!field.error}
                   disabled={disabled}
-                  key={option.value}
+                  key={optionKeys[key]}
                 >
                   <Checkbox
                     ref={ref}
