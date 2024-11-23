@@ -1,16 +1,14 @@
 import React, { useContext } from 'react';
-import { ScrollView as BaseScrollView } from 'react-native';
 import css from '../../style/css';
 import StyleSheet from '../../style/StyleSheet';
-import ScrollView from '../ScrollView';
+import ScrollView, { ScrollViewProps, ScrollViewRef } from '../ScrollView';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each } from '../../utils';
 import NavbarContext from '../navbar/NavbarContext';
 import type { ExtendedViewStyle, StyleProp } from '../../types';
-import { ViewProps } from '../View';
 
-export interface OffcanvasBodyProps extends ViewProps {
+export interface OffcanvasBodyProps extends ScrollViewProps {
   contentContainerStyle?: StyleProp<ExtendedViewStyle>;
 }
 
@@ -33,7 +31,7 @@ const styles = StyleSheet.create({
   })),
 });
 
-const OffcanvasBody = React.forwardRef<BaseScrollView, OffcanvasBodyProps>(
+const OffcanvasBody = React.forwardRef<ScrollViewRef, OffcanvasBodyProps>(
   (props, ref) => {
     const { children, style, contentContainerStyle, ...elementProps } = props;
 

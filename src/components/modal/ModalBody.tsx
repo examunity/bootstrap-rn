@@ -1,17 +1,13 @@
 import React from 'react';
-import { View as BaseView, ScrollView as BaseScrollView } from 'react-native';
 import css from '../../style/css';
 import { getStyles } from '../../utils';
 import useForcedContext from '../../hooks/useForcedContext';
 import StyleSheet from '../../style/StyleSheet';
-import View, { ViewProps } from '../View';
-import ScrollView from '../ScrollView';
+import View, { ViewRef } from '../View';
+import ScrollView, { ScrollViewRef, ScrollViewProps } from '../ScrollView';
 import ModalContext from './ModalContext';
-import { ExtendedTextStyle, StyleProp } from '../../types';
 
-export interface ModalBodyProps extends ViewProps {
-  contentContainerStyle?: StyleProp<ExtendedTextStyle>;
-}
+export interface ModalBodyProps extends ScrollViewProps {}
 
 const styles = StyleSheet.create({
   '.modal-body': css`
@@ -25,7 +21,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalBody = React.forwardRef<BaseScrollView | BaseView, ModalBodyProps>(
+const ModalBody = React.forwardRef<ViewRef | ScrollViewRef, ModalBodyProps>(
   (props, ref) => {
     const { children, style, contentContainerStyle, ...elementProps } = props;
 
@@ -38,7 +34,7 @@ const ModalBody = React.forwardRef<BaseScrollView | BaseView, ModalBodyProps>(
     return (
       <FlexView
         {...elementProps}
-        // @ts-expect-error We need to fix it in the future.
+        // @ts-expect-error Type of ref depends on component.
         ref={ref}
         style={scrollable ? style : [classes, style]}
         contentContainerStyle={

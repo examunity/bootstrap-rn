@@ -11,7 +11,7 @@ export interface ImageProps extends Omit<BaseImageProps, 'style'> {
   styleName?: StyleName;
 }
 
-const Image = React.forwardRef<BaseImage, ImageProps>((props, ref) => {
+const Image = React.forwardRef<ImageRef, ImageProps>((props, ref) => {
   const { style, styleName, ...elementProps } = props;
 
   const media = useMedia();
