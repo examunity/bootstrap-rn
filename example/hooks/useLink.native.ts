@@ -13,7 +13,7 @@ export default function useLink<T>(props: T & UseActionableProps) {
   } = props;
 
   if (!to) {
-    return { ...restProps };
+    return props;
   }
 
   const navigate = useNavigate();
