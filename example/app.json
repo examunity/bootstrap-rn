@@ -3,6 +3,7 @@
     "name": "bootstrap-rn-demo",
     "slug": "bootstrap-rn-demo",
     "version": "1.0.0",
+    "newArchEnabled": true,
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",

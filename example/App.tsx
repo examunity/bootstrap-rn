@@ -127,7 +127,6 @@ const modifiers = {
 
           const eventTarget = event.target;
 
-          // @ts-expect-error function blur() exists
           eventTarget.blur();
 
           formik.submitForm();
