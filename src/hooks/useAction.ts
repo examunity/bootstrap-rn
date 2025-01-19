@@ -55,7 +55,7 @@ function getActionHook(toggle?: ToggleType, dismiss?: DismissType) {
 
 export default function useAction<T, P>(
   props: UseActionProps & P,
-  ref: React.LegacyRef<T>,
+  ref: React.Ref<T>,
 ) {
   const { toggle, dismiss, ...restProps } = props;
 
@@ -71,7 +71,7 @@ export default function useAction<T, P>(
 
   // TODO: Remove as and define return type on ActionFunction
   const { ref: actionRef, ...actionProps } = useActionHook(restProps) as P & {
-    ref?: React.LegacyRef<T>;
+    ref?: React.Ref<T>;
   };
 
   return [actionProps, actionRef ? concatRefs(actionRef, ref) : ref] as const;

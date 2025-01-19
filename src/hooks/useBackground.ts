@@ -6,7 +6,12 @@ type PositionX = 'center' | 'left' | 'right';
 type PositionY = 'center' | 'top' | 'bottom';
 
 type BackgroundStyle = BaseStyle & {
-  backgroundSize?: 'contain' | 'cover' | string | number;
+  backgroundSize?:
+    | 'contain'
+    | 'cover'
+    | string
+    | number
+    | { width: 'auto' | number; height: 'auto' | number };
   backgroundPosition?: Position;
   backgroundPositionX?:
     | PositionX

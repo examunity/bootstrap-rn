@@ -57,15 +57,12 @@ export function getStyles<T extends string>(
     .map((key) => styles[key]);
 }
 
-export function concatRefs(
-  ...refs: React.LegacyRef<unknown>[]
-): React.RefCallback<unknown> {
-  return (element: unknown) => {
+export function concatRefs<T>(...refs: React.Ref<T>[]): React.Ref<T> {
+  return (element) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {
         ref(element);
       } else if (ref) {
-        // @ts-expect-error initially setting the ref is okay
         // eslint-disable-next-line no-param-reassign
         ref.current = element;
       }

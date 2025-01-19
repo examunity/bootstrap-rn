@@ -10,7 +10,7 @@ import useStyle from '../../hooks/useStyle';
 import useModifier from '../../hooks/useModifier';
 import PickerWeb from './internals/PickerWeb';
 import PickerNative from './internals/PickerNative';
-import PickerItem from './PickerItem';
+import PickerItem, { PickerItemProps } from './PickerItem';
 import PickerContext from './PickerContext';
 import type {
   FormValidationState,
@@ -27,7 +27,9 @@ export interface MenuComponentProps {
 }
 
 export interface PickerProps extends UseFormFieldProps, PressableProps {
-  children: React.ReactElement | React.ReactElement[];
+  children:
+    | React.ReactElement<PickerItemProps>
+    | React.ReactElement<PickerItemProps>[];
   selectedValue?: string | null | undefined;
   onValueChange?: (value: string) => void;
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;

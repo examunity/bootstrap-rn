@@ -7,7 +7,7 @@ export interface DropdownContextProps {
   identifier: string;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  toggleRef: React.RefObject<ViewRef>;
+  toggleRef: React.RefObject<ViewRef | null>;
   direction: DropdownDirection;
   center: boolean;
   display: string;

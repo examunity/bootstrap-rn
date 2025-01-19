@@ -15,6 +15,7 @@ import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
 import type { PickerProps, MenuComponentProps } from '../Picker';
 import type { BaseStyle } from '../../../types';
+import type { PickerItemProps } from '../PickerItem';
 
 export interface PickerNativeProps extends PickerProps {
   style: TextStyle[];
@@ -63,7 +64,9 @@ const extractTextStyles = (style: BaseStyle[]) => {
 };
 
 type GetTextProps = {
-  children: React.ReactElement | React.ReactElement[];
+  children:
+    | React.ReactElement<PickerItemProps>
+    | React.ReactElement<PickerItemProps>[];
   selectedValue?: string | null | undefined;
 };
 

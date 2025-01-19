@@ -14,7 +14,9 @@ const computeScrollbarWidth = () => {
   return Math.abs(window.innerWidth - documentWidth);
 };
 
-export default function useScrollbarEffects(elements: RefObject<ViewRef>[]) {
+export default function useScrollbarEffects(
+  elements: RefObject<ViewRef | null>[],
+) {
   if (Platform.OS !== 'web') {
     return useMemo(
       () => ({

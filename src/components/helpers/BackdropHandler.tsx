@@ -25,8 +25,8 @@ const initialState = {
 };
 
 interface BackdropHandlerProps {
-  toggleRef?: RefObject<ViewRef>;
-  dialogRef: RefObject<ViewRef>;
+  toggleRef?: RefObject<ViewRef | null>;
+  dialogRef: RefObject<ViewRef | null>;
   onClose?: () => void;
   autoClose?: AutoCloseType;
   backdrop?: BackdropType;

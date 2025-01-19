@@ -18,10 +18,10 @@ type OverlayReturnType = {
 interface OverlayProps {
   children: (
     overlay: OverlayReturnType,
-    overlayRef: React.RefObject<ViewRef>,
+    overlayRef: React.RefObject<ViewRef | null>,
   ) => ReactNode;
   placement: Placement;
-  targetRef: React.RefObject<ViewRef>;
+  targetRef: React.RefObject<ViewRef | null>;
   offset?: number;
   arrowOffset?: number;
   visible: boolean;

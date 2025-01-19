@@ -12,9 +12,12 @@ const wrapChildren = (children: React.ReactNode, cache: Cache) =>
     }
 
     if (React.isValidElement(child) && child.type === React.Fragment) {
+      // @ts-expect-error Type React.Fragment has a children prop.
+      const element = child.props.children;
+
       return (
-        <React.Fragment key={child.key as React.Key}>
-          {wrapChildren(child.props.children, cache)}
+        <React.Fragment key={child.key}>
+          {wrapChildren(element, cache)}
         </React.Fragment>
       );
     }
@@ -51,6 +54,6 @@ const wrapChildren = (children: React.ReactNode, cache: Cache) =>
     return null;
   });
 
-export default function useList(children: React.ReactNode) {
+export default function useList(children?: React.ReactNode) {
   return wrapChildren(children, { count: 0 });
 }

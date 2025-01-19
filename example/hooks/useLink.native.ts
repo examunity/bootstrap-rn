@@ -37,8 +37,8 @@ export default function useLink<T>(props: T & UseActionableProps) {
   };
 
   return {
+    ...restProps,
     role: 'link',
     onPress,
-    ...restProps,
   };
 }
