@@ -27,14 +27,14 @@ interface OverlayProps {
   visible: boolean;
 }
 
-const Overlay = ({
+function Overlay({
   children,
   targetRef,
   placement,
   offset,
   arrowOffset = 0,
   visible,
-}: OverlayProps) => {
+}: OverlayProps) {
   const overlayRef = useRef(null);
 
   const overlay = useOverlayPosition({
@@ -71,8 +71,21 @@ const Overlay = ({
     }
   }
 
+  // Workaround for different calculation of height in Android 15
+  // https://github.com/facebook/react-native/issues/47080
+  if (
+    Platform.OS === 'android' &&
+    Platform.constants.Version >= 35 &&
+    StatusBar.currentHeight
+  ) {
+    if (typeof overlay.overlayProps.style.bottom === 'number') {
+      // Assuming height of bottom bar is 22
+      overlay.overlayProps.style.bottom -= StatusBar.currentHeight + 22;
+    }
+  }
+
   return children(overlay, overlayRef);
-};
+}
 
 Overlay.displayName = 'Overlay';
 
