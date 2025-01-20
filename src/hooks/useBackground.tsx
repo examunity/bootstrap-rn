@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const normalizeValue = <T>(value: T) =>
+const normalizeValue = (value: 'auto' | number | string) =>
   typeof value === 'number' && value !== 0 ? `${value}px` : value;
 
 const resolveBackgroundSize = (style: BackgroundStyle) => {

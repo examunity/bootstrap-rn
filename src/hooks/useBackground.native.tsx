@@ -146,7 +146,7 @@ const transforms = {
         ? value
         : { position: value, offset: undefined };
 
-    const verticalPosition = horizontalPositions[position];
+    const verticalPosition = verticalPositions[position];
 
     if (!verticalPosition) {
       return null;
