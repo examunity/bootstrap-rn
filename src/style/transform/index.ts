@@ -184,12 +184,39 @@ export default function transform(
             borderColor: value,
           });
         } else {
+          const style = getStylesForProperty(
+            getPropertyName(child.name),
+            value,
+          );
+
+          // Workaround for react-native issue #47235
+          // https://github.com/facebook/react-native/issues/47235
+          if (Platform.OS === 'ios') {
+            if (style.borderTopLeftRadius) {
+              style.borderTopLeftRadius = Math.round(
+                style.borderTopLeftRadius as number,
+              );
+            }
+            if (style.borderTopRightRadius) {
+              style.borderTopRightRadius = Math.round(
+                style.borderTopRightRadius as number,
+              );
+            }
+            if (style.borderBottomRightRadius) {
+              style.borderBottomRightRadius = Math.round(
+                style.borderBottomRightRadius as number,
+              );
+            }
+            if (style.borderBottomLeftRadius) {
+              style.borderBottomLeftRadius = Math.round(
+                style.borderBottomLeftRadius as number,
+              );
+            }
+          }
+
           // TODO: Pre-process css-to-react-native transformation, so that we only
           // need to insert theme variables here.
-          Object.assign(
-            definitions[0].declarations,
-            getStylesForProperty(getPropertyName(child.name), value),
-          );
+          Object.assign(definitions[0].declarations, style);
         }
       }
     }
