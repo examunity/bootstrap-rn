@@ -16,14 +16,13 @@
   "bugs": {
     "url": "https://github.com/examunity/bootstrap-rn/issues"
   },
-  "main": "lib/commonjs/index.js",
+  "main": "lib/module/index.js",
   "module": "lib/module/index.js",
-  "types": "./lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "types": "./lib/typescript/index.d.ts",
   "scripts": {
     "check-types": "tsc --noEmit",
-    "build-types": "rm -rf lib/types && tsc -d --emitDeclarationOnly",
-    "copy-types": "cpy lib/types/*.d.ts lib/commonjs && cpy lib/types/*.d.ts lib/module",
-    "build": "yarn build-types && bob build && yarn copy-types",
+    "build": "bob build",
     "prepare": "packsy validate && yarn build",
     "lint": "packsy pre-commit && yarn check-types"
   },
@@ -69,8 +68,13 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      "commonjs",
-      "module"
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      "typescript"
     ]
   },
   "engines": {
