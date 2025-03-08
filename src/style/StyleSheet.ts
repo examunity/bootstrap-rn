@@ -97,7 +97,7 @@ const StyleSheet = {
     // If initialized, set active sheet based by active theme.
     if (activeKey !== null) {
       sheet.cache[activeKey] = createSheet(sheet);
-      sheet.active = sheet.cache[activeKey];
+      Object.assign(sheet.active, sheet.cache[activeKey]);
     }
 
     sheets.push(sheet);
