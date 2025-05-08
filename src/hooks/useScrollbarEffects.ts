@@ -51,6 +51,7 @@ export default function useScrollbarEffects(
           .filter((ref) => ref.current)
           .map((ref) => ref.current);
 
+        // @ts-expect-error fixedElements should be of type HTMLElement[]
         state.current.elements = [document.body, ...fixedElements];
 
         state.current.originalWidths = state.current.elements.map(
