@@ -88,105 +88,105 @@ const variables = css`
   $color-contrast-dark: $black;
   $color-contrast-light: $white;
 
-  $blue-100: tint-color($blue, 80%);
-  $blue-200: tint-color($blue, 60%);
-  $blue-300: tint-color($blue, 40%);
-  $blue-400: tint-color($blue, 20%);
+  $blue-100: ${tintColor((t: ThemeVariables) => t.blue, 0.8)};
+  $blue-200: ${tintColor((t: ThemeVariables) => t.blue, 0.6)};
+  $blue-300: ${tintColor((t: ThemeVariables) => t.blue, 0.4)};
+  $blue-400: ${tintColor((t: ThemeVariables) => t.blue, 0.2)};
   $blue-500: $blue;
-  $blue-600: shade-color($blue, 20%);
-  $blue-700: shade-color($blue, 40%);
-  $blue-800: shade-color($blue, 60%);
-  $blue-900: shade-color($blue, 80%);
+  $blue-600: ${shadeColor((t: ThemeVariables) => t.blue, 0.2)};
+  $blue-700: ${shadeColor((t: ThemeVariables) => t.blue, 0.4)};
+  $blue-800: ${shadeColor((t: ThemeVariables) => t.blue, 0.6)};
+  $blue-900: ${shadeColor((t: ThemeVariables) => t.blue, 0.8)};
 
-  $indigo-100: tint-color($indigo, 80%);
-  $indigo-200: tint-color($indigo, 60%);
-  $indigo-300: tint-color($indigo, 40%);
-  $indigo-400: tint-color($indigo, 20%);
+  $indigo-100: ${tintColor((t: ThemeVariables) => t.indigo, 0.8)};
+  $indigo-200: ${tintColor((t: ThemeVariables) => t.indigo, 0.6)};
+  $indigo-300: ${tintColor((t: ThemeVariables) => t.indigo, 0.4)};
+  $indigo-400: ${tintColor((t: ThemeVariables) => t.indigo, 0.2)};
   $indigo-500: $indigo;
-  $indigo-600: shade-color($indigo, 20%);
-  $indigo-700: shade-color($indigo, 40%);
-  $indigo-800: shade-color($indigo, 60%);
-  $indigo-900: shade-color($indigo, 80%);
+  $indigo-600: ${shadeColor((t: ThemeVariables) => t.indigo, 0.2)};
+  $indigo-700: ${shadeColor((t: ThemeVariables) => t.indigo, 0.4)};
+  $indigo-800: ${shadeColor((t: ThemeVariables) => t.indigo, 0.6)};
+  $indigo-900: ${shadeColor((t: ThemeVariables) => t.indigo, 0.8)};
 
-  $purple-100: tint-color($purple, 80%);
-  $purple-200: tint-color($purple, 60%);
-  $purple-300: tint-color($purple, 40%);
-  $purple-400: tint-color($purple, 20%);
+  $purple-100: ${tintColor((t: ThemeVariables) => t.purple, 0.8)};
+  $purple-200: ${tintColor((t: ThemeVariables) => t.purple, 0.6)};
+  $purple-300: ${tintColor((t: ThemeVariables) => t.purple, 0.4)};
+  $purple-400: ${tintColor((t: ThemeVariables) => t.purple, 0.2)};
   $purple-500: $purple;
-  $purple-600: shade-color($purple, 20%);
-  $purple-700: shade-color($purple, 40%);
-  $purple-800: shade-color($purple, 60%);
-  $purple-900: shade-color($purple, 80%);
+  $purple-600: ${shadeColor((t: ThemeVariables) => t.purple, 0.2)};
+  $purple-700: ${shadeColor((t: ThemeVariables) => t.purple, 0.4)};
+  $purple-800: ${shadeColor((t: ThemeVariables) => t.purple, 0.6)};
+  $purple-900: ${shadeColor((t: ThemeVariables) => t.purple, 0.8)};
 
-  $pink-100: tint-color($pink, 80%);
-  $pink-200: tint-color($pink, 60%);
-  $pink-300: tint-color($pink, 40%);
-  $pink-400: tint-color($pink, 20%);
+  $pink-100: ${tintColor((t: ThemeVariables) => t.pink, 0.8)};
+  $pink-200: ${tintColor((t: ThemeVariables) => t.pink, 0.6)};
+  $pink-300: ${tintColor((t: ThemeVariables) => t.pink, 0.4)};
+  $pink-400: ${tintColor((t: ThemeVariables) => t.pink, 0.2)};
   $pink-500: $pink;
-  $pink-600: shade-color($pink, 20%);
-  $pink-700: shade-color($pink, 40%);
-  $pink-800: shade-color($pink, 60%);
-  $pink-900: shade-color($pink, 80%);
+  $pink-600: ${shadeColor((t: ThemeVariables) => t.pink, 0.2)};
+  $pink-700: ${shadeColor((t: ThemeVariables) => t.pink, 0.4)};
+  $pink-800: ${shadeColor((t: ThemeVariables) => t.pink, 0.6)};
+  $pink-900: ${shadeColor((t: ThemeVariables) => t.pink, 0.8)};
 
-  $red-100: tint-color($red, 80%);
-  $red-200: tint-color($red, 60%);
-  $red-300: tint-color($red, 40%);
-  $red-400: tint-color($red, 20%);
+  $red-100: ${tintColor((t: ThemeVariables) => t.red, 0.8)};
+  $red-200: ${tintColor((t: ThemeVariables) => t.red, 0.6)};
+  $red-300: ${tintColor((t: ThemeVariables) => t.red, 0.4)};
+  $red-400: ${tintColor((t: ThemeVariables) => t.red, 0.2)};
   $red-500: $red;
-  $red-600: shade-color($red, 20%);
-  $red-700: shade-color($red, 40%);
-  $red-800: shade-color($red, 60%);
-  $red-900: shade-color($red, 80%);
+  $red-600: ${shadeColor((t: ThemeVariables) => t.red, 0.2)};
+  $red-700: ${shadeColor((t: ThemeVariables) => t.red, 0.4)};
+  $red-800: ${shadeColor((t: ThemeVariables) => t.red, 0.6)};
+  $red-900: ${shadeColor((t: ThemeVariables) => t.red, 0.8)};
 
-  $orange-100: tint-color($orange, 80%);
-  $orange-200: tint-color($orange, 60%);
-  $orange-300: tint-color($orange, 40%);
-  $orange-400: tint-color($orange, 20%);
+  $orange-100: ${tintColor((t: ThemeVariables) => t.orange, 0.8)};
+  $orange-200: ${tintColor((t: ThemeVariables) => t.orange, 0.6)};
+  $orange-300: ${tintColor((t: ThemeVariables) => t.orange, 0.4)};
+  $orange-400: ${tintColor((t: ThemeVariables) => t.orange, 0.2)};
   $orange-500: $orange;
-  $orange-600: shade-color($orange, 20%);
-  $orange-700: shade-color($orange, 40%);
-  $orange-800: shade-color($orange, 60%);
-  $orange-900: shade-color($orange, 80%);
+  $orange-600: ${shadeColor((t: ThemeVariables) => t.orange, 0.2)};
+  $orange-700: ${shadeColor((t: ThemeVariables) => t.orange, 0.4)};
+  $orange-800: ${shadeColor((t: ThemeVariables) => t.orange, 0.6)};
+  $orange-900: ${shadeColor((t: ThemeVariables) => t.orange, 0.8)};
 
-  $yellow-100: tint-color($yellow, 80%);
-  $yellow-200: tint-color($yellow, 60%);
-  $yellow-300: tint-color($yellow, 40%);
-  $yellow-400: tint-color($yellow, 20%);
+  $yellow-100: ${tintColor((t: ThemeVariables) => t.yellow, 0.8)};
+  $yellow-200: ${tintColor((t: ThemeVariables) => t.yellow, 0.6)};
+  $yellow-300: ${tintColor((t: ThemeVariables) => t.yellow, 0.4)};
+  $yellow-400: ${tintColor((t: ThemeVariables) => t.yellow, 0.2)};
   $yellow-500: $yellow;
-  $yellow-600: shade-color($yellow, 20%);
-  $yellow-700: shade-color($yellow, 40%);
-  $yellow-800: shade-color($yellow, 60%);
-  $yellow-900: shade-color($yellow, 80%);
+  $yellow-600: ${shadeColor((t: ThemeVariables) => t.yellow, 0.2)};
+  $yellow-700: ${shadeColor((t: ThemeVariables) => t.yellow, 0.4)};
+  $yellow-800: ${shadeColor((t: ThemeVariables) => t.yellow, 0.6)};
+  $yellow-900: ${shadeColor((t: ThemeVariables) => t.yellow, 0.8)};
 
-  $green-100: tint-color($green, 80%);
-  $green-200: tint-color($green, 60%);
-  $green-300: tint-color($green, 40%);
-  $green-400: tint-color($green, 20%);
+  $green-100: ${tintColor((t: ThemeVariables) => t.green, 0.8)};
+  $green-200: ${tintColor((t: ThemeVariables) => t.green, 0.6)};
+  $green-300: ${tintColor((t: ThemeVariables) => t.green, 0.4)};
+  $green-400: ${tintColor((t: ThemeVariables) => t.green, 0.2)};
   $green-500: $green;
-  $green-600: shade-color($green, 20%);
-  $green-700: shade-color($green, 40%);
-  $green-800: shade-color($green, 60%);
-  $green-900: shade-color($green, 80%);
+  $green-600: ${shadeColor((t: ThemeVariables) => t.green, 0.2)};
+  $green-700: ${shadeColor((t: ThemeVariables) => t.green, 0.4)};
+  $green-800: ${shadeColor((t: ThemeVariables) => t.green, 0.6)};
+  $green-900: ${shadeColor((t: ThemeVariables) => t.green, 0.8)};
 
-  $teal-100: tint-color($teal, 80%);
-  $teal-200: tint-color($teal, 60%);
-  $teal-300: tint-color($teal, 40%);
-  $teal-400: tint-color($teal, 20%);
+  $teal-100: ${tintColor((t: ThemeVariables) => t.teal, 0.8)};
+  $teal-200: ${tintColor((t: ThemeVariables) => t.teal, 0.6)};
+  $teal-300: ${tintColor((t: ThemeVariables) => t.teal, 0.4)};
+  $teal-400: ${tintColor((t: ThemeVariables) => t.teal, 0.2)};
   $teal-500: $teal;
-  $teal-600: shade-color($teal, 20%);
-  $teal-700: shade-color($teal, 40%);
-  $teal-800: shade-color($teal, 60%);
-  $teal-900: shade-color($teal, 80%);
+  $teal-600: ${shadeColor((t: ThemeVariables) => t.teal, 0.2)};
+  $teal-700: ${shadeColor((t: ThemeVariables) => t.teal, 0.4)};
+  $teal-800: ${shadeColor((t: ThemeVariables) => t.teal, 0.6)};
+  $teal-900: ${shadeColor((t: ThemeVariables) => t.teal, 0.8)};
 
-  $cyan-100: tint-color($cyan, 80%);
-  $cyan-200: tint-color($cyan, 60%);
-  $cyan-300: tint-color($cyan, 40%);
-  $cyan-400: tint-color($cyan, 20%);
+  $cyan-100: ${tintColor((t: ThemeVariables) => t.cyan, 0.8)};
+  $cyan-200: ${tintColor((t: ThemeVariables) => t.cyan, 0.6)};
+  $cyan-300: ${tintColor((t: ThemeVariables) => t.cyan, 0.4)};
+  $cyan-400: ${tintColor((t: ThemeVariables) => t.cyan, 0.2)};
   $cyan-500: $cyan;
-  $cyan-600: shade-color($cyan, 20%);
-  $cyan-700: shade-color($cyan, 40%);
-  $cyan-800: shade-color($cyan, 60%);
-  $cyan-900: shade-color($cyan, 80%);
+  $cyan-600: ${shadeColor((t: ThemeVariables) => t.cyan, 0.2)};
+  $cyan-700: ${shadeColor((t: ThemeVariables) => t.cyan, 0.4)};
+  $cyan-800: ${shadeColor((t: ThemeVariables) => t.cyan, 0.6)};
+  $cyan-900: ${shadeColor((t: ThemeVariables) => t.cyan, 0.8)};
 
   $blues: ${(t: ThemeVariables) => ({
     'blue-100': t['blue-100'],
@@ -909,7 +909,10 @@ const variables = css`
     0 0 0 1px $body-bg,
     $input-focus-box-shadow;
   $form-range-thumb-focus-box-shadow-width: $input-focus-width; // For focus box shadow issue in Edge
-  $form-range-thumb-active-bg: tint-color($component-active-bg, 70%);
+  $form-range-thumb-active-bg: ${tintColor(
+    (t: ThemeVariables) => t['component-active-bg'],
+    0.7,
+  )};
   $form-range-thumb-disabled-bg: $gray-500;
   $form-range-thumb-transition:
     background-color 0.15s ease-in-out,
@@ -918,7 +921,10 @@ const variables = css`
 
   $form-file-button-color: $input-color;
   $form-file-button-bg: $input-group-addon-bg;
-  $form-file-button-hover-bg: shade-color($form-file-button-bg, 5%);
+  $form-file-button-hover-bg: ${shadeColor(
+    (t: ThemeVariables) => t['form-file-button-bg'],
+    0.05,
+  )};
 
   $form-floating-height: ${add(
     '3.5rem',
