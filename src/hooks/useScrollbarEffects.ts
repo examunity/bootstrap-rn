@@ -1,5 +1,5 @@
 import { useRef, useMemo, RefObject } from 'react';
-import { Platform, findNodeHandle } from 'react-native';
+import { Platform } from 'react-native';
 import type { ViewRef } from '../components/View';
 
 type ScrollbarEffectsState = {
@@ -49,9 +49,8 @@ export default function useScrollbarEffects(
         // Set body and fixed elements padding adjustments.
         const fixedElements = elements
           .filter((ref) => ref.current)
-          .map((ref) => findNodeHandle(ref.current));
+          .map((ref) => ref.current);
 
-        // @ts-expect-error fixedElements should be of type HTMLElement[]
         state.current.elements = [document.body, ...fixedElements];
 
         state.current.originalWidths = state.current.elements.map(

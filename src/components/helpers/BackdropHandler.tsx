@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, RefObject } from 'react';
-import { Platform, findNodeHandle } from 'react-native';
+import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import Pressable from '../Pressable';
@@ -47,10 +47,10 @@ function BackdropHandler(props: BackdropHandlerProps) {
     useEffect(() => {
       const toggle = toggleRef
         ? // @ts-expect-error web only method for converting to HTMLElement
-          (findNodeHandle(toggleRef.current) as HTMLElement)
+          (toggleRef.current as HTMLElement)
         : undefined;
       // @ts-expect-error web only method for converting to HTMLElement
-      const dialog = findNodeHandle(dialogRef.current) as HTMLElement;
+      const dialog = dialogRef.current as HTMLElement;
 
       const handleDialogMouseDown = () => {
         state.waitingForMouseUp = true;
