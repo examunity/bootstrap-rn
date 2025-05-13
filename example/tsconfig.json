@@ -1,6 +1,8 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "strict": true,
+    "strictFunctionTypes": false,
     "paths": {
       "bootstrap-rn": ["../src"]
     }

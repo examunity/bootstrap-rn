@@ -14,7 +14,6 @@ import Offcanvas from '../../offcanvas/Offcanvas';
 import useBackground from '../../../hooks/useBackground';
 import PickerNativeContext from './PickerNativeContext';
 import type { PickerProps, MenuComponentProps } from '../Picker';
-import type { BaseStyle } from '../../../types';
 import type { PickerItemProps } from '../PickerItem';
 
 export interface PickerNativeProps extends PickerProps {
@@ -50,7 +49,9 @@ const textStyleKeys = [
   'writingDirection',
 ];
 
-const extractTextStyles = (style: BaseStyle[]) => {
+const extractTextStyles = (
+  style: ReturnType<typeof useBackground>['style'],
+) => {
   const flattenedStyle = StyleUtils.flatten(style);
   const textStyles: { [key: string]: string } = {};
 

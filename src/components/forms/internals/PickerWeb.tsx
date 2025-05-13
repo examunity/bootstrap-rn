@@ -16,14 +16,21 @@ interface PickerWebProps extends PickerProps {
 
 const PLACEHOLDER = '__PLACEHOLDER__';
 
-const getOptionStyle = (style: TextStyle[], showPlaceholder: boolean) => {
+const getOptionStyle = (
+  style: ReturnType<typeof useBackground>['style'],
+  showPlaceholder: boolean,
+) => {
   if (!showPlaceholder) {
     return null;
   }
 
   const flattenedStyle = StyleUtils.flatten(style);
 
-  return flattenedStyle.color || null;
+  if ('color' in flattenedStyle && flattenedStyle.color !== undefined) {
+    return flattenedStyle.color;
+  }
+
+  return null;
 };
 
 const PickerWeb = forwardRef<PressableRef, PickerWebProps>((props, ref) => {

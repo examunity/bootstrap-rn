@@ -111,7 +111,7 @@ const utilities = StyleSheet.create(
 }; */
 
 const modifiers = {
-  useFormField<T>(props: T & UseFormFieldProps, ref: React.Ref<unknown>) {
+  useFormField<T, Ref>(props: T & UseFormFieldProps, ref: Ref) {
     const formik = useContext(FormikContext);
 
     return {
@@ -134,11 +134,11 @@ const modifiers = {
       },
     };
   },
-  useTabbable<T>(props: T & UseTabbableProps, ref: React.Ref<unknown>) {
+  useTabbable<T, Ref>(props: T & UseTabbableProps, ref: Ref) {
     const active = useActive(props);
     return { ...props, active, ref };
   },
-  useActionable<T>(props: T & UseActionableProps, ref: React.Ref<unknown>) {
+  useActionable<T, Ref>(props: T & UseActionableProps, ref: Ref) {
     const linkProps = useLink(props);
     return { ...linkProps, ref };
   },

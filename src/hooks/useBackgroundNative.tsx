@@ -156,7 +156,7 @@ const transforms = {
   },
 };
 
-export default function useBackground(style: BaseStyle[]) {
+export default function useBackgroundNative(style: BaseStyle[]) {
   const flattenedStyle = StyleSheet.flatten(style);
 
   const background: BackgroundResult = {

@@ -66,6 +66,7 @@ const FormCheckInputWeb = React.forwardRef<
       onFocus={onFocus}
       onBlur={onBlur}
       disabled={disabled}
+      // @ts-expect-error inputBackground.style should be a ViewStyle here.
       style={inputBackground.style}
       id={id}
       autoFocus={autoFocus}
