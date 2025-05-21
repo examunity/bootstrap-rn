@@ -8,6 +8,10 @@ import TooltipContext from './TooltipContext';
 
 export interface TooltipArrowProps extends ViewProps {}
 
+// Note: Border colors are defined for each side, because it seems like that the new react native
+// architecture overwrites border colors from a previous style on Android.
+// Example: `.bs-tooltip-top .tooltip-arrow::before` overwrites `.tooltip-arrow::before`
+
 const styles = StyleSheet.create({
   '.tooltip-arrow': css`
     position: absolute;
@@ -34,6 +38,9 @@ const styles = StyleSheet.create({
     border-left-width: $tooltip-arrow-width * 0.5;
     border-bottom-width: 0;
     border-top-color: $tooltip-arrow-color;
+    border-right-color: transparent; // added for bootstrap-rn
+    border-left-color: transparent; // added for bootstrap-rn
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-tooltip-end .tooltip-arrow': css`
     left: 0;
@@ -46,7 +53,10 @@ const styles = StyleSheet.create({
     border-right-width: $tooltip-arrow-height;
     border-left-width: 0;
     border-bottom-width: $tooltip-arrow-width * 0.5;
+    border-top-color: transparent; // added for bootstrap-rn
     border-right-color: $tooltip-arrow-color;
+    border-left-color: transparent; // added for bootstrap-rn
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-tooltip-bottom .tooltip-arrow': css`
     top: 0;
@@ -57,6 +67,9 @@ const styles = StyleSheet.create({
     border-right-width: $tooltip-arrow-width * 0.5;
     border-left-width: $tooltip-arrow-width * 0.5;
     border-bottom-width: $tooltip-arrow-height;
+    border-top-color: transparent; // added for bootstrap-rn
+    border-right-color: transparent; // added for bootstrap-rn
+    border-left-color: transparent; // added for bootstrap-rn
     border-bottom-color: $tooltip-arrow-color;
   `,
   '.bs-tooltip-start .tooltip-arrow': css`
@@ -70,7 +83,10 @@ const styles = StyleSheet.create({
     border-right-width: 0;
     border-left-width: $tooltip-arrow-height;
     border-bottom-width: $tooltip-arrow-width * 0.5;
+    border-top-color: transparent; // added for bootstrap-rn
+    border-right-color: transparent; // added for bootstrap-rn
     border-left-color: $tooltip-arrow-color;
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
 });
 

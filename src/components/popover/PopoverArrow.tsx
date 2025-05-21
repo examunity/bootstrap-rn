@@ -10,6 +10,10 @@ import type { ThemeVariables } from '../../types';
 
 export interface PopoverArrowProps extends ViewProps {}
 
+// Note: Border colors are defined for each side, because it seems like that the new react native
+// architecture overwrites border colors from a previous style on Android.
+// Example: `.bs-popover-top .popover-arrow::before` overwrites `.popover-arrow::before`
+
 const styles = StyleSheet.create({
   '.popover-arrow': css`
     position: absolute;
@@ -50,6 +54,9 @@ const styles = StyleSheet.create({
     border-left-width: $popover-arrow-width * 0.5;
     border-bottom-width: 0;
     border-top-color: $popover-arrow-outer-color;
+    border-right-color: transparent; // added for bootstrap-rn
+    border-left-color: transparent; // added for bootstrap-rn
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-popover-top .popover-arrow::after': css`
     bottom: $popover-border-width;
@@ -58,6 +65,9 @@ const styles = StyleSheet.create({
     border-left-width: $popover-arrow-width * 0.5;
     border-bottom-width: 0;
     border-top-color: $popover-arrow-color;
+    border-right-color: transparent; // added for bootstrap-rn
+    border-left-color: transparent; // added for bootstrap-rn
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-popover-end .popover-arrow': css`
     left: ${subtract(
@@ -73,7 +83,10 @@ const styles = StyleSheet.create({
     border-right-width: $popover-arrow-height;
     border-left-width: 0;
     border-bottom-width: $popover-arrow-width * 0.5;
+    border-top-color: transparent; // added for bootstrap-rn
     border-right-color: $popover-arrow-outer-color;
+    border-left-color: transparent; // added for bootstrap-rn
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-popover-end .popover-arrow::after': css`
     left: $popover-border-width;
@@ -81,7 +94,10 @@ const styles = StyleSheet.create({
     border-right-width: $popover-arrow-height;
     border-left-width: 0;
     border-bottom-width: $popover-arrow-width * 0.5;
+    border-top-color: transparent; // added for bootstrap-rn
     border-right-color: $popover-arrow-color;
+    border-left-color: transparent; // added for bootstrap-rn
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-popover-bottom .popover-arrow': css`
     top: ${subtract(
@@ -95,6 +111,9 @@ const styles = StyleSheet.create({
     border-right-width: $popover-arrow-width * 0.5;
     border-left-width: $popover-arrow-width * 0.5;
     border-bottom-width: $popover-arrow-height;
+    border-top-color: transparent; // added for bootstrap-rn
+    border-right-color: transparent; // added for bootstrap-rn
+    border-left-color: transparent; // added for bootstrap-rn
     border-bottom-color: $popover-arrow-outer-color;
   `,
   '.bs-popover-bottom .popover-arrow::after': css`
@@ -103,6 +122,9 @@ const styles = StyleSheet.create({
     border-right-width: $popover-arrow-width * 0.5;
     border-left-width: $popover-arrow-width * 0.5;
     border-bottom-width: $popover-arrow-height;
+    border-top-color: transparent; // added for bootstrap-rn
+    border-right-color: transparent; // added for bootstrap-rn
+    border-left-color: transparent; // added for bootstrap-rn
     border-bottom-color: $popover-arrow-color;
   `,
   '.bs-popover-start .popover-arrow': css`
@@ -119,7 +141,10 @@ const styles = StyleSheet.create({
     border-right-width: 0;
     border-left-width: $popover-arrow-height;
     border-bottom-width: $popover-arrow-width * 0.5;
+    border-top-color: transparent; // added for bootstrap-rn
+    border-right-color: transparent; // added for bootstrap-rn
     border-left-color: $popover-arrow-outer-color;
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-popover-start .popover-arrow::after': css`
     right: $popover-border-width;
@@ -127,7 +152,10 @@ const styles = StyleSheet.create({
     border-right-width: 0;
     border-left-width: $popover-arrow-height;
     border-bottom-width: $popover-arrow-width * 0.5;
+    border-top-color: transparent; // added for bootstrap-rn
+    border-right-color: transparent; // added for bootstrap-rn
     border-left-color: $popover-arrow-color;
+    border-bottom-color: transparent; // added for bootstrap-rn
   `,
 });
 
