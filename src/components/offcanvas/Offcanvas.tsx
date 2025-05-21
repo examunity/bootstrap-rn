@@ -1,9 +1,10 @@
 import React, { useContext, useRef } from 'react';
-import { Modal as BaseModal, SafeAreaView } from 'react-native';
+import { Modal as BaseModal } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import BackdropHandler from '../helpers/BackdropHandler';
+import SafeAreaView from '../SafeAreaView';
 import View, { ViewProps, ViewRef } from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
@@ -40,13 +41,6 @@ const styles = StyleSheet.create({
     flex-direction: column;
     max-width: 100%;
     // visibility: hidden;
-    background-color: $offcanvas-bg-color;
-    // background-clip: padding-box;
-    @include platform(web) {
-      outline-width: 0; // outline: 0;
-    }
-    // @include box-shadow($offcanvas-box-shadow);
-    // @include transition(transform $offcanvas-transition-duration ease-in-out);
   `,
   '.offcanvas --text': css`
     color: $offcanvas-color;
@@ -58,6 +52,8 @@ const styles = StyleSheet.create({
     z-index: $zindex-offcanvas-backdrop;
     width: 100%;
     height: 100%;
+  `,
+  '.offcanvas-backdrop-inset': css`
     background-color: $offcanvas-backdrop-bg;
     opacity: $offcanvas-backdrop-opacity;
   `,
@@ -65,63 +61,63 @@ const styles = StyleSheet.create({
     top: 0;
     bottom: 0; // added for bootstrap-rn
     left: 0;
-    // width: $offcanvas-horizontal-width;
-    border-right-width: $offcanvas-border-width;
-    border-style: solid;
-    border-color: $offcanvas-border-color;
-    // transform: translateX(-100%);
   `,
   '.offcanvas-end': css`
     top: 0;
     bottom: 0; // added for bootstrap-rn
     right: 0;
-    // width: $offcanvas-horizontal-width;
-    border-left-width: $offcanvas-border-width;
-    border-style: solid;
-    border-color: $offcanvas-border-color;
-    // transform: translateX(100%);
   `,
   '.offcanvas-top': css`
     top: 0;
     right: 0;
     left: 0;
-    // height: $offcanvas-vertical-height;
+  `,
+  '.offcanvas-bottom': css`
+    bottom: 0; // added for bootstrap-rn
+    right: 0;
+    left: 0;
+  `,
+  '.offcanvas-inset': css`
+    max-width: 100%; // added for bootstrap-rn
+    max-height: 100%; // added for bootstrap-rn
+    background-color: $offcanvas-bg-color;
+    // background-clip: padding-box;
+    @include platform(web) {
+      outline-width: 0; // outline: 0;
+    }
+    // @include box-shadow($offcanvas-box-shadow);
+    // @include transition(transform $offcanvas-transition-duration ease-in-out);
+  `,
+  '.offcanvas-inset-start': css`
+    width: $offcanvas-horizontal-width;
+    border-right-width: $offcanvas-border-width;
+    border-style: solid;
+    border-color: $offcanvas-border-color;
+    // transform: translateX(-100%);
+  `,
+  '.offcanvas-inset-end': css`
+    width: $offcanvas-horizontal-width;
+    border-left-width: $offcanvas-border-width;
+    border-style: solid;
+    border-color: $offcanvas-border-color;
+    // transform: translateX(100%);
+  `,
+  '.offcanvas-inset-top': css`
+    height: $offcanvas-vertical-height;
     max-height: 100%;
     border-bottom-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
     // transform: translateY(-100%);
   `,
-  '.offcanvas-bottom': css`
-    bottom: 0; // added for bootstrap-rn
-    right: 0;
-    left: 0;
-    // height: $offcanvas-vertical-height;
+  '.offcanvas-inset-bottom': css`
+    height: $offcanvas-vertical-height;
     max-height: 100%;
     width: 100%;
     border-top-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
     // transform: translateY(100%);
-  `,
-  // The following .offcanvas-dialog classes are added for bootstrap-rn,
-  // because otherwise the text would exceed a width of 100% on native
-  // and also additional width by SafeAreaView would not be applied.
-  '.offcanvas-dialog': css`
-    max-width: 100%;
-    max-height: 100%;
-  `,
-  '.offcanvas-dialog-start': css`
-    width: $offcanvas-horizontal-width;
-  `,
-  '.offcanvas-dialog-end': css`
-    width: $offcanvas-horizontal-width;
-  `,
-  '.offcanvas-dialog-top': css`
-    height: $offcanvas-vertical-height;
-  `,
-  '.offcanvas-dialog-bottom': css`
-    height: $offcanvas-vertical-height;
   `,
   // Navbar styles
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
@@ -165,6 +161,7 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
   const offcanvas = useOffcanvas(visible, scroll);
 
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
+  const backdropInsetClasses = getStyles(styles, ['.offcanvas-backdrop-inset']);
   const classes = getStyles(styles, [
     '.offcanvas',
     `.offcanvas-${placement}`,
@@ -175,8 +172,8 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
       } .offcanvas`,
   ]);
   const dialogClasses = getStyles(styles, [
-    '.offcanvas-dialog',
-    `.offcanvas-dialog-${placement}`,
+    '.offcanvas-inset',
+    `.offcanvas-inset-${placement}`,
   ]);
   const textClasses = getStyles(styles, ['.offcanvas-content --text']);
 
@@ -201,35 +198,40 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
   return (
     <BaseModal
       transparent
+      statusBarTranslucent
+      navigationBarTranslucent
       visible={navbar ? navbar.expanded : visible}
       onRequestClose={handleToggle}
     >
-      {placement !== 'bottom' && <SafeAreaView style={{ flexGrow: 0 }} />}
-      <SafeAreaView style={{ flexGrow: 1 }}>
-        {backdrop && (
-          <View style={backdropClasses}>
+      {backdrop && (
+        <SafeAreaView
+          style={backdropClasses}
+          edges={placement !== 'bottom' ? ['top'] : []}
+        >
+          <SafeAreaView style={[{ flexGrow: 1 }, backdropInsetClasses]}>
             <BackdropHandler
               dialogRef={offcanvasRef}
               onClose={handleToggle}
               backdrop={backdrop}
             />
-          </View>
-        )}
-        <View
-          {...elementProps}
-          ref={concatRefs(offcanvasRef, ref)}
-          style={[classes, style]}
-          textStyle={[textClasses, textStyle]}
+          </SafeAreaView>
+        </SafeAreaView>
+      )}
+      <SafeAreaView
+        {...elementProps}
+        ref={concatRefs(offcanvasRef, ref)}
+        style={[classes, style]}
+        textStyle={[textClasses, textStyle]}
+        edges={placement !== 'bottom' ? ['top'] : []}
+      >
+        <SafeAreaView
+          style={[{ flexGrow: 1 }, dialogClasses, dialogStyle]}
+          textStyle={dialogTextStyle}
         >
-          <View
-            style={[dialogClasses, dialogStyle]}
-            textStyle={dialogTextStyle}
-          >
-            <OffcanvasContext.Provider value={offcanvas}>
-              <OverlayProvider>{children}</OverlayProvider>
-            </OffcanvasContext.Provider>
-          </View>
-        </View>
+          <OffcanvasContext.Provider value={offcanvas}>
+            <OverlayProvider>{children}</OverlayProvider>
+          </OffcanvasContext.Provider>
+        </SafeAreaView>
       </SafeAreaView>
     </BaseModal>
   );

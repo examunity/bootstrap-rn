@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
-import { SafeAreaView as BaseSafeAreaView } from 'react-native';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import { getStyles } from '../utils';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import { ViewProps, ViewRef } from './View';
+import SafeAreaView, {
+  SafeAreaViewProps,
+  SafeAreaViewRef,
+} from './SafeAreaView';
 
-export interface BodyProps extends ViewProps {}
+export interface BodyProps extends SafeAreaViewProps {}
 
 const styles = StyleSheet.create({
   body: css`
@@ -22,8 +24,15 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Body = React.forwardRef<ViewRef, BodyProps>((props, ref) => {
-  const { children, style, textStyle, styleName, ...elementProps } = props;
+const Body = React.forwardRef<SafeAreaViewRef, BodyProps>((props, ref) => {
+  const {
+    children,
+    edges = ['top', 'left', 'right'],
+    style,
+    textStyle,
+    styleName,
+    ...elementProps
+  } = props;
 
   const classes = getStyles(styles, ['body']);
   const textClasses = getStyles(styles, ['body --text']);
@@ -41,15 +50,16 @@ const Body = React.forwardRef<ViewRef, BodyProps>((props, ref) => {
   );
 
   return (
-    <BaseSafeAreaView
+    <SafeAreaView
       {...elementProps}
       ref={ref}
+      edges={edges}
       style={resolveStyle({ media })}
     >
       <TextStyleContext.Provider value={contextValue}>
         {children}
       </TextStyleContext.Provider>
-    </BaseSafeAreaView>
+    </SafeAreaView>
   );
 });
 

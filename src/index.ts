@@ -210,6 +210,9 @@ export type { SwitchProps } from './components/forms/Switch';
 export { default as Spinner } from './components/spinners/Spinner';
 export type { SpinnerProps } from './components/spinners/Spinner';
 
+export { default as SafeAreaView } from './components/SafeAreaView';
+export type { SafeAreaViewProps } from './components/SafeAreaView';
+
 export { default as ScrollView } from './components/ScrollView';
 export type { ScrollViewProps } from './components/ScrollView';
 

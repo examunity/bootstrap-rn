@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Modal as BaseModal, SafeAreaView } from 'react-native';
+import { Modal as BaseModal } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
@@ -7,6 +7,7 @@ import css from '../../style/css';
 import ScrollView, { ScrollViewRef, ScrollViewProps } from '../ScrollView';
 import View, { ViewRef } from '../View';
 import BackdropHandler from '../helpers/BackdropHandler';
+import SafeAreaView from '../SafeAreaView';
 import useModal from './useModal';
 import ModalContext from './ModalContext';
 import ModalHeader from './ModalHeader';
@@ -182,7 +183,13 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
     };
 
     return (
-      <BaseModal transparent visible={visible} onRequestClose={handleToggle}>
+      <BaseModal
+        transparent
+        statusBarTranslucent
+        navigationBarTranslucent
+        visible={visible}
+        onRequestClose={handleToggle}
+      >
         {backdrop && <View style={backdropClasses} />}
         <FlexView
           {...elementProps}
@@ -201,7 +208,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
             onClose={handleToggle}
             backdrop={backdrop}
           />
-          <SafeAreaView style={{ flexShrink: 1 }}>
+          <SafeAreaView style={scrollable && { flexShrink: 1 }}>
             <View
               ref={dialogRef}
               style={[dialogClasses, dialogStyle]}
