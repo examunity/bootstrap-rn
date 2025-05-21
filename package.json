@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-rn",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Bootstrap RN provides Bootstrap components for React Native.",
   "author": "Markus Wetzel <markuswetzel@gmx.net>",
   "license": "MIT",
@@ -44,8 +44,8 @@
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
     "react-native-builder-bob": "^0.40.10",
-    "react-native-svg": "15.11.2",
     "react-native-safe-area-context": "5.4.0",
+    "react-native-svg": "15.11.2",
     "react-native-web": "^0.20.0",
     "typescript": "~5.8.3"
   },
