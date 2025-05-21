@@ -149,8 +149,7 @@ function App() {
     <Router>
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
         <Body>
-          <StatusBar />
-
+          <StatusBar barStyle="dark-content" />
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Content />} />
