@@ -61,17 +61,7 @@ function Overlay({
     }
   }
 
-  // Adjust top value by status bar height on Android
-  if (Platform.OS === 'android' && StatusBar.currentHeight) {
-    if (typeof overlay.overlayProps.style.top === 'number') {
-      overlay.overlayProps.style.top -= StatusBar.currentHeight;
-    }
-    if (typeof overlay.arrowProps.style.top === 'number') {
-      overlay.arrowProps.style.top -= StatusBar.currentHeight;
-    }
-  }
-
-  // Workaround for different calculation of height in Android 15
+  // Android 15 (edge-to-edge support) adjustments
   // https://github.com/facebook/react-native/issues/47080
   if (
     Platform.OS === 'android' &&
@@ -79,8 +69,7 @@ function Overlay({
     StatusBar.currentHeight
   ) {
     if (typeof overlay.overlayProps.style.bottom === 'number') {
-      // Assuming height of bottom bar is 22
-      overlay.overlayProps.style.bottom -= StatusBar.currentHeight + 22;
+      overlay.overlayProps.style.bottom -= StatusBar.currentHeight;
     }
   }
 
