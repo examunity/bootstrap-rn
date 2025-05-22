@@ -5,12 +5,9 @@ import { getStyles } from '../utils';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
-import SafeAreaView, {
-  SafeAreaViewProps,
-  SafeAreaViewRef,
-} from './SafeAreaView';
+import View, { ViewProps, ViewRef } from './View';
 
-export interface BodyProps extends SafeAreaViewProps {}
+export interface BodyProps extends ViewProps {}
 
 const styles = StyleSheet.create({
   body: css`
@@ -24,15 +21,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Body = React.forwardRef<SafeAreaViewRef, BodyProps>((props, ref) => {
-  const {
-    children,
-    edges = ['top', 'left', 'right'],
-    style,
-    textStyle,
-    styleName,
-    ...elementProps
-  } = props;
+const Body = React.forwardRef<ViewRef, BodyProps>((props, ref) => {
+  const { children, style, textStyle, styleName, ...elementProps } = props;
 
   const classes = getStyles(styles, ['body']);
   const textClasses = getStyles(styles, ['body --text']);
@@ -50,16 +40,11 @@ const Body = React.forwardRef<SafeAreaViewRef, BodyProps>((props, ref) => {
   );
 
   return (
-    <SafeAreaView
-      {...elementProps}
-      ref={ref}
-      edges={edges}
-      style={resolveStyle({ media })}
-    >
+    <View {...elementProps} ref={ref} style={resolveStyle({ media })}>
       <TextStyleContext.Provider value={contextValue}>
         {children}
       </TextStyleContext.Provider>
-    </SafeAreaView>
+    </View>
   );
 });
 
