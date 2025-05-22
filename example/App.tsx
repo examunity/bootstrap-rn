@@ -3,6 +3,8 @@ import {
   NativeSyntheticEvent,
   StatusBar,
   TextInputKeyPressEventData,
+  SafeAreaView as BaseSafeAreaView,
+  Platform,
 } from 'react-native';
 import { FormikContext } from 'formik';
 import {
@@ -16,6 +18,7 @@ import {
   UseFormFieldProps,
   UseTabbableProps,
 } from 'bootstrap-rn';
+import { SafeAreaView as EdgeToEdgeSafeAreaView } from 'react-native-safe-area-context';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
 import Content from './components/Content';
@@ -144,43 +147,51 @@ const modifiers = {
   },
 };
 
+// Use react-native-safe-area-context for newer Android versions in order to support edge-to-edge.
+const SafeAreaView =
+  Platform.OS === 'android' && Platform.constants.Version >= 35
+    ? EdgeToEdgeSafeAreaView
+    : BaseSafeAreaView;
+
 function App() {
   return (
     <Router>
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
-        <Body>
-          <StatusBar barStyle="dark-content" />
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Content />} />
-              <Route path="forms" element={<Forms />} />
-              <Route path="alerts" element={<SampleAlerts />} />
-              <Route path="badges" element={<SampleBadges />} />
-              <Route path="breadcrumb" element={<SampleBreadcrumb />} />
-              <Route path="buttons" element={<SampleButtons />} />
-              <Route path="button-group" element={<SampleButtonGroup />} />
-              <Route path="cards" element={<SampleCards />} />
-              <Route path="collapse" element={<SampleCollapse />} />
-              <Route path="dropdown" element={<SampleDropdown />} />
-              <Route path="grid" element={<SampleGrid />} />
-              <Route path="images" element={<SampleImages />} />
-              <Route path="list-group" element={<SampleListGroup />} />
-              <Route path="modal" element={<SampleModal />} />
-              <Route path="nav" element={<SampleNav />} />
-              <Route path="navbar" element={<SampleNavbar />} />
-              <Route path="offcanvas" element={<SampleOffcanvas />} />
-              <Route path="pagination" element={<SamplePagination />} />
-              <Route path="placeholders" element={<SamplePlaceholders />} />
-              <Route path="popovers" element={<SamplePopovers />} />
-              <Route path="progress" element={<SampleProgress />} />
-              <Route path="spinners" element={<SampleSpinners />} />
-              <Route path="toasts" element={<SampleToasts />} />
-              <Route path="tooltips" element={<SampleTooltips />} />
-              <Route path="utilities" element={<Utilities />} />
-              <Route path="formik" element={<FormikForms />} />
-            </Route>
-          </Routes>
-        </Body>
+        <SafeAreaView style={{ backgroundColor: 'black' }}>
+          <StatusBar barStyle="light-content" />
+          <Body>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Content />} />
+                <Route path="forms" element={<Forms />} />
+                <Route path="alerts" element={<SampleAlerts />} />
+                <Route path="badges" element={<SampleBadges />} />
+                <Route path="breadcrumb" element={<SampleBreadcrumb />} />
+                <Route path="buttons" element={<SampleButtons />} />
+                <Route path="button-group" element={<SampleButtonGroup />} />
+                <Route path="cards" element={<SampleCards />} />
+                <Route path="collapse" element={<SampleCollapse />} />
+                <Route path="dropdown" element={<SampleDropdown />} />
+                <Route path="grid" element={<SampleGrid />} />
+                <Route path="images" element={<SampleImages />} />
+                <Route path="list-group" element={<SampleListGroup />} />
+                <Route path="modal" element={<SampleModal />} />
+                <Route path="nav" element={<SampleNav />} />
+                <Route path="navbar" element={<SampleNavbar />} />
+                <Route path="offcanvas" element={<SampleOffcanvas />} />
+                <Route path="pagination" element={<SamplePagination />} />
+                <Route path="placeholders" element={<SamplePlaceholders />} />
+                <Route path="popovers" element={<SamplePopovers />} />
+                <Route path="progress" element={<SampleProgress />} />
+                <Route path="spinners" element={<SampleSpinners />} />
+                <Route path="toasts" element={<SampleToasts />} />
+                <Route path="tooltips" element={<SampleTooltips />} />
+                <Route path="utilities" element={<Utilities />} />
+                <Route path="formik" element={<FormikForms />} />
+              </Route>
+            </Routes>
+          </Body>
+        </SafeAreaView>
       </Provider>
     </Router>
   );
