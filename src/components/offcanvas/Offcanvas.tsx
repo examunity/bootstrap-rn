@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react';
-import { Modal as BaseModal } from 'react-native';
+import { Modal as BaseModal, Platform } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
@@ -198,23 +198,22 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
   return (
     <BaseModal
       transparent
-      statusBarTranslucent
-      navigationBarTranslucent
+      // Modal is only shown correctly on older Android versions if we set this.
+      navigationBarTranslucent={
+        Platform.OS === 'android' && Platform.constants.Version < 35
+      }
       visible={navbar ? navbar.expanded : visible}
       onRequestClose={handleToggle}
     >
       {backdrop && (
-        <SafeAreaView
-          style={backdropClasses}
-          edges={placement !== 'bottom' ? ['top'] : []}
-        >
-          <SafeAreaView style={[{ flexGrow: 1 }, backdropInsetClasses]}>
+        <SafeAreaView style={backdropClasses}>
+          <View style={[{ flexGrow: 1 }, backdropInsetClasses]}>
             <BackdropHandler
               dialogRef={offcanvasRef}
               onClose={handleToggle}
               backdrop={backdrop}
             />
-          </SafeAreaView>
+          </View>
         </SafeAreaView>
       )}
       <SafeAreaView
@@ -222,16 +221,15 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
         ref={concatRefs(offcanvasRef, ref)}
         style={[classes, style]}
         textStyle={[textClasses, textStyle]}
-        edges={placement !== 'bottom' ? ['top'] : []}
       >
-        <SafeAreaView
+        <View
           style={[{ flexGrow: 1 }, dialogClasses, dialogStyle]}
           textStyle={dialogTextStyle}
         >
           <OffcanvasContext.Provider value={offcanvas}>
             <OverlayProvider>{children}</OverlayProvider>
           </OffcanvasContext.Provider>
-        </SafeAreaView>
+        </View>
       </SafeAreaView>
     </BaseModal>
   );

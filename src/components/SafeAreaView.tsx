@@ -1,9 +1,8 @@
 import React, { useContext, useMemo } from 'react';
-import { Platform, View } from 'react-native';
 import {
-  SafeAreaView as NativeSafeAreaView,
-  SafeAreaViewProps as NativeSafeAreaViewProps,
-} from 'react-native-safe-area-context';
+  SafeAreaView as BaseSafeAreaView,
+  ViewProps as BaseViewProps,
+} from 'react-native';
 import TextStyleContext from '../style/TextStyleContext';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
@@ -14,19 +13,13 @@ import type {
   ExtendedViewStyle,
 } from '../types';
 
-export type SafeAreaViewRef = View;
+export type SafeAreaViewRef = BaseSafeAreaView;
 
-export interface SafeAreaViewProps
-  extends Omit<NativeSafeAreaViewProps, 'style'> {
+export interface SafeAreaViewProps extends Omit<BaseViewProps, 'style'> {
   style?: StyleProp<ExtendedViewStyle>;
   textStyle?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;
 }
-
-const BaseSafeAreaView =
-  Platform.OS === 'android' || Platform.OS === 'ios'
-    ? NativeSafeAreaView
-    : View;
 
 const SafeAreaView = React.forwardRef<SafeAreaViewRef, SafeAreaViewProps>(
   (props, ref) => {

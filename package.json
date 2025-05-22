@@ -44,7 +44,6 @@
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
     "react-native-builder-bob": "^0.40.10",
-    "react-native-safe-area-context": "5.4.0",
     "react-native-svg": "15.11.2",
     "react-native-web": "^0.20.0",
     "typescript": "~5.8.3"
@@ -54,7 +53,6 @@
     "react": ">=17",
     "react-dom": ">=17",
     "react-native": ">=0.63.0",
-    "react-native-safe-area-context": ">=5",
     "react-native-svg": ">=12.3.0"
   },
   "peerDependenciesMeta": {

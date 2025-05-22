@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Modal as BaseModal } from 'react-native';
+import { Modal as BaseModal, Platform } from 'react-native';
 import { OverlayProvider } from '@react-native-aria/overlays';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
@@ -185,8 +185,10 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
     return (
       <BaseModal
         transparent
-        statusBarTranslucent
-        navigationBarTranslucent
+        // Modal is only shown correctly on older Android versions if we set this.
+        navigationBarTranslucent={
+          Platform.OS === 'android' && Platform.constants.Version < 35
+        }
         visible={visible}
         onRequestClose={handleToggle}
       >
