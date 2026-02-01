@@ -28,7 +28,6 @@ export type BootstrapRNContextType = {
   addFixedElement: (ref: unknown) => {
     remove: () => void;
   };
-  generateKey(prefix: string): string;
 };
 
 const Context = React.createContext<BootstrapRNContextType | null>(null);

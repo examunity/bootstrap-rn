@@ -1,19 +1,18 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
-import { getStyles, transformPlacement } from '../../utils';
+import { getStyles } from '../../utils';
 import css from '../../style/css';
 import View, { ViewProps, ViewRef } from '../View';
 import PopoverArrow from './PopoverArrow';
 import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
 import PopoverContext from './PopoverContext';
-import { ExtendedViewStyle, StyleProp, PlacementAxis } from '../../types';
+import type { OverlayPhysicalPlacement } from '../../types';
 
 export interface PopoverProps extends ViewProps {
-  placement?: PlacementAxis;
-  popper?: boolean;
-  arrowStyle?: StyleProp<ExtendedViewStyle>;
+  placement?: OverlayPhysicalPlacement;
+  floating?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -44,20 +43,18 @@ const Popover = React.forwardRef<ViewRef, PopoverProps>((props, ref) => {
   const {
     children,
     placement = 'right',
-    popper,
+    floating,
     style,
     textStyle,
-    arrowStyle,
     ...elementProps
   } = props;
 
   const popover = useMemo(
     () => ({
-      placement: transformPlacement(placement),
-      arrowStyle,
-      popper,
+      placement,
+      floating,
     }),
-    [arrowStyle],
+    [placement, floating],
   );
 
   const classes = getStyles(styles, ['.popover']);

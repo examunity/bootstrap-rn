@@ -12,15 +12,16 @@ export default function useDismissDropdown<T>(
 ) {
   const context = useForcedContext(DropdownContext);
 
+  const { onPress, ...restProps } = props;
+
   const handlePress = useCallback(
     (event: GestureResponderEvent) => {
-      if (props.onPress) props.onPress(event);
       context.setVisible(false);
-    },
-    [context, props.onPress],
-  );
 
-  const { ...restProps } = props;
+      onPress?.(event);
+    },
+    [context, onPress],
+  );
 
   return {
     ...restProps,

@@ -1,7 +1,21 @@
-import { useMemo, useRef } from 'react';
-import useIdentifier from '../../hooks/useIdentifier';
-import useControlledState from '../../hooks/useControlledState';
+import { useMemo, useState } from 'react';
+import StyleSheet from '../../style/StyleSheet';
 import type { DropdownDirection } from './DropdownContext';
+import type { OverlayAlignment } from '../../types';
+import useOverlay from '../../hooks/useOverlay';
+import { normalizeNumber } from '../../style/math';
+
+const getPlacement = (direction: DropdownDirection) => {
+  if (direction === 'up') {
+    return 'top';
+  }
+
+  if (direction === 'down') {
+    return 'bottom';
+  }
+
+  return direction;
+};
 
 export default function useDropdown(
   defaultVisible: boolean,
@@ -10,29 +24,32 @@ export default function useDropdown(
   direction: DropdownDirection,
   center: boolean,
   display: string,
-  autoClose: string | boolean,
 ) {
-  const identifier = useIdentifier('dropdown');
+  const [align, setAlign] = useState<OverlayAlignment | null>(null);
 
-  const toggleRef = useRef(null);
+  const offset = normalizeNumber(StyleSheet.value('dropdown-spacer'));
 
-  const [visible, setVisible] = useControlledState(
+  const { identifier, visible, setVisible, trigger, content } = useOverlay({
     defaultVisible,
     controlledVisible,
     onToggle,
-  );
+    offset,
+    align: center ? 'center' : align || 'start',
+    placement: getPlacement(direction),
+  });
 
   return useMemo(
     () => ({
       identifier,
       visible,
       setVisible,
-      toggleRef,
+      align,
+      setAlign,
       direction,
-      center,
       display,
-      autoClose,
+      trigger,
+      content,
     }),
-    [visible, direction, center, display, autoClose],
+    [visible, align, direction, display, trigger, content],
   );
 }

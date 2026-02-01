@@ -2,17 +2,16 @@ import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
 import View, { ViewProps, ViewRef } from '../View';
 import StyleSheet from '../../style/StyleSheet';
-import { getStyles, transformPlacement } from '../../utils';
+import { getStyles } from '../../utils';
 import css from '../../style/css';
 import TooltipArrow from './TooltipArrow';
 import TooltipInner from './TooltipInner';
 import TooltipContext from './TooltipContext';
-import { ExtendedViewStyle, StyleProp, PlacementAxis } from '../../types';
+import type { OverlayPhysicalPlacement } from '../../types';
 
 export interface TooltipProps extends ViewProps {
-  placement?: PlacementAxis;
-  popper?: boolean;
-  arrowStyle?: StyleProp<ExtendedViewStyle>;
+  placement?: OverlayPhysicalPlacement;
+  floating?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -31,45 +30,27 @@ const styles = StyleSheet.create({
     // Allow breaking very long words so they don't overflow the tooltip's bounds
     // word-wrap: break-word;
   `,
-  '.bs-tooltip-top': css`
-    padding: $tooltip-arrow-height 0;
-  `,
-  '.bs-tooltip-end': css`
-    padding: 0 $tooltip-arrow-height;
-  `,
-  '.bs-tooltip-bottom': css`
-    padding: $tooltip-arrow-height 0;
-  `,
-  '.bs-tooltip-start': css`
-    padding: 0 $tooltip-arrow-height;
-  `,
 });
 
 const Tooltip = React.forwardRef<ViewRef, TooltipProps>((props, ref) => {
   const {
     children,
     placement = 'top',
-    popper,
+    floating,
     style,
     textStyle,
-    arrowStyle,
     ...elementProps
   } = props;
 
   const tooltip = useMemo(
     () => ({
-      placement: transformPlacement(placement),
-      arrowStyle,
-      popper,
+      placement,
+      floating,
     }),
-    [placement, arrowStyle, popper],
+    [placement, floating],
   );
 
-  const classes = getStyles(styles, [
-    '.tooltip',
-    // Wait for rendering (of Overlay) before setting the offset.
-    popper && `.bs-tooltip-${tooltip.placement}`,
-  ]);
+  const classes = getStyles(styles, ['.tooltip']);
   const textClasses = getStyles(styles, ['.tooltip --text']);
 
   // Accessiblity role tooltip is only supported on web.

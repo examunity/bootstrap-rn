@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import StyleSheet from '../style/StyleSheet';
 import css from '../style/css';
 import { getStyles } from '../utils';
@@ -29,7 +30,9 @@ const Body = React.forwardRef<ViewRef, BodyProps>((props, ref) => {
 
   const media = useMedia();
 
-  const resolveStyle = useStyle([classes, style], styleName);
+  const insets = useSafeAreaInsets();
+
+  const resolveStyle = useStyle([classes, insets, style], styleName);
   const resolveTextStyle = useStyle([textClasses, textStyle]);
 
   const contextValue = useMemo(

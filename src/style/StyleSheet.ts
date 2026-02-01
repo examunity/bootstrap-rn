@@ -63,13 +63,10 @@ const createSheet = <T extends string>(
         return target.stateless[prop] || target.stateful[prop] || undefined;
       },
       ownKeys: (target) => target.keys,
-      getOwnPropertyDescriptor(target, name: string) {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
-        const proxy = this;
-
+      getOwnPropertyDescriptor(target, name: T) {
         return {
           get value() {
-            return proxy.get(target, name);
+            return target.stateless[name] || target.stateful[name] || undefined;
           },
           configurable: true,
           enumerable: true,

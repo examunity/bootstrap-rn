@@ -21,7 +21,6 @@ export interface DropdownProps extends ViewProps {
   direction?: DropdownDirection;
   center?: boolean;
   display?: 'dynamic' | 'static';
-  autoClose?: boolean | 'inside' | 'outside';
 }
 
 const styles = StyleSheet.create({
@@ -39,7 +38,6 @@ const Dropdown = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
     direction = 'down',
     center = false,
     display = 'dynamic',
-    autoClose = 'outside',
     style,
     ...elementProps
   } = props;
@@ -51,7 +49,6 @@ const Dropdown = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
     direction,
     center,
     display,
-    autoClose,
   );
 
   const classes = getStyles(styles, ['.dropdown']);

@@ -4,10 +4,8 @@ import {
   TextStyle as BaseTextStyle,
   GestureResponderEvent,
   Role,
-  NativeSyntheticEvent,
-  TextInputKeyPressEventData,
+  TextInputKeyPressEvent,
 } from 'react-native';
-import type { Placement, Axis, PlacementAxis } from '@react-types/overlays';
 import { BOOTSTRAP_RN_STYLE } from './style/createStyle';
 
 // Media
@@ -43,8 +41,9 @@ export type InteractionState = {
 
 // Ref: https://github.com/facebook/react-native/blob/main/packages/react-native/Libraries/StyleSheet/StyleSheet.d.ts
 type Falsy = undefined | null | undefined | false | '';
-interface RecursiveArray<T>
-  extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> {}
+interface RecursiveArray<T> extends Array<
+  T | ReadonlyArray<T> | RecursiveArray<T>
+> {}
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 
 export type SpecialInteractionStyle<T> = {
@@ -101,7 +100,7 @@ export type FormValidationState = (t: ThemeVariables) => {
 
 // Overlay
 
-export type Trigger =
+export type OverlayTrigger =
   | 'press'
   | 'hover'
   | 'focus'
@@ -113,14 +112,15 @@ export type Trigger =
   | 'press focus'
   | 'focus press';
 
-export { Placement, Axis, PlacementAxis };
+export type OverlayProps = {
+  defaultVisible?: boolean;
+  visible?: boolean;
+  onToggle?: (visible: boolean) => void;
+};
 
-export type TransformedPlacementAxis =
-  | 'top'
-  | 'bottom'
-  | 'end'
-  | 'start'
-  | 'center';
+export type OverlayAlignment = 'top' | 'bottom' | 'start' | 'end' | 'center';
+export type OverlayPhysicalPlacement = 'top' | 'bottom' | 'left' | 'right';
+export type OverlayPlacement = OverlayPhysicalPlacement | 'start' | 'end';
 
 // Modifiers
 
@@ -164,5 +164,5 @@ export type UseActionableProps = {
 };
 
 export type UseFormFieldProps = {
-  onKeyPress?: (e: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
+  onKeyPress?: (e: TextInputKeyPressEvent) => void;
 };

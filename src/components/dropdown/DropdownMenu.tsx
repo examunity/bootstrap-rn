@@ -1,26 +1,23 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { Platform } from 'react-native';
-import { OverlayContainer } from '@react-native-aria/overlays';
+import { Portal } from '@rn-primitives/portal';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import Overlay from '../helpers/Overlay';
 import BackdropHandler from '../helpers/BackdropHandler';
 import View, { ViewProps, ViewRef } from '../View';
 import useMedia from '../../hooks/useMedia';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
-import { normalizeNumber } from '../../style/math';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
-import DropdownContext, { DropdownDirection } from './DropdownContext';
-import type { MediaHandler, Placement } from '../../types';
+import DropdownContext from './DropdownContext';
+import type { MediaHandler } from '../../types';
 
 type AlignmentBreakpoints = boolean | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 export interface DropdownMenuProps extends ViewProps {
   start?: AlignmentBreakpoints;
-  right?: AlignmentBreakpoints;
   end?: AlignmentBreakpoints;
 }
 
@@ -97,7 +94,7 @@ const styles = StyleSheet.create({
   `,
 });
 
-const getAlignment = (
+const getAlign = (
   media: MediaHandler,
   start: AlignmentBreakpoints,
   end: AlignmentBreakpoints,
@@ -120,57 +117,40 @@ const getAlignment = (
   return startIndex > endIndex ? 'start' : 'end';
 };
 
-const transformPlacement = (
-  media: MediaHandler,
-  direction: DropdownDirection,
-  start: AlignmentBreakpoints,
-  end: AlignmentBreakpoints,
-): Placement => {
-  if (direction === 'up') {
-    return `top ${getAlignment(media, start, end)}`;
-  }
-
-  if (direction === 'down') {
-    return `bottom ${getAlignment(media, start, end)}`;
-  }
-
-  return `${direction} top`;
-};
-
 const DropdownMenu = React.forwardRef<ViewRef, DropdownMenuProps>(
   (props, ref) => {
     const {
       children,
       start = true,
-      right,
       end = false,
       style,
       textStyle,
       ...elementProps
     } = props;
 
-    if (right !== undefined) {
-      // eslint-disable-next-line no-console
-      console.warn('Prop "right" is deprecated, please use "end" instead.');
-    }
-
     const navbar = useContext(NavbarContext);
     const media = useMedia();
-    const dialogRef = useRef(null);
 
     const dropdown = useForcedContext(DropdownContext);
 
     const {
       identifier,
-      toggleRef,
       visible,
       setVisible,
+      setAlign,
       direction,
       display,
-      autoClose,
+      content,
     } = dropdown;
 
-    if (!visible) {
+    // Workaround for setting start / end on DropdownMenu and not on Dropdown.
+    const align = getAlign(media, start, end);
+
+    useLayoutEffect(() => {
+      setAlign(align);
+    }, [align]);
+
+    if (!visible || !align) {
       return null;
     }
 
@@ -216,17 +196,14 @@ const DropdownMenu = React.forwardRef<ViewRef, DropdownMenuProps>(
         <>
           {!isCollapsedNavbar && (
             <BackdropHandler
-              toggleRef={toggleRef}
-              dialogRef={dialogRef}
               onClose={() => {
                 setVisible(false);
               }}
-              autoClose={autoClose}
             />
           )}
           <View
             {...elementProps}
-            ref={concatRefs(dialogRef, ref)}
+            ref={concatRefs(content.ref, ref)}
             aria-labelledby={identifier}
             style={[classes, style]}
             textStyle={[textClasses, textStyle]}
@@ -238,43 +215,25 @@ const DropdownMenu = React.forwardRef<ViewRef, DropdownMenuProps>(
     }
 
     return (
-      <OverlayContainer>
-        <Overlay
-          placement={transformPlacement(media, direction, start, end)}
-          targetRef={toggleRef}
-          offset={normalizeNumber(StyleSheet.value('dropdown-spacer'))}
-          visible={visible}
+      <Portal name={identifier}>
+        <BackdropHandler
+          onClose={() => {
+            setVisible(false);
+          }}
+        />
+        <View
+          {...elementProps}
+          {...content.getProps(elementProps)}
+          ref={concatRefs(ref, content.ref)}
+          aria-labelledby={identifier}
+          style={[classes, content.style, style]}
+          textStyle={[textClasses, textStyle]}
         >
-          {(overlay, overlayRef) => (
-            <>
-              <BackdropHandler
-                toggleRef={toggleRef}
-                dialogRef={overlayRef}
-                onClose={() => {
-                  setVisible(false);
-                }}
-                autoClose={autoClose}
-              />
-              <View
-                {...elementProps}
-                ref={concatRefs(overlayRef, ref)}
-                aria-labelledby={identifier}
-                style={[
-                  classes,
-                  overlay.overlayProps.style,
-                  { maxHeight: 'auto', opacity: overlay.rendered ? 1 : 0 },
-                  style,
-                ]}
-                textStyle={[textClasses, textStyle]}
-              >
-                <DropdownContext.Provider value={dropdown}>
-                  {children}
-                </DropdownContext.Provider>
-              </View>
-            </>
-          )}
-        </Overlay>
-      </OverlayContainer>
+          <DropdownContext.Provider value={dropdown}>
+            {children}
+          </DropdownContext.Provider>
+        </View>
+      </Portal>
     );
   },
 );

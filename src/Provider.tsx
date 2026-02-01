@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { View as BaseView } from 'react-native';
-import { OverlayProvider } from '@react-native-aria/overlays';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { PortalHost } from '@rn-primitives/portal';
 import useViewport from './hooks/useViewport';
 import useScrollbarEffects from './hooks/useScrollbarEffects';
 import Context, { Modifiers } from './Context';
@@ -47,18 +48,16 @@ function Provider({
           },
         };
       },
-      generateKey(prefix: string) {
-        counter.current += 1;
-
-        return `ui-${prefix}-${counter.current}`;
-      },
     }),
     [utilities, modifiers, scrollbars, fixed, viewport, fixed, counter],
   );
 
   return (
     <Context.Provider value={context}>
-      <OverlayProvider>{children}</OverlayProvider>
+      <SafeAreaProvider>
+        {children}
+        <PortalHost />
+      </SafeAreaProvider>
     </Context.Provider>
   );
 }

@@ -1,5 +1,8 @@
 import { createContext } from 'react';
+import { type StyleProp, type ViewStyle } from 'react-native';
+import type { PressableRef } from '../Pressable';
 import type { ViewRef } from '../View';
+import { OverlayAlignment } from '../../types';
 
 export type DropdownDirection = 'up' | 'down' | 'start' | 'end';
 
@@ -7,11 +10,19 @@ export interface DropdownContextProps {
   identifier: string;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  toggleRef: React.RefObject<ViewRef | null>;
+  align: OverlayAlignment | null;
+  setAlign: React.Dispatch<React.SetStateAction<OverlayAlignment | null>>;
   direction: DropdownDirection;
-  center: boolean;
   display: string;
-  autoClose: string | boolean;
+  trigger: {
+    ref: React.RefObject<PressableRef | null>;
+    getProps: (props: Record<string, unknown>) => Record<string, unknown>;
+  };
+  content: {
+    ref: React.RefObject<ViewRef | null>;
+    getProps: (props: Record<string, unknown>) => Record<string, unknown>;
+    style: StyleProp<ViewStyle>;
+  };
 }
 
 const DropdownContext = createContext<DropdownContextProps | null>(null);

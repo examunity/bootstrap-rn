@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import useIdentifier from '../../hooks/useIdentifier';
+import { useId, useMemo } from 'react';
 import useControlledState from '../../hooks/useControlledState';
 
 export default function useCollapse(
@@ -7,7 +6,7 @@ export default function useCollapse(
   controlledVisible?: boolean,
   onToggle?: () => void,
 ) {
-  const identifier = useIdentifier('collapse');
+  const identifier = useId();
 
   const [visible, setVisible] = useControlledState(
     defaultVisible,

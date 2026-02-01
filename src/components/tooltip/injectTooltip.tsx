@@ -1,21 +1,24 @@
 import React from 'react';
-import { OverlayContainer } from '@react-native-aria/overlays';
-import Overlay from '../helpers/Overlay';
+import { Portal } from '@rn-primitives/portal';
 import BackdropHandler from '../helpers/BackdropHandler';
-import useTrigger, { TriggerProps } from '../../hooks/useTrigger';
+import useOverlay from '../../hooks/useOverlay';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Tooltip from './Tooltip';
 import type { ViewRef } from '../View';
-import type { Trigger, Axis } from '../../types';
+import type {
+  OverlayTrigger,
+  OverlayPlacement,
+  OverlayProps,
+} from '../../types';
+import { concatRefs, optional } from '../../utils';
 
-export interface InjectTooltipProps {
+export interface InjectTooltipProps extends OverlayProps {
   tooltip: {
     title: React.ReactNode;
-    autoClose?: boolean | 'inside' | 'outside';
-    trigger?: Trigger;
-    placement?: Axis;
-  } & TriggerProps;
+    trigger?: OverlayTrigger;
+    placement?: OverlayPlacement;
+  };
 }
 
 export default function injectTooltip<Props>(
@@ -26,61 +29,67 @@ export default function injectTooltip<Props>(
       const {
         tooltip: {
           title,
-          autoClose = 'outside',
           trigger = 'hover focus',
           placement = 'top',
           ...tooltipProps
         },
+        defaultVisible = false,
+        visible: controlledVisible,
+        onToggle = () => {},
         ...elementProps
       } = props;
 
-      const { visible, setVisible, targetProps, targetRef, templateProps } =
-        useTrigger(trigger, tooltipProps, elementProps, ref);
-
       const offset = normalizeNumber(StyleSheet.value('tooltip-arrow-height'));
+
+      const overlay = useOverlay({
+        defaultVisible,
+        controlledVisible,
+        onToggle,
+        offset,
+        align: 'center',
+        placement,
+        trigger,
+      });
+
+      if ('maxWidth' in overlay.content.style) {
+        // @ts-expect-error We remove maxWidth, because maxWidth is set as style on Tooltip component.
+        delete overlay.content.style.maxWidth;
+      }
 
       return (
         <>
-          <Target {...(elementProps as Props)} {...targetProps} />
-          {visible && (
-            <OverlayContainer>
-              <Overlay
-                placement={placement}
-                targetRef={targetRef}
-                arrowOffset={offset}
-                visible={visible}
+          <Target
+            {...(elementProps as Props)}
+            {...overlay.trigger.getProps(elementProps)}
+            ref={concatRefs(ref, overlay.trigger.ref)}
+            {...optional(overlay.visible, {
+              'aria-describedby': overlay.identifier,
+            })}
+          />
+          {overlay.visible && (
+            <Portal name={overlay.identifier}>
+              <BackdropHandler
+                onClose={() => {
+                  overlay.setVisible(false);
+                }}
+              />
+              <Tooltip
+                {...tooltipProps}
+                {...overlay.content.getProps(tooltipProps)}
+                ref={overlay.content.ref}
+                id={overlay.identifier}
+                placement={overlay.placement}
+                style={overlay.content.style}
+                floating
               >
-                {(overlay, overlayRef) => (
-                  <>
-                    <BackdropHandler
-                      toggleRef={targetRef}
-                      dialogRef={overlayRef}
-                      onClose={() => {
-                        setVisible(false);
-                      }}
-                      autoClose={autoClose}
-                    />
-                    <Tooltip
-                      {...templateProps}
-                      ref={overlayRef}
-                      placement={overlay.placement}
-                      popper={overlay.rendered}
-                      style={[
-                        overlay.overlayProps.style,
-                        {
-                          maxHeight: 'auto',
-                          opacity: overlay.rendered ? 1 : 0,
-                        },
-                      ]}
-                      arrowStyle={overlay.arrowProps.style}
-                    >
-                      <Tooltip.Arrow />
-                      <Tooltip.Inner>{title}</Tooltip.Inner>
-                    </Tooltip>
-                  </>
-                )}
-              </Overlay>
-            </OverlayContainer>
+                <Tooltip.Arrow
+                  {...overlay.arrow.getProps({})}
+                  ref={overlay.arrow.ref}
+                  style={overlay.arrow.style}
+                />
+                <Tooltip.Inner>{title}</Tooltip.Inner>
+              </Tooltip>
+            </Portal>
           )}
         </>
       );

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {
   TextInput as BaseTextInput,
   TextInputProps as BaseTextInputProps,
-  TextInputFocusEventData,
-  NativeSyntheticEvent,
+  FocusEvent,
+  BlurEvent,
 } from 'react-native';
 import useMedia from '../hooks/useMedia';
 import useStyle from '../hooks/useStyle';
@@ -12,8 +12,8 @@ import type { ExtendedTextStyle, StyleProp, StyleName } from '../types';
 export type TextInputRef = BaseTextInput;
 
 export interface TextInputProps extends Omit<BaseTextInputProps, 'style'> {
-  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onFocus?: (e: FocusEvent) => void;
+  onBlur?: (e: BlurEvent) => void;
   autoFocus?: boolean;
   style?: StyleProp<ExtendedTextStyle>;
   styleName?: StyleName;

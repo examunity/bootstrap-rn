@@ -1,7 +1,9 @@
 import React from 'react';
 import { I18nManager, StyleSheet, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import type { BaseStyle, PlacementAxis } from '../types';
+import type { BaseStyle } from '../types';
+
+type Position = 'center' | 'left' | 'right' | 'top' | 'bottom';
 
 type BackgroundSize = 'cover' | 'contain' | { width: number; height: number };
 
@@ -94,7 +96,7 @@ const transforms = {
       height,
     };
   },
-  backgroundPosition(value: PlacementAxis) {
+  backgroundPosition(value: Position) {
     if (value === 'center') {
       return {
         alignItems: 'center',
@@ -123,7 +125,7 @@ const transforms = {
     return null;
   },
   backgroundPositionX(
-    value: PlacementAxis | { position: PlacementAxis; offset: number },
+    value: Position | { position: Position; offset: number },
   ) {
     const { position = 'left', offset } =
       typeof value === 'object'
@@ -139,7 +141,7 @@ const transforms = {
     return horizontalPosition(offset);
   },
   backgroundPositionY(
-    value: PlacementAxis | { position: PlacementAxis; offset: number },
+    value: Position | { position: Position; offset: number },
   ) {
     const { position = 'top', offset } =
       typeof value === 'object'

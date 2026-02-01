@@ -1,14 +1,9 @@
 import React from 'react';
-import {
-  ExtendedViewStyle,
-  StyleProp,
-  TransformedPlacementAxis,
-} from '../../types';
+import type { OverlayPlacement } from '../../types';
 
 type TooltipContextType = {
-  placement: TransformedPlacementAxis;
-  popper?: boolean;
-  arrowStyle?: StyleProp<ExtendedViewStyle>;
+  placement: OverlayPlacement;
+  floating?: boolean;
 };
 
 const TooltipContext = React.createContext<TooltipContextType | null>(null);

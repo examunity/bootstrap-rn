@@ -5,6 +5,7 @@ import { getStyles } from '../../utils';
 import css from '../../style/css';
 import useForcedContext from '../../hooks/useForcedContext';
 import TooltipContext from './TooltipContext';
+import type { OverlayPlacement } from '../../types';
 
 export interface TooltipArrowProps extends ViewProps {}
 
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     border-style: solid;
   `,
   '.bs-tooltip-top .tooltip-arrow': css`
-    bottom: 0;
+    bottom: -1 * $tooltip-arrow-height;
   `,
   '.bs-tooltip-top .tooltip-arrow::before': css`
     top: -1px;
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-tooltip-end .tooltip-arrow': css`
-    left: 0;
+    left: -1 * $tooltip-arrow-height;
     width: $tooltip-arrow-height;
     height: $tooltip-arrow-width;
   `,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     border-bottom-color: transparent; // added for bootstrap-rn
   `,
   '.bs-tooltip-bottom .tooltip-arrow': css`
-    top: 0;
+    top: -1 * $tooltip-arrow-height;
   `,
   '.bs-tooltip-bottom .tooltip-arrow::before': css`
     bottom: -1px;
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     border-bottom-color: $tooltip-arrow-color;
   `,
   '.bs-tooltip-start .tooltip-arrow': css`
-    right: 0;
+    right: -1 * $tooltip-arrow-height;
     width: $tooltip-arrow-height;
     height: $tooltip-arrow-width;
   `,
@@ -90,23 +91,40 @@ const styles = StyleSheet.create({
   `,
 });
 
+const transformPlacement = (placement: OverlayPlacement) => {
+  if (placement === 'left') {
+    return 'start';
+  }
+
+  if (placement === 'right') {
+    return 'end';
+  }
+
+  return placement;
+};
+
 const TooltipArrow = React.forwardRef<ViewRef, TooltipArrowProps>(
   (props, ref) => {
     const { style, ...elementProps } = props;
 
-    const { placement, arrowStyle, popper } = useForcedContext(TooltipContext);
+    const context = useForcedContext(TooltipContext);
+
+    // For some reason the classes are named start/end, but they always define
+    // the overlay on the left/right placement, so it has no effect on RTL.
+    // Hint: RTL is already handled by the useOverlay hook.
+    const placement = transformPlacement(context.placement);
 
     const classes = getStyles(styles, [
       '.tooltip-arrow',
-      popper && `.bs-tooltip-${placement} .tooltip-arrow`,
+      context.floating && `.bs-tooltip-${placement} .tooltip-arrow`,
     ]);
     const beforeClasses = getStyles(styles, [
       '.tooltip-arrow::before',
-      popper && `.bs-tooltip-${placement} .tooltip-arrow::before`,
+      context.floating && `.bs-tooltip-${placement} .tooltip-arrow::before`,
     ]);
 
     return (
-      <View {...elementProps} ref={ref} style={[classes, arrowStyle, style]}>
+      <View {...elementProps} ref={ref} style={[classes, style]}>
         <View style={beforeClasses} />
       </View>
     );

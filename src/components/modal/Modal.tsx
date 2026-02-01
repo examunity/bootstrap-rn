@@ -1,13 +1,12 @@
 import React, { useRef } from 'react';
-import { Modal as BaseModal, Platform } from 'react-native';
-import { OverlayProvider } from '@react-native-aria/overlays';
+import { Portal } from '@rn-primitives/portal';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
 import ScrollView, { ScrollViewRef, ScrollViewProps } from '../ScrollView';
 import View, { ViewRef } from '../View';
 import BackdropHandler from '../helpers/BackdropHandler';
-import SafeAreaView from '../SafeAreaView';
 import useModal from './useModal';
 import ModalContext from './ModalContext';
 import ModalHeader from './ModalHeader';
@@ -42,10 +41,12 @@ const styles = StyleSheet.create({
     position: absolute; // fixed;
     top: 0;
     left: 0;
+    bottom: 0; // added for bootstrap-rn
+    right: 0; // added for bootstrap-rn
     z-index: $zindex-modal;
     // display: none;
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
     // overflow-x: hidden;
     // overflow-y: auto;
     // Prevent Chrome on Windows from adding a focus outline. For details, see
@@ -109,9 +110,11 @@ const styles = StyleSheet.create({
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0; // added for bootstrap-rn
+    right: 0; // added for bootstrap-rn
     z-index: $zindex-modal-backdrop;
-    width: 100%;
-    height: 100%;
+    // width: 100vw;
+    // height: 100vh;
     background-color: $modal-backdrop-bg;
     opacity: $modal-backdrop-opacity;
   `,
@@ -157,6 +160,8 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
 
     const dialogRef = useRef(null);
 
+    const insets = useSafeAreaInsets();
+
     const modal = useModal(visible, scrollable);
 
     const backdropClasses = getStyles(styles, ['.modal-backdrop']);
@@ -182,22 +187,18 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
       justifyContent: 'center' as JustifyContentValue,
     };
 
+    if (!visible) {
+      return null;
+    }
+
     return (
-      <BaseModal
-        transparent
-        // Modal is only shown correctly on older Android versions if we set this.
-        navigationBarTranslucent={
-          Platform.OS === 'android' && Platform.constants.Version < 35
-        }
-        visible={visible}
-        onRequestClose={handleToggle}
-      >
+      <Portal name="modal">
         {backdrop && <View style={backdropClasses} />}
         <FlexView
           {...elementProps}
           // @ts-expect-error Type of ref depends on component.
           ref={ref}
-          style={[classes, scrollable && centeredStyle, style]}
+          style={[classes, insets, scrollable && centeredStyle, style]}
           textStyle={textStyle}
           contentContainerStyle={
             scrollable
@@ -205,29 +206,23 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
               : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
           }
         >
-          <BackdropHandler
-            dialogRef={dialogRef}
-            onClose={handleToggle}
-            backdrop={backdrop}
-          />
-          <SafeAreaView style={scrollable && { flexShrink: 1 }}>
+          <BackdropHandler onClose={handleToggle} backdrop={backdrop} />
+          <View
+            ref={dialogRef}
+            style={[dialogClasses, dialogStyle]}
+            textStyle={dialogTextStyle}
+          >
             <View
-              ref={dialogRef}
-              style={[dialogClasses, dialogStyle]}
-              textStyle={dialogTextStyle}
+              style={[contentClasses, contentStyle]}
+              textStyle={[contentTextClasses, contentTextStyle]}
             >
-              <View
-                style={[contentClasses, contentStyle]}
-                textStyle={[contentTextClasses, contentTextStyle]}
-              >
-                <ModalContext.Provider value={modal}>
-                  <OverlayProvider>{children}</OverlayProvider>
-                </ModalContext.Provider>
-              </View>
+              <ModalContext.Provider value={modal}>
+                {children}
+              </ModalContext.Provider>
             </View>
-          </SafeAreaView>
+          </View>
         </FlexView>
-      </BaseModal>
+      </Portal>
     );
   },
 );

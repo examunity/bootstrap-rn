@@ -1,22 +1,25 @@
 import React from 'react';
-import { OverlayContainer } from '@react-native-aria/overlays';
-import Overlay from '../helpers/Overlay';
+import { Portal } from '@rn-primitives/portal';
 import BackdropHandler from '../helpers/BackdropHandler';
-import useTrigger, { TriggerProps } from '../../hooks/useTrigger';
+import useOverlay from '../../hooks/useOverlay';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
 import Popover from './Popover';
 import type { ViewRef } from '../View';
-import type { Trigger, Axis } from '../../types';
+import type {
+  OverlayTrigger,
+  OverlayPlacement,
+  OverlayProps,
+} from '../../types';
+import { concatRefs, optional } from '../../utils';
 
-export interface InjectPopoverProps {
+export interface InjectPopoverProps extends OverlayProps {
   popover: {
     title?: React.ReactNode;
     content: React.ReactNode;
-    autoClose?: boolean | 'inside' | 'outside';
-    trigger?: Trigger;
-    placement?: Axis;
-  } & TriggerProps;
+    trigger?: OverlayTrigger;
+    placement?: OverlayPlacement;
+  };
 }
 
 export default function injectPopover<Props>(
@@ -28,63 +31,68 @@ export default function injectPopover<Props>(
         popover: {
           title,
           content,
-          autoClose = 'outside',
           trigger = 'press',
           placement = 'right',
           ...popoverProps
         },
+        defaultVisible = false,
+        visible: controlledVisible,
+        onToggle = () => {},
         ...elementProps
       } = props;
 
-      const { visible, setVisible, targetProps, targetRef, templateProps } =
-        useTrigger(trigger, popoverProps, elementProps, ref);
-
       const offset = normalizeNumber(StyleSheet.value('popover-arrow-height'));
+
+      const overlay = useOverlay({
+        defaultVisible,
+        controlledVisible,
+        onToggle,
+        offset,
+        align: 'center',
+        placement,
+        trigger,
+      });
+
+      if ('maxWidth' in overlay.content.style) {
+        // @ts-expect-error We remove maxWidth, because maxWidth is set as style on Popover component.
+        delete overlay.content.style.maxWidth;
+      }
 
       return (
         <>
-          <Target {...(elementProps as Props)} {...targetProps} />
-          {visible && (
-            <OverlayContainer>
-              <Overlay
-                placement={placement}
-                offset={offset}
-                arrowOffset={offset}
-                targetRef={targetRef}
-                visible={visible}
+          <Target
+            {...(elementProps as Props)}
+            {...overlay.trigger.getProps(elementProps)}
+            ref={concatRefs(ref, overlay.trigger.ref)}
+            {...optional(overlay.visible, {
+              'aria-describedby': overlay.identifier,
+            })}
+          />
+          {overlay.visible && (
+            <Portal name={overlay.identifier}>
+              <BackdropHandler
+                onClose={() => {
+                  overlay.setVisible(false);
+                }}
+              />
+              <Popover
+                {...popoverProps}
+                {...overlay.content.getProps(popoverProps)}
+                ref={overlay.content.ref}
+                id={overlay.identifier}
+                placement={overlay.placement}
+                style={overlay.content.style}
+                floating
               >
-                {(overlay, overlayRef) => (
-                  <>
-                    <BackdropHandler
-                      toggleRef={targetRef}
-                      dialogRef={overlayRef}
-                      onClose={() => {
-                        setVisible(false);
-                      }}
-                      autoClose={autoClose}
-                    />
-                    <Popover
-                      {...templateProps}
-                      ref={overlayRef}
-                      placement={overlay.placement}
-                      popper={overlay.rendered}
-                      style={[
-                        overlay.overlayProps.style,
-                        {
-                          maxHeight: 'auto',
-                          opacity: overlay.rendered ? 1 : 0,
-                        },
-                      ]}
-                      arrowStyle={overlay.arrowProps.style}
-                    >
-                      <Popover.Arrow />
-                      {title && <Popover.Header>{title}</Popover.Header>}
-                      <Popover.Body>{content}</Popover.Body>
-                    </Popover>
-                  </>
-                )}
-              </Overlay>
-            </OverlayContainer>
+                <Popover.Arrow
+                  {...overlay.arrow.getProps({})}
+                  ref={overlay.arrow.ref}
+                  style={overlay.arrow.style}
+                />
+                {title && <Popover.Header>{title}</Popover.Header>}
+                <Popover.Body>{content}</Popover.Body>
+              </Popover>
+            </Portal>
           )}
         </>
       );

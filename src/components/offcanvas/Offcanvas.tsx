@@ -1,10 +1,9 @@
 import React, { useContext, useRef } from 'react';
-import { Modal as BaseModal, Platform } from 'react-native';
-import { OverlayProvider } from '@react-native-aria/overlays';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Portal } from '@rn-primitives/portal';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import BackdropHandler from '../helpers/BackdropHandler';
-import SafeAreaView from '../SafeAreaView';
 import View, { ViewProps, ViewRef } from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
@@ -27,7 +26,7 @@ export interface OffcanvasProps extends ViewProps {
   placement?: 'top' | 'bottom' | 'start' | 'end';
   backdrop?: boolean | 'static';
   scroll?: boolean;
-  onToggle?: () => void;
+  onToggle: () => void;
   dialogStyle?: StyleProp<ExtendedViewStyle>;
   dialogTextStyle?: StyleProp<ExtendedTextStyle>;
 }
@@ -49,11 +48,11 @@ const styles = StyleSheet.create({
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0; // added for bootstrap-rn
+    right: 0; // added for bootstrap-rn
     z-index: $zindex-offcanvas-backdrop;
-    width: 100%;
-    height: 100%;
-  `,
-  '.offcanvas-backdrop-inset': css`
+    // width: 100vw;
+    // height: 100vh;
     background-color: $offcanvas-backdrop-bg;
     opacity: $offcanvas-backdrop-opacity;
   `,
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     right: 0;
     left: 0;
   `,
-  '.offcanvas-inset': css`
+  '.offcanvas-dialog': css`
     max-width: 100%; // added for bootstrap-rn
     max-height: 100%; // added for bootstrap-rn
     background-color: $offcanvas-bg-color;
@@ -88,21 +87,21 @@ const styles = StyleSheet.create({
     // @include box-shadow($offcanvas-box-shadow);
     // @include transition(transform $offcanvas-transition-duration ease-in-out);
   `,
-  '.offcanvas-inset-start': css`
+  '.offcanvas-dialog-start': css`
     width: $offcanvas-horizontal-width;
     border-right-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
     // transform: translateX(-100%);
   `,
-  '.offcanvas-inset-end': css`
+  '.offcanvas-dialog-end': css`
     width: $offcanvas-horizontal-width;
     border-left-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
     // transform: translateX(100%);
   `,
-  '.offcanvas-inset-top': css`
+  '.offcanvas-dialog-top': css`
     height: $offcanvas-vertical-height;
     max-height: 100%;
     border-bottom-width: $offcanvas-border-width;
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     border-color: $offcanvas-border-color;
     // transform: translateY(-100%);
   `,
-  '.offcanvas-inset-bottom': css`
+  '.offcanvas-dialog-bottom': css`
     height: $offcanvas-vertical-height;
     max-height: 100%;
     width: 100%;
@@ -158,10 +157,11 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
   const navbar = useContext(NavbarContext);
   const offcanvasRef = useRef(null);
 
+  const insets = useSafeAreaInsets();
+
   const offcanvas = useOffcanvas(visible, scroll);
 
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
-  const backdropInsetClasses = getStyles(styles, ['.offcanvas-backdrop-inset']);
   const classes = getStyles(styles, [
     '.offcanvas',
     `.offcanvas-${placement}`,
@@ -172,8 +172,8 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
       } .offcanvas`,
   ]);
   const dialogClasses = getStyles(styles, [
-    '.offcanvas-inset',
-    `.offcanvas-inset-${placement}`,
+    '.offcanvas-dialog',
+    `.offcanvas-dialog-${placement}`,
   ]);
   const textClasses = getStyles(styles, ['.offcanvas-content --text']);
 
@@ -195,31 +195,30 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
     );
   }
 
+  if (!visible) {
+    return null;
+  }
+
   return (
-    <BaseModal
-      transparent
-      // Modal is only shown correctly on older Android versions if we set this.
-      navigationBarTranslucent={
-        Platform.OS === 'android' && Platform.constants.Version < 35
-      }
-      visible={navbar ? navbar.expanded : visible}
-      onRequestClose={handleToggle}
-    >
+    <Portal name="offcanvas">
       {backdrop && (
-        <SafeAreaView style={backdropClasses}>
-          <View style={[{ flexGrow: 1 }, backdropInsetClasses]}>
-            <BackdropHandler
-              dialogRef={offcanvasRef}
-              onClose={handleToggle}
-              backdrop={backdrop}
-            />
-          </View>
-        </SafeAreaView>
+        <View style={[backdropClasses, insets]}>
+          <BackdropHandler onClose={handleToggle} backdrop={backdrop} />
+        </View>
       )}
-      <SafeAreaView
+      <View
         {...elementProps}
         ref={concatRefs(offcanvasRef, ref)}
-        style={[classes, style]}
+        style={[
+          classes,
+          {
+            marginTop: insets.top,
+            marginBottom: insets.bottom,
+            marginRight: insets.right,
+            marginLeft: insets.left,
+          },
+          style,
+        ]}
         textStyle={[textClasses, textStyle]}
       >
         <View
@@ -227,11 +226,11 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
           textStyle={dialogTextStyle}
         >
           <OffcanvasContext.Provider value={offcanvas}>
-            <OverlayProvider>{children}</OverlayProvider>
+            {children}
           </OffcanvasContext.Provider>
         </View>
-      </SafeAreaView>
-    </BaseModal>
+      </View>
+    </Portal>
   );
 });
 

@@ -1,11 +1,4 @@
-import { I18nManager } from 'react-native';
-import type {
-  ExtendedStyle,
-  ThemeVariables,
-  StyleValue,
-  PlacementAxis,
-  TransformedPlacementAxis,
-} from './types';
+import type { ExtendedStyle, ThemeVariables, StyleValue } from './types';
 
 export function each<
   T extends Record<string, string | ((t: ThemeVariables) => StyleValue)>,
@@ -57,7 +50,9 @@ export function getStyles<T extends string>(
     .map((key) => styles[key]);
 }
 
-export function concatRefs<T>(...refs: React.Ref<T>[]): React.Ref<T> {
+export function concatRefs<T>(
+  ...refs: (React.Ref<T> | undefined)[]
+): React.Ref<T> {
   return (element) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {
@@ -76,17 +71,4 @@ export function optional(condition: boolean, value: object) {
 
 export function getElementId(identifier: string, name: string) {
   return `${identifier}${name ? `-${name}` : ''}`;
-}
-
-export function transformPlacement(
-  placement: PlacementAxis,
-): TransformedPlacementAxis {
-  switch (placement) {
-    case 'left':
-      return I18nManager.isRTL ? 'end' : 'start';
-    case 'right':
-      return I18nManager.isRTL ? 'start' : 'end';
-    default:
-      return placement;
-  }
 }

@@ -1,22 +1,15 @@
 import { useState, useMemo } from 'react';
 import type {
-  TextInputFocusEventData,
-  NativeSyntheticEvent,
   MouseEvent,
   GestureResponderEvent,
-  TargetedEvent,
+  FocusEvent,
+  BlurEvent,
 } from 'react-native';
 import { useFocusRing } from '@react-native-aria/focus';
 
 type InteractionProps = {
-  onFocus?:
-    | null
-    | ((event: NativeSyntheticEvent<TargetedEvent>) => void)
-    | undefined;
-  onBlur?:
-    | null
-    | ((event: NativeSyntheticEvent<TargetedEvent>) => void)
-    | undefined;
+  onFocus?: null | ((event: FocusEvent) => void) | undefined;
+  onBlur?: null | ((event: BlurEvent) => void) | undefined;
   onHoverIn?: null | ((event: MouseEvent) => void) | undefined;
   onHoverOut?: null | ((event: MouseEvent) => void) | undefined;
   onPressIn?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -55,11 +48,11 @@ export default function useInteractionState({
         setHovered(false);
         if (onHoverOut) onHoverOut(event);
       },
-      onFocus(event: NativeSyntheticEvent<TextInputFocusEventData>) {
+      onFocus(event: FocusEvent) {
         focusProps.onFocus(event);
         if (onFocus) onFocus(event);
       },
-      onBlur(event: NativeSyntheticEvent<TextInputFocusEventData>) {
+      onBlur(event: BlurEvent) {
         focusProps.onBlur(event);
         if (onBlur) onBlur(event);
       },

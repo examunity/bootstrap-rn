@@ -6,7 +6,7 @@ import { getStyles } from '../../utils';
 import css from '../../style/css';
 import useForcedContext from '../../hooks/useForcedContext';
 import PopoverContext from './PopoverContext';
-import type { ThemeVariables } from '../../types';
+import type { OverlayPlacement, ThemeVariables } from '../../types';
 
 export interface PopoverArrowProps extends ViewProps {}
 
@@ -159,27 +159,43 @@ const styles = StyleSheet.create({
   `,
 });
 
+const transformPlacement = (placement: OverlayPlacement) => {
+  if (placement === 'left') {
+    return 'start';
+  }
+
+  if (placement === 'right') {
+    return 'end';
+  }
+
+  return placement;
+};
+
 const PopoverArrow = React.forwardRef<ViewRef, PopoverArrowProps>(
   (props, ref) => {
     const { style, ...elementProps } = props;
 
-    const { placement, arrowStyle, popper } = useForcedContext(PopoverContext);
+    const context = useForcedContext(PopoverContext);
+
+    // For some reason the classes are named start/end, but they always define
+    // the overlay on the left/right placement, so it has no effect on RTL.
+    const placement = transformPlacement(context.placement);
 
     const classes = getStyles(styles, [
       '.popover-arrow',
-      popper && `.bs-popover-${placement} .popover-arrow`,
+      context.floating && `.bs-popover-${placement} .popover-arrow`,
     ]);
     const beforeClasses = getStyles(styles, [
       '.popover-arrow::before',
-      popper && `.bs-popover-${placement} .popover-arrow::before`,
+      context.floating && `.bs-popover-${placement} .popover-arrow::before`,
     ]);
     const afterClasses = getStyles(styles, [
       '.popover-arrow::after',
-      popper && `.bs-popover-${placement} .popover-arrow::after`,
+      context.floating && `.bs-popover-${placement} .popover-arrow::after`,
     ]);
 
     return (
-      <View {...elementProps} ref={ref} style={[classes, arrowStyle, style]}>
+      <View {...elementProps} ref={ref} style={[classes, style]}>
         <View style={beforeClasses} />
         <View style={afterClasses} />
       </View>

@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import {
   TextStyle,
-  TextInputFocusEventData,
-  NativeSyntheticEvent,
-  TargetedEvent,
+  FocusEvent,
+  BlurEvent,
   StyleSheet as StyleUtils,
 } from 'react-native';
 import StyleSheet from '../../../style/StyleSheet';
@@ -141,12 +140,12 @@ const PickerNative = React.forwardRef<PressableRef, PickerNativeProps>(
       setVisible(false);
     };
 
-    const handleFocus = (event: NativeSyntheticEvent<TargetedEvent>) => {
-      onFocus(event as NativeSyntheticEvent<TextInputFocusEventData>);
+    const handleFocus = (event: FocusEvent) => {
+      onFocus(event);
     };
 
-    const handleBlur = (event: NativeSyntheticEvent<TargetedEvent>) => {
-      onBlur(event as NativeSyntheticEvent<TextInputFocusEventData>);
+    const handleBlur = (event: BlurEvent) => {
+      onBlur(event);
     };
 
     return (
@@ -158,10 +157,10 @@ const PickerNative = React.forwardRef<PressableRef, PickerNativeProps>(
           onPress={() => {
             setVisible(true);
           }}
-          onFocus={(event: NativeSyntheticEvent<TargetedEvent>) => {
+          onFocus={(event: FocusEvent) => {
             handleFocus(event);
           }}
-          onBlur={(event: NativeSyntheticEvent<TargetedEvent>) => {
+          onBlur={(event: BlurEvent) => {
             handleBlur(event);
           }}
           disabled={disabled}

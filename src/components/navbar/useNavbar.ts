@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import useIdentifier from '../../hooks/useIdentifier';
+import { useId, useMemo } from 'react';
 import useControlledState from '../../hooks/useControlledState';
 import type { NavbarExpand, NavbarVariant } from './NavbarContext';
 
@@ -10,7 +9,7 @@ export default function useNavbar(
   onToggle?: () => void,
   expand?: NavbarExpand,
 ) {
-  const identifier = useIdentifier('navbar');
+  const identifier = useId();
 
   const [expanded, setExpanded] = useControlledState(
     defaultExpanded,
