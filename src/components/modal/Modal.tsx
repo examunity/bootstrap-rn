@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
-import { Portal } from '@rn-primitives/portal';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import StyleSheet from '../../style/StyleSheet';
 import { getStyles } from '../../utils';
 import css from '../../style/css';
 import ScrollView, { ScrollViewRef, ScrollViewProps } from '../ScrollView';
 import View, { ViewRef } from '../View';
-import BackdropHandler from '../helpers/BackdropHandler';
+import Dialog from '../helpers/Dialog';
 import useModal from './useModal';
 import ModalContext from './ModalContext';
 import ModalHeader from './ModalHeader';
@@ -21,7 +20,7 @@ export interface ModalProps extends ScrollViewProps {
   backdrop?: boolean | 'static';
   scrollable?: boolean;
   centered?: boolean;
-  onToggle: () => void;
+  onClose: () => void;
   dialogStyle?: StyleProp<ExtendedViewStyle>;
   contentStyle?: StyleProp<ExtendedViewStyle>;
   dialogTextStyle?: StyleProp<ExtendedTextStyle>;
@@ -38,7 +37,10 @@ type JustifyContentValue =
 
 const styles = StyleSheet.create({
   '.modal': css`
-    position: absolute; // fixed;
+    position: absolute;
+    @include platform(web) {
+      position: fixed;
+    }
     top: 0;
     left: 0;
     bottom: 0; // added for bootstrap-rn
@@ -108,6 +110,9 @@ const styles = StyleSheet.create({
   `,
   '.modal-backdrop': css`
     position: absolute;
+    @include platform(web) {
+      position: fixed;
+    }
     top: 0;
     left: 0;
     bottom: 0; // added for bootstrap-rn
@@ -147,7 +152,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
       backdrop = true,
       scrollable = false,
       centered = false,
-      onToggle: handleToggle,
+      onClose: handleClose,
       style,
       contentContainerStyle,
       dialogStyle,
@@ -162,7 +167,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
 
     const insets = useSafeAreaInsets();
 
-    const modal = useModal(visible, scrollable);
+    const modal = useModal(scrollable);
 
     const backdropClasses = getStyles(styles, ['.modal-backdrop']);
     const classes = getStyles(styles, ['.modal']);
@@ -192,12 +197,20 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
     }
 
     return (
-      <Portal name="modal">
-        {backdrop && <View style={backdropClasses} />}
+      <Dialog
+        contentRef={dialogRef}
+        onClose={handleClose}
+        backdrop={backdrop}
+        backdropElement={<View style={backdropClasses} />}
+      >
         <FlexView
           {...elementProps}
           // @ts-expect-error Type of ref depends on component.
           ref={ref}
+          role="dialog"
+          aria-modal
+          aria-labelledby={modal.titleIdentifier}
+          tabIndex={-1}
           style={[classes, insets, scrollable && centeredStyle, style]}
           textStyle={textStyle}
           contentContainerStyle={
@@ -206,7 +219,6 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
               : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
           }
         >
-          <BackdropHandler onClose={handleToggle} backdrop={backdrop} />
           <View
             ref={dialogRef}
             style={[dialogClasses, dialogStyle]}
@@ -222,7 +234,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
             </View>
           </View>
         </FlexView>
-      </Portal>
+      </Dialog>
     );
   },
 );

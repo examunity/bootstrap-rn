@@ -1,9 +1,8 @@
 import React, { useContext, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Portal } from '@rn-primitives/portal';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
-import BackdropHandler from '../helpers/BackdropHandler';
+import Dialog from '../helpers/Dialog';
 import View, { ViewProps, ViewRef } from '../View';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
@@ -26,14 +25,17 @@ export interface OffcanvasProps extends ViewProps {
   placement?: 'top' | 'bottom' | 'start' | 'end';
   backdrop?: boolean | 'static';
   scroll?: boolean;
-  onToggle: () => void;
+  onClose: () => void;
   dialogStyle?: StyleProp<ExtendedViewStyle>;
   dialogTextStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({
   '.offcanvas': css`
-    position: absolute; // fixed;
+    position: absolute;
+    @include platform(web) {
+      position: fixed;
+    }
     // bottom: 0;
     z-index: $zindex-offcanvas;
     display: flex;
@@ -46,6 +48,9 @@ const styles = StyleSheet.create({
   `,
   '.offcanvas-backdrop': css`
     position: absolute;
+    @include platform(web) {
+      position: fixed;
+    }
     top: 0;
     left: 0;
     bottom: 0; // added for bootstrap-rn
@@ -145,7 +150,7 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
     placement = 'top',
     backdrop = true,
     scroll = false,
-    onToggle: handleToggle,
+    onClose: handleClose,
     style,
     dialogStyle,
     textStyle,
@@ -155,11 +160,11 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
 
   const media = useMedia();
   const navbar = useContext(NavbarContext);
-  const offcanvasRef = useRef(null);
+  const offcanvasRef = useRef<ViewRef>(null);
 
   const insets = useSafeAreaInsets();
 
-  const offcanvas = useOffcanvas(visible, scroll);
+  const offcanvas = useOffcanvas();
 
   const backdropClasses = getStyles(styles, ['.offcanvas-backdrop']);
   const classes = getStyles(styles, [
@@ -200,15 +205,20 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
   }
 
   return (
-    <Portal name="offcanvas">
-      {backdrop && (
-        <View style={[backdropClasses, insets]}>
-          <BackdropHandler onClose={handleToggle} backdrop={backdrop} />
-        </View>
-      )}
+    <Dialog
+      contentRef={offcanvasRef}
+      onClose={handleClose}
+      backdrop={backdrop}
+      backdropElement={<View style={[backdropClasses, insets]} />}
+      scroll={scroll}
+    >
       <View
         {...elementProps}
         ref={concatRefs(offcanvasRef, ref)}
+        role="dialog"
+        aria-modal
+        aria-labelledby={offcanvas.titleIdentifier}
+        tabIndex={-1}
         style={[
           classes,
           {
@@ -230,7 +240,7 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
           </OffcanvasContext.Provider>
         </View>
       </View>
-    </Portal>
+    </Dialog>
   );
 });
 

@@ -4,6 +4,8 @@ import css from '../../style/css';
 import Heading from '../Heading';
 import { getStyles } from '../../utils';
 import type { TextProps, TextRef } from '../Text';
+import useForcedContext from '../../hooks/useForcedContext';
+import ModalContext from './ModalContext';
 
 export interface ModalTitleProps extends TextProps {}
 
@@ -17,10 +19,18 @@ const styles = StyleSheet.create({
 const ModalTitle = React.forwardRef<TextRef, ModalTitleProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
+  const { titleIdentifier } = useForcedContext(ModalContext);
+
   const classes = getStyles(styles, ['.modal-title']);
 
   return (
-    <Heading size={5} {...elementProps} ref={ref} style={[classes, style]}>
+    <Heading
+      id={titleIdentifier}
+      size={5}
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+    >
       {children}
     </Heading>
   );

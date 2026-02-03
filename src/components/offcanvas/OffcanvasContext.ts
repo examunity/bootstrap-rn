@@ -1,6 +1,8 @@
 import React from 'react';
 
-export type OffcanvasContextProps = Record<string, never>;
+export interface OffcanvasContextProps {
+  titleIdentifier: string;
+}
 
 const OffcanvasContext = React.createContext<OffcanvasContextProps | null>(
   null,

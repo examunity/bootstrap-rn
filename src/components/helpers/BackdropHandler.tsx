@@ -1,21 +1,8 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import StyleSheet from '../../style/StyleSheet';
-import css from '../../style/css';
+import { StyleSheet } from 'react-native';
 import Pressable from '../Pressable';
 
 type BackdropType = boolean | 'static';
-
-const styles = StyleSheet.create({
-  handler: css`
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    flex-grow: 1;
-  `,
-});
 
 interface BackdropHandlerProps {
   onClose?: () => void;
@@ -25,13 +12,13 @@ interface BackdropHandlerProps {
 function BackdropHandler(props: BackdropHandlerProps) {
   const { onClose: handleClose, backdrop = true } = props;
 
-  if (Platform.OS === 'web' || backdrop !== true) {
+  if (backdrop !== true) {
     return null;
   }
 
   return (
     <Pressable
-      style={styles.handler}
+      style={[StyleSheet.absoluteFill, { flexGrow: 1 }]}
       onPress={() => {
         handleClose?.();
       }}
@@ -40,7 +27,5 @@ function BackdropHandler(props: BackdropHandlerProps) {
     />
   );
 }
-
-BackdropHandler.displayName = 'BackdropHandler';
 
 export default BackdropHandler;

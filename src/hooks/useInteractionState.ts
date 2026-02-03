@@ -5,7 +5,7 @@ import type {
   FocusEvent,
   BlurEvent,
 } from 'react-native';
-import { useFocusRing } from '@react-native-aria/focus';
+import useFocusRing from './useFocusRing';
 
 type InteractionProps = {
   onFocus?: null | ((event: FocusEvent) => void) | undefined;
@@ -29,8 +29,7 @@ export default function useInteractionState({
   const [active, setActive] = useState(false);
   const [hover, setHovered] = useState(false);
 
-  // @ts-expect-error definition is on @react-aria/focus but not on @react-native-aria/focus
-  const focusRingProps = useFocusRing({ autoFocus }) as unresolved;
+  const focusRingProps = useFocusRing({ autoFocus });
 
   const {
     isFocused: focus,
@@ -42,27 +41,29 @@ export default function useInteractionState({
     () => ({
       onHoverIn(event: MouseEvent) {
         setHovered(true);
-        if (onHoverIn) onHoverIn(event);
+        onHoverIn?.(event);
       },
       onHoverOut(event: MouseEvent) {
         setHovered(false);
-        if (onHoverOut) onHoverOut(event);
+        onHoverOut?.(event);
       },
       onFocus(event: FocusEvent) {
-        focusProps.onFocus(event);
-        if (onFocus) onFocus(event);
+        // @ts-expect-error We can use the native event for a web prop here.
+        focusProps.onFocus?.(event);
+        onFocus?.(event);
       },
       onBlur(event: BlurEvent) {
-        focusProps.onBlur(event);
-        if (onBlur) onBlur(event);
+        // @ts-expect-error We can use the native event for a web prop here.
+        focusProps.onBlur?.(event);
+        onBlur?.(event);
       },
       onPressIn(event: GestureResponderEvent) {
         setActive(true);
-        if (onPressIn) onPressIn(event);
+        onPressIn?.(event);
       },
       onPressOut(event: GestureResponderEvent) {
         setActive(false);
-        if (onPressOut) onPressOut(event);
+        onPressOut?.(event);
       },
     }),
     [onFocus, onBlur, onHoverIn, onHoverOut, onPressIn, onPressOut, focusProps],

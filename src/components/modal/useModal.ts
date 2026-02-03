@@ -1,23 +1,11 @@
-import { useContext, useEffect, useMemo } from 'react';
-import Context from '../../Context';
+import { useId, useMemo } from 'react';
 
-export default function useModal(visible: boolean, scrollable: boolean) {
-  const context = useContext(Context);
-
-  useEffect(() => {
-    if (!visible || !context) {
-      return undefined;
-    }
-
-    context.scrollbars.hide();
-
-    return () => {
-      context.scrollbars.show();
-    };
-  }, [visible, context]);
+export default function useModal(scrollable: boolean) {
+  const titleIdentifier = useId();
 
   return useMemo(
     () => ({
+      titleIdentifier,
       scrollable,
     }),
     [scrollable],

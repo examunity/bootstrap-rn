@@ -1,9 +1,8 @@
 import React from 'react';
-import { Portal } from '@rn-primitives/portal';
-import BackdropHandler from '../helpers/BackdropHandler';
 import useOverlay from '../../hooks/useOverlay';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
+import Floating from '../helpers/Floating';
 import Tooltip from './Tooltip';
 import type { ViewRef } from '../View';
 import type {
@@ -67,12 +66,12 @@ export default function injectTooltip<Props>(
             })}
           />
           {overlay.visible && (
-            <Portal name={overlay.identifier}>
-              <BackdropHandler
-                onClose={() => {
-                  overlay.setVisible(false);
-                }}
-              />
+            <Floating
+              id={overlay.identifier}
+              onClose={() => {
+                overlay.setVisible(false);
+              }}
+            >
               <Tooltip
                 {...tooltipProps}
                 {...overlay.content.getProps(tooltipProps)}
@@ -89,7 +88,7 @@ export default function injectTooltip<Props>(
                 />
                 <Tooltip.Inner>{title}</Tooltip.Inner>
               </Tooltip>
-            </Portal>
+            </Floating>
           )}
         </>
       );

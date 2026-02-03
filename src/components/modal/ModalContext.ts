@@ -1,6 +1,7 @@
 import React from 'react';
 
 export interface ModalContextProps {
+  titleIdentifier: string;
   scrollable: boolean;
 }
 
