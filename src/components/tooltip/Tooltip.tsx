@@ -17,7 +17,7 @@ export interface TooltipProps extends ViewProps {
 const styles = StyleSheet.create({
   '.tooltip': css`
     position: absolute;
-    z-index: $zindex-tooltip;
+    // z-index: $zindex-tooltip;
     // display: block;
     margin: $tooltip-margin;
     // opacity: 0;

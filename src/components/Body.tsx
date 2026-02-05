@@ -32,7 +32,19 @@ const Body = React.forwardRef<ViewRef, BodyProps>((props, ref) => {
 
   const insets = useSafeAreaInsets();
 
-  const resolveStyle = useStyle([classes, insets, style], styleName);
+  const resolveStyle = useStyle(
+    [
+      classes,
+      {
+        marginTop: insets.top,
+        marginBottom: insets.bottom,
+        marginRight: insets.right,
+        marginLeft: insets.left,
+      },
+      style,
+    ],
+    styleName,
+  );
   const resolveTextStyle = useStyle([textClasses, textStyle]);
 
   const contextValue = useMemo(

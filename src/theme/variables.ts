@@ -975,15 +975,15 @@ const variables = css`
   // Warning: Avoid customizing these values. They're used for a bird's eye view
   // of components dependent on the z-axis and are designed to all work together.
 
-  $zindex-dropdown: 1000;
-  $zindex-sticky: 1020;
-  $zindex-fixed: 1030;
-  $zindex-offcanvas-backdrop: 1040;
-  $zindex-offcanvas: 1045;
-  $zindex-modal-backdrop: 1050;
-  $zindex-modal: 1055;
-  $zindex-popover: 1070;
-  $zindex-tooltip: 1080;
+  // $zindex-dropdown: 1000;
+  // $zindex-sticky: 1020;
+  // $zindex-fixed: 1030;
+  // $zindex-offcanvas-backdrop: 1040;
+  // $zindex-offcanvas: 1045;
+  // $zindex-modal-backdrop: 1050;
+  // $zindex-modal: 1055;
+  // $zindex-popover: 1070;
+  // $zindex-tooltip: 1080;
 
   // Navs
 

@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import StyleSheet from '../../style/StyleSheet';
-import { getStyles } from '../../utils';
+import { concatRefs, getStyles } from '../../utils';
 import css from '../../style/css';
 import ScrollView, { ScrollViewRef, ScrollViewProps } from '../ScrollView';
 import View, { ViewRef } from '../View';
 import Dialog from '../helpers/Dialog';
+import BackdropHandler from '../helpers/BackdropHandler';
 import useModal from './useModal';
 import ModalContext from './ModalContext';
 import ModalHeader from './ModalHeader';
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     left: 0;
     bottom: 0; // added for bootstrap-rn
     right: 0; // added for bootstrap-rn
-    z-index: $zindex-modal;
+    // z-index: $zindex-modal;
     // display: none;
     // width: 100%;
     // height: 100%;
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     left: 0;
     bottom: 0; // added for bootstrap-rn
     right: 0; // added for bootstrap-rn
-    z-index: $zindex-modal-backdrop;
+    // z-index: $zindex-modal-backdrop;
     // width: 100vw;
     // height: 100vh;
     background-color: $modal-backdrop-bg;
@@ -163,7 +164,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
       ...elementProps
     } = props;
 
-    const dialogRef = useRef(null);
+    const modalRef = useRef<ViewRef>(null);
 
     const insets = useSafeAreaInsets();
 
@@ -198,7 +199,8 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
 
     return (
       <Dialog
-        contentRef={dialogRef}
+        dialogRef={modalRef}
+        backgroundRef={modalRef}
         onClose={handleClose}
         backdrop={backdrop}
         backdropElement={<View style={backdropClasses} />}
@@ -206,7 +208,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
         <FlexView
           {...elementProps}
           // @ts-expect-error Type of ref depends on component.
-          ref={ref}
+          ref={concatRefs(ref, modalRef)}
           role="dialog"
           aria-modal
           aria-labelledby={modal.titleIdentifier}
@@ -219,8 +221,8 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
               : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
           }
         >
+          <BackdropHandler onClose={handleClose} backdrop={backdrop} />
           <View
-            ref={dialogRef}
             style={[dialogClasses, dialogStyle]}
             textStyle={dialogTextStyle}
           >

@@ -10,7 +10,7 @@ type FloatingProps = {
 
 function Floating({ children, id, onClose: handleClose }: FloatingProps) {
   return (
-    <Portal name={id} hostName="floating">
+    <Portal name={id}>
       <BackdropHandler onClose={handleClose} />
       {children}
     </Portal>

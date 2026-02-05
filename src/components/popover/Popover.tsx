@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     position: absolute;
     // top: 0;
     // left: 0 #{"/* rtl:ignore */"};
-    z-index: $zindex-popover;
+    // z-index: $zindex-popover;
     // display: block;
     max-width: $popover-max-width;
     background-color: $popover-bg;

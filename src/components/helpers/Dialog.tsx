@@ -2,12 +2,13 @@ import React, { useEffect, useId } from 'react';
 import { BackHandler } from 'react-native';
 import { Portal } from '@rn-primitives/portal';
 import type { ViewRef } from '../View';
-import BackdropHandler from './BackdropHandler';
 
 type DialogProps = {
   children: React.ReactNode;
   // eslint-disable-next-line react/no-unused-prop-types
-  contentRef: React.RefObject<ViewRef | null>;
+  dialogRef: React.RefObject<ViewRef | null>;
+  // eslint-disable-next-line react/no-unused-prop-types
+  backgroundRef: React.RefObject<ViewRef | null>;
   onClose?: () => void;
   backdrop: boolean | 'static';
   backdropElement: React.ReactNode;
@@ -40,7 +41,6 @@ function Dialog({
   return (
     <Portal name={identifier}>
       {backdrop && backdropElement}
-      <BackdropHandler onClose={handleClose} />
       {children}
     </Portal>
   );

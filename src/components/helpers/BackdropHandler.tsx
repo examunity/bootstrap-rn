@@ -2,11 +2,9 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Pressable from '../Pressable';
 
-type BackdropType = boolean | 'static';
-
 interface BackdropHandlerProps {
   onClose?: () => void;
-  backdrop?: BackdropType;
+  backdrop?: boolean | 'static';
 }
 
 function BackdropHandler(props: BackdropHandlerProps) {

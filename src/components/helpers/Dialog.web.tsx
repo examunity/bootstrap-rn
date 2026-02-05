@@ -6,21 +6,18 @@ import Context from '../../Context';
 
 type DialogProps = {
   children: React.ReactNode;
-  contentRef: React.RefObject<ViewRef | null>;
+  dialogRef: React.RefObject<ViewRef | null>;
+  backgroundRef: React.RefObject<ViewRef | null>;
   onClose?: () => void;
   backdrop: boolean | 'static';
   backdropElement: React.ReactNode;
   scroll?: boolean;
 };
 
-const initialState = {
-  waitingForMouseUp: false,
-  ignoreBackdropClick: false,
-};
-
 function Dialog({
   children,
-  contentRef,
+  dialogRef,
+  backgroundRef,
   onClose: handleClose,
   backdrop,
   backdropElement,
@@ -43,79 +40,95 @@ function Dialog({
 
   // Handle ESC key press
   useEffect(() => {
+    const dialog = dialogRef.current as HTMLDivElement | null;
+
+    if (!dialog) {
+      return undefined;
+    }
+
+    // Auto-focus dialog element
+    dialog.focus();
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         handleClose?.();
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    dialog.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      dialog.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [handleClose]);
 
   // Handle outside click
-  const state = useRef(initialState);
+  const state = useRef<{
+    waitingForMouseUp: boolean;
+    handleClick: ((event: MouseEvent) => void) | null;
+  }>({
+    waitingForMouseUp: false,
+    handleClick: null,
+  });
 
   useEffect(() => {
-    const content = contentRef.current as HTMLElement | null;
+    const ref = backgroundRef.current as HTMLDivElement | null;
 
-    const handleContentMouseDown = () => {
-      state.current.waitingForMouseUp = true;
-    };
+    // @ts-expect-error getScrollableNode exists on web only
+    const isScrollView = typeof ref?.getScrollableNode === 'function';
 
-    // Workaround for chrome, because chrome does not fire onMouseDown event
-    // for dialog when clicking on the <select> menu.
-    const handleContentMouseUp = () => {
-      state.current.ignoreBackdropClick = true;
-    };
+    // If the ref refers to a scroll view, we need the first child, otherwise the ref itself.
+    const background = isScrollView ? ref?.firstElementChild : ref;
 
-    const handleDocumentClick = ({ target }: MouseEvent) => {
-      if (backdrop !== true) {
-        return;
+    if (!background) {
+      return undefined;
+    }
+
+    const handleMouseDown = (event: MouseEvent) => {
+      // It might be that a click starts inside the window and ends outside the window, so that
+      // only the on mouse down event is dispatched and we need to remove the click listener
+      // before the next click event is dispatched.
+      if (state.current.waitingForMouseUp && state.current.handleClick) {
+        background.removeEventListener('click', state.current.handleClick);
       }
 
-      const isContentClick =
-        state.current.ignoreBackdropClick ||
-        (content && content.contains(target as Node));
+      // A bad trick to segregate clicks that may start inside dialog but end outside, and avoid
+      // listen to scrollbar clicks.
+      const handleClick = (event2: MouseEvent) => {
+        if (background !== event.target || background !== event2.target) {
+          return;
+        }
 
-      if (isContentClick) {
-        state.current.ignoreBackdropClick = false;
-        return;
-      }
+        if (backdrop === 'static') {
+          // TODO: triggerBackdropTransition()
+          return;
+        }
 
-      handleClose?.();
+        if (backdrop) {
+          handleClose?.();
+        }
+      };
+
+      state.current = {
+        waitingForMouseUp: true,
+        handleClick,
+      };
+
+      background.addEventListener('click', handleClick, { once: true });
     };
 
-    const handleDocumentMouseUp = () => {
-      if (state.current.waitingForMouseUp) {
-        state.current.ignoreBackdropClick = true;
-      }
-
+    const handleMouseUp = () => {
       state.current.waitingForMouseUp = false;
     };
 
-    if (content) {
-      content.addEventListener('mousedown', handleContentMouseDown);
-      content.addEventListener('mouseup', handleContentMouseUp);
-    }
-
-    // See https://github.com/necolas/react-native-web/issues/2115
-    document.addEventListener('click', handleDocumentClick, true);
-    document.addEventListener('mouseup', handleDocumentMouseUp, true);
+    background.addEventListener('mousedown', handleMouseDown);
+    background.addEventListener('mouseup', handleMouseUp);
 
     return () => {
-      if (content) {
-        content.removeEventListener('mousedown', handleContentMouseDown);
-        content.removeEventListener('mouseup', handleContentMouseUp);
-      }
-
-      document.removeEventListener('click', handleDocumentClick, true);
-      document.removeEventListener('mouseup', handleDocumentMouseUp, true);
+      background.removeEventListener('mousedown', handleMouseDown);
+      background.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [backdrop]);
+  }, [backdrop, handleClose]);
 
   return createPortal(
     <>

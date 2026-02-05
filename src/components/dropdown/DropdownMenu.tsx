@@ -26,7 +26,7 @@ const ALIGNMENT_BREAKPOINTS = [true, 'sm', 'md', 'lg', 'xl', 'xxl'];
 const styles = StyleSheet.create({
   '.dropdown-menu': css`
     position: absolute;
-    z-index: $zindex-dropdown;
+    // z-index: $zindex-dropdown;
     // display: none; // none by default, but block on "open" of the menu
     min-width: $dropdown-min-width;
     padding: $dropdown-padding-y $dropdown-padding-x;

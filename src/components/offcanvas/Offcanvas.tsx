@@ -9,16 +9,12 @@ import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
 import useMedia from '../../hooks/useMedia';
 import NavbarContext from '../navbar/NavbarContext';
+import BackdropHandler from '../helpers/BackdropHandler';
 import useOffcanvas from './useOffcanvas';
 import OffcanvasContext from './OffcanvasContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';
 import OffcanvasBody from './OffcanvasBody';
-import type {
-  ExtendedTextStyle,
-  ExtendedViewStyle,
-  StyleProp,
-} from '../../types';
 
 export interface OffcanvasProps extends ViewProps {
   visible?: boolean;
@@ -26,8 +22,6 @@ export interface OffcanvasProps extends ViewProps {
   backdrop?: boolean | 'static';
   scroll?: boolean;
   onClose: () => void;
-  dialogStyle?: StyleProp<ExtendedViewStyle>;
-  dialogTextStyle?: StyleProp<ExtendedTextStyle>;
 }
 
 const styles = StyleSheet.create({
@@ -37,11 +31,18 @@ const styles = StyleSheet.create({
       position: fixed;
     }
     // bottom: 0;
-    z-index: $zindex-offcanvas;
+    // z-index: $zindex-offcanvas;
     display: flex;
     flex-direction: column;
     max-width: 100%;
     // visibility: hidden;
+    background-color: $offcanvas-bg-color;
+    // background-clip: padding-box;
+    @include platform(web) {
+      outline-width: 0; // outline: 0;
+    }
+    // @include box-shadow($offcanvas-box-shadow);
+    // @include transition(transform $offcanvas-transition-duration ease-in-out);
   `,
   '.offcanvas --text': css`
     color: $offcanvas-color;
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     left: 0;
     bottom: 0; // added for bootstrap-rn
     right: 0; // added for bootstrap-rn
-    z-index: $zindex-offcanvas-backdrop;
+    // z-index: $zindex-offcanvas-backdrop;
     // width: 100vw;
     // height: 100vh;
     background-color: $offcanvas-backdrop-bg;
@@ -65,48 +66,26 @@ const styles = StyleSheet.create({
     top: 0;
     bottom: 0; // added for bootstrap-rn
     left: 0;
-  `,
-  '.offcanvas-end': css`
-    top: 0;
-    bottom: 0; // added for bootstrap-rn
-    right: 0;
-  `,
-  '.offcanvas-top': css`
-    top: 0;
-    right: 0;
-    left: 0;
-  `,
-  '.offcanvas-bottom': css`
-    bottom: 0; // added for bootstrap-rn
-    right: 0;
-    left: 0;
-  `,
-  '.offcanvas-dialog': css`
-    max-width: 100%; // added for bootstrap-rn
-    max-height: 100%; // added for bootstrap-rn
-    background-color: $offcanvas-bg-color;
-    // background-clip: padding-box;
-    @include platform(web) {
-      outline-width: 0; // outline: 0;
-    }
-    // @include box-shadow($offcanvas-box-shadow);
-    // @include transition(transform $offcanvas-transition-duration ease-in-out);
-  `,
-  '.offcanvas-dialog-start': css`
     width: $offcanvas-horizontal-width;
     border-right-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
     // transform: translateX(-100%);
   `,
-  '.offcanvas-dialog-end': css`
+  '.offcanvas-end': css`
+    top: 0;
+    bottom: 0; // added for bootstrap-rn
+    right: 0;
     width: $offcanvas-horizontal-width;
     border-left-width: $offcanvas-border-width;
     border-style: solid;
     border-color: $offcanvas-border-color;
     // transform: translateX(100%);
   `,
-  '.offcanvas-dialog-top': css`
+  '.offcanvas-top': css`
+    top: 0;
+    right: 0;
+    left: 0;
     height: $offcanvas-vertical-height;
     max-height: 100%;
     border-bottom-width: $offcanvas-border-width;
@@ -114,7 +93,10 @@ const styles = StyleSheet.create({
     border-color: $offcanvas-border-color;
     // transform: translateY(-100%);
   `,
-  '.offcanvas-dialog-bottom': css`
+  '.offcanvas-bottom': css`
+    bottom: 0; // added for bootstrap-rn
+    right: 0;
+    left: 0;
     height: $offcanvas-vertical-height;
     max-height: 100%;
     width: 100%;
@@ -123,6 +105,14 @@ const styles = StyleSheet.create({
     border-color: $offcanvas-border-color;
     // transform: translateY(100%);
   `,
+  '.offcanvas-dialog': css`
+    max-width: 100%; // added for bootstrap-rn
+    max-height: 100%; // added for bootstrap-rn
+  `,
+  '.offcanvas-dialog-start': css``,
+  '.offcanvas-dialog-end': css``,
+  '.offcanvas-dialog-top': css``,
+  '.offcanvas-dialog-bottom': css``,
   // Navbar styles
   ...each(GRID_BREAKPOINTS, (breakpoint) => ({
     [`.navbar-expand${infix(next(breakpoint))} .offcanvas`]: css`
@@ -152,15 +142,15 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
     scroll = false,
     onClose: handleClose,
     style,
-    dialogStyle,
     textStyle,
-    dialogTextStyle,
     ...elementProps
   } = props;
 
   const media = useMedia();
   const navbar = useContext(NavbarContext);
+
   const offcanvasRef = useRef<ViewRef>(null);
+  const backdropRef = useRef<ViewRef>(null);
 
   const insets = useSafeAreaInsets();
 
@@ -176,10 +166,10 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
         navbar.expand === true ? '' : `-${navbar.expand}`
       } .offcanvas`,
   ]);
-  const dialogClasses = getStyles(styles, [
+  /* const dialogClasses = getStyles(styles, [
     '.offcanvas-dialog',
     `.offcanvas-dialog-${placement}`,
-  ]);
+  ]); */
   const textClasses = getStyles(styles, ['.offcanvas-content --text']);
 
   // Render children without modal for navbar.
@@ -206,15 +196,19 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
 
   return (
     <Dialog
-      contentRef={offcanvasRef}
+      dialogRef={offcanvasRef}
+      backgroundRef={backdropRef}
       onClose={handleClose}
       backdrop={backdrop}
-      backdropElement={<View style={[backdropClasses, insets]} />}
+      backdropElement={
+        <View ref={backdropRef} style={[backdropClasses, insets]} />
+      }
       scroll={scroll}
     >
+      <BackdropHandler onClose={handleClose} backdrop={backdrop} />
       <View
         {...elementProps}
-        ref={concatRefs(offcanvasRef, ref)}
+        ref={concatRefs(ref, offcanvasRef)}
         role="dialog"
         aria-modal
         aria-labelledby={offcanvas.titleIdentifier}
@@ -231,14 +225,9 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
         ]}
         textStyle={[textClasses, textStyle]}
       >
-        <View
-          style={[{ flexGrow: 1 }, dialogClasses, dialogStyle]}
-          textStyle={dialogTextStyle}
-        >
-          <OffcanvasContext.Provider value={offcanvas}>
-            {children}
-          </OffcanvasContext.Provider>
-        </View>
+        <OffcanvasContext.Provider value={offcanvas}>
+          {children}
+        </OffcanvasContext.Provider>
       </View>
     </Dialog>
   );
