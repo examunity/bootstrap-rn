@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     &:focus {
       border-color: $form-check-input-focus-border;
       @include platform(web) {
-        outline-width: 0; // outline: 0;
+        outline-style: none; // outline: 0;
         box-shadow: $form-check-input-focus-box-shadow;
       }
     }

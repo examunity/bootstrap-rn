@@ -26,7 +26,7 @@ export interface OffcanvasProps extends ViewProps {
 
 const styles = StyleSheet.create({
   '.offcanvas': css`
-    position: absolute;
+    position: absolute; // added for bootstrap-rn
     @include platform(web) {
       position: fixed;
     }
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     background-color: $offcanvas-bg-color;
     // background-clip: padding-box;
     @include platform(web) {
-      outline-width: 0; // outline: 0;
+      outline-style: none; // outline: 0;
     }
     // @include box-shadow($offcanvas-box-shadow);
     // @include transition(transform $offcanvas-transition-duration ease-in-out);
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     color: $offcanvas-color;
   `,
   '.offcanvas-backdrop': css`
-    position: absolute;
+    position: absolute; // added for bootstrap-rn
     @include platform(web) {
       position: fixed;
     }

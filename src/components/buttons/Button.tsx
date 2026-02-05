@@ -39,16 +39,18 @@ const styles = StyleSheet.create({
     border-radius: $btn-border-radius;
     // @include transition($btn-transition);
 
-    &:focus-visible {
-      // outline: 0;
-      // box-shadow: $btn-focus-box-shadow;
-    }
-
-    &:active {
-      // @include box-shadow($btn-active-box-shadow);
-
+    @include platform(web) {
       &:focus-visible {
-        // @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+        outline-style: none; // outline: 0;
+        box-shadow: $btn-focus-box-shadow;
+      }
+
+      &:active {
+        // box-shadow: $btn-active-box-shadow;
+
+        &:focus-visible {
+          box-shadow: $btn-focus-box-shadow; // , $btn-active-box-shadow;
+        }
       }
     }
   `,

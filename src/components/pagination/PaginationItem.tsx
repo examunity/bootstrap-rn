@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     &:focus {
       color: $pagination-focus-color;
       background-color: $pagination-focus-bg;
-      //$pagination-focus-box-shadow:
-      //$pagination-focus-outline:
+      // box-shadow: $pagination-focus-box-shadow;
+      // outline: $pagination-focus-outline;
     }
   `,
   '.pagination-item:first-child': css`

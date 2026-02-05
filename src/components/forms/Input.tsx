@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
       background-color: $input-focus-bg;
       border-color: $input-focus-border-color;
       @include platform(web) {
-        outline-width: 0; // outline: 0;
+        outline-style: none; // outline: 0;
         // @if $enable-shadows {
         //   @include box-shadow($input-box-shadow, $input-focus-box-shadow);
         // } @else {

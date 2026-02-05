@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     background-size: $btn-close-width auto;
     background-repeat: no-repeat;
     border-width: 0; // for button elements
-    // @include border-radius();
+    border-radius: $border-radius;
     opacity: $btn-close-opacity;
 
     &:hover {
@@ -40,8 +40,10 @@ const styles = StyleSheet.create({
     }
 
     &:focus {
-      // outline: 0;
-      // box-shadow: $btn-close-focus-shadow;
+      @include platform(web) {
+        outline-style: none; // outline: 0;
+        box-shadow: $btn-close-focus-shadow;
+      }
       opacity: $btn-close-focus-opacity;
     }
   `,

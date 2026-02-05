@@ -38,7 +38,7 @@ type JustifyContentValue =
 
 const styles = StyleSheet.create({
   '.modal': css`
-    position: absolute;
+    position: absolute; // added for bootstrap-rn
     @include platform(web) {
       position: fixed;
     }
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     // Prevent Chrome on Windows from adding a focus outline. For details, see
     // https://github.com/twbs/bootstrap/pull/10951.
     @include platform(web) {
-      outline-width: 0; // outline: 0;
+      outline-style: none; // outline: 0;
     }
     // We deliberately don't use "-webkit-overflow-scrolling: touch;" due to a
     // gnarly iOS Safari bug: https://bugs.webkit.org/show_bug.cgi?id=158342
@@ -100,7 +100,9 @@ const styles = StyleSheet.create({
     border-radius: $modal-content-border-radius;
     // @include box-shadow($modal-content-box-shadow-xs);
     // Remove focus outline from opened modal
-    // outline: 0;
+    @include platform(web) {
+      outline-style: none; // outline: 0;
+    }
 
     @include media-breakpoint-up(sm) {
       // @include box-shadow($modal-content-box-shadow-sm-up);
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
     color: $modal-content-color;
   `,
   '.modal-backdrop': css`
-    position: absolute;
+    position: absolute; // added for bootstrap-rn
     @include platform(web) {
       position: fixed;
     }

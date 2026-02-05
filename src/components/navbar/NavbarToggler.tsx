@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
     &:focus {
       @include platform(web) {
-        outline-width: 0; // outline: 0;
+        outline-style: none; // outline: 0;
       }
       // box-shadow: 0 0 0 $navbar-toggler-focus-width;
     }
