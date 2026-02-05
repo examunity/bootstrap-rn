@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
 const CloseButton = React.forwardRef<PressableRef, CloseButtonProps>(
   (props, ref) => {
     const {
+      hitSlop = 12,
       disabled = false,
       style,
       textStyle,
@@ -125,6 +126,7 @@ const CloseButton = React.forwardRef<PressableRef, CloseButtonProps>(
         {...elementProps}
         {...interactionProps}
         ref={ref}
+        hitSlop={hitSlop}
         disabled={disabled}
         style={background.style}
         textStyle={[textClasses, textStyle]}
