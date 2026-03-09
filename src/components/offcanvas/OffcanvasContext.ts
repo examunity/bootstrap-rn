@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface OffcanvasContextProps {
-  titleIdentifier: string;
+  identifier: string;
 }
 
 const OffcanvasContext = React.createContext<OffcanvasContextProps | null>(

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
 import { FocusScope } from '@react-aria/focus';
+import Portal from './Portal';
 import type { ViewRef } from '../View';
 import Context from '../../Context';
 
 type DialogProps = {
   children: React.ReactNode;
+  id: string;
   dialogRef: React.RefObject<ViewRef | null>;
   backgroundRef: React.RefObject<ViewRef | null>;
   onClose?: () => void;
@@ -16,6 +17,7 @@ type DialogProps = {
 
 function Dialog({
   children,
+  id,
   dialogRef,
   backgroundRef,
   onClose: handleClose,
@@ -130,14 +132,13 @@ function Dialog({
     };
   }, [backdrop, handleClose]);
 
-  return createPortal(
-    <>
+  return (
+    <Portal name={id}>
       {backdrop && backdropElement}
       <FocusScope contain restoreFocus>
         {children}
       </FocusScope>
-    </>,
-    document.body,
+    </Portal>
   );
 }
 

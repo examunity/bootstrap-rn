@@ -1,11 +1,11 @@
 import { useId, useMemo } from 'react';
 
 export default function useModal(scrollable: boolean) {
-  const titleIdentifier = useId();
+  const identifier = useId();
 
   return useMemo(
     () => ({
-      titleIdentifier,
+      identifier,
       scrollable,
     }),
     [scrollable],

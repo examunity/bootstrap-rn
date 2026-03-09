@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
 const ModalTitle = React.forwardRef<TextRef, ModalTitleProps>((props, ref) => {
   const { children, style, ...elementProps } = props;
 
-  const { titleIdentifier } = useForcedContext(ModalContext);
+  const { identifier } = useForcedContext(ModalContext);
 
   const classes = getStyles(styles, ['.modal-title']);
 
   return (
     <Heading
-      id={titleIdentifier}
+      id={`${identifier}-title`}
       size={5}
       {...elementProps}
       ref={ref}

@@ -20,13 +20,13 @@ const OffcanvasTitle = React.forwardRef<TextRef, OffcanvasTitleProps>(
   (props, ref) => {
     const { children, style, ...elementProps } = props;
 
-    const { titleIdentifier } = useForcedContext(OffcanvasContext);
+    const { identifier } = useForcedContext(OffcanvasContext);
 
     const classes = getStyles(styles, ['.offcanvas-title']);
 
     return (
       <Heading
-        id={titleIdentifier}
+        id={`${identifier}-title`}
         size={5}
         {...elementProps}
         ref={ref}

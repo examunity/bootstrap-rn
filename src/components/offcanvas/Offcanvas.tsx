@@ -196,6 +196,7 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
 
   return (
     <Dialog
+      id={offcanvas.identifier}
       dialogRef={offcanvasRef}
       backgroundRef={backdropRef}
       onClose={handleClose}
@@ -211,7 +212,7 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
         ref={concatRefs(ref, offcanvasRef)}
         role="dialog"
         aria-modal
-        aria-labelledby={offcanvas.titleIdentifier}
+        aria-labelledby={`${offcanvas.identifier}-title`}
         tabIndex={-1}
         style={[
           classes,

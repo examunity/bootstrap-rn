@@ -201,6 +201,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
 
     return (
       <Dialog
+        id={modal.identifier}
         dialogRef={modalRef}
         backgroundRef={modalRef}
         onClose={handleClose}
@@ -213,7 +214,7 @@ const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
           ref={concatRefs(ref, modalRef)}
           role="dialog"
           aria-modal
-          aria-labelledby={modal.titleIdentifier}
+          aria-labelledby={`${modal.identifier}-title`}
           tabIndex={-1}
           style={[classes, insets, scrollable && centeredStyle, style]}
           textStyle={textStyle}

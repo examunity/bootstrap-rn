@@ -188,6 +188,11 @@ export type { ProgressBarProps } from './components/progress/ProgressBar';
 export { default as Paragraph } from './components/type/Paragraph';
 export type { ParagraphProps } from './components/type/Paragraph';
 
+export { default as Portal } from './components/helpers/Portal';
+export { default as PortalHost } from './components/helpers/PortalHost';
+export type { PortalProps } from './components/helpers/Portal';
+export type { PortalHostProps } from './components/helpers/PortalHost';
+
 export { default as Pressable } from './components/Pressable';
 export type { PressableProps } from './components/Pressable';
 

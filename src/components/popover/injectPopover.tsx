@@ -2,7 +2,8 @@ import React from 'react';
 import useOverlay from '../../hooks/useOverlay';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
-import Floating from '../helpers/Floating';
+import Portal from '../helpers/Portal';
+import BackdropHandler from '../helpers/BackdropHandler';
 import Popover from './Popover';
 import type { ViewRef } from '../View';
 import type {
@@ -68,12 +69,12 @@ export default function injectPopover<Props>(
             })}
           />
           {overlay.visible && (
-            <Floating
-              id={overlay.identifier}
-              onClose={() => {
-                overlay.setVisible(false);
-              }}
-            >
+            <Portal name={overlay.identifier}>
+              <BackdropHandler
+                onClose={() => {
+                  overlay.setVisible(false);
+                }}
+              />
               <Popover
                 {...popoverProps}
                 {...overlay.content.getProps(popoverProps)}
@@ -91,7 +92,7 @@ export default function injectPopover<Props>(
                 {title && <Popover.Header>{title}</Popover.Header>}
                 <Popover.Body>{content}</Popover.Body>
               </Popover>
-            </Floating>
+            </Portal>
           )}
         </>
       );

@@ -1,7 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import { View as BaseView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import PortalHost from './components/helpers/PortalHost';
 import useViewport from './hooks/useViewport';
 import useScrollbarEffects from './hooks/useScrollbarEffects';
 import Context, { Modifiers } from './Context';
@@ -54,10 +53,7 @@ function Provider({
 
   return (
     <Context.Provider value={context}>
-      <SafeAreaProvider>
-        {children}
-        <PortalHost />
-      </SafeAreaProvider>
+      <SafeAreaProvider>{children}</SafeAreaProvider>
     </Context.Provider>
   );
 }

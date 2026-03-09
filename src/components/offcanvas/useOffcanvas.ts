@@ -1,11 +1,11 @@
 import { useId, useMemo } from 'react';
 
 export default function useOffcanvas() {
-  const titleIdentifier = useId();
+  const identifier = useId();
 
   return useMemo(
     () => ({
-      titleIdentifier,
+      identifier,
     }),
     [],
   );

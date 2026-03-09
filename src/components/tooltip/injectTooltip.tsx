@@ -2,7 +2,8 @@ import React from 'react';
 import useOverlay from '../../hooks/useOverlay';
 import { normalizeNumber } from '../../style/math';
 import StyleSheet from '../../style/StyleSheet';
-import Floating from '../helpers/Floating';
+import Portal from '../helpers/Portal';
+import BackdropHandler from '../helpers/BackdropHandler';
 import Tooltip from './Tooltip';
 import type { ViewRef } from '../View';
 import type {
@@ -66,12 +67,12 @@ export default function injectTooltip<Props>(
             })}
           />
           {overlay.visible && (
-            <Floating
-              id={overlay.identifier}
-              onClose={() => {
-                overlay.setVisible(false);
-              }}
-            >
+            <Portal name={overlay.identifier}>
+              <BackdropHandler
+                onClose={() => {
+                  overlay.setVisible(false);
+                }}
+              />
               <Tooltip
                 {...tooltipProps}
                 {...overlay.content.getProps(tooltipProps)}
@@ -88,7 +89,7 @@ export default function injectTooltip<Props>(
                 />
                 <Tooltip.Inner>{title}</Tooltip.Inner>
               </Tooltip>
-            </Floating>
+            </Portal>
           )}
         </>
       );

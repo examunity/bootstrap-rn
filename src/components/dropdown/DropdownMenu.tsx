@@ -2,13 +2,13 @@ import React, { useContext, useLayoutEffect } from 'react';
 import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
+import Portal from '../helpers/Portal';
 import BackdropHandler from '../helpers/BackdropHandler';
 import View, { ViewProps, ViewRef } from '../View';
 import useMedia from '../../hooks/useMedia';
 import { GRID_BREAKPOINTS } from '../../theme/proxies';
 import { infix, next } from '../../theme/breakpoints';
 import { getStyles, each, concatRefs } from '../../utils';
-import Floating from '../helpers/Floating';
 import useForcedContext from '../../hooks/useForcedContext';
 import NavbarContext from '../navbar/NavbarContext';
 import DropdownContext from './DropdownContext';
@@ -215,12 +215,12 @@ const DropdownMenu = React.forwardRef<ViewRef, DropdownMenuProps>(
     }
 
     return (
-      <Floating
-        id={identifier}
-        onClose={() => {
-          setVisible(false);
-        }}
-      >
+      <Portal name={identifier}>
+        <BackdropHandler
+          onClose={() => {
+            setVisible(false);
+          }}
+        />
         <View
           {...elementProps}
           {...content.getProps(elementProps)}
@@ -233,7 +233,7 @@ const DropdownMenu = React.forwardRef<ViewRef, DropdownMenuProps>(
             {children}
           </DropdownContext.Provider>
         </View>
-      </Floating>
+      </Portal>
     );
   },
 );
