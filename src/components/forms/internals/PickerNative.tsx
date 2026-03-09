@@ -96,7 +96,7 @@ function DefaultMenuComponent({
   );
 
   return (
-    <Offcanvas placement="bottom" visible onToggle={handleClose}>
+    <Offcanvas placement="bottom" visible onClose={handleClose}>
       <Offcanvas.Body contentContainerStyle={styles.menu}>
         <PickerNativeContext.Provider value={contextValue}>
           {children}
