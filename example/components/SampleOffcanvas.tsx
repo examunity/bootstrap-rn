@@ -30,7 +30,7 @@ const exampleCode =
   '<Offcanvas\n' +
   'visible={offcanvasVisible}\n' +
   'placement={offcanvasPlacement}\n' +
-  'onToggle={() => setOffcanvasVisible((value) => !value)}\n' +
+  'onClose={() => setOffcanvasVisible((value) => !value)}\n' +
   '>\n' +
   '<Offcanvas.Header>\n' +
   '  <Offcanvas.Title>Offcanvas Title Text</Offcanvas.Title>\n' +
@@ -107,7 +107,7 @@ function SampleOffcanvas() {
 
         <Row>
           <Col size={6}>
-            <Text>onToggle</Text>
+            <Text>onClose</Text>
           </Col>
           <Col size={6}>
             <Text small>PropTypes.func</Text>
@@ -162,7 +162,7 @@ function SampleOffcanvas() {
             <Offcanvas
               visible={offcanvasVisible}
               placement={offcanvasPlacement}
-              onToggle={() => setOffcanvasVisible((value) => !value)}
+              onClose={() => setOffcanvasVisible((value) => !value)}
             >
               <Offcanvas.Header>
                 <Offcanvas.Title>Offcanvas Title Text</Offcanvas.Title>

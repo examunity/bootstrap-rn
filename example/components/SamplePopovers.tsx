@@ -76,9 +76,15 @@ function SamplePopovers() {
             <PopoverButton
               popover={{
                 title: 'Title',
-                content: <Text>This is the content of Popover</Text>,
-                placement: 'top',
+                content: (
+                  <Text>
+                    This is the content of Popover. This is the content of
+                    Popover
+                  </Text>
+                ),
+                placement: 'right',
               }}
+              styleName="as-start"
             >
               <Text>Open this Popover</Text>
             </PopoverButton>

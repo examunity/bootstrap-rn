@@ -17,7 +17,7 @@ const exampleCode =
   '<>\n' +
   '<Modal\n' +
   'visible={modalVisible}\n' +
-  'onToggle={() => setModalVisible((value) => !value)}\n' +
+  'onClose={() => setModalVisible((value) => !value)}\n' +
   'size="xl"\n' +
   '>\n' +
   '<Modal.Header>\n' +
@@ -92,7 +92,7 @@ function SampleModal() {
 
         <Row>
           <Col size={6}>
-            <Text>onToggle</Text>
+            <Text>onClose</Text>
           </Col>
           <Col size={6}>
             <Text small>PropTypes.func.isRequired</Text>
@@ -115,7 +115,7 @@ function SampleModal() {
 
             <Modal
               visible={modalVisible}
-              onToggle={() => setModalVisible((value) => !value)}
+              onClose={() => setModalVisible((value) => !value)}
             >
               <Modal.Header>
                 <Modal.Title>Modal Title Text</Modal.Title>

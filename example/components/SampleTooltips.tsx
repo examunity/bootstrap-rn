@@ -83,8 +83,9 @@ function SampleTooltips() {
             <TooltipButton
               tooltip={{
                 title: 'This is the content of Tooltip',
-                placement: 'top',
+                placement: 'bottom',
               }}
+              styleName="as-start"
             >
               <Text>Open Tooltip</Text>
             </TooltipButton>

@@ -1,11 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  NativeSyntheticEvent,
-  StatusBar,
-  TextInputKeyPressEventData,
-  SafeAreaView as BaseSafeAreaView,
-  Platform,
-} from 'react-native';
+import { StatusBar, TextInputKeyPressEvent, View } from 'react-native';
 import { FormikContext } from 'formik';
 import {
   makeTheme,
@@ -17,8 +11,8 @@ import {
   UseActionableProps,
   UseFormFieldProps,
   UseTabbableProps,
+  PortalHost,
 } from 'bootstrap-rn';
-import { SafeAreaView as EdgeToEdgeSafeAreaView } from 'react-native-safe-area-context';
 import { Router, Routes, Route } from './libs/react-router';
 import Layout from './components/Layout';
 import Content from './components/Content';
@@ -120,7 +114,7 @@ const modifiers = {
     return {
       ...props,
       ref,
-      onKeyPress(event: NativeSyntheticEvent<TextInputKeyPressEventData>) {
+      onKeyPress(event: TextInputKeyPressEvent) {
         if (props.onKeyPress) props.onKeyPress(event);
 
         // Submit form on enter
@@ -147,19 +141,13 @@ const modifiers = {
   },
 };
 
-// Use react-native-safe-area-context for newer Android versions in order to support edge-to-edge.
-const SafeAreaView =
-  Platform.OS === 'android' && Platform.constants.Version >= 35
-    ? EdgeToEdgeSafeAreaView
-    : BaseSafeAreaView;
-
 function App() {
   return (
     <Router>
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
-        <SafeAreaView style={{ backgroundColor: 'black' }}>
-          <StatusBar barStyle="light-content" />
+        <View style={{ backgroundColor: 'black' }}>
           <Body>
+            <StatusBar barStyle="light-content" />
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Content />} />
@@ -191,7 +179,8 @@ function App() {
               </Route>
             </Routes>
           </Body>
-        </SafeAreaView>
+        </View>
+        <PortalHost />
       </Provider>
     </Router>
   );

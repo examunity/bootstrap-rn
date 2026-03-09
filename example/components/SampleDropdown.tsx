@@ -118,7 +118,7 @@ function SampleDropdowns() {
                   </Button>
                 )}
               </Dropdown.Toggle>
-              <Dropdown.Menu>
+              <Dropdown.Menu end>
                 <Dropdown.Header>
                   <Text>Dropdown header</Text>
                 </Dropdown.Header>
@@ -141,8 +141,8 @@ function SampleDropdowns() {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            <Dropdown direction="up" center>
-              <Button toggle={Dropdown} styleName="as-center">
+            <Dropdown direction="end">
+              <Button toggle={Dropdown}>
                 <Text>Show Dropdown</Text>
               </Button>
               <Dropdown.Menu>

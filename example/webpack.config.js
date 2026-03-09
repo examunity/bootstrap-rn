@@ -10,8 +10,16 @@ const nodeModules = path.join(__dirname, 'node_modules');
 module.exports = async (env, argv) => {
   const config = await createExpoWebpackConfigAsync(env, argv);
 
+  // Include @rn-primitives packages
   config.module.rules.push({
-    test: /\.(js|ts|tsx)$/,
+    test: /\.(js|mjs|ts|tsx)$/,
+    include: path.resolve(root, 'node_modules', '@rn-primitives'),
+    use: 'babel-loader',
+  });
+
+  // Include src directory
+  config.module.rules.push({
+    test: /\.(js|mjs|ts|tsx)$/,
     include: path.resolve(root, 'src'),
     use: 'babel-loader',
   });
