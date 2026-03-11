@@ -4,12 +4,10 @@ import FormCheckInput, { FormCheckInputProps } from './FormCheckInput';
 
 export interface SwitchProps extends Omit<FormCheckInputProps, 'type'> {}
 
-const Switch = React.forwardRef<PressableRef, SwitchProps>((props, ref) => {
-  const { ...elementProps } = props;
+function Switch(props: SwitchProps & React.RefAttributes<PressableRef>) {
+  const { ref, ...elementProps } = props;
 
   return <FormCheckInput {...elementProps} ref={ref} type="switch" />;
-});
-
-Switch.displayName = 'Switch';
+}
 
 export default Switch;

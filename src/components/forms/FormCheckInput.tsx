@@ -176,93 +176,90 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormCheckInput = React.forwardRef<PressableRef, FormCheckInputProps>(
-  (props, ref) => {
-    const [modifierProps, modifierRef] = useModifier(
-      'useFormField',
-      props,
-      ref,
-    );
+function FormCheckInput({
+  ref,
+  ...props
+}: FormCheckInputProps & React.RefAttributes<PressableRef>) {
+  const [modifierProps, modifierRef] = useModifier(
+    'useFormField',
+    props,
+    ref ?? null,
+  );
 
-    const context = useContext(FormCheckContext);
+  const context = useContext(FormCheckContext);
 
-    const {
-      type,
-      value,
-      onFocus = () => {},
-      onBlur = () => {},
-      disabled = context ? context.disabled : false,
-      valid = context ? context.valid : false,
-      invalid = context ? context.invalid : false,
-      useNativeComponent = false,
-      autoFocus = false,
-      style,
-      ...elementProps
-    } = modifierProps;
+  const {
+    type,
+    value,
+    onFocus = () => {},
+    onBlur = () => {},
+    disabled = context ? context.disabled : false,
+    valid = context ? context.valid : false,
+    invalid = context ? context.invalid : false,
+    useNativeComponent = false,
+    autoFocus = false,
+    style,
+    ...elementProps
+  } = modifierProps;
 
-    const media = useMedia();
-    const [focused, setFocused] = useState(autoFocus);
+  const media = useMedia();
+  const [focused, setFocused] = useState(autoFocus);
 
-    const classes = getStyles(styles, [
-      context && '.form-check .form-check-input',
-      context?.reverse && '.form-check-reverse .form-check-input',
-      '.form-check-input',
-      type === 'checkbox' && '.form-check-input[type="checkbox"]',
-      type === 'radio' && '.form-check-input[type="radio"]',
-      value && '.form-check-input:checked',
-      type === 'checkbox' &&
-        value &&
-        '.form-check-input[type="checkbox"]:checked',
-      type === 'radio' && value && '.form-check-input[type="radio"]:checked',
-      disabled && '.form-check-input:disabled',
-      // validation
-      valid && '.form-check-input:valid',
-      valid && value && '.form-check-input:valid:checked',
-      invalid && '.form-check-input:invalid',
-      invalid && value && '.form-check-input:invalid:checked',
-      // switch
-      context &&
-        type === 'switch' &&
-        '.form-switch.form-check .form-check-input',
-      context?.reverse &&
-        type === 'switch' &&
-        '.form-switch.form-check-reverse .form-check-input',
-      type === 'switch' && '.form-switch .form-check-input',
-      type === 'switch' && value && '.form-switch .form-check-input:checked',
-    ]);
+  const classes = getStyles(styles, [
+    context && '.form-check .form-check-input',
+    context?.reverse && '.form-check-reverse .form-check-input',
+    '.form-check-input',
+    type === 'checkbox' && '.form-check-input[type="checkbox"]',
+    type === 'radio' && '.form-check-input[type="radio"]',
+    value && '.form-check-input:checked',
+    type === 'checkbox' &&
+      value &&
+      '.form-check-input[type="checkbox"]:checked',
+    type === 'radio' && value && '.form-check-input[type="radio"]:checked',
+    disabled && '.form-check-input:disabled',
+    // validation
+    valid && '.form-check-input:valid',
+    valid && value && '.form-check-input:valid:checked',
+    invalid && '.form-check-input:invalid',
+    invalid && value && '.form-check-input:invalid:checked',
+    // switch
+    context && type === 'switch' && '.form-switch.form-check .form-check-input',
+    context?.reverse &&
+      type === 'switch' &&
+      '.form-switch.form-check-reverse .form-check-input',
+    type === 'switch' && '.form-switch .form-check-input',
+    type === 'switch' && value && '.form-switch .form-check-input:checked',
+  ]);
 
-    const resolveStyle = useStyle([classes, style]);
+  const resolveStyle = useStyle([classes, style]);
 
-    const BaseFormCheckInput =
-      Platform.OS === 'web' && !useNativeComponent
-        ? FormCheckInputWeb
-        : FormCheckInputNative;
+  const BaseFormCheckInput =
+    Platform.OS === 'web' && !useNativeComponent
+      ? FormCheckInputWeb
+      : FormCheckInputNative;
 
-    return (
-      <BaseFormCheckInput
-        {...elementProps}
-        ref={modifierRef}
-        type={type}
-        value={value}
-        onFocus={() => {
-          setFocused(true);
-          onFocus();
-        }}
-        onBlur={() => {
-          setFocused(false);
-          onBlur();
-        }}
-        disabled={disabled}
-        autoFocus={autoFocus}
-        style={resolveStyle({
-          media,
-          interaction: { focus: focused, focusVisible: focused },
-        })}
-      />
-    );
-  },
-);
-
-FormCheckInput.displayName = 'FormCheckInput';
+  return (
+    <BaseFormCheckInput
+      {...elementProps}
+      ref={modifierRef}
+      type={type}
+      value={value}
+      onFocus={() => {
+        setFocused(true);
+        onFocus();
+      }}
+      onBlur={() => {
+        setFocused(false);
+        onBlur();
+      }}
+      disabled={disabled}
+      autoFocus={autoFocus}
+      style={resolveStyle({
+        media,
+        interaction: { focus: focused, focusVisible: focused },
+      })}
+    />
+  );
+}
 
 export default FormCheckInput;

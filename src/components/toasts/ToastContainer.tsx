@@ -16,25 +16,23 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ToastContainer = React.forwardRef<ViewRef, ToastContainerProps>(
-  (props, ref) => {
-    const { children, style, ...elementProps } = props;
+function ToastContainer(
+  props: ToastContainerProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, ...elementProps } = props;
 
-    const list = useList(children);
+  const list = useList(children);
 
-    const classes = getStyles(styles, ['.toast-container']);
+  const classes = getStyles(styles, ['.toast-container']);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <ToastContainerContext.Provider value>
-          {list}
-        </ToastContainerContext.Provider>
-      </View>
-    );
-  },
-);
-
-ToastContainer.displayName = 'ToastContainer';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <ToastContainerContext.Provider value>
+        {list}
+      </ToastContainerContext.Provider>
+    </View>
+  );
+}
 
 export default Object.assign(ToastContainer, {
   Context: ToastContainerContext,

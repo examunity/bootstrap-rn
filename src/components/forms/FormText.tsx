@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormText = React.forwardRef<ViewRef, FormTextProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function FormText(props: FormTextProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.form-text']);
   const textClasses = getStyles(styles, ['.form-text --text']);
@@ -31,8 +31,6 @@ const FormText = React.forwardRef<ViewRef, FormTextProps>((props, ref) => {
       <Text style={[textClasses, textStyle]}>{children}</Text>
     </View>
   );
-});
-
-FormText.displayName = 'FormText';
+}
 
 export default FormText;

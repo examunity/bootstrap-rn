@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Blockquote = React.forwardRef<ViewRef, BlockquoteProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function Blockquote(props: BlockquoteProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['blockquote']);
 
@@ -38,8 +38,6 @@ const Blockquote = React.forwardRef<ViewRef, BlockquoteProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Blockquote.displayName = 'Blockquote';
+}
 
 export default Blockquote;

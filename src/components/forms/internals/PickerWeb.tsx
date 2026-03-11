@@ -1,4 +1,4 @@
-import React, { useMemo, forwardRef } from 'react';
+import React, { useMemo } from 'react';
 import {
   // @ts-expect-error web only import
   Picker as BasePicker,
@@ -33,8 +33,9 @@ const getOptionStyle = (
   return null;
 };
 
-const PickerWeb = forwardRef<PressableRef, PickerWebProps>((props, ref) => {
+function PickerWeb(props: PickerWebProps & React.RefAttributes<PressableRef>) {
   const {
+    ref,
     children,
     selectedValue,
     onValueChange = () => {},
@@ -80,6 +81,6 @@ const PickerWeb = forwardRef<PressableRef, PickerWebProps>((props, ref) => {
       </PickerWebContext.Provider>
     </BasePicker>
   );
-});
+}
 
 export default PickerWeb;

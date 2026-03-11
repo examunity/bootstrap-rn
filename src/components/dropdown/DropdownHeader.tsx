@@ -20,23 +20,21 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownHeader = React.forwardRef<ViewRef, DropdownHeaderProps>(
-  (props, ref) => {
-    const { children, style, textStyle, ...elementProps } = props;
+function DropdownHeader(
+  props: DropdownHeaderProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.dropdown-header']);
-    const textClasses = getStyles(styles, ['.dropdown-header --text']);
+  const classes = getStyles(styles, ['.dropdown-header']);
+  const textClasses = getStyles(styles, ['.dropdown-header --text']);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <Heading size={6} style={[textClasses, textStyle]}>
-          {children}
-        </Heading>
-      </View>
-    );
-  },
-);
-
-DropdownHeader.displayName = 'DropdownHeader';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <Heading size={6} style={[textClasses, textStyle]}>
+        {children}
+      </Heading>
+    </View>
+  );
+}
 
 export default DropdownHeader;

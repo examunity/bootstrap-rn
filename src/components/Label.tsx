@@ -7,8 +7,8 @@ export interface LabelProps extends ViewProps {
   htmlFor?: string;
 }
 
-const Label = React.forwardRef<ViewRef, LabelProps>((props, ref) => {
-  const { children, htmlFor, ...elementProps } = props;
+function Label(props: LabelProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, htmlFor, ...elementProps } = props;
 
   // Ref: https://github.com/necolas/react-native-web/issues/1651
   const forRef = React.useCallback((node: HTMLElement | null) => {
@@ -27,8 +27,6 @@ const Label = React.forwardRef<ViewRef, LabelProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Label.displayName = 'Label';
+}
 
 export default Label;

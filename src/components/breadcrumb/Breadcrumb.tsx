@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Breadcrumb = React.forwardRef<ViewRef, BreadcrumbProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function Breadcrumb(props: BreadcrumbProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const list = useList(children);
 
@@ -47,9 +47,7 @@ const Breadcrumb = React.forwardRef<ViewRef, BreadcrumbProps>((props, ref) => {
       {list}
     </View>
   );
-});
-
-Breadcrumb.displayName = 'Breadcrumb';
+}
 
 export default Object.assign(Breadcrumb, {
   Item: BreadcrumbItem,

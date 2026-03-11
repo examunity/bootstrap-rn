@@ -61,8 +61,8 @@ const getRole = (
   return undefined;
 };
 
-const Nav = React.forwardRef<ViewRef, NavProps>((props, ref) => {
-  const { children, variant, style, ...elementProps } = props;
+function Nav(props: NavProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, variant, style, ...elementProps } = props;
 
   const navbar = useContext(NavbarContext);
   const tabbable = useContext(TabContext);
@@ -96,9 +96,7 @@ const Nav = React.forwardRef<ViewRef, NavProps>((props, ref) => {
       <NavContext.Provider value={contextValue}>{children}</NavContext.Provider>
     </View>
   );
-});
-
-Nav.displayName = 'Nav';
+}
 
 export default Object.assign(Nav, {
   Context: NavContext,

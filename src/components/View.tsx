@@ -18,8 +18,8 @@ export interface ViewProps extends Omit<BaseViewProps, 'style'> {
   styleName?: StyleName;
 }
 
-const View = React.forwardRef<ViewRef, ViewProps>((props, ref) => {
-  const { children, style, textStyle, styleName, ...elementProps } = props;
+function View(props: ViewProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, styleName, ...elementProps } = props;
 
   const media = useMedia();
   const context = useContext(TextStyleContext);
@@ -48,8 +48,6 @@ const View = React.forwardRef<ViewRef, ViewProps>((props, ref) => {
       )}
     </BaseView>
   );
-});
-
-View.displayName = 'View';
+}
 
 export default View;

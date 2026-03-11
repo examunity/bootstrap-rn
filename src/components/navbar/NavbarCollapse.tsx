@@ -31,33 +31,31 @@ const styles = StyleSheet.create({
   })),
 });
 
-const NavbarCollapse = React.forwardRef<ViewRef, NavbarCollapseProps>(
-  (props, ref) => {
-    const { children, style, ...elementProps } = props;
+function NavbarCollapse(
+  props: NavbarCollapseProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, ...elementProps } = props;
 
-    const { expand, expanded } = useForcedContext(NavbarContext);
-    const media = useMedia();
+  const { expand, expanded } = useForcedContext(NavbarContext);
+  const media = useMedia();
 
-    const classes = getStyles(styles, [
-      '.navbar-collapse',
-      expand &&
-        `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-collapse`,
-    ]);
+  const classes = getStyles(styles, [
+    '.navbar-collapse',
+    expand &&
+      `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-collapse`,
+  ]);
 
-    const show = expanded || (expand && (expand === true || media.up(expand)));
+  const show = expanded || (expand && (expand === true || media.up(expand)));
 
-    if (!show) {
-      return null;
-    }
+  if (!show) {
+    return null;
+  }
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        {children}
-      </View>
-    );
-  },
-);
-
-NavbarCollapse.displayName = 'NavbarCollapse';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      {children}
+    </View>
+  );
+}
 
 export default NavbarCollapse;

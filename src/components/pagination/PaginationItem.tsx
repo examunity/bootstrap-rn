@@ -53,49 +53,48 @@ const styles = StyleSheet.create({
   `,
 });
 
-const PaginationItem = React.forwardRef<ViewRef, PaginationItemProps>(
-  (props, ref) => {
-    const {
-      children,
-      active = false,
-      disabled = false,
-      style,
-      textStyle,
-      ...elementProps
-    } = props;
+function PaginationItem(
+  props: PaginationItemProps & React.RefAttributes<ViewRef>,
+) {
+  const {
+    ref,
+    children,
+    active = false,
+    disabled = false,
+    style,
+    textStyle,
+    ...elementProps
+  } = props;
 
-    const { first, last } = useForcedContext(ListContext);
+  const { first, last } = useForcedContext(ListContext);
 
-    const classes = getStyles(styles, [
-      '.pagination-item',
-      first && '.pagination-item:first-child',
-      last && '.pagination-item:last-child',
-      active && '.pagination-item.active',
-      disabled && '.pagination-item.disabled',
-    ]);
+  const classes = getStyles(styles, [
+    '.pagination-item',
+    first && '.pagination-item:first-child',
+    last && '.pagination-item:last-child',
+    active && '.pagination-item.active',
+    disabled && '.pagination-item.disabled',
+  ]);
 
-    const textClasses = getStyles(styles, [
-      active && '.pagination-item.active',
-      disabled && '.pagination-item.disabled',
-    ]);
+  const textClasses = getStyles(styles, [
+    active && '.pagination-item.active',
+    disabled && '.pagination-item.disabled',
+  ]);
 
-    const role = Platform.OS === 'web' ? 'listitem' : undefined;
+  const role = Platform.OS === 'web' ? 'listitem' : undefined;
 
-    return (
-      <View
-        {...elementProps}
-        ref={ref}
-        role={role}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        {children}
-      </View>
-    );
-  },
-);
-
-PaginationItem.displayName = 'PaginationItem';
+  return (
+    <View
+      {...elementProps}
+      ref={ref}
+      role={role}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {children}
+    </View>
+  );
+}
 
 export default PaginationItem;
 

@@ -28,8 +28,9 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Progress = React.forwardRef<ViewRef, ProgressProps>((props, ref) => {
+function Progress(props: ProgressProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     min = 0,
     max = 100,
@@ -56,9 +57,7 @@ const Progress = React.forwardRef<ViewRef, ProgressProps>((props, ref) => {
       </ProgressContext.Provider>
     </View>
   );
-});
-
-Progress.displayName = 'Progress';
+}
 
 export default Object.assign(Progress, {
   Bar: ProgressBar,

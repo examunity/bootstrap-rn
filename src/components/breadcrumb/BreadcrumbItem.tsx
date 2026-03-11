@@ -29,53 +29,52 @@ const styles = StyleSheet.create({
   `,
 });
 
-const BreadcrumbItem = React.forwardRef<ViewRef, BreadcrumbItemProps>(
-  (props, ref) => {
-    const {
-      children,
-      active = false,
-      style,
-      dividerStyle,
-      textStyle,
-      ...elementProps
-    } = props;
+function BreadcrumbItem(
+  props: BreadcrumbItemProps & React.RefAttributes<ViewRef>,
+) {
+  const {
+    ref,
+    children,
+    active = false,
+    style,
+    dividerStyle,
+    textStyle,
+    ...elementProps
+  } = props;
 
-    const { first } = useForcedContext(ListContext);
+  const { first } = useForcedContext(ListContext);
 
-    const classes = getStyles(styles, [
-      !first && '.breadcrumb-item + .breadcrumb-item',
-    ]);
-    const textClasses = getStyles(styles, [
-      active && '.breadcrumb-item.active --text',
-    ]);
-    const dividerClasses = getStyles(styles, [
-      '.breadcrumb-item + .breadcrumb-item::before',
-    ]);
+  const classes = getStyles(styles, [
+    !first && '.breadcrumb-item + .breadcrumb-item',
+  ]);
+  const textClasses = getStyles(styles, [
+    active && '.breadcrumb-item.active --text',
+  ]);
+  const dividerClasses = getStyles(styles, [
+    '.breadcrumb-item + .breadcrumb-item::before',
+  ]);
 
-    const role = Platform.OS === 'web' ? 'listitem' : undefined;
+  const role = Platform.OS === 'web' ? 'listitem' : undefined;
 
-    return (
-      <View
-        {...elementProps}
-        ref={ref}
-        role={role}
-        {...optional(active, { 'aria-current': 'page' })}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        {!first && (
-          <Text style={[dividerClasses, dividerStyle]}>
-            {I18nManager.isRTL
-              ? StyleSheet.value('breadcrumb-divider-flipped')
-              : StyleSheet.value('breadcrumb-divider')}
-          </Text>
-        )}
-        {children}
-      </View>
-    );
-  },
-);
-
-BreadcrumbItem.displayName = 'BreadcrumbItem';
+  return (
+    <View
+      {...elementProps}
+      ref={ref}
+      role={role}
+      {...optional(active, { 'aria-current': 'page' })}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {!first && (
+        <Text style={[dividerClasses, dividerStyle]}>
+          {I18nManager.isRTL
+            ? StyleSheet.value('breadcrumb-divider-flipped')
+            : StyleSheet.value('breadcrumb-divider')}
+        </Text>
+      )}
+      {children}
+    </View>
+  );
+}
 
 export default BreadcrumbItem;

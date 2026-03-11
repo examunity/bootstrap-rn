@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Heading = React.forwardRef<TextRef, ParagraphProps>((props, ref) => {
-  const { children, lead, style, ...elementProps } = props;
+function Heading(props: ParagraphProps & React.RefAttributes<TextRef>) {
+  const { ref, children, lead, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['paragraph', lead && '.lead']);
 
@@ -35,8 +35,6 @@ const Heading = React.forwardRef<TextRef, ParagraphProps>((props, ref) => {
       {children}
     </Text>
   );
-});
-
-Heading.displayName = 'Heading';
+}
 
 export default Heading;

@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Card = React.forwardRef<ViewRef, CardProps>((props, ref) => {
-  const { children, style, ...elementProps } = props;
+function Card(props: CardProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card']);
 
@@ -35,9 +35,7 @@ const Card = React.forwardRef<ViewRef, CardProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Card.displayName = 'Card';
+}
 
 export default Object.assign(Card, {
   Header: CardHeader,

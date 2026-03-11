@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Code = React.forwardRef<TextRef, CodeProps>((props, ref) => {
-  const { children, style, ...elementProps } = props;
+function Code(props: CodeProps & React.RefAttributes<TextRef>) {
+  const { ref, children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['code']);
 
@@ -32,8 +32,6 @@ const Code = React.forwardRef<TextRef, CodeProps>((props, ref) => {
       {children}
     </Text>
   );
-});
-
-Code.displayName = 'Code';
+}
 
 export default Code;

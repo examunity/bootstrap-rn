@@ -12,8 +12,8 @@ export interface PickerItemProps extends ViewProps {
   disabled?: boolean;
 }
 
-const PickerItem = React.forwardRef<ViewRef, PickerItemProps>((props, ref) => {
-  const { label, value, disabled = false } = props;
+function PickerItem(props: PickerItemProps & React.RefAttributes<ViewRef>) {
+  const { ref, label, value, disabled = false } = props;
 
   const { useNativeComponent } = useForcedContext(PickerContext);
 
@@ -25,8 +25,6 @@ const PickerItem = React.forwardRef<ViewRef, PickerItemProps>((props, ref) => {
   return (
     <BasePickerItem ref={ref} label={label} value={value} disabled={disabled} />
   );
-});
-
-PickerItem.displayName = 'PickerItem';
+}
 
 export default PickerItem;

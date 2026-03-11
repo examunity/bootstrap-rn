@@ -25,24 +25,22 @@ const styles = StyleSheet.create({
   `,
 });
 
-const PopoverHeader = React.forwardRef<ViewRef, PopoverHeaderProps>(
-  (props, ref) => {
-    const { children, style, textStyle, ...elementProps } = props;
+function PopoverHeader(
+  props: PopoverHeaderProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.popover-header']);
-    const textClasses = getStyles(styles, ['.popover-header --text']);
+  const classes = getStyles(styles, ['.popover-header']);
+  const textClasses = getStyles(styles, ['.popover-header --text']);
 
-    // composite component
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <Heading size={3} style={[textClasses, textStyle]}>
-          {children}
-        </Heading>
-      </View>
-    );
-  },
-);
-
-PopoverHeader.displayName = 'PopoverHeader';
+  // composite component
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <Heading size={3} style={[textClasses, textStyle]}>
+        {children}
+      </Heading>
+    </View>
+  );
+}
 
 export default PopoverHeader;

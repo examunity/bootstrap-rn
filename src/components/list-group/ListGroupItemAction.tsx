@@ -14,8 +14,7 @@ import ListGroupContext from './ListGroupContext';
 import type { ThemeVariables, UseTabbableProps } from '../../types';
 
 export interface ListGroupItemActionProps
-  extends UseTabbableProps,
-    PressableProps {
+  extends UseTabbableProps, PressableProps {
   color?: keyof typeof THEME_COLORS;
 }
 
@@ -110,11 +109,15 @@ const actionStyles = StyleSheet.create({
   })),
 });
 
-const ListGroupItemAction = React.forwardRef<
-  PressableRef,
-  ListGroupItemActionProps
->((props, ref) => {
-  const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
+function ListGroupItemAction({
+  ref,
+  ...props
+}: ListGroupItemActionProps & React.RefAttributes<PressableRef>) {
+  const [modifierProps, modifierRef] = useModifier(
+    'useTabbable',
+    props,
+    ref ?? null,
+  );
 
   const {
     children,
@@ -186,8 +189,6 @@ const ListGroupItemAction = React.forwardRef<
       {children}
     </Pressable>
   );
-});
-
-ListGroupItemAction.displayName = 'ListGroupItemAction';
+}
 
 export default ListGroupItemAction;

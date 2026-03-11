@@ -32,8 +32,9 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Tooltip = React.forwardRef<ViewRef, TooltipProps>((props, ref) => {
+function Tooltip(props: TooltipProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     placement = 'top',
     floating,
@@ -69,9 +70,7 @@ const Tooltip = React.forwardRef<ViewRef, TooltipProps>((props, ref) => {
       </TooltipContext.Provider>
     </View>
   );
-});
-
-Tooltip.displayName = 'Tooltip';
+}
 
 export default Object.assign(Tooltip, {
   Arrow: TooltipArrow,

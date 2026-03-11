@@ -23,44 +23,41 @@ export interface TextInputProps extends Omit<BaseTextInputProps, 'style'> {
   rows?: number;
 }
 
-const TextInput = React.forwardRef<TextInputRef, TextInputProps>(
-  (props, ref) => {
-    const {
-      onFocus = () => {},
-      onBlur = () => {},
-      autoFocus = false,
-      style,
-      styleName,
-      ...elementProps
-    } = props;
+function TextInput(props: TextInputProps & React.RefAttributes<TextInputRef>) {
+  const {
+    ref,
+    onFocus = () => {},
+    onBlur = () => {},
+    autoFocus = false,
+    style,
+    styleName,
+    ...elementProps
+  } = props;
 
-    const [focused, setFocused] = useState(autoFocus);
+  const [focused, setFocused] = useState(autoFocus);
 
-    const media = useMedia();
-    const resolveStyle = useStyle(style, styleName);
+  const media = useMedia();
+  const resolveStyle = useStyle(style, styleName);
 
-    return (
-      <BaseTextInput
-        {...elementProps}
-        ref={ref}
-        onFocus={(event) => {
-          setFocused(true);
-          onFocus(event);
-        }}
-        onBlur={(event) => {
-          setFocused(false);
-          onBlur(event);
-        }}
-        autoFocus={autoFocus}
-        style={resolveStyle({
-          media,
-          interaction: { focus: focused, focusVisible: focused },
-        })}
-      />
-    );
-  },
-);
-
-TextInput.displayName = 'TextInput';
+  return (
+    <BaseTextInput
+      {...elementProps}
+      ref={ref}
+      onFocus={(event) => {
+        setFocused(true);
+        onFocus(event);
+      }}
+      onBlur={(event) => {
+        setFocused(false);
+        onBlur(event);
+      }}
+      autoFocus={autoFocus}
+      style={resolveStyle({
+        media,
+        interaction: { focus: focused, focusVisible: focused },
+      })}
+    />
+  );
+}
 
 export default TextInput;

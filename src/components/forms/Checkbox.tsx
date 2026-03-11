@@ -4,12 +4,10 @@ import FormCheckInput, { FormCheckInputProps } from './FormCheckInput';
 
 export interface CheckboxProps extends Omit<FormCheckInputProps, 'type'> {}
 
-const Checkbox = React.forwardRef<PressableRef, CheckboxProps>((props, ref) => {
-  const { ...elementProps } = props;
+function Checkbox(props: CheckboxProps & React.RefAttributes<PressableRef>) {
+  const { ref, ...elementProps } = props;
 
   return <FormCheckInput {...elementProps} ref={ref} type="checkbox" />;
-});
-
-Checkbox.displayName = 'Checkbox';
+}
 
 export default Checkbox;

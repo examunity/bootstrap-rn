@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Badge = React.forwardRef<ViewRef, BadgeProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function Badge(props: BadgeProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.badge']);
   const textClasses = getStyles(styles, ['.badge --text']);
@@ -36,8 +36,6 @@ const Badge = React.forwardRef<ViewRef, BadgeProps>((props, ref) => {
       <Text style={[textClasses, textStyle]}>{children}</Text>
     </View>
   );
-});
-
-Badge.displayName = 'Badge';
+}
 
 export default Badge;

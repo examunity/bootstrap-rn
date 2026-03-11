@@ -115,8 +115,15 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Picker = React.forwardRef<PressableRef, PickerProps>((props, ref) => {
-  const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
+function Picker({
+  ref,
+  ...props
+}: PickerProps & React.RefAttributes<PressableRef>) {
+  const [modifierProps, modifierRef] = useModifier(
+    'useFormField',
+    props,
+    ref ?? null,
+  );
 
   const {
     children,
@@ -184,9 +191,7 @@ const Picker = React.forwardRef<PressableRef, PickerProps>((props, ref) => {
       </BasePicker>
     </PickerContext.Provider>
   );
-});
-
-Picker.displayName = 'Picker';
+}
 
 export default Object.assign(Picker, {
   Item: PickerItem,

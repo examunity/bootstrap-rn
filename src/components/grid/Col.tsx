@@ -64,8 +64,9 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Col = React.forwardRef<ViewRef, ColProps>((props, ref) => {
+function Col(props: ColProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     size,
     sizeSm,
@@ -90,8 +91,6 @@ const Col = React.forwardRef<ViewRef, ColProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Col.displayName = 'Col';
+}
 
 export default Col;

@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormLabel = React.forwardRef<ViewRef, FormLabelProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function FormLabel(props: FormLabelProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.form-label']);
   const textClasses = getStyles(styles, ['.form-label --text']);
@@ -36,8 +36,6 @@ const FormLabel = React.forwardRef<ViewRef, FormLabelProps>((props, ref) => {
       {children}
     </Label>
   );
-});
-
-FormLabel.displayName = 'FormLabel';
+}
 
 export default FormLabel;

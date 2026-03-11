@@ -117,127 +117,124 @@ const getAlign = (
   return startIndex > endIndex ? 'start' : 'end';
 };
 
-const DropdownMenu = React.forwardRef<ViewRef, DropdownMenuProps>(
-  (props, ref) => {
-    const {
-      children,
-      start = true,
-      end = false,
-      style,
-      textStyle,
-      ...elementProps
-    } = props;
+function DropdownMenu(props: DropdownMenuProps & React.RefAttributes<ViewRef>) {
+  const {
+    ref,
+    children,
+    start = true,
+    end = false,
+    style,
+    textStyle,
+    ...elementProps
+  } = props;
 
-    const navbar = useContext(NavbarContext);
-    const media = useMedia();
+  const navbar = useContext(NavbarContext);
+  const media = useMedia();
 
-    const dropdown = useForcedContext(DropdownContext);
+  const dropdown = useForcedContext(DropdownContext);
 
-    const {
-      identifier,
-      visible,
-      setVisible,
-      setAlign,
-      direction,
-      display,
-      content,
-    } = dropdown;
+  const {
+    identifier,
+    visible,
+    setVisible,
+    setAlign,
+    direction,
+    display,
+    content,
+  } = dropdown;
 
-    // Workaround for setting start / end on DropdownMenu and not on Dropdown.
-    const align = getAlign(media, start, end);
+  // Workaround for setting start / end on DropdownMenu and not on Dropdown.
+  const align = getAlign(media, start, end);
 
-    useLayoutEffect(() => {
-      setAlign(align);
-    }, [align]);
+  useLayoutEffect(() => {
+    setAlign(align);
+  }, [align]);
 
-    if (!visible || !align) {
-      return null;
-    }
+  if (!visible || !align) {
+    return null;
+  }
 
-    const isStatic = Platform.OS === 'web' && display === 'static';
-    const isCollapsedNavbar =
-      navbar &&
-      !(navbar.expand && (navbar.expand === true || media.up(navbar.expand)));
-    const hasStaticStyle = isStatic && !isCollapsedNavbar;
+  const isStatic = Platform.OS === 'web' && display === 'static';
+  const isCollapsedNavbar =
+    navbar &&
+    !(navbar.expand && (navbar.expand === true || media.up(navbar.expand)));
+  const hasStaticStyle = isStatic && !isCollapsedNavbar;
 
-    const classes = getStyles(styles, [
-      '.dropdown-menu',
-      // Non-Popper styles
-      hasStaticStyle && '.dropdown-menu[data-bs-popper]',
-      hasStaticStyle &&
-        start &&
-        `.dropdown-menu${
-          start === true ? '' : `-${start}`
-        }-start[data-bs-popper]`,
-      hasStaticStyle &&
-        end &&
-        `.dropdown-menu${end === true ? '' : `-${end}`}-end[data-bs-popper]`,
-      hasStaticStyle &&
-        direction === 'up' &&
-        '.dropup .dropdown-menu[data-bs-popper]',
-      hasStaticStyle &&
-        direction === 'end' &&
-        '.dropend .dropdown-menu[data-bs-popper]',
-      hasStaticStyle &&
-        direction === 'start' &&
-        '.dropstart .dropdown-menu[data-bs-popper]',
-      // Navbar styles
-      navbar && '.navbar-nav .dropdown-menu',
-      navbar &&
-        navbar.expand &&
-        `.navbar-expand${
-          navbar.expand === true ? '' : `-${navbar.expand}`
-        } .navbar-nav .dropdown-menu`,
-    ]);
-    const textClasses = getStyles(styles, ['.dropdown-menu --text']);
+  const classes = getStyles(styles, [
+    '.dropdown-menu',
+    // Non-Popper styles
+    hasStaticStyle && '.dropdown-menu[data-bs-popper]',
+    hasStaticStyle &&
+      start &&
+      `.dropdown-menu${
+        start === true ? '' : `-${start}`
+      }-start[data-bs-popper]`,
+    hasStaticStyle &&
+      end &&
+      `.dropdown-menu${end === true ? '' : `-${end}`}-end[data-bs-popper]`,
+    hasStaticStyle &&
+      direction === 'up' &&
+      '.dropup .dropdown-menu[data-bs-popper]',
+    hasStaticStyle &&
+      direction === 'end' &&
+      '.dropend .dropdown-menu[data-bs-popper]',
+    hasStaticStyle &&
+      direction === 'start' &&
+      '.dropstart .dropdown-menu[data-bs-popper]',
+    // Navbar styles
+    navbar && '.navbar-nav .dropdown-menu',
+    navbar &&
+      navbar.expand &&
+      `.navbar-expand${
+        navbar.expand === true ? '' : `-${navbar.expand}`
+      } .navbar-nav .dropdown-menu`,
+  ]);
+  const textClasses = getStyles(styles, ['.dropdown-menu --text']);
 
-    if (isStatic || isCollapsedNavbar) {
-      return (
-        <>
-          {!isCollapsedNavbar && (
-            <BackdropHandler
-              onClose={() => {
-                setVisible(false);
-              }}
-            />
-          )}
-          <View
-            {...elementProps}
-            ref={concatRefs(content.ref, ref)}
-            aria-labelledby={identifier}
-            style={[classes, style]}
-            textStyle={[textClasses, textStyle]}
-          >
-            {children}
-          </View>
-        </>
-      );
-    }
-
+  if (isStatic || isCollapsedNavbar) {
     return (
-      <Portal name={identifier}>
-        <BackdropHandler
-          onClose={() => {
-            setVisible(false);
-          }}
-        />
+      <>
+        {!isCollapsedNavbar && (
+          <BackdropHandler
+            onClose={() => {
+              setVisible(false);
+            }}
+          />
+        )}
         <View
           {...elementProps}
-          {...content.getProps(elementProps)}
-          ref={concatRefs(ref, content.ref)}
+          ref={concatRefs(content.ref, ref)}
           aria-labelledby={identifier}
-          style={[classes, content.style, style]}
+          style={[classes, style]}
           textStyle={[textClasses, textStyle]}
         >
-          <DropdownContext.Provider value={dropdown}>
-            {children}
-          </DropdownContext.Provider>
+          {children}
         </View>
-      </Portal>
+      </>
     );
-  },
-);
+  }
 
-DropdownMenu.displayName = 'DropdownMenu';
+  return (
+    <Portal name={identifier}>
+      <BackdropHandler
+        onClose={() => {
+          setVisible(false);
+        }}
+      />
+      <View
+        {...elementProps}
+        {...content.getProps(elementProps)}
+        ref={concatRefs(ref, content.ref)}
+        aria-labelledby={identifier}
+        style={[classes, content.style, style]}
+        textStyle={[textClasses, textStyle]}
+      >
+        <DropdownContext.Provider value={dropdown}>
+          {children}
+        </DropdownContext.Provider>
+      </View>
+    </Portal>
+  );
+}
 
 export default DropdownMenu;

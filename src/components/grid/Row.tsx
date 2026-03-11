@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Row = React.forwardRef<ViewRef, RowProps>((props, ref) => {
-  const { children, style, ...elementProps } = props;
+function Row(props: RowProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.row']);
 
@@ -27,8 +27,6 @@ const Row = React.forwardRef<ViewRef, RowProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Row.displayName = 'Row';
+}
 
 export default Row;

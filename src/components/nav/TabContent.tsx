@@ -3,12 +3,10 @@ import View, { ViewProps, ViewRef } from '../View';
 
 export interface TabContentProps extends ViewProps {}
 
-const TabContent = React.forwardRef<ViewRef, TabContentProps>((props, ref) => {
-  const { ...elementProps } = props;
+function TabContent(props: TabContentProps & React.RefAttributes<ViewRef>) {
+  const { ref, ...elementProps } = props;
 
   return <View {...elementProps} ref={ref} />;
-});
-
-TabContent.displayName = 'TabContent';
+}
 
 export default TabContent;

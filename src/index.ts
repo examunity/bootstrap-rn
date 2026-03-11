@@ -194,7 +194,7 @@ export type { PortalProps } from './components/helpers/Portal';
 export type { PortalHostProps } from './components/helpers/PortalHost';
 
 export { default as Pressable } from './components/Pressable';
-export type { PressableProps } from './components/Pressable';
+export type { PressableProps, PressableRef } from './components/Pressable';
 
 export { default as Pagination } from './components/pagination/Pagination';
 export type { PaginationProps } from './components/pagination/Pagination';

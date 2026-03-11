@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardFooter = React.forwardRef<ViewRef, CardFooterProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function CardFooter(props: CardFooterProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-footer']);
 
@@ -37,8 +37,6 @@ const CardFooter = React.forwardRef<ViewRef, CardFooterProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-CardFooter.displayName = 'CardFooter';
+}
 
 export default CardFooter;

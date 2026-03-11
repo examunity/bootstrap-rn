@@ -27,29 +27,27 @@ const styles = StyleSheet.create({
   })),
 });
 
-const OffcanvasHeader = React.forwardRef<ViewRef, OffcanvasHeaderProps>(
-  (props, ref) => {
-    const { children, style, ...elementProps } = props;
+function OffcanvasHeader(
+  props: OffcanvasHeaderProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, ...elementProps } = props;
 
-    const navbar = useContext(NavbarContext);
+  const navbar = useContext(NavbarContext);
 
-    const classes = getStyles(styles, [
-      '.offcanvas-header',
-      navbar &&
-        navbar.expand &&
-        `.navbar-expand${
-          navbar.expand === true ? '' : `-${navbar.expand}`
-        } .offcanvas-header`,
-    ]);
+  const classes = getStyles(styles, [
+    '.offcanvas-header',
+    navbar &&
+      navbar.expand &&
+      `.navbar-expand${
+        navbar.expand === true ? '' : `-${navbar.expand}`
+      } .offcanvas-header`,
+  ]);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        {children}
-      </View>
-    );
-  },
-);
-
-OffcanvasHeader.displayName = 'OffcanvasHeader';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      {children}
+    </View>
+  );
+}
 
 export default OffcanvasHeader;

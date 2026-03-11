@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalTitle = React.forwardRef<TextRef, ModalTitleProps>((props, ref) => {
-  const { children, style, ...elementProps } = props;
+function ModalTitle(props: ModalTitleProps & React.RefAttributes<TextRef>) {
+  const { ref, children, style, ...elementProps } = props;
 
   const { identifier } = useForcedContext(ModalContext);
 
@@ -34,8 +34,6 @@ const ModalTitle = React.forwardRef<TextRef, ModalTitleProps>((props, ref) => {
       {children}
     </Heading>
   );
-});
-
-ModalTitle.displayName = 'ModalTitle';
+}
 
 export default ModalTitle;

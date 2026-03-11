@@ -6,7 +6,7 @@ import { CaretProps } from '../Caret';
 import type { PressableRef } from '../Pressable';
 
 export interface UseToggleDropdownProps {
-  ref?: React.RefObject<PressableRef | null>;
+  ref?: React.Ref<PressableRef>;
   onPress?: null | ((event: GestureResponderEvent) => void);
   caret?: boolean | CaretProps;
 }

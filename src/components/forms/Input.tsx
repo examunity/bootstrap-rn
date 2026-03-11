@@ -170,8 +170,15 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Input = React.forwardRef<TextInputRef, InputProps>((props, ref) => {
-  const [modifierProps, modifierRef] = useModifier('useFormField', props, ref);
+function Input({
+  ref,
+  ...props
+}: InputProps & React.RefAttributes<TextInputRef>) {
+  const [modifierProps, modifierRef] = useModifier(
+    'useFormField',
+    props,
+    ref ?? null,
+  );
 
   const {
     size,
@@ -213,8 +220,6 @@ const Input = React.forwardRef<TextInputRef, InputProps>((props, ref) => {
       style={[classes, style]}
     />
   );
-});
-
-Input.displayName = 'Input';
+}
 
 export default Input;

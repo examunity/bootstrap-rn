@@ -10,21 +10,17 @@ const styles = StyleSheet.create({
   '.placeholders': css``,
 });
 
-const Placeholders = React.forwardRef<ViewRef, PlaceholdersProps>(
-  (props, ref) => {
-    const { children, style, ...elementProps } = props;
+function Placeholders(props: PlaceholdersProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.placeholders']);
+  const classes = getStyles(styles, ['.placeholders']);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        {children}
-      </View>
-    );
-  },
-);
-
-Placeholders.displayName = 'Placeholders';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      {children}
+    </View>
+  );
+}
 
 export default Placeholders;
 

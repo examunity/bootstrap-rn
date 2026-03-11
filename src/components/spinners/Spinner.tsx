@@ -113,8 +113,15 @@ const getAnimationStyle = (
   }
 };
 
-const Spinner = React.forwardRef<ViewRef, SpinnerProps>((props, ref) => {
-  const { variant = 'border', color, size, style, ...elementProps } = props;
+function Spinner(props: SpinnerProps & React.RefAttributes<ViewRef>) {
+  const {
+    ref,
+    variant = 'border',
+    color,
+    size,
+    style,
+    ...elementProps
+  } = props;
 
   const classes = getStyles(styles, [
     `.spinner-${variant}`,
@@ -149,8 +156,6 @@ const Spinner = React.forwardRef<ViewRef, SpinnerProps>((props, ref) => {
       style={[classes, getAnimationStyle(variant, animation), style]}
     />
   );
-});
-
-Spinner.displayName = 'Spinner';
+}
 
 export default Spinner;

@@ -21,32 +21,31 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalBody = React.forwardRef<ViewRef | ScrollViewRef, ModalBodyProps>(
-  (props, ref) => {
-    const { children, style, contentContainerStyle, ...elementProps } = props;
+function ModalBody(
+  props: ModalBodyProps & React.RefAttributes<ViewRef | ScrollViewRef>,
+) {
+  const { ref, children, style, contentContainerStyle, ...elementProps } =
+    props;
 
-    const { scrollable } = useForcedContext(ModalContext);
+  const { scrollable } = useForcedContext(ModalContext);
 
-    const classes = getStyles(styles, ['.modal-body']);
+  const classes = getStyles(styles, ['.modal-body']);
 
-    const FlexView = scrollable ? ScrollView : View;
+  const FlexView = scrollable ? ScrollView : View;
 
-    return (
-      <FlexView
-        {...elementProps}
-        // @ts-expect-error Type of ref depends on component.
-        ref={ref}
-        style={scrollable ? style : [classes, style]}
-        contentContainerStyle={
-          scrollable ? [classes, contentContainerStyle] : undefined
-        }
-      >
-        {children}
-      </FlexView>
-    );
-  },
-);
-
-ModalBody.displayName = 'ModalBody';
+  return (
+    <FlexView
+      {...elementProps}
+      // @ts-expect-error Type of ref depends on component.
+      ref={ref}
+      style={scrollable ? style : [classes, style]}
+      contentContainerStyle={
+        scrollable ? [classes, contentContainerStyle] : undefined
+      }
+    >
+      {children}
+    </FlexView>
+  );
+}
 
 export default ModalBody;

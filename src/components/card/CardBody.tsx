@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardBody = React.forwardRef<ViewRef, ViewProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function CardBody(props: ViewProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-body']);
 
@@ -33,8 +33,6 @@ const CardBody = React.forwardRef<ViewRef, ViewProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-CardBody.displayName = 'CardBody';
+}
 
 export default CardBody;

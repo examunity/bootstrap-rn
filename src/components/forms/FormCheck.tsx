@@ -32,8 +32,9 @@ const styles = StyleSheet.create({
   `,
 });
 
-const FormCheck = React.forwardRef<ViewRef, FormCheckProps>((props, ref) => {
+function FormCheck(props: FormCheckProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     reverse = false,
     disabled = false,
@@ -60,9 +61,7 @@ const FormCheck = React.forwardRef<ViewRef, FormCheckProps>((props, ref) => {
       </FormCheckContext.Provider>
     </View>
   );
-});
-
-FormCheck.displayName = 'FormCheck';
+}
 
 export default Object.assign(FormCheck, {
   Label: FormCheckLabel,

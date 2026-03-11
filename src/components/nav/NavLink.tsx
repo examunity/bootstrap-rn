@@ -183,8 +183,15 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavLink = React.forwardRef<PressableRef, NavLinkProps>((props, ref) => {
-  const [modifierProps, modifierRef] = useModifier('useTabbable', props, ref);
+function NavLink({
+  ref,
+  ...props
+}: NavLinkProps & React.RefAttributes<PressableRef>) {
+  const [modifierProps, modifierRef] = useModifier(
+    'useTabbable',
+    props,
+    ref ?? null,
+  );
 
   const {
     children,
@@ -260,8 +267,6 @@ const NavLink = React.forwardRef<PressableRef, NavLinkProps>((props, ref) => {
       {children}
     </Pressable>
   );
-});
-
-NavLink.displayName = 'NavLink';
+}
 
 export default NavLink;

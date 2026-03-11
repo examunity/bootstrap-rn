@@ -39,8 +39,9 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Popover = React.forwardRef<ViewRef, PopoverProps>((props, ref) => {
+function Popover(props: PopoverProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     placement = 'right',
     floating,
@@ -76,9 +77,7 @@ const Popover = React.forwardRef<ViewRef, PopoverProps>((props, ref) => {
       </PopoverContext.Provider>
     </View>
   );
-});
-
-Popover.displayName = 'Popover';
+}
 
 export default Object.assign(Popover, {
   Arrow: PopoverArrow,

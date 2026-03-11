@@ -21,7 +21,7 @@ export interface OffcanvasProps extends ViewProps {
   placement?: 'top' | 'bottom' | 'start' | 'end';
   backdrop?: boolean | 'static';
   scroll?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -133,8 +133,9 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
+function Offcanvas(props: OffcanvasProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     visible = false,
     placement = 'top',
@@ -232,9 +233,7 @@ const Offcanvas = React.forwardRef<ViewRef, OffcanvasProps>((props, ref) => {
       </View>
     </Dialog>
   );
-});
-
-Offcanvas.displayName = 'Offcanvas';
+}
 
 export default Object.assign(Offcanvas, {
   Context: OffcanvasContext,

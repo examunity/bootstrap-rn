@@ -31,34 +31,33 @@ const styles = StyleSheet.create({
   })),
 });
 
-const OffcanvasBody = React.forwardRef<ScrollViewRef, OffcanvasBodyProps>(
-  (props, ref) => {
-    const { children, style, contentContainerStyle, ...elementProps } = props;
+function OffcanvasBody(
+  props: OffcanvasBodyProps & React.RefAttributes<ScrollViewRef>,
+) {
+  const { ref, children, style, contentContainerStyle, ...elementProps } =
+    props;
 
-    const navbar = useContext(NavbarContext);
+  const navbar = useContext(NavbarContext);
 
-    const contentContainerClasses = getStyles(styles, [
-      '.offcanvas-body',
-      navbar &&
-        navbar.expand &&
-        `.navbar-expand${
-          navbar.expand === true ? '' : `-${navbar.expand}`
-        } .offcanvas-body`,
-    ]);
+  const contentContainerClasses = getStyles(styles, [
+    '.offcanvas-body',
+    navbar &&
+      navbar.expand &&
+      `.navbar-expand${
+        navbar.expand === true ? '' : `-${navbar.expand}`
+      } .offcanvas-body`,
+  ]);
 
-    return (
-      <ScrollView
-        {...elementProps}
-        ref={ref}
-        style={style}
-        contentContainerStyle={[contentContainerClasses, contentContainerStyle]}
-      >
-        {children}
-      </ScrollView>
-    );
-  },
-);
-
-OffcanvasBody.displayName = 'OffcanvasBody';
+  return (
+    <ScrollView
+      {...elementProps}
+      ref={ref}
+      style={style}
+      contentContainerStyle={[contentContainerClasses, contentContainerStyle]}
+    >
+      {children}
+    </ScrollView>
+  );
+}
 
 export default OffcanvasBody;

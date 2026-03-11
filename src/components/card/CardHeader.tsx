@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CardHeader = React.forwardRef<ViewRef, CardHeaderProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function CardHeader(props: CardHeaderProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.card-header']);
 
@@ -38,8 +38,6 @@ const CardHeader = React.forwardRef<ViewRef, CardHeaderProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-CardHeader.displayName = 'CardHeader';
+}
 
 export default CardHeader;

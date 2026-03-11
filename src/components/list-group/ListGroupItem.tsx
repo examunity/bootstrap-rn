@@ -91,61 +91,60 @@ export const styles = StyleSheet.create({
   })),
 });
 
-const ListGroupItem = React.forwardRef<ViewRef, ListGroupItemProps>(
-  (props, ref) => {
-    const {
-      children,
-      color,
-      active = false,
-      disabled = false,
-      style,
-      textStyle,
-      ...elementProps
-    } = props;
+function ListGroupItem(
+  props: ListGroupItemProps & React.RefAttributes<ViewRef>,
+) {
+  const {
+    ref,
+    children,
+    color,
+    active = false,
+    disabled = false,
+    style,
+    textStyle,
+    ...elementProps
+  } = props;
 
-    const { first, last } = useForcedContext(ListContext);
-    const { flush } = useForcedContext(ListGroupContext);
+  const { first, last } = useForcedContext(ListContext);
+  const { flush } = useForcedContext(ListGroupContext);
 
-    const classes = getStyles(styles, [
-      '.list-group-item',
-      first && '.list-group-item:first-child',
-      last && '.list-group-item:last-child',
-      active && '.list-group-item.active',
-      disabled && '.list-group-item.disabled',
-      !first && '.list-group-item + .list-group-item',
-      !first && active && '.list-group-item + .list-group-item.active',
-      flush && '.list-group-item-flush',
-      flush && last && '.list-group-item-flush:last-child',
-      !first &&
-        flush &&
-        active &&
-        '.list-group-item-flush + .list-group-item-flush.active',
-      color && `.list-group-item-${color}`,
-    ]);
+  const classes = getStyles(styles, [
+    '.list-group-item',
+    first && '.list-group-item:first-child',
+    last && '.list-group-item:last-child',
+    active && '.list-group-item.active',
+    disabled && '.list-group-item.disabled',
+    !first && '.list-group-item + .list-group-item',
+    !first && active && '.list-group-item + .list-group-item.active',
+    flush && '.list-group-item-flush',
+    flush && last && '.list-group-item-flush:last-child',
+    !first &&
+      flush &&
+      active &&
+      '.list-group-item-flush + .list-group-item-flush.active',
+    color && `.list-group-item-${color}`,
+  ]);
 
-    const textClasses = getStyles(styles, [
-      '.list-group-item --text',
-      active && '.list-group-item.active --text',
-      disabled && '.list-group-item.disabled --text',
-      color && `.list-group-item-${color} --text`,
-    ]);
+  const textClasses = getStyles(styles, [
+    '.list-group-item --text',
+    active && '.list-group-item.active --text',
+    disabled && '.list-group-item.disabled --text',
+    color && `.list-group-item-${color} --text`,
+  ]);
 
-    const role = Platform.OS === 'web' ? 'listitem' : undefined;
+  const role = Platform.OS === 'web' ? 'listitem' : undefined;
 
-    return (
-      <View
-        {...elementProps}
-        ref={ref}
-        role={role}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        {children}
-      </View>
-    );
-  },
-);
-
-ListGroupItem.displayName = 'ListGroupItem';
+  return (
+    <View
+      {...elementProps}
+      ref={ref}
+      role={role}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {children}
+    </View>
+  );
+}
 
 export default ListGroupItem;

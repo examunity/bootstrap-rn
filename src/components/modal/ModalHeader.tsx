@@ -22,20 +22,16 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ModalHeader = React.forwardRef<ViewRef, ModalHeaderProps>(
-  (props, ref) => {
-    const { children, style, ...elementProps } = props;
+function ModalHeader(props: ModalHeaderProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.modal-header']);
+  const classes = getStyles(styles, ['.modal-header']);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        {children}
-      </View>
-    );
-  },
-);
-
-ModalHeader.displayName = 'ModalHeader';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      {children}
+    </View>
+  );
+}
 
 export default ModalHeader;

@@ -14,7 +14,8 @@ import { UseActionableProps } from '../types';
 
 // We need to omit onPress here, because onPress can be null on UseActionableProps, but cannot be null on TextProps.
 export interface LinkProps
-  extends Omit<UseActionProps, 'onPress'>,
+  extends
+    Omit<UseActionProps, 'onPress'>,
     Omit<UseActionableProps, 'onPress'>,
     TextProps {
   onMouseEnter?: (event?: MouseEvent) => void;
@@ -35,8 +36,12 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Link = React.forwardRef<TextRef, LinkProps>((props, ref) => {
-  const [modifierProps, modifierRef] = useModifier('useActionable', props, ref);
+function Link({ ref, ...props }: LinkProps & React.RefAttributes<TextRef>) {
+  const [modifierProps, modifierRef] = useModifier(
+    'useActionable',
+    props,
+    ref ?? null,
+  );
   const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
 
   const {
@@ -94,8 +99,6 @@ const Link = React.forwardRef<TextRef, LinkProps>((props, ref) => {
       {children}
     </Text>
   );
-});
-
-Link.displayName = 'Link';
+}
 
 export default Link;

@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Pagination = React.forwardRef<ViewRef, PaginationProps>((props, ref) => {
-  const { children, style, ...elementProps } = props;
+function Pagination(props: PaginationProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, ...elementProps } = props;
 
   const list = useList(children);
 
@@ -30,9 +30,7 @@ const Pagination = React.forwardRef<ViewRef, PaginationProps>((props, ref) => {
       {list}
     </View>
   );
-});
-
-Pagination.displayName = 'Pagination';
+}
 
 export default Object.assign(Pagination, {
   Item: PaginationItem,

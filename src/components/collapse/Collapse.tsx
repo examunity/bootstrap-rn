@@ -7,8 +7,8 @@ import useToggleCollapse from './useToggleCollapse';
 
 export interface CollapseProps extends ViewProps {}
 
-const Collapse = React.forwardRef<ViewRef, CollapseProps>((props, ref) => {
-  const { children, ...elementProps } = props;
+function Collapse(props: CollapseProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, ...elementProps } = props;
 
   const { identifier, visible } = useForcedContext(CollapseContext);
 
@@ -21,9 +21,7 @@ const Collapse = React.forwardRef<ViewRef, CollapseProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Collapse.displayName = 'Collapse';
+}
 
 export default Object.assign(Collapse, {
   Provider: CollapseProvider,

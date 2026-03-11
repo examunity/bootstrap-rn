@@ -171,38 +171,34 @@ const transformPlacement = (placement: OverlayPlacement) => {
   return placement;
 };
 
-const PopoverArrow = React.forwardRef<ViewRef, PopoverArrowProps>(
-  (props, ref) => {
-    const { style, ...elementProps } = props;
+function PopoverArrow(props: PopoverArrowProps & React.RefAttributes<ViewRef>) {
+  const { ref, style, ...elementProps } = props;
 
-    const context = useForcedContext(PopoverContext);
+  const context = useForcedContext(PopoverContext);
 
-    // For some reason the classes are named start/end, but they always define
-    // the overlay on the left/right placement, so it has no effect on RTL.
-    const placement = transformPlacement(context.placement);
+  // For some reason the classes are named start/end, but they always define
+  // the overlay on the left/right placement, so it has no effect on RTL.
+  const placement = transformPlacement(context.placement);
 
-    const classes = getStyles(styles, [
-      '.popover-arrow',
-      context.floating && `.bs-popover-${placement} .popover-arrow`,
-    ]);
-    const beforeClasses = getStyles(styles, [
-      '.popover-arrow::before',
-      context.floating && `.bs-popover-${placement} .popover-arrow::before`,
-    ]);
-    const afterClasses = getStyles(styles, [
-      '.popover-arrow::after',
-      context.floating && `.bs-popover-${placement} .popover-arrow::after`,
-    ]);
+  const classes = getStyles(styles, [
+    '.popover-arrow',
+    context.floating && `.bs-popover-${placement} .popover-arrow`,
+  ]);
+  const beforeClasses = getStyles(styles, [
+    '.popover-arrow::before',
+    context.floating && `.bs-popover-${placement} .popover-arrow::before`,
+  ]);
+  const afterClasses = getStyles(styles, [
+    '.popover-arrow::after',
+    context.floating && `.bs-popover-${placement} .popover-arrow::after`,
+  ]);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <View style={beforeClasses} />
-        <View style={afterClasses} />
-      </View>
-    );
-  },
-);
-
-PopoverArrow.displayName = 'PopoverArrow';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <View style={beforeClasses} />
+      <View style={afterClasses} />
+    </View>
+  );
+}
 
 export default PopoverArrow;

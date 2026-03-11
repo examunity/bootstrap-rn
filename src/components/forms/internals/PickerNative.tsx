@@ -107,90 +107,90 @@ function DefaultMenuComponent({
 }
 /* eslint-enable */
 
-const PickerNative = React.forwardRef<PressableRef, PickerNativeProps>(
-  (props, ref) => {
-    const {
-      children,
-      selectedValue,
-      onValueChange = () => {},
-      onFocus = () => {},
-      onBlur = () => {},
-      placeholder,
-      placeholderTextColor,
-      disabled = false,
-      MenuComponent = DefaultMenuComponent,
-      style,
-      ...elementProps
-    } = props;
+function PickerNative(
+  props: PickerNativeProps & React.RefAttributes<PressableRef>,
+) {
+  const {
+    ref,
+    children,
+    selectedValue,
+    onValueChange = () => {},
+    onFocus = () => {},
+    onBlur = () => {},
+    placeholder,
+    placeholderTextColor,
+    disabled = false,
+    MenuComponent = DefaultMenuComponent,
+    style,
+    ...elementProps
+  } = props;
 
-    const background = useBackground(style);
+  const background = useBackground(style);
 
-    const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-    const textStyle = extractTextStyles(background.style);
+  const textStyle = extractTextStyles(background.style);
 
-    const showPlaceholder =
-      selectedValue === undefined || selectedValue === null;
+  const showPlaceholder = selectedValue === undefined || selectedValue === null;
 
-    const handleValueChange = (nextValue: string) => {
-      onValueChange(nextValue);
-      setVisible(false);
-    };
-    const handleClose = () => {
-      setVisible(false);
-    };
+  const handleValueChange = (nextValue: string) => {
+    onValueChange(nextValue);
+    setVisible(false);
+  };
+  const handleClose = () => {
+    setVisible(false);
+  };
 
-    const handleFocus = (event: FocusEvent) => {
-      onFocus(event);
-    };
+  const handleFocus = (event: FocusEvent) => {
+    onFocus(event);
+  };
 
-    const handleBlur = (event: BlurEvent) => {
-      onBlur(event);
-    };
+  const handleBlur = (event: BlurEvent) => {
+    onBlur(event);
+  };
 
-    return (
-      <>
-        <Pressable
-          {...elementProps}
-          ref={ref}
-          role="combobox"
-          onPress={() => {
-            setVisible(true);
-          }}
-          onFocus={(event: FocusEvent) => {
-            handleFocus(event);
-          }}
-          onBlur={(event: BlurEvent) => {
-            handleBlur(event);
-          }}
-          disabled={disabled}
-          style={background.style}
+  return (
+    <>
+      <Pressable
+        {...elementProps}
+        ref={ref}
+        role="combobox"
+        onPress={() => {
+          setVisible(true);
+        }}
+        onFocus={(event: FocusEvent) => {
+          handleFocus(event);
+        }}
+        onBlur={(event: BlurEvent) => {
+          handleBlur(event);
+        }}
+        disabled={disabled}
+        style={background.style}
+      >
+        {background.element}
+        <Text
+          numberOfLines={1}
+          style={[
+            textStyle,
+            showPlaceholder && { color: placeholderTextColor },
+          ]}
         >
-          {background.element}
-          <Text
-            numberOfLines={1}
-            style={[
-              textStyle,
-              showPlaceholder && { color: placeholderTextColor },
-            ]}
-          >
-            {showPlaceholder
-              ? placeholder || <Text>&nbsp;</Text>
-              : getText({ children, selectedValue })}
-          </Text>
-        </Pressable>
-        {visible && (
-          <MenuComponent
-            selectedValue={selectedValue}
-            onValueChange={handleValueChange}
-            onClose={handleClose}
-          >
-            {children}
-          </MenuComponent>
-        )}
-      </>
-    );
-  },
-);
+          {showPlaceholder
+            ? placeholder || <Text>&nbsp;</Text>
+            : getText({ children, selectedValue })}
+        </Text>
+      </Pressable>
+      {visible && (
+        <MenuComponent
+          selectedValue={selectedValue}
+          onValueChange={handleValueChange}
+          onClose={handleClose}
+        >
+          {children}
+        </MenuComponent>
+      )}
+    </>
+  );
+}
 
 export default PickerNative;

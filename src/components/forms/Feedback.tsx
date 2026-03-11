@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Feedback = React.forwardRef<TextRef, FeedbackProps>((props, ref) => {
-  const { children, type, style, ...elementProps } = props;
+function Feedback(props: FeedbackProps & React.RefAttributes<TextRef>) {
+  const { ref, children, type, style, ...elementProps } = props;
 
   const classes = getStyles(styles, [`.${type}-feedback`]);
 
@@ -33,8 +33,6 @@ const Feedback = React.forwardRef<TextRef, FeedbackProps>((props, ref) => {
       {children}
     </Text>
   );
-});
-
-Feedback.displayName = 'Feedback';
+}
 
 export default Feedback;

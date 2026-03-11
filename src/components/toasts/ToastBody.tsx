@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ToastBody = React.forwardRef<ViewRef, ToastBodyProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function ToastBody(props: ToastBodyProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const classes = getStyles(styles, ['.toast-body']);
 
@@ -34,8 +34,6 @@ const ToastBody = React.forwardRef<ViewRef, ToastBodyProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-ToastBody.displayName = 'ToastBody';
+}
 
 export default ToastBody;

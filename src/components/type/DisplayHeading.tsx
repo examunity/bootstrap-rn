@@ -19,19 +19,19 @@ const styles = StyleSheet.create({
   })),
 });
 
-const DisplayHeading = React.forwardRef<TextRef, DisplayHeadingProps>(
-  (props, ref) => {
-    const { children, size, style, ...elementProps } = props;
+function DisplayHeading(
+  props: DisplayHeadingProps & React.RefAttributes<TextRef>,
+) {
+  const { ref, children, size, style, ...elementProps } = props;
 
-    const classes = getStyles(styles, [`.display-${size}`]);
+  const classes = getStyles(styles, [`.display-${size}`]);
 
-    return (
-      <Heading {...elementProps} ref={ref} size={1} style={[classes, style]}>
-        {children}
-      </Heading>
-    );
-  },
-);
+  return (
+    <Heading {...elementProps} ref={ref} size={1} style={[classes, style]}>
+      {children}
+    </Heading>
+  );
+}
 
 DisplayHeading.displayName = 'Heading';
 

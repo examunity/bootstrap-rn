@@ -15,20 +15,18 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ButtonToolbar = React.forwardRef<ViewRef, ButtonToolbarProps>(
-  (props, ref) => {
-    const { children, style, ...elementProps } = props;
+function ButtonToolbar(
+  props: ButtonToolbarProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.btn-toolbar']);
+  const classes = getStyles(styles, ['.btn-toolbar']);
 
-    return (
-      <View {...elementProps} ref={ref} role="toolbar" style={[classes, style]}>
-        {children}
-      </View>
-    );
-  },
-);
-
-ButtonToolbar.displayName = 'ButtonToolbar';
+  return (
+    <View {...elementProps} ref={ref} role="toolbar" style={[classes, style]}>
+      {children}
+    </View>
+  );
+}
 
 export default ButtonToolbar;

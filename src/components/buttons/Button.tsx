@@ -304,8 +304,9 @@ const hasSize = (
   return group.size === value;
 };
 
-const Button = React.forwardRef<PressableRef, ButtonProps>((props, ref) => {
+function Button(props: ButtonProps & React.RefAttributes<PressableRef>) {
   const {
+    ref,
     children,
     color = 'primary',
     size,
@@ -372,9 +373,7 @@ const Button = React.forwardRef<PressableRef, ButtonProps>((props, ref) => {
       {children}
     </Pressable>
   );
-});
-
-Button.displayName = 'Button';
+}
 
 export default Object.assign(Button, {
   useToggle: useToggleButton,

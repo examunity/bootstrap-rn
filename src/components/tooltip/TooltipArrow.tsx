@@ -103,34 +103,30 @@ const transformPlacement = (placement: OverlayPlacement) => {
   return placement;
 };
 
-const TooltipArrow = React.forwardRef<ViewRef, TooltipArrowProps>(
-  (props, ref) => {
-    const { style, ...elementProps } = props;
+function TooltipArrow(props: TooltipArrowProps & React.RefAttributes<ViewRef>) {
+  const { ref, style, ...elementProps } = props;
 
-    const context = useForcedContext(TooltipContext);
+  const context = useForcedContext(TooltipContext);
 
-    // For some reason the classes are named start/end, but they always define
-    // the overlay on the left/right placement, so it has no effect on RTL.
-    // Hint: RTL is already handled by the useOverlay hook.
-    const placement = transformPlacement(context.placement);
+  // For some reason the classes are named start/end, but they always define
+  // the overlay on the left/right placement, so it has no effect on RTL.
+  // Hint: RTL is already handled by the useOverlay hook.
+  const placement = transformPlacement(context.placement);
 
-    const classes = getStyles(styles, [
-      '.tooltip-arrow',
-      context.floating && `.bs-tooltip-${placement} .tooltip-arrow`,
-    ]);
-    const beforeClasses = getStyles(styles, [
-      '.tooltip-arrow::before',
-      context.floating && `.bs-tooltip-${placement} .tooltip-arrow::before`,
-    ]);
+  const classes = getStyles(styles, [
+    '.tooltip-arrow',
+    context.floating && `.bs-tooltip-${placement} .tooltip-arrow`,
+  ]);
+  const beforeClasses = getStyles(styles, [
+    '.tooltip-arrow::before',
+    context.floating && `.bs-tooltip-${placement} .tooltip-arrow::before`,
+  ]);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <View style={beforeClasses} />
-      </View>
-    );
-  },
-);
-
-TooltipArrow.displayName = 'TooltipArrow';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <View style={beforeClasses} />
+    </View>
+  );
+}
 
 export default TooltipArrow;

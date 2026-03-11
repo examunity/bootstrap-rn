@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Body = React.forwardRef<ViewRef, BodyProps>((props, ref) => {
-  const { children, style, textStyle, styleName, ...elementProps } = props;
+function Body(props: BodyProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, styleName, ...elementProps } = props;
 
   const classes = getStyles(styles, ['body']);
   const textClasses = getStyles(styles, ['body --text']);
@@ -61,8 +61,6 @@ const Body = React.forwardRef<ViewRef, BodyProps>((props, ref) => {
       </TextStyleContext.Provider>
     </View>
   );
-});
-
-Body.displayName = 'Body';
+}
 
 export default Body;

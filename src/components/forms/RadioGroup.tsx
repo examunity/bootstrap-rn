@@ -10,8 +10,9 @@ export interface RadioGroupProps extends ViewProps {
   disabled?: boolean;
 }
 
-const RadioGroup = React.forwardRef<ViewRef, RadioGroupProps>((props, ref) => {
+function RadioGroup(props: RadioGroupProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     selectedValue,
     onValueChange = () => {},
@@ -35,8 +36,6 @@ const RadioGroup = React.forwardRef<ViewRef, RadioGroupProps>((props, ref) => {
       </RadioContext.Provider>
     </View>
   );
-});
-
-RadioGroup.displayName = 'RadioGroup';
+}
 
 export default RadioGroup;

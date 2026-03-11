@@ -40,8 +40,8 @@ const getRole = (tabbable: boolean): Role | undefined => {
   return undefined;
 };
 
-const ListGroup = React.forwardRef<ViewRef, ListGroupProps>((props, ref) => {
-  const { children, flush, style, ...elementProps } = props;
+function ListGroup(props: ListGroupProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, flush, style, ...elementProps } = props;
 
   const list = useList(children);
 
@@ -67,9 +67,7 @@ const ListGroup = React.forwardRef<ViewRef, ListGroupProps>((props, ref) => {
       </ListGroupContext.Provider>
     </View>
   );
-});
-
-ListGroup.displayName = 'ListGroup';
+}
 
 export default Object.assign(ListGroup, {
   Item: ListGroupItem,

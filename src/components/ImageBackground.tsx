@@ -14,18 +14,19 @@ import type {
 
 export type ImageBackgroundRef = BaseImageBackground;
 
-export interface ImageBackgroundProps
-  extends Omit<BaseImageBackgroundProps, 'style' | 'imageStyle'> {
+export interface ImageBackgroundProps extends Omit<
+  BaseImageBackgroundProps,
+  'style' | 'imageStyle'
+> {
   style?: StyleProp<ExtendedViewStyle>;
   imageStyle?: StyleProp<ExtendedImageStyle>;
   styleName?: StyleName;
 }
 
-const ImageBackground = React.forwardRef<
-  ImageBackgroundRef,
-  ImageBackgroundProps
->((props, ref) => {
-  const { style, imageStyle, styleName, ...elementProps } = props;
+function ImageBackground(
+  props: ImageBackgroundProps & React.RefAttributes<ImageBackgroundRef>,
+) {
+  const { ref, style, imageStyle, styleName, ...elementProps } = props;
 
   const media = useMedia();
   const resolveStyle = useStyle(style, styleName);
@@ -41,8 +42,6 @@ const ImageBackground = React.forwardRef<
       }
     />
   );
-});
-
-ImageBackground.displayName = 'ImageBackground';
+}
 
 export default ImageBackground;

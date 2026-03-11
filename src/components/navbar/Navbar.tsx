@@ -46,8 +46,9 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Navbar = React.forwardRef<ViewRef, NavbarProps>((props, ref) => {
+function Navbar(props: NavbarProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     variant = 'light',
     defaultExpanded = false,
@@ -76,9 +77,7 @@ const Navbar = React.forwardRef<ViewRef, NavbarProps>((props, ref) => {
       <NavbarContext.Provider value={navbar}>{children}</NavbarContext.Provider>
     </View>
   );
-});
-
-Navbar.displayName = 'Navbar';
+}
 
 export default Object.assign(Navbar, {
   Brand: NavbarBrand,

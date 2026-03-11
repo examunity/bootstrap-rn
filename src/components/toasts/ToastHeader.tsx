@@ -33,27 +33,23 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ToastHeader = React.forwardRef<ViewRef, ToastHeaderProps>(
-  (props, ref) => {
-    const { children, style, textStyle, ...elementProps } = props;
+function ToastHeader(props: ToastHeaderProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.toast-header']);
+  const classes = getStyles(styles, ['.toast-header']);
 
-    const textClasses = getStyles(styles, ['.toast-header --text']);
+  const textClasses = getStyles(styles, ['.toast-header --text']);
 
-    return (
-      <View
-        {...elementProps}
-        ref={ref}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        {children}
-      </View>
-    );
-  },
-);
-
-ToastHeader.displayName = 'ToastHeader';
+  return (
+    <View
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {children}
+    </View>
+  );
+}
 
 export default ToastHeader;

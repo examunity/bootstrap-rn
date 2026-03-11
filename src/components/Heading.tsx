@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Heading = React.forwardRef<TextRef, HeadingProps>((props, ref) => {
-  const { children, size, style, ...elementProps } = props;
+function Heading(props: HeadingProps & React.RefAttributes<TextRef>) {
+  const { ref, children, size, style, ...elementProps } = props;
 
   const classes = getStyles(styles, ['heading', `.h${size}`]);
 
@@ -42,8 +42,6 @@ const Heading = React.forwardRef<TextRef, HeadingProps>((props, ref) => {
       {children}
     </Text>
   );
-});
-
-Heading.displayName = 'Heading';
+}
 
 export default Heading;

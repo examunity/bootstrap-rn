@@ -16,28 +16,26 @@ const styles = StyleSheet.create({
   `,
 });
 
-const OffcanvasTitle = React.forwardRef<TextRef, OffcanvasTitleProps>(
-  (props, ref) => {
-    const { children, style, ...elementProps } = props;
+function OffcanvasTitle(
+  props: OffcanvasTitleProps & React.RefAttributes<TextRef>,
+) {
+  const { ref, children, style, ...elementProps } = props;
 
-    const { identifier } = useForcedContext(OffcanvasContext);
+  const { identifier } = useForcedContext(OffcanvasContext);
 
-    const classes = getStyles(styles, ['.offcanvas-title']);
+  const classes = getStyles(styles, ['.offcanvas-title']);
 
-    return (
-      <Heading
-        id={`${identifier}-title`}
-        size={5}
-        {...elementProps}
-        ref={ref}
-        style={[classes, style]}
-      >
-        {children}
-      </Heading>
-    );
-  },
-);
-
-OffcanvasTitle.displayName = 'OffcanvasTitle';
+  return (
+    <Heading
+      id={`${identifier}-title`}
+      size={5}
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+    >
+      {children}
+    </Heading>
+  );
+}
 
 export default OffcanvasTitle;

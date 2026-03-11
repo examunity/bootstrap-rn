@@ -20,22 +20,18 @@ const styles = StyleSheet.create({
   `,
 });
 
-const TooltipInner = React.forwardRef<ViewRef, TooltipInnerProps>(
-  (props, ref) => {
-    const { children, style, textStyle, ...elementProps } = props;
+function TooltipInner(props: TooltipInnerProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.tooltip-inner']);
-    const textClasses = getStyles(styles, ['.tooltip-inner --text']);
+  const classes = getStyles(styles, ['.tooltip-inner']);
+  const textClasses = getStyles(styles, ['.tooltip-inner --text']);
 
-    // composite component
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <Text style={[textClasses, textStyle]}>{children}</Text>
-      </View>
-    );
-  },
-);
-
-TooltipInner.displayName = 'TooltipInner';
+  // composite component
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <Text style={[textClasses, textStyle]}>{children}</Text>
+    </View>
+  );
+}
 
 export default TooltipInner;

@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Toast = React.forwardRef<ViewRef, ToastProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function Toast(props: ToastProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const listItem = useContext(ListContext);
   const container = useContext(ToastContainerContext);
@@ -57,9 +57,7 @@ const Toast = React.forwardRef<ViewRef, ToastProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Toast.displayName = 'Toast';
+}
 
 export default Object.assign(Toast, {
   Header: ToastHeader,

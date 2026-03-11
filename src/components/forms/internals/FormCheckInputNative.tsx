@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import type { ViewStyle } from 'react-native';
 import Pressable, { PressableRef } from '../../Pressable';
 import useBackground from '../../../hooks/useBackground';
@@ -8,11 +8,11 @@ export interface FormCheckInputNativeProps extends FormCheckInputProps {
   style: ViewStyle[];
 }
 
-const FormCheckInputNative = forwardRef<
-  PressableRef,
-  FormCheckInputNativeProps
->((props, ref) => {
+function FormCheckInputNative(
+  props: FormCheckInputNativeProps & React.RefAttributes<PressableRef>,
+) {
   const {
+    ref,
     type,
     value,
     onValueChange: handleValueChange,
@@ -44,8 +44,6 @@ const FormCheckInputNative = forwardRef<
       {inputBackground.element}
     </Pressable>
   );
-});
-
-FormCheckInputNative.displayName = 'FormCheckInputNative';
+}
 
 export default FormCheckInputNative;

@@ -52,7 +52,7 @@ export function getStyles<T extends string>(
 
 export function concatRefs<T>(
   ...refs: (React.Ref<T> | undefined)[]
-): React.Ref<T> {
+): (instance: T | null) => void {
   return (element) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {

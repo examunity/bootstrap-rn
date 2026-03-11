@@ -24,36 +24,34 @@ const styles = StyleSheet.create({
   itemDisabled: css``,
 });
 
-const PickerNativeItem = React.forwardRef<ViewRef, PickerNativeItemProps>(
-  (props, ref) => {
-    const { label, value, disabled = false } = props;
+function PickerNativeItem(
+  props: PickerNativeItemProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, label, value, disabled = false } = props;
 
-    const { selectedValue, handleValueChange } =
-      useForcedContext(PickerNativeContext);
-    const media = useMedia();
+  const { selectedValue, handleValueChange } =
+    useForcedContext(PickerNativeContext);
+  const media = useMedia();
 
-    const classes = getStyles(styles, ['item', disabled && 'itemDisabled']);
+  const classes = getStyles(styles, ['item', disabled && 'itemDisabled']);
 
-    const resolveStyle = useStyle(classes);
+  const resolveStyle = useStyle(classes);
 
-    const selected = value === selectedValue;
+  const selected = value === selectedValue;
 
-    return (
-      <Pressable
-        ref={ref}
-        onPress={() => {
-          handleValueChange(value);
-        }}
-        aria-selected={selected}
-        disabled={disabled}
-        style={resolveStyle({ media })}
-      >
-        <Text styleName={selected ? 'text-primary' : undefined}>{label}</Text>
-      </Pressable>
-    );
-  },
-);
-
-PickerNativeItem.displayName = 'PickerNativeItem';
+  return (
+    <Pressable
+      ref={ref}
+      onPress={() => {
+        handleValueChange(value);
+      }}
+      aria-selected={selected}
+      disabled={disabled}
+      style={resolveStyle({ media })}
+    >
+      <Text styleName={selected ? 'text-primary' : undefined}>{label}</Text>
+    </Pressable>
+  );
+}
 
 export default PickerNativeItem;

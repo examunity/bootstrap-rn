@@ -44,8 +44,9 @@ const styles = StyleSheet.create({
   }, */
 });
 
-const Alert = React.forwardRef<ViewRef, AlertProps>((props, ref) => {
+function Alert(props: AlertProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     color = 'primary',
     dismissible = false,
@@ -73,8 +74,6 @@ const Alert = React.forwardRef<ViewRef, AlertProps>((props, ref) => {
       {children}
     </View>
   );
-});
-
-Alert.displayName = 'Alert';
+}
 
 export default Alert;

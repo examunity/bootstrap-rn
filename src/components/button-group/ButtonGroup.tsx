@@ -18,29 +18,25 @@ const styles = StyleSheet.create({
   `,
 });
 
-const ButtonGroup = React.forwardRef<ViewRef, ButtonGroupProps>(
-  (props, ref) => {
-    const { children, size, style, ...elementProps } = props;
+function ButtonGroup(props: ButtonGroupProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, size, style, ...elementProps } = props;
 
-    const list = useList(children);
+  const list = useList(children);
 
-    const classes = getStyles(styles, ['.btn-group']);
+  const classes = getStyles(styles, ['.btn-group']);
 
-    // Accessiblity role tabpanel is only supported on web.
-    const role = Platform.OS === 'web' ? 'group' : undefined;
+  // Accessiblity role tabpanel is only supported on web.
+  const role = Platform.OS === 'web' ? 'group' : undefined;
 
-    const contextValue = useMemo(() => ({ size }), [size]);
+  const contextValue = useMemo(() => ({ size }), [size]);
 
-    return (
-      <View {...elementProps} ref={ref} role={role} style={[classes, style]}>
-        <ButtonGroupContext.Provider value={contextValue}>
-          {list}
-        </ButtonGroupContext.Provider>
-      </View>
-    );
-  },
-);
-
-ButtonGroup.displayName = 'ButtonGroup';
+  return (
+    <View {...elementProps} ref={ref} role={role} style={[classes, style]}>
+      <ButtonGroupContext.Provider value={contextValue}>
+        {list}
+      </ButtonGroupContext.Provider>
+    </View>
+  );
+}
 
 export default ButtonGroup;

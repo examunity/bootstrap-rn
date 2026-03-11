@@ -35,37 +35,35 @@ const styles = StyleSheet.create({
   })),
 });
 
-const FormCheckLabel = React.forwardRef<ViewRef, FormCheckLabelProps>(
-  (props, ref) => {
-    const { children, style, textStyle, ...elementProps } = props;
+function FormCheckLabel(
+  props: FormCheckLabelProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
-    const { disabled, valid, invalid } = useForcedContext(FormCheckContext);
+  const { disabled, valid, invalid } = useForcedContext(FormCheckContext);
 
-    const classes = getStyles(styles, [
-      disabled && '.form-check-input:disabled ~ .form-check-label',
-      '.form-check-label',
-    ]);
+  const classes = getStyles(styles, [
+    disabled && '.form-check-input:disabled ~ .form-check-label',
+    '.form-check-label',
+  ]);
 
-    const textClasses = getStyles(styles, [
-      '.form-check-label --text',
-      // validation
-      valid && '.form-check-input:valid ~ .form-check-label --text',
-      invalid && '.form-check-input:invalid ~ .form-check-label --text',
-    ]);
+  const textClasses = getStyles(styles, [
+    '.form-check-label --text',
+    // validation
+    valid && '.form-check-input:valid ~ .form-check-label --text',
+    invalid && '.form-check-input:invalid ~ .form-check-label --text',
+  ]);
 
-    return (
-      <Label
-        {...elementProps}
-        ref={ref}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        {children}
-      </Label>
-    );
-  },
-);
-
-FormCheckLabel.displayName = 'FormCheckLabel';
+  return (
+    <Label
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {children}
+    </Label>
+  );
+}
 
 export default FormCheckLabel;

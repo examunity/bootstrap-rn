@@ -84,59 +84,58 @@ const styles = StyleSheet.create({
   `,
 });
 
-const CloseButton = React.forwardRef<PressableRef, CloseButtonProps>(
-  (props, ref) => {
-    const {
-      hitSlop = 12,
-      disabled = false,
-      style,
-      textStyle,
-      styleName,
-      ...elementProps
-    } = props;
+function CloseButton(
+  props: CloseButtonProps & React.RefAttributes<PressableRef>,
+) {
+  const {
+    ref,
+    hitSlop = 12,
+    disabled = false,
+    style,
+    textStyle,
+    styleName,
+    ...elementProps
+  } = props;
 
-    const media = useMedia();
+  const media = useMedia();
 
-    const modal = useContext(ModalContext);
-    const offcanvas = useContext(OffcanvasContext);
+  const modal = useContext(ModalContext);
+  const offcanvas = useContext(OffcanvasContext);
 
-    const classes = getStyles(styles, [
-      '.btn-close',
-      disabled && '.btn-close.disabled',
-      // Modal styles
-      modal && '.modal-header .btn-close',
-      // Offcanvas styles
-      offcanvas && '.offcanvas-header .btn-close',
-    ]);
-    const textClasses = getStyles(styles, ['.btn-close --text']);
+  const classes = getStyles(styles, [
+    '.btn-close',
+    disabled && '.btn-close.disabled',
+    // Modal styles
+    modal && '.modal-header .btn-close',
+    // Offcanvas styles
+    offcanvas && '.offcanvas-header .btn-close',
+  ]);
+  const textClasses = getStyles(styles, ['.btn-close --text']);
 
-    const resolveStyle = useStyle([classes, style], styleName);
+  const resolveStyle = useStyle([classes, style], styleName);
 
-    const { interaction, interactionProps } = useInteractionState(elementProps);
+  const { interaction, interactionProps } = useInteractionState(elementProps);
 
-    const background = useBackground(
-      resolveStyle({
-        media,
-        interaction,
-      }),
-    );
+  const background = useBackground(
+    resolveStyle({
+      media,
+      interaction,
+    }),
+  );
 
-    return (
-      <Pressable
-        {...elementProps}
-        {...interactionProps}
-        ref={ref}
-        hitSlop={hitSlop}
-        disabled={disabled}
-        style={background.style}
-        textStyle={[textClasses, textStyle]}
-      >
-        {background.element}
-      </Pressable>
-    );
-  },
-);
-
-CloseButton.displayName = 'CloseButton';
+  return (
+    <Pressable
+      {...elementProps}
+      {...interactionProps}
+      ref={ref}
+      hitSlop={hitSlop}
+      disabled={disabled}
+      style={background.style}
+      textStyle={[textClasses, textStyle]}
+    >
+      {background.element}
+    </Pressable>
+  );
+}
 
 export default CloseButton;

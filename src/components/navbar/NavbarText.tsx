@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarText = React.forwardRef<ViewRef, NavbarTextProps>((props, ref) => {
-  const { children, style, textStyle, ...elementProps } = props;
+function NavbarText(props: NavbarTextProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
   const { variant } = useForcedContext(NavbarContext);
 
@@ -38,8 +38,6 @@ const NavbarText = React.forwardRef<ViewRef, NavbarTextProps>((props, ref) => {
       <Text style={[textClasses, textStyle]}>{children}</Text>
     </View>
   );
-});
-
-NavbarText.displayName = 'NavbarText';
+}
 
 export default NavbarText;

@@ -59,8 +59,9 @@ const getStyleName = (styleName?: StyleName, color?: ThemeColors) => {
   return styleName ? `text-${color} ${styleName}` : `text-${color}`;
 };
 
-const Text = React.forwardRef<TextRef, TextProps>((props, ref) => {
+function Text(props: TextProps & React.RefAttributes<TextRef>) {
   const {
+    ref,
     color, // will be deprecated soon
     bold = false,
     italic = false,
@@ -112,8 +113,6 @@ const Text = React.forwardRef<TextRef, TextProps>((props, ref) => {
       {element}
     </TextStyleContext.Provider>
   );
-});
-
-Text.displayName = 'Text';
+}
 
 export default Text;

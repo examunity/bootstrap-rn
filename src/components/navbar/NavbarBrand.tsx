@@ -49,32 +49,30 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarBrand = React.forwardRef<PressableRef, NavbarBrandProps>(
-  (props, ref) => {
-    const { children, style, textStyle, ...elementProps } = props;
+function NavbarBrand(
+  props: NavbarBrandProps & React.RefAttributes<PressableRef>,
+) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
-    const { variant } = useForcedContext(NavbarContext);
+  const { variant } = useForcedContext(NavbarContext);
 
-    const classes = getStyles(styles, ['.navbar-brand']);
+  const classes = getStyles(styles, ['.navbar-brand']);
 
-    const textClasses = getStyles(styles, [
-      '.navbar-brand --text',
-      `.navbar-${variant} .navbar-brand --text`,
-    ]);
+  const textClasses = getStyles(styles, [
+    '.navbar-brand --text',
+    `.navbar-${variant} .navbar-brand --text`,
+  ]);
 
-    return (
-      <Pressable
-        {...elementProps}
-        ref={ref}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        {children}
-      </Pressable>
-    );
-  },
-);
-
-NavbarBrand.displayName = 'NavbarBrand';
+  return (
+    <Pressable
+      {...elementProps}
+      ref={ref}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      {children}
+    </Pressable>
+  );
+}
 
 export default NavbarBrand;

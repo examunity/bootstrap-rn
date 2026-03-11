@@ -5,13 +5,15 @@ import FormCheckInput, { FormCheckInputProps } from './FormCheckInput';
 import RadioGroup from './RadioGroup';
 import RadioContext from './RadioContext';
 
-export interface RadioProps
-  extends Omit<FormCheckInputProps, 'value' | 'type'> {
+export interface RadioProps extends Omit<
+  FormCheckInputProps,
+  'value' | 'type'
+> {
   value: boolean | number | string | object | null;
 }
 
-const Radio = React.forwardRef<PressableRef, RadioProps>((props, ref) => {
-  const { value, ...elementProps } = props;
+function Radio(props: RadioProps & React.RefAttributes<PressableRef>) {
+  const { ref, value, ...elementProps } = props;
 
   const { selectedValue, onValueChange, disabled } =
     useForcedContext(RadioContext);
@@ -28,9 +30,7 @@ const Radio = React.forwardRef<PressableRef, RadioProps>((props, ref) => {
       disabled={disabled}
     />
   );
-});
-
-Radio.displayName = 'Radio';
+}
 
 export default Object.assign(Radio, {
   Group: RadioGroup,

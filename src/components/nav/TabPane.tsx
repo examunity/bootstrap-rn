@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const TabPane = React.forwardRef<ViewRef, TabPaneProps>((props, ref) => {
-  const { id: target, style, ...elementProps } = props;
+function TabPane(props: TabPaneProps & React.RefAttributes<ViewRef>) {
+  const { ref, id: target, style, ...elementProps } = props;
 
   const tabbable = useForcedContext(TabContext);
 
@@ -45,8 +45,6 @@ const TabPane = React.forwardRef<ViewRef, TabPaneProps>((props, ref) => {
       style={[classes, style]}
     />
   );
-});
-
-TabPane.displayName = 'TabPane';
+}
 
 export default TabPane;

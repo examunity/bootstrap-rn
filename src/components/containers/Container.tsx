@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
   })),
 });
 
-const Container = React.forwardRef<ViewRef, ContainerProps>((props, ref) => {
-  const { fluid = 'sm', style, ...elementProps } = props;
+function Container(props: ContainerProps & React.RefAttributes<ViewRef>) {
+  const { ref, fluid = 'sm', style, ...elementProps } = props;
 
   const navbar = useContext(NavbarContext);
 
@@ -111,8 +111,6 @@ const Container = React.forwardRef<ViewRef, ContainerProps>((props, ref) => {
   ]);
 
   return <View {...elementProps} ref={ref} style={[classes, style]} />;
-});
-
-Container.displayName = 'Container';
+}
 
 export default Container;

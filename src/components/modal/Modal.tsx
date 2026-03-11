@@ -21,7 +21,7 @@ export interface ModalProps extends ScrollViewProps {
   backdrop?: boolean | 'static';
   scrollable?: boolean;
   centered?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   dialogStyle?: StyleProp<ExtendedViewStyle>;
   contentStyle?: StyleProp<ExtendedViewStyle>;
   dialogTextStyle?: StyleProp<ExtendedTextStyle>;
@@ -146,105 +146,100 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Modal = React.forwardRef<ViewRef | ScrollViewRef, ModalProps>(
-  (props, ref) => {
-    const {
-      children,
-      visible,
-      size,
-      backdrop = true,
-      scrollable = false,
-      centered = false,
-      onClose: handleClose,
-      style,
-      contentContainerStyle,
-      dialogStyle,
-      contentStyle,
-      textStyle,
-      dialogTextStyle,
-      contentTextStyle,
-      ...elementProps
-    } = props;
+function Modal(
+  props: ModalProps & React.RefAttributes<ViewRef | ScrollViewRef>,
+) {
+  const {
+    ref,
+    children,
+    visible,
+    size,
+    backdrop = true,
+    scrollable = false,
+    centered = false,
+    onClose: handleClose,
+    style,
+    contentContainerStyle,
+    dialogStyle,
+    contentStyle,
+    textStyle,
+    dialogTextStyle,
+    contentTextStyle,
+    ...elementProps
+  } = props;
 
-    const modalRef = useRef<ViewRef>(null);
+  const modalRef = useRef<ViewRef>(null);
 
-    const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
 
-    const modal = useModal(scrollable);
+  const modal = useModal(scrollable);
 
-    const backdropClasses = getStyles(styles, ['.modal-backdrop']);
-    const classes = getStyles(styles, ['.modal']);
-    const dialogClasses = getStyles(styles, [
-      '.modal-dialog',
-      size === 'sm' && '.modal-sm',
-      size === 'lg' && '.modal-lg',
-      size === 'xl' && '.modal-xl',
-      scrollable && '.modal-dialog-scrollable',
-      centered && '.modal-dialog-centered',
-    ]);
-    const contentClasses = getStyles(styles, [
-      '.modal-content',
-      scrollable && '.modal-dialog-scrollable .modal-content',
-    ]);
-    const contentTextClasses = getStyles(styles, ['.modal-content --text']);
+  const backdropClasses = getStyles(styles, ['.modal-backdrop']);
+  const classes = getStyles(styles, ['.modal']);
+  const dialogClasses = getStyles(styles, [
+    '.modal-dialog',
+    size === 'sm' && '.modal-sm',
+    size === 'lg' && '.modal-lg',
+    size === 'xl' && '.modal-xl',
+    scrollable && '.modal-dialog-scrollable',
+    centered && '.modal-dialog-centered',
+  ]);
+  const contentClasses = getStyles(styles, [
+    '.modal-content',
+    scrollable && '.modal-dialog-scrollable .modal-content',
+  ]);
+  const contentTextClasses = getStyles(styles, ['.modal-content --text']);
 
-    // If scrollable we use a ScrollView in ModalBody, so we can use a View here.
-    const FlexView = scrollable ? View : ScrollView;
+  // If scrollable we use a ScrollView in ModalBody, so we can use a View here.
+  const FlexView = scrollable ? View : ScrollView;
 
-    const centeredStyle = centered && {
-      justifyContent: 'center' as JustifyContentValue,
-    };
+  const centeredStyle = centered && {
+    justifyContent: 'center' as JustifyContentValue,
+  };
 
-    if (!visible) {
-      return null;
-    }
+  if (!visible) {
+    return null;
+  }
 
-    return (
-      <Dialog
-        id={modal.identifier}
-        dialogRef={modalRef}
-        backgroundRef={modalRef}
-        onClose={handleClose}
-        backdrop={backdrop}
-        backdropElement={<View style={backdropClasses} />}
+  return (
+    <Dialog
+      id={modal.identifier}
+      dialogRef={modalRef}
+      backgroundRef={modalRef}
+      onClose={handleClose}
+      backdrop={backdrop}
+      backdropElement={<View style={backdropClasses} />}
+    >
+      <FlexView
+        {...elementProps}
+        ref={concatRefs(ref, modalRef)}
+        role="dialog"
+        aria-modal
+        aria-labelledby={`${modal.identifier}-title`}
+        tabIndex={-1}
+        style={[classes, insets, scrollable && centeredStyle, style]}
+        textStyle={textStyle}
+        contentContainerStyle={
+          scrollable
+            ? undefined
+            : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
+        }
       >
-        <FlexView
-          {...elementProps}
-          // @ts-expect-error Type of ref depends on component.
-          ref={concatRefs(ref, modalRef)}
-          role="dialog"
-          aria-modal
-          aria-labelledby={`${modal.identifier}-title`}
-          tabIndex={-1}
-          style={[classes, insets, scrollable && centeredStyle, style]}
-          textStyle={textStyle}
-          contentContainerStyle={
-            scrollable
-              ? undefined
-              : [{ flexGrow: 1 }, centeredStyle, contentContainerStyle]
-          }
-        >
-          <BackdropHandler onClose={handleClose} backdrop={backdrop} />
+        <BackdropHandler onClose={handleClose} backdrop={backdrop} />
+        <View style={[dialogClasses, dialogStyle]} textStyle={dialogTextStyle}>
           <View
-            style={[dialogClasses, dialogStyle]}
-            textStyle={dialogTextStyle}
+            style={[contentClasses, contentStyle]}
+            textStyle={[contentTextClasses, contentTextStyle]}
           >
-            <View
-              style={[contentClasses, contentStyle]}
-              textStyle={[contentTextClasses, contentTextStyle]}
-            >
-              <ModalContext.Provider value={modal}>
-                {children}
-              </ModalContext.Provider>
-            </View>
+            <ModalContext.Provider value={modal}>
+              {children}
+            </ModalContext.Provider>
           </View>
-        </FlexView>
-      </Dialog>
-    );
-  },
-);
-
-Modal.displayName = 'Modal';
+        </View>
+      </FlexView>
+    </Dialog>
+  );
+}
 
 export default Object.assign(Modal, {
   Context: ModalContext,

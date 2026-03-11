@@ -7,7 +7,7 @@ type ModifierProps = any;
 export type Modifier = (
   props: ModifierProps,
   ref: React.Ref<unknown>,
-) => ModifierProps & { ref?: React.Ref<unknown> };
+) => ModifierProps & React.RefAttributes<unknown>;
 
 export type Modifiers = {
   useFormField?: Modifier;

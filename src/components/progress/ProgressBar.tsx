@@ -34,37 +34,29 @@ const getPercentage = (value: number, min: number, max: number) => {
   return Math.round(percentage * ROUND_PRECISION) / ROUND_PRECISION;
 };
 
-const ProgressBar = React.forwardRef<ViewRef, ProgressBarProps>(
-  (props, ref) => {
-    const { children, value, style, textStyle, ...elementProps } = props;
+function ProgressBar(props: ProgressBarProps & React.RefAttributes<ViewRef>) {
+  const { ref, children, value, style, textStyle, ...elementProps } = props;
 
-    const { min, max } = useForcedContext(ProgressContext);
+  const { min, max } = useForcedContext(ProgressContext);
 
-    const classes = getStyles(styles, ['.progress-bar']);
+  const classes = getStyles(styles, ['.progress-bar']);
 
-    const textClasses = getStyles(styles, ['.progress-bar --text']);
+  const textClasses = getStyles(styles, ['.progress-bar --text']);
 
-    // composite component
-    return (
-      <View
-        {...elementProps}
-        ref={ref}
-        role="progressbar"
-        aria-valuenow={value}
-        aria-valuemin={min}
-        aria-valuemax={max}
-        style={[
-          classes,
-          style,
-          { width: `${getPercentage(value, min, max)}%` },
-        ]}
-      >
-        {children && <Text style={[textClasses, textStyle]}>{children}</Text>}
-      </View>
-    );
-  },
-);
-
-ProgressBar.displayName = 'ProgressBar';
+  // composite component
+  return (
+    <View
+      {...elementProps}
+      ref={ref}
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={min}
+      aria-valuemax={max}
+      style={[classes, style, { width: `${getPercentage(value, min, max)}%` }]}
+    >
+      {children && <Text style={[textClasses, textStyle]}>{children}</Text>}
+    </View>
+  );
+}
 
 export default ProgressBar;

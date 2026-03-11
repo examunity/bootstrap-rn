@@ -17,21 +17,19 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownItemText = React.forwardRef<ViewRef, DropdownItemTextProps>(
-  (props, ref) => {
-    const { children, style, textStyle, ...elementProps } = props;
+function DropdownItemText(
+  props: DropdownItemTextProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, children, style, textStyle, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.dropdown-item-text']);
-    const textClasses = getStyles(styles, ['.dropdown-item-text --text']);
+  const classes = getStyles(styles, ['.dropdown-item-text']);
+  const textClasses = getStyles(styles, ['.dropdown-item-text --text']);
 
-    return (
-      <View {...elementProps} ref={ref} style={[classes, style]}>
-        <Text style={[textClasses, textStyle]}>{children}</Text>
-      </View>
-    );
-  },
-);
-
-DropdownItemText.displayName = 'DropdownItemText';
+  return (
+    <View {...elementProps} ref={ref} style={[classes, style]}>
+      <Text style={[textClasses, textStyle]}>{children}</Text>
+    </View>
+  );
+}
 
 export default DropdownItemText;

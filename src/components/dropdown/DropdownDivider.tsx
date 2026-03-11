@@ -17,16 +17,14 @@ const styles = StyleSheet.create({
   `,
 });
 
-const DropdownDivider = React.forwardRef<ViewRef, DropdownDividerProps>(
-  (props, ref) => {
-    const { style, ...elementProps } = props;
+function DropdownDivider(
+  props: DropdownDividerProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, style, ...elementProps } = props;
 
-    const classes = getStyles(styles, ['.dropdown-divider']);
+  const classes = getStyles(styles, ['.dropdown-divider']);
 
-    return <View {...elementProps} ref={ref} style={[classes, style]} />;
-  },
-);
-
-DropdownDivider.displayName = 'DropdownDivider';
+  return <View {...elementProps} ref={ref} style={[classes, style]} />;
+}
 
 export default DropdownDivider;

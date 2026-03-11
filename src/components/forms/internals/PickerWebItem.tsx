@@ -13,24 +13,22 @@ export interface PickerWebItemProps extends ViewProps {
   disabled?: boolean;
 }
 
-const PickerWebItem = React.forwardRef<ViewRef, PickerWebItemProps>(
-  (props, ref) => {
-    const { label, value, disabled = false } = props;
+function PickerWebItem(
+  props: PickerWebItemProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, label, value, disabled = false } = props;
 
-    const { optionColor } = useForcedContext(PickerWebContext);
+  const { optionColor } = useForcedContext(PickerWebContext);
 
-    return (
-      <WebPicker.Item
-        ref={ref}
-        label={label}
-        value={value}
-        disabled={disabled}
-        color={optionColor}
-      />
-    );
-  },
-);
-
-PickerWebItem.displayName = 'PickerWebItem';
+  return (
+    <WebPicker.Item
+      ref={ref}
+      label={label}
+      value={value}
+      disabled={disabled}
+      color={optionColor}
+    />
+  );
+}
 
 export default PickerWebItem;

@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef } from 'react';
+import React, { useContext } from 'react';
 import { I18nManager, StyleSheet as StyleUtils } from 'react-native';
 import View, { ViewProps, ViewRef } from './View';
 import StyleSheet from '../style/StyleSheet';
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Caret = forwardRef<ViewRef, CaretProps>((props, ref) => {
-  const { color, direction = 'down', style, ...elementProps } = props;
+function Caret(props: CaretProps & React.RefAttributes<ViewRef>) {
+  const { ref, color, direction = 'down', style, ...elementProps } = props;
 
   const context = useContext(TextStyleContext);
 
@@ -104,8 +104,6 @@ const Caret = forwardRef<ViewRef, CaretProps>((props, ref) => {
       ]}
     />
   );
-});
-
-Caret.displayName = 'Caret';
+}
 
 export default Caret;

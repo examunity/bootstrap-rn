@@ -31,16 +31,18 @@ type InputProps = {
   id?: string;
 };
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ style, ...props }, ref) =>
-    createElement('input', { ...props, ref, style: [styles.reboot, style] }),
-);
+const Input = ({
+  ref,
+  style,
+  ...props
+}: InputProps & React.RefAttributes<HTMLInputElement>) =>
+  createElement('input', { ...props, ref, style: [styles.reboot, style] });
 
-const FormCheckInputWeb = React.forwardRef<
-  PressableRef,
-  FormCheckInputWebProps
->((props, ref) => {
+function FormCheckInputWeb(
+  props: FormCheckInputWebProps & React.RefAttributes<PressableRef>,
+) {
   const {
+    ref,
     type,
     value,
     onValueChange: handleValueChange,
@@ -72,8 +74,6 @@ const FormCheckInputWeb = React.forwardRef<
       autoFocus={autoFocus}
     />
   );
-});
-
-FormCheckInputWeb.displayName = 'FormCheckInputWeb';
+}
 
 export default FormCheckInputWeb;

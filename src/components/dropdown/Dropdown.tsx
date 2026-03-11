@@ -29,8 +29,9 @@ const styles = StyleSheet.create({
   `,
 });
 
-const Dropdown = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
+function Dropdown(props: DropdownProps & React.RefAttributes<ViewRef>) {
   const {
+    ref,
     children,
     defaultVisible = false,
     visible,
@@ -60,9 +61,7 @@ const Dropdown = React.forwardRef<ViewRef, DropdownProps>((props, ref) => {
       </DropdownContext.Provider>
     </View>
   );
-});
-
-Dropdown.displayName = 'Dropdown';
+}
 
 export default Object.assign(Dropdown, {
   Context: DropdownContext,

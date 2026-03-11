@@ -84,47 +84,45 @@ const styles = StyleSheet.create({
   `,
 });
 
-const NavbarToggler = React.forwardRef<ViewRef, NavbarTogglerProps>(
-  (props, ref) => {
-    const { style, textStyle, iconStyle, ...elementProps } = props;
+function NavbarToggler(
+  props: NavbarTogglerProps & React.RefAttributes<ViewRef>,
+) {
+  const { ref, style, textStyle, iconStyle, ...elementProps } = props;
 
-    const media = useMedia();
-    const { variant, expand } = useForcedContext(NavbarContext);
+  const media = useMedia();
+  const { variant, expand } = useForcedContext(NavbarContext);
 
-    const classes = getStyles(styles, [
-      '.navbar-toggler',
-      `.navbar-${variant} .navbar-toggler`,
-      expand &&
-        `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-toggler`,
-    ]);
+  const classes = getStyles(styles, [
+    '.navbar-toggler',
+    `.navbar-${variant} .navbar-toggler`,
+    expand &&
+      `.navbar-expand${expand === true ? '' : `-${expand}`} .navbar-toggler`,
+  ]);
 
-    const textClasses = getStyles(styles, [
-      '.navbar-toggler --text',
-      `.navbar-${variant} .navbar-toggler --text`,
-    ]);
+  const textClasses = getStyles(styles, [
+    '.navbar-toggler --text',
+    `.navbar-${variant} .navbar-toggler --text`,
+  ]);
 
-    const iconClasses = getStyles(styles, [
-      '.navbar-toggler-icon',
-      `.navbar-${variant} .navbar-toggler-icon`,
-    ]);
+  const iconClasses = getStyles(styles, [
+    '.navbar-toggler-icon',
+    `.navbar-${variant} .navbar-toggler-icon`,
+  ]);
 
-    const resolveIconStyle = useStyle([iconClasses, iconStyle]);
-    const background = useBackground(resolveIconStyle({ media }));
+  const resolveIconStyle = useStyle([iconClasses, iconStyle]);
+  const background = useBackground(resolveIconStyle({ media }));
 
-    return (
-      <Pressable
-        {...elementProps}
-        ref={ref}
-        toggle={useToggleNavbar}
-        style={[classes, style]}
-        textStyle={[textClasses, textStyle]}
-      >
-        <View style={background.style}>{background.element}</View>
-      </Pressable>
-    );
-  },
-);
-
-NavbarToggler.displayName = 'NavbarToggler';
+  return (
+    <Pressable
+      {...elementProps}
+      ref={ref}
+      toggle={useToggleNavbar}
+      style={[classes, style]}
+      textStyle={[textClasses, textStyle]}
+    >
+      <View style={background.style}>{background.element}</View>
+    </Pressable>
+  );
+}
 
 export default NavbarToggler;
