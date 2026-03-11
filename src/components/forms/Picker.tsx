@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     &:focus {
       border-color: $form-select-focus-border-color;
       @include platform(web) {
-        outline-width: 0;
+        outline-style: none; // outline: 0;
         box-shadow: $form-select-focus-box-shadow;
       }
     }
