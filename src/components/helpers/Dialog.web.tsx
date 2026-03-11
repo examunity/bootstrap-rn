@@ -33,10 +33,10 @@ function Dialog({
       return undefined;
     }
 
-    context.scrollbars.hide();
+    context.scrollbar.hide();
 
     return () => {
-      context.scrollbars.show();
+      context.scrollbar.show();
     };
   }, [context, scroll]);
 

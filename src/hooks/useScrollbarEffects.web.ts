@@ -1,10 +1,10 @@
-import { useRef, useMemo, RefObject } from 'react';
-import type { ViewRef } from '../components/View';
+import { useRef, useMemo } from 'react';
 
 type ScrollbarEffectsState = {
   counter: number;
-  elements: HTMLElement[];
-  originalWidths: string[];
+  offset: number;
+  listeners: Set<() => void>;
+  originalBodyWidth: string;
   originalBodyOverflow: string;
 };
 
@@ -13,13 +13,12 @@ const computeScrollbarWidth = () => {
   return Math.abs(window.innerWidth - documentWidth);
 };
 
-export default function useScrollbarEffects(
-  elements: RefObject<ViewRef | null>[],
-) {
+export default function useScrollbarEffects() {
   const state = useRef<ScrollbarEffectsState>({
     counter: 0,
-    elements: [],
-    originalWidths: [],
+    offset: 0,
+    listeners: new Set(),
+    originalBodyWidth: '',
     originalBodyOverflow: '',
   });
 
@@ -35,27 +34,15 @@ export default function useScrollbarEffects(
         const rect = document.body.getBoundingClientRect();
         const isBodyOverflowing = rect.left + rect.right < window.innerWidth;
 
-        // Set body and fixed elements padding adjustments.
-        const fixedElements = elements
-          .filter((ref) => ref.current)
-          .map((ref) => ref.current);
-
-        // @ts-expect-error fixedElements should be of type HTMLElement[]
-        state.current.elements = [document.body, ...fixedElements];
-
-        state.current.originalWidths = state.current.elements.map(
-          (el) => el.style.width || '',
-        );
-
+        state.current.originalBodyWidth = document.body.style.width || '';
         state.current.originalBodyOverflow = document.body.style.overflow || '';
 
         if (isBodyOverflowing) {
           const scrollbarWidth = computeScrollbarWidth();
 
-          state.current.elements.forEach((el) => {
-            // eslint-disable-next-line no-param-reassign
-            el.style.width = `calc(100% - ${scrollbarWidth}px)`;
-          });
+          document.body.style.width = `calc(100% - ${scrollbarWidth}px)`;
+          state.current.offset = scrollbarWidth;
+          state.current.listeners.forEach((listener) => listener());
         }
 
         // Add "overflow: hidden" to body element.
@@ -71,11 +58,20 @@ export default function useScrollbarEffects(
         // Remove "overflow: hidden" from body element.
         document.body.style.overflow = state.current.originalBodyOverflow;
 
-        // Reset body padding adjustments.
-        state.current.elements.forEach((el, key) => {
-          // eslint-disable-next-line no-param-reassign
-          el.style.width = state.current.originalWidths[key] || '';
-        });
+        // Reset body width adjustment.
+        document.body.style.width = state.current.originalBodyWidth;
+        state.current.offset = 0;
+        state.current.listeners.forEach((listener) => listener());
+      },
+      subscribe(listener: () => void) {
+        state.current.listeners.add(listener);
+
+        return () => {
+          state.current.listeners.delete(listener);
+        };
+      },
+      getOffset() {
+        return state.current.offset;
       },
     }),
     [],

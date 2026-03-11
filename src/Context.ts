@@ -1,5 +1,4 @@
 import React from 'react';
-import { View as BaseView } from 'react-native';
 import type { ExtendedStyle, Viewport } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,15 +18,13 @@ export type Modifiers = {
 export type BootstrapRNContextType = {
   utilities: Record<string, ExtendedStyle>;
   modifiers: Modifiers;
-  scrollbars: {
+  scrollbar: {
     hide: () => void;
     show: () => void;
+    subscribe: (listener: () => void) => () => void;
+    getOffset: () => number;
   };
-  fixed: React.RefObject<BaseView>[];
   getViewport(): Viewport;
-  addFixedElement: (ref: unknown) => {
-    remove: () => void;
-  };
 };
 
 const Context = React.createContext<BootstrapRNContextType | null>(null);

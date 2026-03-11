@@ -4,7 +4,7 @@ import makeTheme from './style/makeTheme';
 import StyleSheet from './style/StyleSheet';
 import Context from './Context';
 import Provider from './Provider';
-import useFixedElement from './hooks/useFixedElement';
+import useScrollbarOffset from './hooks/useScrollbarOffset';
 import useMedia from './hooks/useMedia';
 import useStyle from './hooks/useStyle';
 
@@ -15,7 +15,7 @@ export {
   makeTheme,
   Provider,
   StyleSheet,
-  useFixedElement,
+  useScrollbarOffset,
   useMedia,
   useStyle,
 };

@@ -1,5 +1,4 @@
-import React, { useMemo, useRef } from 'react';
-import { View as BaseView } from 'react-native';
+import React, { useMemo } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useViewport from './hooks/useViewport';
 import useScrollbarEffects from './hooks/useScrollbarEffects';
@@ -21,34 +20,18 @@ function Provider({
 }: ProviderProps) {
   const viewport = useViewport(ssrViewport);
 
-  const fixed: React.RefObject<BaseView>[] = useMemo(() => [], []);
-
-  const counter = useRef(0);
-
-  const scrollbars = useScrollbarEffects(fixed);
+  const scrollbar = useScrollbarEffects();
 
   const context = useMemo(
     () => ({
       utilities,
       modifiers,
-      scrollbars,
-      fixed,
+      scrollbar,
       getViewport() {
         return viewport;
       },
-      addFixedElement(ref: React.RefObject<BaseView>) {
-        fixed.push(ref);
-
-        return {
-          remove() {
-            const index = fixed.findIndex((item) => item === ref);
-
-            fixed.splice(index, 1);
-          },
-        };
-      },
     }),
-    [utilities, modifiers, scrollbars, fixed, viewport, fixed, counter],
+    [utilities, modifiers, scrollbar, viewport],
   );
 
   return (
