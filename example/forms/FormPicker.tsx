@@ -17,64 +17,63 @@ export interface FormPickerProps extends FieldPropTypes {
 
 type Value = string | null | undefined;
 
-const FormPicker = React.forwardRef<FormPickerRef, FormPickerProps>(
-  (props, ref) => {
-    const {
-      name,
-      title,
-      placeholder = '',
-      options,
-      info,
-      disabled = false,
-      onValueChange,
-      formatError = (error) => error,
-      ...elementProps
-    } = props;
+function FormPicker(
+  props: FormPickerProps & React.RefAttributes<FormPickerRef>,
+) {
+  const {
+    ref,
+    name,
+    title,
+    placeholder = '',
+    options,
+    info,
+    disabled = false,
+    onValueChange,
+    formatError = (error) => error,
+    ...elementProps
+  } = props;
 
-    const field = useFormField<Value>(name);
-    const id = useId();
+  const field = useFormField<Value>(name);
+  const id = useId();
 
-    return (
-      <Field
-        error={formatError(field.error)}
-        touched={field.touched}
-        info={info}
-        elementProps={elementProps}
+  return (
+    <Field
+      error={formatError(field.error)}
+      touched={field.touched}
+      info={info}
+      elementProps={elementProps}
+    >
+      {title && (
+        <FormLabel htmlFor={id}>
+          <Text small styleName="fw-bold">
+            {title}
+          </Text>
+        </FormLabel>
+      )}
+      <Picker
+        ref={ref}
+        selectedValue={field.value}
+        onValueChange={(nextValue) => {
+          field.setValue(nextValue, onValueChange);
+        }}
+        onBlur={() => {
+          field.setTouched();
+        }}
+        placeholder={placeholder}
+        invalid={field.touched && !!field.error}
+        disabled={disabled}
+        id={id}
       >
-        {title && (
-          <FormLabel htmlFor={id}>
-            <Text small styleName="fw-bold">
-              {title}
-            </Text>
-          </FormLabel>
-        )}
-        <Picker
-          ref={ref}
-          selectedValue={field.value}
-          onValueChange={(nextValue) => {
-            field.setValue(nextValue, onValueChange);
-          }}
-          onBlur={() => {
-            field.setTouched();
-          }}
-          placeholder={placeholder}
-          invalid={field.touched && !!field.error}
-          disabled={disabled}
-          id={id}
-        >
-          {options.map((option: Options) => (
-            <Picker.Item
-              label={option.label}
-              value={option.value}
-              key={option.value}
-            />
-          ))}
-        </Picker>
-      </Field>
-    );
-  },
-);
-
-FormPicker.displayName = 'FormPicker';
+        {options.map((option: Options) => (
+          <Picker.Item
+            label={option.label}
+            value={option.value}
+            key={option.value}
+          />
+        ))}
+      </Picker>
+    </Field>
+  );
+}
 
 export default FormPicker;

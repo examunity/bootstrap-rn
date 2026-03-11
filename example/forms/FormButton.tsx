@@ -11,44 +11,43 @@ export interface FormButtonProps extends ButtonProps {
   disabled?: boolean;
 }
 
-const FormButton = React.forwardRef<FormButtonRef, FormButtonProps>(
-  (props, ref) => {
-    const {
-      type,
-      disabled = false,
-      onPress: handlePress,
-      ...elementProps
-    } = props;
+function FormButton(
+  props: FormButtonProps & React.RefAttributes<FormButtonRef>,
+) {
+  const {
+    ref,
+    type,
+    disabled = false,
+    onPress: handlePress,
+    ...elementProps
+  } = props;
 
-    const form = useFormikContext();
+  const form = useFormikContext();
 
-    const buttonDisabled = disabled || form.isSubmitting;
+  const buttonDisabled = disabled || form.isSubmitting;
 
-    return (
-      <Button
-        {...elementProps}
-        ref={ref}
-        onPress={(event) => {
-          if (handlePress) handlePress(event);
+  return (
+    <Button
+      {...elementProps}
+      ref={ref}
+      onPress={(event) => {
+        if (handlePress) handlePress(event);
 
-          if (event.defaultPrevented) {
-            return;
-          }
+        if (event.defaultPrevented) {
+          return;
+        }
 
-          if (type === 'submit') {
-            form.submitForm();
-          }
+        if (type === 'submit') {
+          form.submitForm();
+        }
 
-          if (type === 'reset') {
-            form.resetForm();
-          }
-        }}
-        disabled={buttonDisabled}
-      />
-    );
-  },
-);
-
-FormButton.displayName = 'FormButton';
+        if (type === 'reset') {
+          form.resetForm();
+        }
+      }}
+      disabled={buttonDisabled}
+    />
+  );
+}
 
 export default FormButton;

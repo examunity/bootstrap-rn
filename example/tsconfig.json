@@ -3,8 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "strictFunctionTypes": false,
+    "noUnusedParameters": true,
     "paths": {
       "bootstrap-rn": ["../src"]
     }
-  }
+  },
+  "exclude": ["metro.config.js", "webpack.config.js"]
 }

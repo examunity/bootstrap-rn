@@ -21,8 +21,8 @@ interface FormProps {
   inline?: boolean;
 }
 
-const Form = React.forwardRef<FormRef, FormProps>((props, ref) => {
-  const { children, initialValues, validate, onSubmit, ...elementProps } =
+function Form(props: FormProps & React.RefAttributes<FormRef>) {
+  const { ref, children, initialValues, validate, onSubmit, ...elementProps } =
     props;
 
   const role = Platform.OS === 'web' ? 'form' : undefined;
@@ -42,9 +42,7 @@ const Form = React.forwardRef<FormRef, FormProps>((props, ref) => {
       )}
     </Formik>
   );
-});
-
-Form.displayName = 'Form';
+}
 
 export default Object.assign(Form, {
   Button: FormButton,
