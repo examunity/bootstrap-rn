@@ -1,5 +1,5 @@
 import { type HTMLProps, useId, useMemo, useRef } from 'react';
-import { I18nManager } from 'react-native';
+import { GestureResponderEvent, I18nManager } from 'react-native';
 import {
   useFloating,
   arrow,
@@ -61,10 +61,27 @@ const getAlignedPlacement = (
 
 const transformReferenceProps =
   (handle: UseInteractionsReturn['getReferenceProps']) =>
-  (props: HTMLProps<Element> | undefined) => {
+  (
+    props:
+      | (HTMLProps<Element> & { onPress?: (event: unknown) => void })
+      | undefined,
+  ) => {
+    const handlePress = props?.onPress;
     const { onClick, ...referenceProps } = handle(props);
 
-    return { ...referenceProps, onPress: onClick };
+    const handleClick = onClick as
+      | ((event: GestureResponderEvent) => void)
+      | undefined;
+
+    return {
+      ...referenceProps,
+      onPress: handlePress
+        ? (event: GestureResponderEvent) => {
+            handleClick?.(event);
+            handlePress(event);
+          }
+        : handleClick,
+    };
   };
 
 export default function useOverlay({
