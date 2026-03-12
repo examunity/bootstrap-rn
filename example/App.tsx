@@ -1,5 +1,11 @@
-import React, { useContext } from 'react';
-import { StatusBar, TextInputKeyPressEvent, View } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import {
+  BackHandler,
+  Platform,
+  StatusBar,
+  TextInputKeyPressEvent,
+  View,
+} from 'react-native';
 import { FormikContext } from 'formik';
 import {
   makeTheme,
@@ -13,7 +19,13 @@ import {
   UseTabbableProps,
   PortalHost,
 } from 'bootstrap-rn';
-import { Router, Routes, Route } from './libs/react-router';
+import {
+  Router,
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+} from './libs/react-router';
 import Layout from './components/Layout';
 import Content from './components/Content';
 import Forms from './components/Forms';
@@ -108,12 +120,11 @@ const utilities = StyleSheet.create(
 }; */
 
 const modifiers = {
-  useFormField<T, Ref>(props: T & UseFormFieldProps, ref: Ref) {
+  useFormField<T>(props: T & UseFormFieldProps) {
     const formik = useContext(FormikContext);
 
     return {
       ...props,
-      ref,
       onKeyPress(event: TextInputKeyPressEvent) {
         if (props.onKeyPress) props.onKeyPress(event);
 
@@ -131,19 +142,43 @@ const modifiers = {
       },
     };
   },
-  useTabbable<T, Ref>(props: T & UseTabbableProps, ref: Ref) {
+  useTabbable<T>(props: T & UseTabbableProps) {
     const active = useActive(props);
-    return { ...props, active, ref };
+    return { ...props, active };
   },
-  useActionable<T, Ref>(props: T & UseActionableProps, ref: Ref) {
+  useActionable<T>(props: T & UseActionableProps) {
     const linkProps = useLink(props);
-    return { ...linkProps, ref };
+    return { ...linkProps };
   },
 };
+
+function BackHandlerSetup() {
+  if (Platform.OS === 'web') {
+    return null;
+  }
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const handler = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (location.pathname !== '/') {
+        navigate(-1);
+        return true;
+      }
+      return false;
+    });
+
+    return () => handler.remove();
+  }, [location, navigate]);
+
+  return null;
+}
 
 function App() {
   return (
     <Router>
+      <BackHandlerSetup />
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
         <View style={{ backgroundColor: 'black' }}>
           <Body>

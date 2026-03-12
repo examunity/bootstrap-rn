@@ -6,4 +6,5 @@ export {
   useNavigate,
   useMatch,
   useResolvedPath,
+  useLocation,
 } from 'react-router-dom';
