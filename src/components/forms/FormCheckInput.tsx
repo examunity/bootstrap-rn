@@ -176,19 +176,15 @@ const styles = StyleSheet.create({
   `,
 });
 
-function FormCheckInput({
-  ref,
-  ...props
-}: FormCheckInputProps & React.RefAttributes<PressableRef>) {
-  const [modifierProps, modifierRef] = useModifier(
-    'useFormField',
-    props,
-    ref ?? null,
-  );
+function FormCheckInput(
+  props: FormCheckInputProps & React.RefAttributes<PressableRef>,
+) {
+  const modifierProps = useModifier('useFormField', props);
 
   const context = useContext(FormCheckContext);
 
   const {
+    ref,
     type,
     value,
     onFocus = () => {},
@@ -241,7 +237,7 @@ function FormCheckInput({
   return (
     <BaseFormCheckInput
       {...elementProps}
-      ref={modifierRef}
+      ref={ref}
       type={type}
       value={value}
       onFocus={() => {

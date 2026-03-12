@@ -8,15 +8,15 @@ import type { UseToggleNavbarProps } from '../components/navbar/useToggleNavbar'
 import { concatRefs } from '../utils';
 
 interface UseToggleProps
-  extends UseToggleTabProps,
+  extends
+    UseToggleTabProps,
     UseToggleNavbarProps,
     UseToggleButtonProps,
     UseToggleCollapseProps,
     UseToggleDropdownProps {}
 
 interface UseDismissProps
-  extends UseDismissDropdownProps,
-    UseDismissNavbarProps {}
+  extends UseDismissDropdownProps, UseDismissNavbarProps {}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ToggleFunction = <T>(props: T & UseToggleProps) => any;
@@ -43,26 +43,29 @@ export interface UseActionProps extends UseToggleProps, UseDismissProps {
 
 function getActionHook(toggle?: ToggleType, dismiss?: DismissType) {
   if (toggle) {
-    return typeof toggle === 'function' ? toggle : toggle.useToggle;
+    if (typeof toggle !== 'function') return toggle.useToggle;
+    if ('useToggle' in toggle) return toggle.useToggle;
+    return toggle;
   }
 
   if (dismiss) {
-    return typeof dismiss === 'function' ? dismiss : dismiss.useDismiss;
+    if (typeof dismiss !== 'function') return dismiss.useDismiss;
+    if ('useDismiss' in dismiss) return dismiss.useDismiss;
+    return dismiss;
   }
 
   return null;
 }
 
-export default function useAction<T, P>(
+export default function useAction<P extends { ref?: React.Ref<unknown> }>(
   props: UseActionProps & P,
-  ref: React.Ref<T>,
 ) {
   const { toggle, dismiss, ...restProps } = props;
 
   const useActionHook = getActionHook(toggle, dismiss);
 
   if (!useActionHook) {
-    return [restProps, ref] as const;
+    return restProps as Omit<P, 'toggle' | 'dismiss'>;
   }
 
   if (typeof useActionHook !== 'function') {
@@ -71,8 +74,11 @@ export default function useAction<T, P>(
 
   // TODO: Remove as and define return type on ActionFunction
   const { ref: actionRef, ...actionProps } = useActionHook(restProps) as P & {
-    ref?: React.Ref<T>;
+    ref?: React.Ref<unknown>;
   };
 
-  return [actionProps, actionRef ? concatRefs(actionRef, ref) : ref] as const;
+  return {
+    ...actionProps,
+    ref: actionRef ? concatRefs(actionRef, props.ref) : props.ref,
+  } as unknown as Omit<P, 'toggle' | 'dismiss'>;
 }

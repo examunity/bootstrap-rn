@@ -36,15 +36,12 @@ const styles = StyleSheet.create({
   `,
 });
 
-function Link({ ref, ...props }: LinkProps & React.RefAttributes<TextRef>) {
-  const [modifierProps, modifierRef] = useModifier(
-    'useActionable',
-    props,
-    ref ?? null,
-  );
-  const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
+function Link(props: LinkProps & React.RefAttributes<TextRef>) {
+  const modifierProps = useModifier('useActionable', props);
+  const actionProps = useAction(modifierProps);
 
   const {
+    ref,
     children,
     // Filter hover handlers, because Text component does not have hover
     // handlers. Instead we use mouse enter/leave handlers.
@@ -88,7 +85,7 @@ function Link({ ref, ...props }: LinkProps & React.RefAttributes<TextRef>) {
         handleMouseLeave(event);
         handleMouseLeaveInteraction(event);
       }}
-      ref={actionRef}
+      ref={ref}
       role={getRole(actionProps)}
       accessible
       style={resolveStyle({

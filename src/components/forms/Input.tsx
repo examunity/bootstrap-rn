@@ -170,17 +170,11 @@ const styles = StyleSheet.create({
   })),
 });
 
-function Input({
-  ref,
-  ...props
-}: InputProps & React.RefAttributes<TextInputRef>) {
-  const [modifierProps, modifierRef] = useModifier(
-    'useFormField',
-    props,
-    ref ?? null,
-  );
+function Input(props: InputProps & React.RefAttributes<TextInputRef>) {
+  const modifierProps = useModifier('useFormField', props);
 
   const {
+    ref,
     size,
     placeholderTextColor = StyleSheet.value('input-placeholder-color'),
     multiline = false,
@@ -211,7 +205,7 @@ function Input({
   return (
     <TextInput
       {...elementProps}
-      ref={modifierRef}
+      ref={ref}
       placeholderTextColor={placeholderTextColor}
       multiline={multiline}
       disabled={disabled}

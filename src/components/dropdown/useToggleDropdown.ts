@@ -6,14 +6,13 @@ import { CaretProps } from '../Caret';
 import type { PressableRef } from '../Pressable';
 
 export interface UseToggleDropdownProps {
-  ref?: React.Ref<PressableRef>;
   onPress?: null | ((event: GestureResponderEvent) => void);
   caret?: boolean | CaretProps;
 }
 
-export default function useToggleDropdown<T>(
-  props: UseToggleDropdownProps & T,
-) {
+export default function useToggleDropdown<
+  T extends { ref?: React.Ref<PressableRef> },
+>(props: UseToggleDropdownProps & T) {
   const context = useForcedContext(DropdownContext);
 
   const { ref, caret, ...restProps } = props;

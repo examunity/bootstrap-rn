@@ -183,17 +183,11 @@ const styles = StyleSheet.create({
   `,
 });
 
-function NavLink({
-  ref,
-  ...props
-}: NavLinkProps & React.RefAttributes<PressableRef>) {
-  const [modifierProps, modifierRef] = useModifier(
-    'useTabbable',
-    props,
-    ref ?? null,
-  );
+function NavLink(props: NavLinkProps & React.RefAttributes<PressableRef>) {
+  const modifierProps = useModifier('useTabbable', props);
 
   const {
+    ref,
     children,
     active,
     disabled,
@@ -256,7 +250,7 @@ function NavLink({
   return (
     <Pressable
       {...elementProps}
-      ref={modifierRef}
+      ref={ref}
       active={active}
       disabled={disabled}
       style={[...classes, style]}

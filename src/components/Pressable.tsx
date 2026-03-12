@@ -95,18 +95,12 @@ const applyCaret = (
   );
 };
 
-function Pressable(
-  allProps: PressableProps & React.RefAttributes<PressableRef>,
-) {
-  const { ref, ...props } = allProps;
-  const [modifierProps, modifierRef] = useModifier(
-    'useActionable',
-    props,
-    ref ?? null,
-  );
-  const [actionProps, actionRef] = useAction(modifierProps, modifierRef);
+function Pressable(props: PressableProps & React.RefAttributes<PressableRef>) {
+  const modifierProps = useModifier('useActionable', props);
+  const actionProps = useAction(modifierProps);
 
   const {
+    ref,
     children,
     caret = false,
     active = false,
@@ -146,7 +140,7 @@ function Pressable(
     <BasePressable
       {...elementProps}
       {...interactionProps}
-      ref={actionRef}
+      ref={ref}
       role={getRole(actionProps)}
       style={[
         resolveStyle({ media, interaction }),

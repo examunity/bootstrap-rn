@@ -115,17 +115,11 @@ const styles = StyleSheet.create({
   })),
 });
 
-function Picker({
-  ref,
-  ...props
-}: PickerProps & React.RefAttributes<PressableRef>) {
-  const [modifierProps, modifierRef] = useModifier(
-    'useFormField',
-    props,
-    ref ?? null,
-  );
+function Picker(props: PickerProps & React.RefAttributes<PressableRef>) {
+  const modifierProps = useModifier('useFormField', props);
 
   const {
+    ref,
     children,
     onFocus = () => {},
     onBlur = () => {},
@@ -170,7 +164,7 @@ function Picker({
     <PickerContext.Provider value={contextValue}>
       <BasePicker
         {...elementProps}
-        ref={modifierRef}
+        ref={ref}
         placeholderTextColor={placeholderTextColor}
         onFocus={(event) => {
           setFocused(true);

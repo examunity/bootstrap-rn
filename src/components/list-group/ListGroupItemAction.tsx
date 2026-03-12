@@ -109,17 +109,13 @@ const actionStyles = StyleSheet.create({
   })),
 });
 
-function ListGroupItemAction({
-  ref,
-  ...props
-}: ListGroupItemActionProps & React.RefAttributes<PressableRef>) {
-  const [modifierProps, modifierRef] = useModifier(
-    'useTabbable',
-    props,
-    ref ?? null,
-  );
+function ListGroupItemAction(
+  props: ListGroupItemActionProps & React.RefAttributes<PressableRef>,
+) {
+  const modifierProps = useModifier('useTabbable', props);
 
   const {
+    ref,
     children,
     color,
     active = false,
@@ -177,7 +173,7 @@ function ListGroupItemAction({
   return (
     <Pressable
       {...elementProps}
-      ref={modifierRef}
+      ref={ref}
       role={role}
       active={active}
       disabled={disabled}
