@@ -276,18 +276,6 @@ function Forms() {
             <Picker.Item label="Baseball" value="baseball" />
             <Picker.Item label="Hockey" value="hockey" />
           </Picker>
-          <Picker
-            styleName="mt-3"
-            selectedValue={selectedValue}
-            onValueChange={onValueChange}
-            placeholder="Test"
-            useNativeComponent
-            invalid={error}
-          >
-            <Picker.Item label="Football" value="football" />
-            <Picker.Item label="Baseball" value="baseball" />
-            <Picker.Item label="Hockey" value="hockey" />
-          </Picker>
         </Card.Body>
         <Card.Footer styleName="bg-dark">
           <Code styleName="text-warning">{'<Code>Code text ...</Code>\n'}</Code>
