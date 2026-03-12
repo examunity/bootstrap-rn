@@ -4,12 +4,12 @@ import Pressable, { PressableRef } from '../../Pressable';
 import useBackground from '../../../hooks/useBackground';
 import type { FormCheckInputProps } from '../FormCheckInput';
 
-export interface FormCheckInputNativeProps extends FormCheckInputProps {
+export interface BaseFormCheckInputProps extends FormCheckInputProps {
   style: ViewStyle[];
 }
 
-function FormCheckInputNative(
-  props: FormCheckInputNativeProps & React.RefAttributes<PressableRef>,
+function FormCheckInput(
+  props: BaseFormCheckInputProps & React.RefAttributes<PressableRef>,
 ) {
   const {
     ref,
@@ -46,4 +46,4 @@ function FormCheckInputNative(
   );
 }
 
-export default FormCheckInputNative;
+export default FormCheckInput;

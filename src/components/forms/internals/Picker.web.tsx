@@ -10,7 +10,7 @@ import PickerWebContext from './PickerWebContext';
 import type { PickerProps } from '../Picker';
 import type { PressableRef } from '../../Pressable';
 
-interface PickerWebProps extends PickerProps {
+interface BasePickerProps extends PickerProps {
   style: TextStyle[];
 }
 
@@ -33,7 +33,7 @@ const getOptionStyle = (
   return null;
 };
 
-function PickerWeb(props: PickerWebProps & React.RefAttributes<PressableRef>) {
+function Picker(props: BasePickerProps & React.RefAttributes<PressableRef>) {
   const {
     ref,
     children,
@@ -83,4 +83,4 @@ function PickerWeb(props: PickerWebProps & React.RefAttributes<PressableRef>) {
   );
 }
 
-export default PickerWeb;
+export default Picker;

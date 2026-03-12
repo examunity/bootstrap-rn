@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { Platform } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import { getStyles, each } from '../../utils';
@@ -10,8 +9,7 @@ import useModifier from '../../hooks/useModifier';
 import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import { escapeSvg } from '../../theme/functions';
 import FormCheckContext from './FormCheckContext';
-import FormCheckInputWeb from './internals/FormCheckInputWeb';
-import FormCheckInputNative from './internals/FormCheckInputNative';
+import BaseFormCheckInput from './internals/FormCheckInput';
 import type {
   ExtendedViewStyle,
   FormValidationState,
@@ -29,7 +27,6 @@ export interface FormCheckInputProps extends UseFormFieldProps {
   disabled?: boolean;
   valid?: boolean;
   invalid?: boolean;
-  useNativeComponent?: boolean;
   autoFocus?: boolean;
   hitSlop?: number;
   style?: StyleProp<ExtendedViewStyle>;
@@ -192,7 +189,6 @@ function FormCheckInput(
     disabled = context ? context.disabled : false,
     valid = context ? context.valid : false,
     invalid = context ? context.invalid : false,
-    useNativeComponent = false,
     autoFocus = false,
     style,
     ...elementProps
@@ -228,11 +224,6 @@ function FormCheckInput(
   ]);
 
   const resolveStyle = useStyle([classes, style]);
-
-  const BaseFormCheckInput =
-    Platform.OS === 'web' && !useNativeComponent
-      ? FormCheckInputWeb
-      : FormCheckInputNative;
 
   return (
     <BaseFormCheckInput

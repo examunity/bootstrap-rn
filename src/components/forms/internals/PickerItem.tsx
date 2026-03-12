@@ -10,7 +10,7 @@ import useForcedContext from '../../../hooks/useForcedContext';
 import PickerNativeContext from './PickerNativeContext';
 import { ViewProps, ViewRef } from '../../View';
 
-export interface PickerNativeItemProps extends ViewProps {
+export interface PickerItemProps extends ViewProps {
   label: string;
   value: string;
   disabled?: boolean;
@@ -24,9 +24,7 @@ const styles = StyleSheet.create({
   itemDisabled: css``,
 });
 
-function PickerNativeItem(
-  props: PickerNativeItemProps & React.RefAttributes<ViewRef>,
-) {
+function PickerItem(props: PickerItemProps & React.RefAttributes<ViewRef>) {
   const { ref, label, value, disabled = false } = props;
 
   const { selectedValue, handleValueChange } =
@@ -54,4 +52,4 @@ function PickerNativeItem(
   );
 }
 
-export default PickerNativeItem;
+export default PickerItem;

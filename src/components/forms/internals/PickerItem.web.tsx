@@ -7,15 +7,13 @@ import useForcedContext from '../../../hooks/useForcedContext';
 import PickerWebContext from './PickerWebContext';
 import type { ViewProps, ViewRef } from '../../View';
 
-export interface PickerWebItemProps extends ViewProps {
+export interface PickerItemProps extends ViewProps {
   label: string;
   value: string;
   disabled?: boolean;
 }
 
-function PickerWebItem(
-  props: PickerWebItemProps & React.RefAttributes<ViewRef>,
-) {
+function PickerItem(props: PickerItemProps & React.RefAttributes<ViewRef>) {
   const { ref, label, value, disabled = false } = props;
 
   const { optionColor } = useForcedContext(PickerWebContext);
@@ -31,4 +29,4 @@ function PickerWebItem(
   );
 }
 
-export default PickerWebItem;
+export default PickerItem;

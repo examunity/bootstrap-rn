@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Platform, NativeSyntheticEvent, TargetedEvent } from 'react-native';
+import React, { useState } from 'react';
+import { NativeSyntheticEvent, TargetedEvent } from 'react-native';
 import StyleSheet from '../../style/StyleSheet';
 import css from '../../style/css';
 import useMedia from '../../hooks/useMedia';
@@ -8,10 +8,8 @@ import { FORM_VALIDATION_STATES } from '../../theme/proxies';
 import { escapeSvg } from '../../theme/functions';
 import useStyle from '../../hooks/useStyle';
 import useModifier from '../../hooks/useModifier';
-import PickerWeb from './internals/PickerWeb';
-import PickerNative from './internals/PickerNative';
+import BasePicker from './internals/Picker';
 import PickerItem, { PickerItemProps } from './PickerItem';
-import PickerContext from './PickerContext';
 import type {
   FormValidationState,
   ThemeVariables,
@@ -40,7 +38,6 @@ export interface PickerProps extends UseFormFieldProps, PressableProps {
   disabled?: boolean;
   valid?: boolean;
   invalid?: boolean;
-  useNativeComponent?: boolean;
   autoFocus?: boolean;
   MenuComponent?: React.FC<MenuComponentProps>;
 }
@@ -128,7 +125,6 @@ function Picker(props: PickerProps & React.RefAttributes<PressableRef>) {
     disabled = false,
     valid = false,
     invalid = false,
-    useNativeComponent = false,
     autoFocus = false,
     style,
     styleName,
@@ -150,40 +146,28 @@ function Picker(props: PickerProps & React.RefAttributes<PressableRef>) {
 
   const resolveStyle = useStyle([classes, style], styleName);
 
-  const BasePicker =
-    Platform.OS === 'web' && !useNativeComponent ? PickerWeb : PickerNative;
-
-  const contextValue = useMemo(
-    () => ({
-      useNativeComponent,
-    }),
-    [useNativeComponent],
-  );
-
   return (
-    <PickerContext.Provider value={contextValue}>
-      <BasePicker
-        {...elementProps}
-        ref={ref}
-        placeholderTextColor={placeholderTextColor}
-        onFocus={(event) => {
-          setFocused(true);
-          onFocus(event);
-        }}
-        onBlur={(event) => {
-          setFocused(false);
-          onBlur(event);
-        }}
-        disabled={disabled}
-        autoFocus={autoFocus}
-        style={resolveStyle({
-          media,
-          interaction: { focus: focused, focusVisible: focused },
-        })}
-      >
-        {children}
-      </BasePicker>
-    </PickerContext.Provider>
+    <BasePicker
+      {...elementProps}
+      ref={ref}
+      placeholderTextColor={placeholderTextColor}
+      onFocus={(event: NativeSyntheticEvent<TargetedEvent>) => {
+        setFocused(true);
+        onFocus(event);
+      }}
+      onBlur={(event: NativeSyntheticEvent<TargetedEvent>) => {
+        setFocused(false);
+        onBlur(event);
+      }}
+      disabled={disabled}
+      autoFocus={autoFocus}
+      style={resolveStyle({
+        media,
+        interaction: { focus: focused, focusVisible: focused },
+      })}
+    >
+      {children}
+    </BasePicker>
   );
 }
 

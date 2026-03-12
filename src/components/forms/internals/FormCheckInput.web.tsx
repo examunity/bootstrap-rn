@@ -9,7 +9,7 @@ import useBackground from '../../../hooks/useBackground';
 import type { PressableRef } from '../../Pressable';
 import type { FormCheckInputProps } from '../FormCheckInput';
 
-export interface FormCheckInputWebProps extends FormCheckInputProps {
+export interface BaseFormCheckInputProps extends FormCheckInputProps {
   style: ViewStyle[];
 }
 
@@ -38,8 +38,8 @@ const Input = ({
 }: InputProps & React.RefAttributes<HTMLInputElement>) =>
   createElement('input', { ...props, ref, style: [styles.reboot, style] });
 
-function FormCheckInputWeb(
-  props: FormCheckInputWebProps & React.RefAttributes<PressableRef>,
+function FormCheckInput(
+  props: BaseFormCheckInputProps & React.RefAttributes<PressableRef>,
 ) {
   const {
     ref,
@@ -76,4 +76,4 @@ function FormCheckInputWeb(
   );
 }
 
-export default FormCheckInputWeb;
+export default FormCheckInput;

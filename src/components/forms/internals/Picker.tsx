@@ -15,7 +15,7 @@ import PickerNativeContext from './PickerNativeContext';
 import type { PickerProps, MenuComponentProps } from '../Picker';
 import type { PickerItemProps } from '../PickerItem';
 
-export interface PickerNativeProps extends PickerProps {
+export interface BasePickerProps extends PickerProps {
   style: TextStyle[];
 }
 
@@ -107,9 +107,7 @@ function DefaultMenuComponent({
 }
 /* eslint-enable */
 
-function PickerNative(
-  props: PickerNativeProps & React.RefAttributes<PressableRef>,
-) {
+function Picker(props: BasePickerProps & React.RefAttributes<PressableRef>) {
   const {
     ref,
     children,
@@ -193,4 +191,4 @@ function PickerNative(
   );
 }
 
-export default PickerNative;
+export default Picker;
