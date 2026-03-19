@@ -1,5 +1,6 @@
-import { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import TextStyleContext from '../../style/TextStyleContext';
 
 export interface PortalProps {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -36,7 +37,12 @@ function Portal({ hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
     return null;
   }
 
-  return createPortal(children, element);
+  return createPortal(
+    <TextStyleContext.Provider value={null}>
+      {children}
+    </TextStyleContext.Provider>,
+    element,
+  );
 }
 
 export default Portal;
