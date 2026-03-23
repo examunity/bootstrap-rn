@@ -23,9 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.28.6",
     "@expo/metro-config": "~54.0.14",
-    "@expo/webpack-config": "^19.0.0",
     "@types/react": "~19.1.10",
-    "babel-loader": "^10.0.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "metro-config": "^0.82.0",
     "typescript": "~5.9.2"

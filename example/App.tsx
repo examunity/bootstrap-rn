@@ -180,7 +180,7 @@ function App() {
     <Router>
       <BackHandlerSetup />
       <Provider utilities={utilities} modifiers={modifiers} ssrViewport="lg">
-        <View style={{ backgroundColor: 'black' }}>
+        <View style={{ backgroundColor: 'black', flex: 1 }}>
           <Body>
             <StatusBar barStyle="light-content" />
             <Routes>
